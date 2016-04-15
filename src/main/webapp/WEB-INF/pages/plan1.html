@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>上海市快速路养护监管系统</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+
+        <!-- Add custom CSS here -->
+        <link href="css/sb-admin.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    </head>
+
+    <body onload="setTable()">
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="base1.html">停车场管理</a></li>
+                                <li><a href="base2.html">车辆管理</a></li>
+                                <li><a href="base3.html">RFID监测点管理</a></li>
+                                <li><a href="base4.html">包件信息管理</a></li>
+                                <li><a href="base5.html">电子围栏管理</a></li>
+                                <li><a href="base6.html">监管规则管理</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li class="active"><a href="plan1.html">养护作业计划</a></li>
+                                <li><a href="plan2.html">作业线路管理</a></li>
+                                <li><a href="plan3.html">布点计划</a></li>
+                                <li><a href="plan4.html">驾驶员计划</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="progress1.html">养护进度监控</a></li>
+                                <li><a href="progress2.html">实时监控</a></li>
+                                <li><a href="progress3.html">养护日志管理</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown ">
+                            <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="history1.html">历史轨迹查询</a></li>
+                                <li><a href="history2.html">历史视频查询</a></li>
+                                <li><a href="history3.html">异常查询</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="reports1.html">牵引车辆位置报表</a></li>
+                                <li><a href="reports2.html">养护车辆作业区域</a></li>
+                                <li><a href="reports3.html">养护车辆作业情况</a></li>
+                                <li><a href="reports4.html">养护车辆超速</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="management1.html">用户管理</a></li>
+                                <li><a href="management2.html">权限管理</a></li>
+                                <li><a href="management3.html">网络状态图</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right navbar-user">
+                        <li class="dropdown user-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+
+            <div id="page-wrapper">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ol class="breadcrumb">
+                            <li><a href="index.html"><i class="icon-dashboard"></i> 计划管理</a></li>
+                            <li class="active"><i class="icon-file-alt"></i> 养护作业计划</li>
+                        </ol>
+                    </div>
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12 text-left search-row">
+                        <select name="" id="year">
+                            <option value="2016" selected="selected">2016年</option>
+                            <option value="2015" selected="selected">2015年</option>
+                            <option value="2014" selected="selected">2014年</option>
+                            <option value="1700" selected="selected">1700年</option>
+                            <option value="1800" selected="selected">1800年</option>
+                            <option value="2000" selected="selected">2000年</option>
+                            <option value="2400" selected="selected">2400年</option>
+                        </select>
+                        <select name="" id="company">
+                            <option value="shanghaichengjigongsi" selected="selected">上海成基公司</option>
+                            <option value="shanghaigongsi" selected="selected">上海公司</option>
+                        </select>
+                        <!--<button class="btn btn-default"><input onclick = init()>确定</button>-->
+                        <input type="button" value = 确定 class="btn btn-default" onclick =setAll() />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <table class="table vertical-table plan1-table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2"></th>
+                                        <th>一月</th>
+                                        <th>二月</th>
+                                        <th>三月</th>
+                                        <th>四月</th>
+                                        <th>五月</th>
+                                        <th>六月</th>
+                                        <th>七月</th>
+                                        <th>八月</th>
+                                        <th>九月</th>
+                                        <th>十月</th>
+                                        <th>十一月</th>
+                                        <th>十二月</th>
+                                        <th>合计</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="context">
+                                    </tbody>
+                                    <tbody id="total">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /#page-wrapper -->
+
+        </div><!-- /#wrapper -->
+
+        <!-- JavaScript -->
+        <script src="js/jquery-1.10.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/jquery.datetimepicker.js"></script>
+        <script>
+            $(function(){
+                $("#plan").dropdown('toggle');
+            });
+            var totaldays;
+            var BJcounts = 3;
+            var totalmileage;
+
+            function getTime(month){
+                var day;
+                var now = new Date();
+                var time = document.getElementById("year").value;
+                if(month==2){
+                    //alert(time);
+                    if((time%4==0 && time%100!=0) ||time%400==0){
+                        day=29;
+                        totaldays=366;
+                    }else {
+                        day = 28;
+                        totaldays = 365;
+                    }
+                }else{
+                    if(month==1||month==3||month==5||month==7||month==8||month==10||month==12)
+                        day=31;
+                    else
+                        day=30;
+                }
+                return day;
+            };
+
+            function getCompany(){
+                var company = document.getElementById("company").value;
+                if(company=="shanghaichengjigongsi"){
+                    totalmileage=8700;
+                }
+                else
+                    totalmileage=8900;
+            }
+
+            function setTime() {
+                for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
+                    for (var i = 1; i <= 12; i++) {       //月份
+                        //alert("包件"+Bj+j);
+                        document.getElementById('Time'+Bj+i).innerHTML = getTime(i);
+                    }
+                    document.getElementById('Time'+Bj+'13').innerHTML = totaldays;
+                }
+            };
+            function setMileage(){
+                for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
+                    for (var i = 1; i <= 12; i++) {       //月份
+                        document.getElementById('Mileage'+Bj+i).innerHTML = Math.ceil(totalmileage/totaldays*getTime(i));  //取整数
+                    }
+                    document.getElementById('Mileage'+Bj+'13').innerHTML = totalmileage;
+                }
+            };
+
+
+            function setTotalMileage(){
+                for (var i = 1; i <= 12; i++) {       //月份
+                    var tolMileage = 0;
+                    for (var Bj = 1; Bj <= BJcounts; Bj++) {    //包件
+                        tolMileage += Math.ceil(totalmileage/totaldays*getTime(i));
+                    }
+                    document.getElementById('totalMileage'+ i).innerHTML = tolMileage;
+                }
+            }
+            function setTotalTime(){
+                for (var i = 1; i <= 12; i++) {       //月份
+                    document.getElementById('totalTime'+ i).innerHTML = BJcounts*getTime(i);
+                }
+            }
+
+
+            var row1='';
+            var row2='';
+            var row3='';
+            var row4='';
+            var row5='';
+            var row = '';
+            function Table(Bj){
+                row1 = "<tr><td rowspan='2' id = "+"Package"+Bj +">"+"<a href='base4.html'>包件"+Bj+"</a></td>";
+                row2 = "<td class='table-th'>里程数</td>" ;
+                for(var i=1;i<=13;i++) {
+                    row2+="<td id="+"Mileage"+Bj+i+"></td>";
+                }
+                row2+="</tr>";
+                row3 ="<tr> <td>次数</td> " ;
+                for(var i=1;i<=13;i++){
+                    row3 +="<td id="+"Time"+Bj+i+"></td> ";
+                }
+                row3+="</tr>";
+
+                row+=row1+row2+row3;
+                $("#context").html(row);
+            }
+            function total(){
+                row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数</td>";
+                for(var i=1;i<=12;i++) {
+                    row4 += "<td id="+"totalMileage"+ i +"></td>";
+                }
+                row4 +="<td rowspan='2' id='total'></td> </tr>";
+                row5 ="<tr><td>次数</td>"
+                for(var i=1;i<=12;i++) {
+                    row5 += "<td id="+"totalTime"+i+"></td>";
+                }
+                row5+="</tr>";
+                $("#total").html(row4+row5);
+            }
+
+            function setAll(){
+                setTime();
+                getCompany();
+                setMileage();
+                setTotalMileage();
+                setTotalTime();
+            }
+
+            function setTable(){
+                for(var i = 1;i<=BJcounts;i++){
+                    Table(i);
+                total();
+                };
+
+
+            }
+        </script>
+  </body>
+</html>

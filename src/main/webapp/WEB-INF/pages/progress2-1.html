@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>实时监控</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+   <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+  <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
+
+<script language="javascript">
+
+$(document).ready(function(){//页面加载完之后，自动执行该方法
+setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
+});
+</script>
+
+    
+    <style>
+	 #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+    #top {background-color:transparent;height:47%;width:44%;float:left; margin-top:30px;position:relative;}
+    #middle {background-color:transparent;height:47%;width:44%;float:left;margin-top:30px; margin-left:20px;position:relative;}
+	#bottom{ top: 10px;  width: 44%; height:47%;background-color:transparent;position:relative;}
+	#bottom1{ top: 55%; left:44%; width: 42%; height:47%;background-color:transparent; margin-left:20px;position:absolute;}
+	.bt{
+		 height: 22px;
+   		 width: 50px;
+		 position: absolute;
+		 left:10px;
+		 border:0;
+	 }
+	
+	 .alert
+	 {
+		 width: 400px;
+    background-color: #FF9335;
+    color: black;
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+	 }
+    
+	</style>
+    <script>
+	  $(function(){ $(".xuanfu1").hide(); //默认隐藏
+	  $("#qian").on("click",function(){ $(".xuanfu1").toggle();//显示隐藏切换
+	   }) }) 
+	   
+	  $(function(){ $(".xuanfu2").hide(); //默认隐藏
+	  $("#sao").on("click",function(){ $(".xuanfu2").toggle();//显示隐藏切换
+	   }) }) 
+	  
+	   $(function(){ $("#alert").hide();}) //默认隐藏 
+	</script>
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+            <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+                <li><a href="base1.html">停车场管理</a></li>
+                <li><a href="base2.html">车辆管理</a></li>
+                <li><a href="base3.html">RFID监测点管理</a></li>
+                <li><a href="base4.html">包件信息管理</a></li>
+                <li><a href="base5.html">电子围栏管理</a></li>
+                <li><a href="base6.html">监管规则管理</a></li>
+				</ul>
+			 </li>
+			 
+			   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+                <li><a href="plan1.html">养护作业计划</a></li>
+                <li><a href="plan2-add.html">作业线路管理</a></li>
+                <li><a href="plan3.html">布点计划</a></li>
+                <li><a href="plan4.html">驾驶员计划</a></li>
+				</ul>
+			 </li>
+			 
+			   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+                <li><a href="progress1.html">养护进度监控</a></li>
+                <li class="active"><a href="progress2.html">实时监控</a></li>
+                <li><a href="progress3.html">养护日志管理</a></li>
+				</ul>
+			 </li>
+			 
+			 	   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+                <li><a href="history1.html">历史轨迹查询</a></li>
+                <li><a href="history2.html">历史视频查询</a></li>
+                <li><a href="history3.html">异常查询</a></li>
+				</ul>
+			 </li>
+			 
+			 		 	   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+                <li><a href="reports1.html">牵引车辆位置报表</a></li>
+                <li><a href="reports2.html">养护车辆作业区域</a></li>
+                <li><a href="reports3.html">养护车辆作业情况</a></li>
+                <li><a href="reports4.html">养护车辆超速</a></li>
+				</ul>
+			 </li>
+			 
+			  		 	   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+                <li><a href="management1.html">用户管理</a></li>
+                <li><a href="management2.html">权限管理</a></li>
+                <li><a href="management3.html">网络状态图</a></li>
+				</ul>
+			 </li>
+			
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+          <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
+                <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ol class="breadcrumb">
+               <li><a href="progress2.html">进度管理</a></li>
+              <li><a href="progress2.html">实时监控</a></li>
+           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
+            </ol> 
+          </div>
+          
+          
+          
+          
+       
+         	
+         
+		 <div id="index">
+		  <!--<img src="images/index.jpg" width="100%"/>-->
+            <a href="progress2.html">
+              <input type="button" class="bt" style="background:url(images/back1.png); background-size: 100% 100%;width:64px;"/>
+            </a>
+         	<div id="top">           
+            	<p>前置摄像头</p>
+                 <input type="button" class="bt" style="background:url(images/get.png); background-size: 100% 100%;width:15%;
+                       top:0;left:52%;"/>
+                <input type="button" class="bt" style="background:url(images/stop.png); background-size: 100% 100%;width:13%;
+                       top:0;left:68%;"/>
+                <input type="button" class="bt" style="background:url(images/all.png); background-size: 100% 100%;width:13%;
+                       top:0;left:82%;"/>
+                <!--<img src="images/videoo.png" width="95%"/>-->
+                 <video id="video1" width="95%" style="margin-top:0px;">
+   					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
+    				 <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
+   						 Your browser does not support HTML5 video.
+ 				 </video>
+            </div><!--top-->
+            	
+           	<div id="middle">
+                <p>后置摄像头</p>
+                 <input type="button" class="bt" style="background:url(images/get.png); background-size: 100% 100%;width:15%;
+                       top:0;left:52%;"/>
+                <input type="button" class="bt" style="background:url(images/stop.png); background-size: 100% 100%;width:13%;
+                       top:0;left:68%;"/>
+                <input type="button" class="bt" style="background:url(images/all.png); background-size: 100% 100%;width:13%;
+                       top:0;left:82%;"/>
+                <video id="video1" width="95%" style="margin-top:0px;">
+   					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
+    				 <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
+   						 Your browser does not support HTML5 video.
+ 				 </video>
+            </div><!--middle-->
+           
+            
+            <div id="bottom">
+                <p>云台摄像头</p>
+                <input type="button" class="bt" style="background:url(images/get.png); background-size: 100% 100%;width:15%;
+                       top:53%;;left:52%;"/>
+                <input type="button" class="bt" style="background:url(images/stop.png); background-size: 100% 100%;width:13%;
+                       top:53%;;left:68%;"/>
+                <input type="button" class="bt" style="background:url(images/all.png); background-size: 100% 100%;width:13%;
+                       top:53%;;left:82%;"/>
+                 <video id="video1" width="95%" style="margin-top:0px;">
+   					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
+    				 <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
+   						 Your browser does not support HTML5 video.
+ 				 </video>
+            </div><!--bottom-->
+            
+            <div id="bottom1">
+            	<p>云台控制</p>
+                <input type="button" class="bt" style="background:url(images/get.png); background-size: 100% 100%;width:15%;
+                       top:22%;left:15%; position:absolute"/>
+                <input type="button" class="bt" style="background:url(images/getc.png); background-size: 100% 100%;width:15%;
+                       top:22%;left:34%; position:absolute"/>
+                <input type="button" class="bt" style="background:url(images/stopc.png); background-size: 100% 100%;width:15%;
+                       top:22%;left:53%; position:absolute"/>
+                <input type="button" class="bt" style="background:url(images/pre.png); background-size: 100% 100%;width:15%;
+                       top:22%;left:72%; position:absolute"/>
+                <img src="images/yuntai.png" width="95%"/>
+            </div><!--bottom1-->
+                                 
+		  </div><!--index-->
+   
+          
+        </div><!-- /.row -->
+        
+        
+       <div class="alert" id="alert" style="width:30%;height:30%; bottom:30%; right:30%; border:1px solid rgb(2,96,142); background-color:white">
+                    <p class="alert-title text-center" style="margin-top:10%">是否返回实时监控</p>
+                   
+                    <div class="row text-center" style="margin-top:15%;">
+                        <a href="progress2.html">
+                        <button style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</button>
+                        </a>
+                        <button style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">否</button>
+                    </div>
+        </div>
+        
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+   
+
+    <!-- JavaScript -->
+   <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    
+     <script>
+
+        $('a[data-toggle="dropdown"]').click(function() {
+            $(this).nextAll().toggle();
+        });
+		
+		 $(function(){
+                $("#progress").dropdown('toggle');
+            });
+    </script>
+    
+    
+
+
+  </body>
+</html>
