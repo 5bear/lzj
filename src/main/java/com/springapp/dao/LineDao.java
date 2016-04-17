@@ -26,4 +26,12 @@ public class LineDao extends BaseDao {
     public List<Line>getListByPackage(Long packageId){
         return this.findAll("from Line where packageId=?", Line.class,new Object[]{packageId});
     }
+    public boolean isDuplicated(String lineName){
+        List<Line>lineList=this.getList();
+        for(Line line:lineList){
+            if(line.getLine().equals(lineName))
+                return true;
+        }
+        return false;
+    }
 }

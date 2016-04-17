@@ -14,6 +14,7 @@
   String username= (String) session.getAttribute("username");
   System.out.print(pageName+pageFather);
 %>
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <head>
 </head>
 <body>
@@ -32,6 +33,13 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
+      <li class="text-right aside-li">
+        <button type="button" class="navbar-aside" title="收起/展开菜单">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </li>
       <li <%if(pageName.equals("index")) {%>class="active"<%}%>><a href="index"><i class="fa fa-dashboard"></i> 首页</a></li>
       <li <%if(pageFather.equals("base")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
@@ -107,15 +115,17 @@
   </div><!-- /.navbar-collapse -->
 </nav>
 </body>
-<%--<script>
-
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
+<script>
+  $(document).ready(function(){
+    $("button.navbar-aside").click(function(){
+      if ($("#wrapper").is(".left-wrapper")== true) {
+        $(".side-nav").removeClass("left-nav");
+        $("#wrapper").removeClass("left-wrapper");
+      } else {
+        $(".side-nav").addClass("left-nav");
+        $("#wrapper").addClass("left-wrapper");
+      }
+    });
   });
 </script>
-<script>
-  $(function(){
-    $("#base").dropdown('toggle');
-  });
-</script>--%>
 </html>

@@ -170,8 +170,9 @@
           </select>
 
           <select style="position: absolute; top: 33.5%;left: 35%; width: 32%;" id="package">
-            <option value="1">包件一</option>
-            <option value="2">包件二</option>
+           <c:forEach items="${packages}" var="package">
+             <option value="${package.id}">${package.packageName}</option>
+           </c:forEach>
 
           </select>
 
@@ -227,17 +228,6 @@
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
-<script>
-
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
-  });
-
-  $(function(){
-    $("#plan").dropdown('toggle');
-  });
-
-</script>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
@@ -324,6 +314,8 @@
         type: "post",
         data: {packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success: function (data) {
+          if(data=="duplicated")
+            alert("作业线路名称重复");
           location.reload(true);
         }
       })
@@ -334,6 +326,8 @@
         type:"post",
         data:{packageId:packageId,packageName:packageName,id:id,/*startCoord:startCoords,endCoord:endCoords,coords: coords,*/ lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success:function(data){
+          if(data=="duplicated")
+            alert("作业线路名称重复");
           location.reload(true);
         }
       })

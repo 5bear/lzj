@@ -243,15 +243,7 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script>
-  $(function(){ $(".xuanfu3").hide(); //默认隐藏
-    $("#cute").on("click",function(){ $(".xuanfu3").toggle();//显示隐藏切换
-    }) })
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
-  });
-  $(function(){
-    $("#base").dropdown('toggle');
-  });
+
   var currentLng,currentLat;
   var marker;
   var markerMap=new Map();
@@ -347,6 +339,8 @@
       type:"post",
       data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
       success:function(data){
+        if(data=="duplicated")
+            alert("重复的序列号");
         location.reload(true);
       }
     })
@@ -356,6 +350,8 @@
         type:"post",
         data:{id:id,equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
         success:function(data){
+          if(data=="duplicated")
+            alert("重复的序列号");
           location.reload(true);
         }
       })
@@ -366,14 +362,13 @@
    * 删除RFID点
    * */
   function deleteRFID(){
-    var id=marker.getLabel();
+    var id=markerMap.get(marker)
     deletemarker()
     $.ajax({
       url:"RFID/delete",
       type:"post",
       data:{id:id},
       success:function(data){
-
         location.reload(true);
       }
     })

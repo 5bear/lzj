@@ -28,4 +28,12 @@ public class eFenceDao extends BaseDao {
     public List<eFence>getListByCompany(String company){
         return this.findAll("from eFence where company=? and isDelete=0",eFence.class,new Object[]{company});
     }
+    public boolean isDuplicated(String eFence){
+        List<eFence>eFences=this.getList();
+        for(eFence eFence1:eFences){
+            if(eFence1.geteFence().equals(eFence))
+                return true;
+        }
+        return false;
+    }
 }

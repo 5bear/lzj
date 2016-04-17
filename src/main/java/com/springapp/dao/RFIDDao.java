@@ -19,4 +19,12 @@ public class RFIDDao extends BaseDao {
     public List<RFID>getListByRoad(String road){
         return this.findAll("from RFID where isDelete=0 and road=?",RFID.class,new Object[]{road});
     }
+    public boolean isDuplicated(String serialNumber){
+        List<RFID>rfidList=this.getList();
+        for(RFID rfid:rfidList){
+            if(rfid.getSerialNumber().equals(serialNumber))
+                return true;
+        }
+        return false;
+    }
 }

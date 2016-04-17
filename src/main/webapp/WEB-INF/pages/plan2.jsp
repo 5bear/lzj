@@ -134,9 +134,6 @@
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
   var id;
-  $(function(){
-    $("#plan").dropdown('toggle');
-  });
   function setCoords(i){
    id=i;
   }

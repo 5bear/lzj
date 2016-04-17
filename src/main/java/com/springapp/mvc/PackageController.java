@@ -3,20 +3,21 @@ package com.springapp.mvc;
 /**
  * Created by yanglin on 16/4/17.
  */
-import com.springapp.dao.PackageDao;
-import com.springapp.entity.Package;
 import com.springapp.entity.Line;
+import com.springapp.entity.Package;
 import net.sf.json.JSONArray;
-//import net.sf.json.JSONObject;
-//import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.Date;
 import java.util.List;
+
+//import net.sf.json.JSONObject;
+//import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
 
 
@@ -28,33 +29,35 @@ public class PackageController extends BaseController {
     @RequestMapping(value = "/index",method =RequestMethod.GET)
     public ModelAndView list()
     {
-
         ModelAndView modelAndView = new ModelAndView();
         List<Package> packageList=packageDao.getList();
-        for(int i=0;i<packageList.size();i++)
-        {
-            Package pac=packageList.get(i);
-            Long id=pac.getId();
-            List<Line> lineList=lineDao.getListByPackage(id);
-            String roads="";
-            Long realDistance=0L;
-            for(int j=0;j<lineList.size();j++)
+        if(packageList!=null){
+            for(int i=0;i<packageList.size();i++)
             {
-                Line line=lineList.get(j);
-                if(j<lineList.size()-1)
+                Package pac=packageList.get(i);
+                Long id=pac.getId();
+                List<Line> lineList=lineDao.getListByPackage(id);
+                String roads="";
+                Long realDistance=0L;
+                for(int j=0;j<lineList.size();j++)
                 {
-                    roads=roads+line.getLine()+",";
-                }
-                else
-                {
-                    roads=roads+line.getLine();
-                }
+                    Line line=lineList.get(j);
+                    if(j<lineList.size()-1)
+                    {
+                        roads=roads+line.getLine()+",";
+                    }
+                    else
+                    {
+                        roads=roads+line.getLine();
+                    }
 
-                realDistance=realDistance+Integer.parseInt(line.getRealDistance());
+                    realDistance=realDistance+Integer.parseInt(line.getRealDistance());
+                }
+                pac.setRoads(roads);
+                pac.setRealDistance(realDistance);
+                packageDao.update(pac);
             }
-            pac.setRoads(roads);
-            pac.setRealDistance(realDistance);
-            packageDao.update(pac);
+
         }
 
         modelAndView.setViewName("PackageIndex");

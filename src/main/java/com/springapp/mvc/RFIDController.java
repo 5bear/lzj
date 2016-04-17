@@ -41,6 +41,8 @@ public class RFIDController extends BaseController {
                       @RequestParam(value = "roadId") String roadId, @RequestParam(value = "zhadao") String zhadao, @RequestParam(value = "direction") String direction, @RequestParam(value = "installPos1") String installPos1,
                       @RequestParam(value = "installPos2") String installPos2) {
         RFID rfid = new RFID();
+        if(rfidDao.isDuplicated(serialNumber))
+            return "duplicated";
         rfid.setEquipNum(equipNum);
         rfid.setLng(lng);
         rfid.setLat(lat);
@@ -63,6 +65,8 @@ public class RFIDController extends BaseController {
     public String edit(@RequestParam(value = "id") String id, @RequestParam(value = "equipNum") String equipNum, @RequestParam(value = "lng") Double lng, @RequestParam(value = "lat") Double lat, @RequestParam(value = "serialNumber") String serialNumber, @RequestParam(value = "roadId") String roadId, @RequestParam(value = "zhadao") String zhadao, @RequestParam(value = "direction") String direction, @RequestParam(value = "installPos1") String installPos1,
                        @RequestParam(value = "installPos2") String installPos2) {
         RFID rfid = rfidDao.getById(Long.parseLong(id));
+        if(rfidDao.isDuplicated(serialNumber))
+            return "duplicated";
         rfid.setEquipNum(equipNum);
         rfid.setLng(lng);
         rfid.setLat(lat);

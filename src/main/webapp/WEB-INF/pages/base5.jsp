@@ -142,11 +142,11 @@
 
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
           <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
-                     url(images/begin.png); background-size: 100% 100% " />
-          <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
-          <input class="bt1" type="button" id="chexiao" value="撤销全部"style="width:11%;top: 2%;left: 28%; background-color: #00608B;color: white; font-size: 90%; padding: 2px 8px;"/>
+                     url(images/begin.png); background-size: 100% 100% " onclick="choosePoint()" />
+          <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " onclick="undo()" />
+          <input class="bt1" type="button" id="chexiao" value="撤销全部"style="width:11%;top: 2%;left: 28%; background-color: #00608B;color: white; font-size: 90%; padding: 2px 8px;" onclick="undoAll()"/>
 
-          <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " />
+          <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " onclick="drawLine()" />
 
 
           <div id="container" style="width:99%;top:52px"></div>
@@ -168,8 +168,8 @@
             <option value="上海成基公司">上海成基公司</option>
             <option value="上海高架养护公司">上海高架养护公司</option>
           </select>
-          <div  class="p" style=" top: 28%; left:40%;" id="inputMan"><p>XXX</p></div>
-          <div  class="p" style=" top: 32.5%; left:40%;" id="vehicles"><p>沪A5654</p></div>
+          <div  class="p" style=" top: 28%; left:40%;" id="inputMan"><p></p></div>
+          <div  class="p" style=" top: 32.5%; left:40%;" id="vehicles"><p></p></div>
           <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:42%;left: 18%;width:24%;
                       background:url(images/add.png); background-size:100% 100%" onclick="addClick(0)"/>
           <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top: 42%;left:60%;width:24%;
@@ -206,17 +206,6 @@
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
-<script>
-
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
-  });
-</script>
-<script>
-  $(function(){
-    $("#base").dropdown('toggle');
-  });
-</script>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 <script type="text/javascript">
@@ -286,6 +275,8 @@
         async :false,
         data: {lng:points[0].lng,lat:points[0].lat,coords: coords, eFenceName: eFence, company: company/*, inputMan: inputMan*/},
         success: function (data) {
+          if(data=="duplicated")
+          alert("电子围栏名称重复");
           location.reload(true);
         }
       })
@@ -297,6 +288,8 @@
         async :false,
         data:{id:id,lng:points[0].lng,lat:points[0].lat,coords:coords,eFenceName:eFence,company:company/*,inputMan:inputMan*/},
         success:function(data){
+          if(data=="duplicated")
+            alert("电子围栏名称重复");
           location.reload(true);
         }
       })
@@ -318,6 +311,7 @@
   /*选点*/
   function choosePoint(){
     //地图点击事件,选择点
+    points=new Array();
     map.addEventListener("click", function(e){
       var point=new BMap.Point(e.point.lng, e.point.lat);
       points.push(point)

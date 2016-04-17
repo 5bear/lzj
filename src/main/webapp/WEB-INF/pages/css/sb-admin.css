@@ -97,6 +97,17 @@ ul.display {
   display: inline-block;
 }
 
+.navbar-aside {
+  position: relative;
+  padding: 6px 6px;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
 /* Edit Below to Customize Widths > 768px */
 @media (min-width:768px) {
 
@@ -174,6 +185,33 @@ ul.display {
   .messages-dropdown .dropdown-menu li a {
 	white-space: normal;
   }
-  
+
+  .navbar-aside .icon-bar {
+    background-color: #ffffff;
+  }
+
+  .navbar-aside .icon-bar + .icon-bar {
+    margin-top: 3px;
+  }
+
+  .navbar-aside .icon-bar {
+    display: block;
+    width: 16px;
+    height: 2px;
+    border-radius: 1px;
+  }
+
+  .aside-li {
+    width: 230px;
+    background-color: #0F0F0F;
+  }
+
+  .left-nav {
+    margin-left: -400px;
+  }
+
+  div#wrapper.left-wrapper {
+    padding-left: 50px;
+  }
 
 }

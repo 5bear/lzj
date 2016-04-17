@@ -37,6 +37,8 @@ public class eFenceController extends BaseController {
     public String add(HttpServletRequest request,@RequestParam(value = "coords")String coords,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "eFenceName")String eFenceName,@RequestParam(value = "company")String company/*, @RequestParam(value = "inputMan")String inputMan*//*,
                      @RequestParam(value = "inputId")Long inputId,@RequestParam(value = "vehicles")String vehicles,@RequestParam(value = "vehicleIds")String vehicleIds*/){
 
+        if(eFenceDao.isDuplicated(eFenceName))
+            return "duplicated";
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         eFence eFence= new eFence();
@@ -59,6 +61,8 @@ public class eFenceController extends BaseController {
     @ResponseBody
     public String edit(HttpServletRequest request,@RequestParam(value = "id")String id,@RequestParam(value = "coords")String coords,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "eFenceName")String eFenceName,@RequestParam(value = "company")String company/*,
                       @RequestParam(value = "inputMan")String inputMan,@RequestParam(value = "inputId")String inputId,@RequestParam(value = "vehicles")String vehicles,@RequestParam(value = "vehicleIds")String vehicleIds*/){
+        if(eFenceDao.isDuplicated(eFenceName))
+            return "duplicated";
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         eFence eFence= eFenceDao.getById(Long.parseLong(id));
