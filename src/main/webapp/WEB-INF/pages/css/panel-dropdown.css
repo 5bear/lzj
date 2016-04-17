@@ -1,6 +1,5 @@
 .panel {
     border: none;
-    max-height: 700px;
     overflow-y: auto;
 }
 
@@ -17,6 +16,8 @@
 .panel-primary > .panel-body {
     padding: 0;
     border: none;
+    height: 650px;
+    background-color: #F3F3F3;
 }
 
 .panel-menu {

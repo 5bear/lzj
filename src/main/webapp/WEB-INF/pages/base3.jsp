@@ -109,16 +109,11 @@
   <div class="row">
     <div class="col-lg-12">
       <ol class="breadcrumb">
-        <li><a href="base3.html">基础数据</a></li>
-        <li><a href="base3.html">RFID监测点管理</a></li>
+        <li><a href="index">基础数据</a></li>
+        <li><a href="RFID">RFID监测点管理</a></li>
         <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
       </ol>
     </div>
-
-
-
-
-
     <div id="index">
       <!--<img src="images/index.jpg" width="100%"/>-->
       <div id="in-left" style="float:left">
@@ -189,7 +184,7 @@
 
       <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
         <img src="images/in-right2.png" width="100%"/>
-        <div  class="p" style=" top: 10%; left:50%;"><p id="info">(X,Y)</p></div>
+        <div  class="p" style=" top: 10%; left:38%;"><p id="info"></p></div>
 
         <input id="serialNumber" class="r_text" id="" type="text" style="top: 16.5%;left: 40%; width:50%" placeholder="序列号"/>
         <select style="position: absolute;top:23%;width: 40%; left:40%;" id="roadId">

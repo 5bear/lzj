@@ -23,4 +23,7 @@ public class LineDao extends BaseDao {
     public List<Line>getListByCompany(String Company){
         return this.findAll("from Line where company=? and isDelete=0",Line.class,new Object[]{Company});
     }
+    public List<Line>getListByPackage(Long packageId){
+        return this.findAll("from Line where packageId=?", Line.class,new Object[]{packageId});
+    }
 }

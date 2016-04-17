@@ -15,10 +15,8 @@
     <!-- Add custom CSS here -->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
-    
-    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+
     <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
   
@@ -66,95 +64,10 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-            <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="base1.html">停车场管理</a></li>
-                <li><a href="base2.html">车辆管理</a></li>
-                <li><a href="base3.html">RFID监测点管理</a></li>
-                <li><a href="base4.html">包件信息管理</a></li>
-                <li><a href="base5.html">电子围栏管理</a></li>
-                <li><a href="base6.html">监管规则管理</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="plan1.html">养护作业计划</a></li>
-                <li class="active"><a href="plan2-add.html">作业线路管理</a></li>
-                <li><a href="plan3.html">布点计划</a></li>
-                <li><a href="plan4.html">驾驶员计划</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="progress1.html">养护进度监控</a></li>
-                <li><a href="progress2.html">实时监控</a></li>
-                <li><a href="progress3.html">养护日志管理</a></li>
-				</ul>
-			 </li>
-			 
-			 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="history1.html">历史轨迹查询</a></li>
-                <li><a href="history2.html">历史视频查询</a></li>
-                <li><a href="history3.html">异常查询</a></li>
-				</ul>
-			 </li>
-			 
-			 		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                <li><a href="reports2.html">养护车辆作业区域</a></li>
-                <li><a href="reports3.html">养护车辆作业情况</a></li>
-                <li><a href="reports4.html">养护车辆超速</a></li>
-				</ul>
-			 </li>
-			 
-			  		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="management1.html">用户管理</a></li>
-                <li><a href="management2.html">权限管理</a></li>
-                <li><a href="management3.html">网络状态图</a></li>
-				</ul>
-			 </li>
-			
-          </ul>
-
-         <ul class="nav navbar-nav navbar-right navbar-user">
-                        <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-        </div><!-- /.navbar-collapse -->
-      </nav>
+        <jsp:include page="public.jsp" flush="true">
+            <jsp:param name="pageFather" value="plan"></jsp:param>
+            <jsp:param name="pageName" value="plan2"></jsp:param>
+        </jsp:include>
 
       <div id="page-wrapper">
 
@@ -189,31 +102,13 @@
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">中环路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">中环路立交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">上中路隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">军工路隧道交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">外滩隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
+                            <c:forEach items="${cjList}" var="item">
+                                <li class="dropdown dropdown3">
+                                    <a href="" onclick="panTo('${item.lng}','${item.lat}')" data-toggle="dropdown">${item.line}</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </li>
                     <li class="dropdown dropdown2">
@@ -222,23 +117,13 @@
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">内环高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                           
-                           <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">延安高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                           
-                           <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">南北高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
+                            <c:forEach items="${gjyhList}" var="item">
+                                <li class="dropdown dropdown3">
+                                    <a href="" onclick="panTo('${item.lng}','${item.lat}')" data-toggle="dropdown">${item.line}</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </c:forEach>
                            
                         </ul>
                     </li>
@@ -258,45 +143,52 @@
             <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
              <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:  
                      url(images/begin.png); background-size: 100% 100% " onclick="choosePoint()" />
-              <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " onclick="undo()" />
-              <input class="bt1" type="button" id="chexiao" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " onclick="drawLine()" />
-              <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% " /> 
+              <input class="bt1" type="button" id="reset" onclick="undo()" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
+              <input class="bt1" type="button" id="chexiao" onclick="drawLine()" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " />
+              <a class="bt1" href="line" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% " ></a>
               
                  <div id="container" style="width:98%;top:52px"></div>
             
             </div><!--in-mid-->
-
-             <div id="in-right"><img src="images/in-right6.png" width="100%"/>
-                 <p class="p" style="top:10%" id="info">(X,Y)</p>
-
-                 <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;" id="lineName">
-                 <select style="position: absolute; top: 27%;left: 35%; width: 32%;" id="company">
-                     <option value="上海成基公司">上海成基公司</option>
-                     <option value="上海高架养护公司">上海高架养护公司</option>
-
-                 </select>
-                 <select style="position: absolute; top: 33%;left: 25%; width: 40%;" id="direction">
-                     <option value="北">北</option>
-                     <option value="南">南</option>
-                     <option value="东">东</option>
-                     <option value="西">西</option>
-                 </select>
-                 <select style="position: absolute; top: 39.5%; left:33%; width: 32%;" id="directionType">
-                     <option value="外圈">外圈</option>
-                     <option value="内圈">内圈</option>
-                     <option value="南侧">南侧</option>
-                     <option value="北侧">北侧</option>
-                     <option value="东侧">东侧</option>
-                     <option value="西侧">西侧</option>
-                 </select>
-                 <p class="p1" style="top:46.5%;" id="startCoord">(X,Y)</p>
-                 <p class="p1" style="top:52%;" id="endCoord">(X,Y)</p>
-                 <p class="p1" style="top:59%;" id="realDistance">12348km</p>
-                 <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:65%;left: 18%;width:24%;
-                      background:url(images/add.png); background-size:100% 100%" onclick="addClick(0)" />
-                 <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top:65%;left:60%;width:24%;
-                      background:url(images/delete.png); background-size:100% 100%" onclick="addClick(1)" />
-             </div><!--in-right-->
+            
+            <div id="in-right"><img src="images/in.png" width="100%"/>
+            	<p class="p" style="top:10%" id="info">(X,Y)</p>
+               
+                <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;">
+               <select style="position: absolute; top: 28%;left: 35%; width: 32%;" id="company">
+  				  <option value="上海成基公司">上海成基公司</option>
+                  <option value="上海高架养护公司">上海高架养护公司</option>
+                  
+			    </select>
+                
+                 <select style="position: absolute; top: 33.5%;left: 35%; width: 32%;" id="package">
+  				  <option value="N">包件一</option>
+                  <option value="S">包件二</option>
+                  
+			    </select>
+                
+                <select style="position: absolute; top: 39.5%;left: 25%; width: 40%;" id="direction">
+  				  <option value="北">北</option>
+                  <option value="南">南</option>
+                  <option value="东">东</option>
+                  <option value="西">西</option>
+			    </select>
+                <select style="position: absolute; top: 45.5%; left:33%; width: 32%;" id="directionType">
+  				  <option value="外圈">外圈</option>
+                  <option value="内圈">内圈</option>
+                  <option value="南侧">南侧</option>
+                  <option value="北侧">北侧</option>
+                  <option value="东侧">东侧</option>
+                  <option value="西侧">西侧</option>
+			    </select>
+                <p class="p1" style="top:52.5%;" id="startCoord">(X,Y)</p>
+                <p class="p1" style="top:58%;" id="endCoord">(X,Y)</p>
+                <p class="p1" style="top:65%;" id="realDistance">12348km</p>
+               <input class="bt1" data-toggle="modal" data-target="#success" type="button" onclick="addClick(0)"  style=" top:72%;left: 18%;width:24%;
+                      background:url(images/add.png); background-size:100% 100%" /> 
+               <input class="bt1" type="button"   data-toggle="modal" data-target="#success" onclick="addClick(1)" style=" top:72%;left:60%;width:24%;
+                      background:url(images/delete.png); background-size:100% 100%" /> 
+            </div><!--in-right-->
             
 		  </div>
    
@@ -306,23 +198,23 @@
       </div><!-- /#page-wrapper -->
 
     </div><!-- /#wrapper -->
-
+    
     <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                </div>
-                <div class="modal-body text-center">
-                    <p>是否确认此次更改</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_type">确定</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                       
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>是否确认此次更改</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_type">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
@@ -341,212 +233,213 @@
     
      <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
-<script>
-    var currentLng,currentLat;
-    var polyline;//折线对象
-    var marker;
-    var points=new Array();//创建点的数组
-    var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
-    map.enableScrollWheelZoom();//允许放大缩放
+    <script>
+        var currentLng,currentLat;
+        var polyline;//折线对象
+        var marker;
+        var points=new Array();//创建点的数组
+        var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
+        map.enableScrollWheelZoom();//允许放大缩放
 
-    map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-    //地图点击事件 显示RFID添加div
-    map.addEventListener("click", function(e){
-        currentLng= e.point.lng;
-        currentLat= e.point.lat;
-        var info=document.getElementById("info");
-        info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
-        var point = new BMap.Point(e.point.lng, e.point.lat);
-        map.panTo(point)
-        marker = new BMap.Marker(point);// 创建标注
-        map.addOverlay(marker);             // 将标注添加到地图中
-        marker.disableDragging();           // 不可拖拽
-    });
-    /*
-     * 显示已存在的线路
-     * */
-    $(document).ready(function(){
-        /*添加比例尺*/
-        map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
-        $.ajax({
-            url:"/line/list",
-            type:"post",
-            data:{},
-            dataType:"json",
-            success:function(data){
-                $(data).each(function(index){
-                    var point=eval(data[index].coords);
-                    for(var i=0;i<point.length;i++){
-                        var p=new BMap.Point(point[i].lng,point[i].lat);
-                        points.push(p);
-                    }
-                    drawLine();
-                    points=new Array();//清空
-                })
-
-            }
-        })
-    })
-    /*添加电子围栏*/
-    function addeLine(){
-        var coords=pointsTojson(points);
-        var startCoords=pointsTojson(polyline.getPath()[0]);
-        var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length-1]);
-        var id=0;
-        $.ajax({
-            url:"line/getIdByCoords",
-            type:"post",
-            async :false,
-            data:{startCoord:startCoords,endCoord:endCoords},
-            success:function(data){
-                console.log(data)
-                if(data!="error") {
-                    id = data;
-                    console.log(id)
-                }
-            }
-        })
-        var lineName=$("#lineName").val();
-        var company=$("#company").val();
-        var direction=$("#direction").val();
-        var directionType=$("#directionType").val();
-        var remark=$("#remark").val();
-        var realDistance=BMapLib.GeoUtils.getPolylineDistance(polyline);
-        /* var inputMan=$("#inputMan").val();*/
-        if(id==0) {
-            console.log(id)
-            $.ajax({
-                url: "line/add",
-                async :false,
-                type: "post",
-                data: {startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
-                success: function (data) {
-                    /* location.reload(true);*/
-                }
-            })
-        }else{
-            $.ajax({
-                url:"line/edit",
-                async :false,
-                type:"post",
-                data:{id:id,/*startCoord:startCoords,endCoord:endCoords,coords: coords,*/ lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
-                success:function(data){
-                    /* location.reload(true);*/
-                }
-            })
-        }
-    }
-    /*删除电子围栏*/
-    function deleteLine(){
-        var startCoords=pointsTojson(polyline.getPath()[0]);
-        var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length]);
-        $.ajax({
-            url:"line/deleteByCoords",
-            type:"post",
-            data:{startCoord:startCoords,endCoord:endCoords},
-            dataType:"json",
-            success:function(data){
-                location.reload(true);
-            }
-        })
-    }
-    /*选点*/
-    function choosePoint(){
-        //地图点击事件,选择点
-        points=new Array();
+        map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
+        //地图点击事件 显示RFID添加div
         map.addEventListener("click", function(e){
-            var point=new BMap.Point(e.point.lng, e.point.lat);
-            points.push(point)
-            $("#startCoord").html("("+points[0].lng+","+points[0].lat+")")
-            $("#endCoord").html("("+points[points.length-1].lng+","+points[points.length-1].lat+")")
+            currentLng= e.point.lng;
+            currentLat= e.point.lat;
+            var info=document.getElementById("info");
+            info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
+            var point = new BMap.Point(e.point.lng, e.point.lat);
+            map.panTo(point)
+            marker = new BMap.Marker(point);// 创建标注
+            map.addOverlay(marker);             // 将标注添加到地图中
+            marker.disableDragging();           // 不可拖拽
         });
-    }
-    /*撤销一次*/
-    function undo(){
-        map.removeOverlay(marker);
-        points.pop();
-    }
-    /*撤销全部*/
-    function undoAll(){
-        map.clearOverlays();
-        points=new Array();
-    }
-    /*划线*/
-    function drawLine(){
         /*
-         var startX=document.getElementById("startX").value;
-         var startY=document.getElementById("startY").value;
-         var endX=document.getElementById("endX").value;
-         var endY=document.getElementById("endY").value;
+         * 显示已存在的线路
+         * */
+        $(document).ready(function(){
+            /*添加比例尺*/
+            map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
+            $.ajax({
+                url:"/line/list",
+                type:"post",
+                data:{},
+                dataType:"json",
+                success:function(data){
+                    $(data).each(function(index){
+                        var point=eval(data[index].coords);
+                        for(var i=0;i<point.length;i++){
+                            var p=new BMap.Point(point[i].lng,point[i].lat);
+                            points.push(p);
+                        }
+                        drawLine();
+                        points=new Array();//清空
+                    })
 
-         var polyline = new BMap.Polyline(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
-         polyline.addEventListener("click",function(e){
-         var target= e.target;
-         console.log(target.ia)//得到线的对象
-         })
-         map.addOverlay(polyline);   //增加折线
-         */
-        /* console.log(points)*/
-        var driving = new BMap.DrivingRoute(map);    //创建驾车实例
-        for(var i=0;i<points.length-1;i++) {
-            driving.search(points[i], points[i + 1])
-            /* console.log(driving)*/
-        }
-        driving.setSearchCompleteCallback(function(){
-            /* console.log(driving.getResults())*/
-            var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
-            polyline = new BMap.Polyline(pts);
-            polyline.addEventListener("click",function(e){
-                var target= e.currentTarget;
-                polyline=target;
-                points=target.getPath();
+                }
+            })
+        })
+        /*添加电子围栏*/
+        function addeLine(){
+            var coords=pointsTojson(points);
+            var startCoords=pointsTojson(polyline.getPath()[0]);
+            var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length-1]);
+            var id=0;
+            $.ajax({
+                url:"line/getIdByCoords",
+                type:"post",
+                async :false,
+                data:{startCoord:startCoords,endCoord:endCoords},
+                success:function(data){
+                    console.log(data)
+                    if(data!="error") {
+                        id = data;
+                        console.log(id)
+                    }
+                }
+            })
+            var lineName=$("#lineName").val();
+            var company=$("#company").val();
+            var direction=$("#direction").val();
+            var directionType=$("#directionType").val();
+            var remark=$("#remark").val();
+            console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
+            var realDistance=BMapLib.GeoUtils.getPolylineDistance(polyline);
+            /* var inputMan=$("#inputMan").val();*/
+            if(id==0) {
+                console.log(id)
                 $.ajax({
-                    url:"line/getByCoords",
-                    type:"post",
-                    data:{startCoord:pointsTojson(e.target.getPath()[0]),endCoord:pointsTojson(e.target.getPath()[e.target.getPath().length-1])},
-                    dataType:"json",
-                    success:function(data){
-                        var startCoord=jsonToPoints("["+data.startCoord+"]")[0]
-                        var endCoord=jsonToPoints("["+data.endCoord+"]")[0]
-                        console.log(startCoord)
-                        $("#lineName").val(data.line);
-                        $("#company").find("option[value="+data.company+"]").attr("selected",true);
-                        $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
-                        $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
-                        $("#startCoord").html("("+startCoord.lng+","+startCoord.lat+")")
-                        $("#endCoord").html("("+endCoord.lng+","+endCoord.lat+")");
-                        $("#realDistance").html(data.realDistance+"km");
-                        /*$("#inputMan").val(data.inputMan);*/
+                    url: "line/add",
+                    async :false,
+                    type: "post",
+                    data: {lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+                    success: function (data) {
+                        location.reload(true);
                     }
                 })
+            }else{
+                $.ajax({
+                    url:"line/edit",
+                    async :false,
+                    type:"post",
+                    data:{id:id,/*startCoord:startCoords,endCoord:endCoords,coords: coords,*/ lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+                    success:function(data){
+                        location.reload(true);
+                    }
+                })
+            }
+        }
+        /*删除电子围栏*/
+        function deleteLine(){
+            var startCoords=pointsTojson(polyline.getPath()[0]);
+            var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length]);
+            $.ajax({
+                url:"line/deleteByCoords",
+                type:"post",
+                data:{startCoord:startCoords,endCoord:endCoords},
+                dataType:"json",
+                success:function(data){
+                    location.reload(true);
+                }
             })
-            map.addOverlay(polyline);
-            $("#realDistance").html(BMapLib.GeoUtils.getPolylineDistance(polyline));
-        })
-    }
-    /*点数组转json*/
-    function pointsTojson(points){
-        return JSON.stringify(points);
-    }
-    /*json数据转成点数组*/
-    function jsonToPoints(jsonData){
-        return eval(jsonData);
-    }
-    /*
-     * 添加点击事件
-     * */
-    function addClick(type){
-        if(type==0)
-            $("#btn_type").click(addeLine);
-        else if(type==1)
-            $("#btn_type").click(deleteLine);
-    }
-    /**/
-    function panTo(lng,lat){
-        var point=new BMap.Point(lng, lat);
-        map.panTo(point);
-    }
-</script>
+        }
+        /*选点*/
+        function choosePoint(){
+            //地图点击事件,选择点
+            points=new Array();
+            map.addEventListener("click", function(e){
+                var point=new BMap.Point(e.point.lng, e.point.lat);
+                points.push(point)
+                $("#startCoord").html("("+points[0].lng+","+points[0].lat+")")
+                $("#endCoord").html("("+points[points.length-1].lng+","+points[points.length-1].lat+")")
+            });
+        }
+        /*撤销一次*/
+        function undo(){
+            map.removeOverlay(marker);
+            points.pop();
+        }
+        /*撤销全部*/
+        function undoAll(){
+            map.clearOverlays();
+            points=new Array();
+        }
+        /*划线*/
+        function drawLine(){
+            /*
+             var startX=document.getElementById("startX").value;
+             var startY=document.getElementById("startY").value;
+             var endX=document.getElementById("endX").value;
+             var endY=document.getElementById("endY").value;
+
+             var polyline = new BMap.Polyline(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+             polyline.addEventListener("click",function(e){
+             var target= e.target;
+             console.log(target.ia)//得到线的对象
+             })
+             map.addOverlay(polyline);   //增加折线
+             */
+            /* console.log(points)*/
+            var driving = new BMap.DrivingRoute(map);    //创建驾车实例
+            for(var i=0;i<points.length-1;i++) {
+                driving.search(points[i], points[i + 1])
+                /* console.log(driving)*/
+            }
+            driving.setSearchCompleteCallback(function(){
+                /* console.log(driving.getResults())*/
+                var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+                polyline = new BMap.Polyline(pts);
+                polyline.addEventListener("click",function(e){
+                    var target= e.currentTarget;
+                    polyline=target;
+                    points=target.getPath();
+                    $.ajax({
+                        url:"line/getByCoords",
+                        type:"post",
+                        data:{startCoord:pointsTojson(e.target.getPath()[0]),endCoord:pointsTojson(e.target.getPath()[e.target.getPath().length-1])},
+                        dataType:"json",
+                        success:function(data){
+                            var startCoord=jsonToPoints("["+data.startCoord+"]")[0]
+                            var endCoord=jsonToPoints("["+data.endCoord+"]")[0]
+                            console.log(startCoord)
+                            $("#lineName").val(data.line);
+                            $("#company").find("option[value="+data.company+"]").attr("selected",true);
+                            $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+                            $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
+                            $("#startCoord").html("("+startCoord.lng+","+startCoord.lat+")")
+                            $("#endCoord").html("("+endCoord.lng+","+endCoord.lat+")");
+                            $("#realDistance").html(data.realDistance+"km");
+                            /*$("#inputMan").val(data.inputMan);*/
+                        }
+                    })
+                })
+                map.addOverlay(polyline);
+                $("#realDistance").html(BMapLib.GeoUtils.getPolylineDistance(polyline));
+            })
+        }
+        /*点数组转json*/
+        function pointsTojson(points){
+            return JSON.stringify(points);
+        }
+        /*json数据转成点数组*/
+        function jsonToPoints(jsonData){
+            return eval(jsonData);
+        }
+        /*
+         * 添加点击事件
+         * */
+        function addClick(type){
+            if(type==0)
+                $("#btn_type").click(addeLine);
+            else if(type==1)
+                $("#btn_type").click(deleteLine);
+        }
+        /**/
+        function panTo(lng,lat){
+            var point=new BMap.Point(lng, lat);
+            map.panTo(point);
+        }
+    </script>
     
   </body>
 </html>

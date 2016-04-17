@@ -26,7 +26,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+    <a class="navbar-brand" href="index">上海市快速路养护监管系统</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -36,12 +36,12 @@
       <li <%if(pageFather.equals("base")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("base1")) {%>class="active"<%}%>><a href="base1.html">停车场管理</a></li>
-          <li <%if(pageName.equals("base2")) {%>class="active"<%}%>><a href="base2.html">车辆管理</a></li>
+          <li <%if(pageName.equals("base1")) {%>class="active"<%}%>><a href="Park">停车场管理</a></li>
+          <li <%if(pageName.equals("base2")) {%>class="active"<%}%>><a href="Vehicle">车辆管理</a></li>
           <li <%if(pageName.equals("base3")) {%>class="active"<%}%>><a href="RFID">RFID监测点管理</a></li>
-          <li <%if(pageName.equals("base4")) {%>class="active"<%}%>><a href="base4.html">包件信息管理</a></li>
+          <li <%if(pageName.equals("base4")) {%>class="active"<%}%>><a href="Package">包件信息管理</a></li>
           <li <%if(pageName.equals("base5")) {%>class="active"<%}%>><a href="eFence">电子围栏管理</a></li>
-          <li <%if(pageName.equals("base6")) {%>class="active"<%}%>><a href="base6.html">监管规则管理</a></li>
+          <li <%if(pageName.equals("base6")) {%>class="active"<%}%>><a href="Rules">监管规则管理</a></li>
         </ul>
       </li>
 
@@ -51,14 +51,14 @@
           <li <%if(pageName.equals("plan1")) {%>class="active"<%}%>><a href="plan1.html">养护作业计划</a></li>
           <li <%if(pageName.equals("plan2")) {%>class="active"<%}%>><a href="line">作业线路管理</a></li>
           <li <%if(pageName.equals("plan3")) {%>class="active"<%}%>><a href="plan3.html">布点计划</a></li>
-          <li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="plan4.html">驾驶员计划</a></li>
+          <li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="Driver">驾驶员计划</a></li>
         </ul>
       </li>
 
       <li <%if(pageFather.equals("progress")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="progress1.html">养护进度监控</a></li>
+          <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="MaintainProgress">养护进度监控</a></li>
           <li <%if(pageName.equals("progress2")) {%>class="active"<%}%>><a href="progress2.html">实时监控</a></li>
           <li <%if(pageName.equals("progress3")) {%>class="active"<%}%>><a href="progress3.html">养护日志管理</a></li>
         </ul>
@@ -86,9 +86,9 @@
       <li <%if(pageFather.equals("management")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("management1")) {%>class="active"<%}%>><a href="management1.html">用户管理</a></li>
-          <li <%if(pageName.equals("management2")) {%>class="active"<%}%>><a href="management2.html">权限管理</a></li>
-          <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="management3.html">网络状态图</a></li>
+          <li <%if(pageName.equals("management1")) {%>class="active"<%}%>><a href="User">用户管理</a></li>
+          <li <%if(pageName.equals("management2")) {%>class="active"<%}%>><a href="Power">权限管理</a></li>
+          <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="management3.html">网络状态</a></li>
         </ul>
       </li>
 

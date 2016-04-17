@@ -16,44 +16,44 @@
     <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
-    
+
     <script type="text/javascript" src="js/BMaplib.js"></script>
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
-  
+
     <script>
 $(function () {
     var chart;
-    
+
     $(document).ready(function () {
-    	
+
     	// Build the chart
-        chart = new Highcharts.Chart({ 
+        chart = new Highcharts.Chart({
             chart: {
 			    renderTo: 'container2',
 				backgroundColor: 'rgb(242, 242, 242)',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false	
-				
+                plotShadow: false
+
             },
-			
-		
-	
+
+
+
             title: {
                 text: '有效作业率',
 				style:{fontSize:"13px",}
             },
             tooltip: {
         	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-				style: {                      // 文字内容相关样式              
+				style: {                      // 文字内容相关样式
                 width:'5px',
                 fontWeight: "blod",
                 fontFamily: "Courir new"
                 }
-				               
-    
+
+
             },
             plotOptions: {
                 pie: {
@@ -72,45 +72,45 @@ $(function () {
                 data: [
                     ['有效作业率',   45.0],
                     ['无效作业率',       55.0],
-                   
+
                 ]
             }]
         });
 	});
-});				
+});
 
 
 $(function () {
     var chart;
-    
+
     $(document).ready(function () {
-    	
+
     	// Build the chart
-        chart = new Highcharts.Chart({ 
+        chart = new Highcharts.Chart({
             chart: {
 			    renderTo: 'container1',
 				backgroundColor: 'rgb(242, 242, 242)',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false	
-				
+                plotShadow: false
+
             },
-			
-		
-	
+
+
+
             title: {
                 text: '匝道覆盖率',
 				style:{fontSize:"13px",}
             },
             tooltip: {
         	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-				style: {                      // 文字内容相关样式               
+				style: {                      // 文字内容相关样式
                 width:'10px',
                 fontWeight: "blod",
                 fontFamily: "Courir new"
                 }
-				               
-    
+
+
             },
             plotOptions: {
                 pie: {
@@ -129,16 +129,16 @@ $(function () {
                 data: [
                     ['覆盖 3个',   75.0],
                     ['未覆盖 1个', 25.0],
-                   
+
                 ]
             }]
         });
 	});
-});						
+});
   </script>
 
- 
-    
+
+
     <style>
 	#container{width: 55%;
     height: 600px;
@@ -148,13 +148,13 @@ $(function () {
 
 	 #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
      #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-     #in-mid { width:50%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
+     #in-mid { width:50%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
      #in-right { width:24%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
 	 #index-checkbox
 	 {
 		 position:absolute;
 		 top: 620px;
-    	 left: 200px;		
+    	 left: 200px;
 	 }
 	 #_select
 	 {
@@ -162,27 +162,27 @@ $(function () {
    		 top: 8%;
     	 left: 10%;
          width: 80%;
-		 height:4%;		 
+		 height:4%;
 	 }
-	 
-    .progressbar_1{ 
-	
-    	 background-color:rgb(255,255,255); 
-   		 height:3%; 
+
+    .progressbar_1{
+
+    	 background-color:rgb(255,255,255);
+   		 height:3%;
    		 border:2px solid rgb(179,179,179);
-		 position:absolute;top: 23%; left: 9%; width: 47%; 
-		
-   		 
-	} 
-	.progressbar_1 .bar { 
-		background-color:rgb(2,96,142); 
-		height:89%; 
-    	width:0; 
+		 position:absolute;top: 23%; left: 9%; width: 47%;
+
+
+	}
+	.progressbar_1 .bar {
+		background-color:rgb(2,96,142);
+		height:89%;
+    	width:0;
 		margin:1px;
-	} 
+	}
 	</style>
-   
- 
+
+
   </head>
 
   <body>
@@ -217,7 +217,7 @@ $(function () {
                 <li><a href="base6.html">监管规则管理</a></li>
 				</ul>
 			 </li>
-			 
+
 			   <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
 			    <ul class="dropdown-menu">
@@ -227,7 +227,7 @@ $(function () {
                 <li><a href="plan4.html">驾驶员计划</a></li>
 				</ul>
 			 </li>
-			 
+
 			   <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
 			    <ul class="dropdown-menu">
@@ -236,7 +236,7 @@ $(function () {
                 <li><a href="progress3.html">养护日志管理</a></li>
 				</ul>
 			 </li>
-			 
+
 			 	   <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
 			    <ul class="dropdown-menu">
@@ -245,7 +245,7 @@ $(function () {
                 <li><a href="history3.html">异常查询</a></li>
 				</ul>
 			 </li>
-			 
+
 			 		 	   <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
 			    <ul class="dropdown-menu">
@@ -255,7 +255,7 @@ $(function () {
                 <li><a href="reports4.html">养护车辆超速</a></li>
 				</ul>
 			 </li>
-			 
+
 			  		 	   <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
 			    <ul class="dropdown-menu">
@@ -264,7 +264,7 @@ $(function () {
                 <li><a href="management3.html">网络状态图</a></li>
 				</ul>
 			 </li>
-			
+
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -291,11 +291,11 @@ $(function () {
            <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
             </ol>
           </div>
-          
-          
-          
-          
-          
+
+
+
+
+
 		<div id="index">
 		  <!--<img src="images/index.jpg" width="100%"/>-->
          	<div id="in-left">
@@ -317,27 +317,27 @@ $(function () {
                             <li class="dropdown dropdown3">
                                 <a href="#" data-toggle="dropdown">中环路</a>
                                 <div class="arrow-section arrow-section3">
-                                </div>                                                               
+                                </div>
                             </li>
                             <li class="dropdown dropdown3">
                                 <a href="#" data-toggle="dropdown">中环路立交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
+                                <div class="arrow-section arrow-section3">
+                                </div>
                             </li>
                             <li class="dropdown dropdown3">
                                 <a href="#" data-toggle="dropdown">上中路隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
+                                <div class="arrow-section arrow-section3">
+                                </div>
                             </li>
                             <li class="dropdown dropdown3">
                                 <a href="#" data-toggle="dropdown">军工路隧道交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
+                                <div class="arrow-section arrow-section3">
+                                </div>
                             </li>
                             <li class="dropdown dropdown3">
                                 <a href="#" data-toggle="dropdown">外滩隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
+                                <div class="arrow-section arrow-section3">
+                                </div>
                             </li>
                         </ul>
                     </li>
@@ -350,16 +350,16 @@ $(function () {
                             <li class="dropdown dropdown3">
                                 <a href="#" data-toggle="dropdown">内环高架路路</a>
                                 <div class="arrow-section arrow-section3">
-                                </div>                                                               
+                                </div>
                             </li>
-                           
+
                         </ul>
                     </li>
                 </ul>
             </li><!--dropdown1-->
-        
-        
-        
+
+
+
             <li class="dropdown dropdown1">
                 <a href="#" data-toggle="dropdown">按照车辆查看</a>
                 <div class="arrow-section arrow-section1">
@@ -398,21 +398,21 @@ $(function () {
                             </li>
                         </ul>
                     </li>
-                   
+
                 </ul>
             </li><!--dropdown1-->
-            
-            
-            
+
+
+
         </div>
     </div>
         	</div><!--in-left-->
-            
+
            <!-- <div id="in-mid">--><!--<img src="images/map1.png" width="100%"/>-->
               <!-- <div id="container" style="height: 601px; width: 638px; top: 123px;left:447px; float:left">-->
                <div id="container"></div>
 
- 
+
 
                <form id="index-checkbox">
            	 	<input type="checkbox" name="speed" id="speed" />
@@ -425,29 +425,29 @@ $(function () {
 				 显示路径
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 				</form>
-           
-            
+
+
             <div id="in-right"><img src="images/in-right1.png" width="100%"/>
                <select id="_select">
   				<option value="SH">上海</option>
-			   </select> 
+			   </select>
              <div id="container2" style="width:49%;height:31%;position: absolute;top: 35%;left:1%"></div>
                <div id="container1" style="width:47%;height:31%;position: absolute;top: 35%;left:52%"></div>
-               <div class="progressbar_1" > 
+               <div class="progressbar_1" >
                     <div class="bar" style="width: 50%;"></div>
-               </div> 
+               </div>
                <p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 23%;left: 61%;">50% &nbsp;&nbsp;&nbsp;247km</p>
             </div>
-            
+
 		</div>
-   
-          
+
+
         </div><!-- /.row -->
 
       </div><!-- /#page-wrapper -->
 
     </div><!-- /#wrapper -->
-   
+
 
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>

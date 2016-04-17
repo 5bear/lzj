@@ -7,7 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,10 +23,8 @@
   <!-- Add custom CSS here -->
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
- <%-- <link rel="stylesheet" href="css/font-awesome.min.css">--%>
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
 
-  <script type="text/javascript" src="js/BMaplib.js"></script>
   <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
@@ -67,12 +66,17 @@
       margin-right: 5px;}
   </style>
 </head>
+
 <body>
+
 <div id="wrapper">
+
+  <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
     <jsp:param name="pageFather" value="plan"></jsp:param>
     <jsp:param name="pageName" value="plan2"></jsp:param>
   </jsp:include>
+
   <div id="page-wrapper">
 
     <div class="row">
@@ -106,31 +110,6 @@
                       <div class="arrow-down arrow-down2"></div>
                     </div>
                     <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">中环路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">中环路立交</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">上中路隧道</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">军工路隧道交</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                      <a href="#" data-toggle="dropdown">外滩隧道</a>
-                      <div class="arrow-section arrow-section3">
-                      </div>
-                    </li>
                       <c:forEach items="${cjList}" var="item">
                         <li class="dropdown dropdown3">
                           <a href="" onclick="panTo('${item.lng}','${item.lat}')" data-toggle="dropdown">${item.line}</a>
@@ -146,23 +125,6 @@
                       <div class="arrow-down arrow-down2"></div>
                     </div>
                     <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">内环高架路路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">延安高架路路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="dropdown">南北高架路路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
                       <c:forEach items="${gjyhList}" var="item">
                         <li class="dropdown dropdown3">
                           <a href="" onclick="panTo('${item.lng}','${item.lat}')" data-toggle="dropdown">${item.line}</a>
@@ -170,6 +132,7 @@
                           </div>
                         </li>
                       </c:forEach>
+
                     </ul>
                   </li>
                 </ul>
@@ -188,44 +151,51 @@
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
           <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
                      url(images/begin.png); background-size: 100% 100% " onclick="choosePoint()" />
-          <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " onclick="undo()" />
-          <input class="bt1" type="button" id="chexiao" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " onclick="drawLine()" />
-          <a class="bt1" href="line" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% "></a>
+          <input class="bt1" type="button" id="reset" onclick="undo()" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
+          <input class="bt1" type="button" id="chexiao" onclick="drawLine()" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " />
+          <a class="bt1" href="line" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% " ></a>
 
           <div id="container" style="width:98%;top:52px"></div>
 
         </div><!--in-mid-->
 
-        <div id="in-right"><img src="images/in-right6.png" width="100%"/>
+        <div id="in-right"><img src="images/in.png" width="100%"/>
           <p class="p" style="top:10%" id="info">(X,Y)</p>
 
-          <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;" id="lineName">
-          <select style="position: absolute; top: 27%;left: 35%; width: 32%;" id="company">
+          <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;">
+          <select style="position: absolute; top: 28%;left: 35%; width: 32%;" id="company">
             <option value="上海成基公司">上海成基公司</option>
             <option value="上海高架养护公司">上海高架养护公司</option>
 
           </select>
-          <select style="position: absolute; top: 33%;left: 25%; width: 40%;" id="direction">
+
+          <select style="position: absolute; top: 33.5%;left: 35%; width: 32%;" id="package">
+            <option value="1">包件一</option>
+            <option value="2">包件二</option>
+
+          </select>
+
+          <select style="position: absolute; top: 39.5%;left: 25%; width: 40%;" id="direction">
             <option value="北">北</option>
             <option value="南">南</option>
             <option value="东">东</option>
             <option value="西">西</option>
           </select>
-          <select style="position: absolute; top: 39.5%; left:33%; width: 32%;" id="directionType">
+          <select style="position: absolute; top: 45.5%; left:33%; width: 32%;" id="directionType">
             <option value="外圈">外圈</option>
             <option value="内圈">内圈</option>
             <option value="南侧">南侧</option>
             <option value="北侧">北侧</option>
             <option value="东侧">东侧</option>
-            <option value="E">西侧</option>
+            <option value="西侧">西侧</option>
           </select>
-          <p class="p1" style="top:46.5%;" id="startCoord">(X,Y)</p>
-          <p class="p1" style="top:52%;" id="endCoord">(X,Y)</p>
-          <p class="p1" style="top:59%;" id="realDistance"></p>
-          <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:65%;left: 18%;width:24%;
-                      background:url(images/add.png); background-size:100% 100%" onclick="addClick(0)" />
-          <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top:65%;left:60%;width:24%;
-                      background:url(images/delete.png); background-size:100% 100%" onclick="addClick(1)" />
+          <p class="p1" style="top:52.5%;" id="startCoord">(X,Y)</p>
+          <p class="p1" style="top:58%;" id="endCoord">(X,Y)</p>
+          <p class="p1" style="top:65%;" id="realDistance">12348km</p>
+          <input class="bt1" data-toggle="modal" data-target="#success" type="button" onclick="addClick(0)"  style=" top:72%;left: 18%;width:24%;
+                      background:url(images/add.png); background-size:100% 100%" />
+          <input class="bt1" type="button"   data-toggle="modal" data-target="#success" onclick="addClick(1)" style=" top:72%;left:60%;width:24%;
+                      background:url(images/delete.png); background-size:100% 100%" />
         </div><!--in-right-->
 
       </div>
@@ -340,17 +310,19 @@
     var company=$("#company").val();
     var direction=$("#direction").val();
     var directionType=$("#directionType").val();
+    var packageId=$("#package").val();
+    var packageName=$("#package").find([option="selected"]).value;
     var remark=$("#remark").val();
     console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
     var realDistance=BMapLib.GeoUtils.getPolylineDistance(polyline);
-   /* var inputMan=$("#inputMan").val();*/
+    /* var inputMan=$("#inputMan").val();*/
     if(id==0) {
       console.log(id)
       $.ajax({
         url: "line/add",
         async :false,
         type: "post",
-        data: {lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+        data: {packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success: function (data) {
           location.reload(true);
         }
@@ -360,7 +332,7 @@
         url:"line/edit",
         async :false,
         type:"post",
-        data:{id:id,/*startCoord:startCoords,endCoord:endCoords,coords: coords,*/ lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+        data:{packageId:packageId,packageName:packageName,id:id,/*startCoord:startCoords,endCoord:endCoords,coords: coords,*/ lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success:function(data){
           location.reload(true);
         }
@@ -417,14 +389,14 @@
      })
      map.addOverlay(polyline);   //增加折线
      */
-   /* console.log(points)*/
+    /* console.log(points)*/
     var driving = new BMap.DrivingRoute(map);    //创建驾车实例
     for(var i=0;i<points.length-1;i++) {
       driving.search(points[i], points[i + 1])
-     /* console.log(driving)*/
+      /* console.log(driving)*/
     }
     driving.setSearchCompleteCallback(function(){
-     /* console.log(driving.getResults())*/
+      /* console.log(driving.getResults())*/
       var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
       polyline = new BMap.Polyline(pts);
       polyline.addEventListener("click",function(e){
@@ -450,10 +422,10 @@
             /*$("#inputMan").val(data.inputMan);*/
           }
         })
-    })
+      })
       map.addOverlay(polyline);
       $("#realDistance").html(BMapLib.GeoUtils.getPolylineDistance(polyline));
-  })
+    })
   }
   /*点数组转json*/
   function pointsTojson(points){
@@ -477,6 +449,7 @@
     var point=new BMap.Point(lng, lat);
     map.panTo(point);
   }
-  </script>
+</script>
+
 </body>
 </html>

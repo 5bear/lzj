@@ -9,6 +9,7 @@ a:hover, a:focus {
 
 .table {
     border: 1px solid #cccccc;
+    font-size: 14px;
 }
 
 th {
@@ -60,7 +61,7 @@ td.going {
 select {
     background-color: #F2F2F2;
     padding: 3px 6px;
-    height: 25px;
+    height: 30px;
     border: none;
     margin-right: 10px;
     width: 150px;

@@ -7,7 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,11 +23,18 @@
   <!-- Add custom CSS here -->
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
-  <script type="text/javascript" src="js/BMaplib.js"></script>
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
-    <script type="text/javascript" src="js/highcharts.js"></script>
+<%--  <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>--%>
+  <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
+
+
+
+
+
+
+
   <style>
     #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
@@ -55,148 +63,129 @@
   </style>
 
 </head>
+
 <body>
+
 <div id="wrapper">
+
+  <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
     <jsp:param name="pageFather" value="base"></jsp:param>
     <jsp:param name="pageName" value="base5"></jsp:param>
   </jsp:include>
-    <div id="page-wrapper">
 
-      <div class="row">
-        <div class="col-lg-12">
-          <ol class="breadcrumb">
-            <li><a href="base5.html">基础数据</a></li>
-            <li><a href="base5.html">电子围栏管理</a></li>
-            <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
-          </ol>
-        </div>
+  <div id="page-wrapper">
 
-
-
+    <div class="row">
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+          <li><a href="base5.html">基础数据</a></li>
+          <li><a href="base5.html">电子围栏管理</a></li>
+          <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
+        </ol>
+      </div>
 
 
-        <div id="index">
-          <!--<img src="images/index.jpg" width="100%"/>-->
-          <div id="in-left">
 
 
-            <div class="panel panel-primary">
-              <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
-              <div class="panel-body">
-                <li class="dropdown dropdown1">
-                  <a href="#" data-toggle="dropdown">按照名称查看</a>
-                  <div class="arrow-section arrow-section1">
-                    <div class="arrow-down arrow-down1"></div>
-                  </div>
-                  <ul class="dropdown-menu panel-menu">
-                    <li class="dropdown dropdown2">
-                      <a href="#" data-toggle="dropdown">上海成基公司</a>
-                      <div class="arrow-section arrow-section2">
-                        <div class="arrow-down arrow-down2"></div>
-                      </div>
-                      <ul class="dropdown-menu panel-menu">
+
+      <div id="index">
+        <!--<img src="images/index.jpg" width="100%"/>-->
+        <div id="in-left">
+
+
+          <div class="panel panel-primary">
+            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
+            <div class="panel-body">
+              <li class="dropdown dropdown1">
+                <a href="#" data-toggle="dropdown">按照名称查看</a>
+                <div class="arrow-section arrow-section1">
+                  <div class="arrow-down arrow-down1"></div>
+                </div>
+                <ul class="dropdown-menu panel-menu">
+                  <li class="dropdown dropdown2">
+                    <a href="#" data-toggle="dropdown">上海成基公司</a>
+                    <div class="arrow-section arrow-section2">
+                      <div class="arrow-down arrow-down2"></div>
+                    </div>
+                    <ul class="dropdown-menu panel-menu">
+                      <c:forEach items="${cjList}" var="eFence">
                         <li class="dropdown dropdown3">
-                          <a href="#" data-toggle="dropdown">电子围栏一</a>
+                          <a href="" onclick="panTo('${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
+                      </c:forEach>
+                    </ul>
+                  </li>
+                  <li class="dropdown dropdown2">
+                    <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                    <div class="arrow-section arrow-section2">
+                      <div class="arrow-down arrow-down2"></div>
+                    </div>
+                    <ul class="dropdown-menu panel-menu">
+                      <c:forEach items="${gjyhList}" var="eFence">
                         <li class="dropdown dropdown3">
-                          <a href="#" data-toggle="dropdown">电子围栏二</a>
+                          <a href="" onclick="panTo('${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
-                        <li class="dropdown dropdown3">
-                          <a href="#" data-toggle="dropdown">电子围栏三</a>
-                          <div class="arrow-section arrow-section3">
-                          </div>
-                        </li>
-                        <c:forEach items="${cjList}" var="eFence">
-                          <li class="dropdown dropdown3">
-                            <a href="" onclick="panTo('${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
-                            <div class="arrow-section arrow-section3">
-                            </div>
-                          </li>
-                        </c:forEach>
-                      </ul>
-                    </li>
-                    <li class="dropdown dropdown2">
-                      <a href="#" data-toggle="dropdown">上海高架养护公司</a>
-                      <div class="arrow-section arrow-section2">
-                        <div class="arrow-down arrow-down2"></div>
-                      </div>
-                      <ul class="dropdown-menu panel-menu">
-                        <li class="dropdown dropdown3">
-                          <a href="#" data-toggle="dropdown">电子围栏四</a>
-                          <div class="arrow-section arrow-section3">
-                          </div>
-                        </li>
-                        <li class="dropdown dropdown3">
-                          <a href="#" data-toggle="dropdown">电子围栏五</a>
-                          <div class="arrow-section arrow-section3">
-                          </div>
-                        </li>
-                        <c:forEach items="${gjyhList}" var="eFence">
-                          <li class="dropdown dropdown3">
-                            <a href="" onclick="panTo('${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
-                            <div class="arrow-section arrow-section3">
-                            </div>
-                          </li>
-                        </c:forEach>
-                      </ul>
-                    </li>
-                  </ul>
-                </li><!--dropdown1-->
-              </div>
+                      </c:forEach>
+                    </ul>
+                  </li>
+                </ul>
+              </li><!--dropdown1-->
             </div>
+          </div>
 
-          </div><!--in-left-->
+        </div><!--in-left-->
 
-          <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
-            <input class="bt1" type="button"  id="begin" onclick="choosePoint()"  style="top: 2%;left: 2%; width:11%; background:
+        <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
+          <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
                      url(images/begin.png); background-size: 100% 100% " />
-            <input class="bt1" type="button" id="reset" onclick="undo()" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
-            <input class="bt1" type="button" id="chexiao" onclick="undoAll()" value="撤销全部"style="width:11%;top: 2%;left: 28%; background-color: #00608B;color: white; font-size: 8px; padding: 2px 8px;"/>
-            <input class="bt1" type="button" id="complete" onclick="drawLine()" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " />
+          <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
+          <input class="bt1" type="button" id="chexiao" value="撤销全部"style="width:11%;top: 2%;left: 28%; background-color: #00608B;color: white; font-size: 90%; padding: 2px 8px;"/>
+
+          <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " />
 
 
-            <div id="container" style="width:99%;top:52px"></div>
+          <div id="container" style="width:99%;top:52px"></div>
 
-          </div><!--in-mid-->
-
-
-          <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
-            <img src="images/in-right3.png" width="100%"/>
-            <div  class="p" style=" top: 10%; left: 50%;"><p id="info">(X,Y)</p></div>
-
-          <%--  <input type="text" style="position:absolute;top: 14%; left: 50%; width:40%;height:3.5%"/>--%>
-            <input type="text" style="position:absolute;top: 19%; left:40%; width:50%;height:3.5%" id="eFence"/>
-
-            <select style="position: absolute;top:23%;width: 50%; left:40%;" id="company">
-              <option value="上海成基公司">上海成基公司</option>
-              <option value="上海高架养护公司">上海高架养护公司</option>
-            </select>
-            <div  class="p" style=" top: 28%; left:40%;"><input type="text" id="inputMan"></div>
-            <div  class="p" style=" top: 32.5%; left:40%;">
-              <select id="ve">
-                <option value="1">沪A5654</option>
-                <option value="2">沪A5653</option>
-                <option value="3">沪A5652</option>
-              </select></div>
-            <input class="bt1" data-toggle="modal" data-target="#success" type="button" onclick="addClick(0)"  style=" top:42%;left: 18%;width:24%;
-                      background:url(images/add.png); background-size:100% 100%" />
-            <input class="bt1" type="button"   data-toggle="modal" data-target="#success" onclick="addClick(1)" style=" top: 42%;left:60%;width:24%;
-                      background:url(images/delete.png); background-size:100% 100%" />
-
-          </div><!--in-right-->
-
-        </div><!--/.index-->
+        </div><!--in-mid-->
 
 
-      </div><!-- /.row -->
+        <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
+          <img src="images/in-right3.png" width="100%"/>
+          <div style="position:absolute;top:0;width:100%">
+            <img src="images/dianziweilan.png" width="100%"/>
+          </div>
+          <div  class="p" style=" top: 10%; left: 38%;"><p id="info"></p></div>
 
-    </div><!-- /#page-wrapper -->
-    </div>
+          <!-- <input type="text" style="position:absolute;top: 14%; left: 50%; width:40%;height:3.5%"/>-->
+          <input type="text" style="position:absolute;top: 19%; left:40%; width:50%;height:3.5%" id="eFence"/>
+
+          <select style="position: absolute;top:23%;width: 50%; left:40%;" id="company">
+            <option value="上海成基公司">上海成基公司</option>
+            <option value="上海高架养护公司">上海高架养护公司</option>
+          </select>
+          <div  class="p" style=" top: 28%; left:40%;" id="inputMan"><p>XXX</p></div>
+          <div  class="p" style=" top: 32.5%; left:40%;" id="vehicles"><p>沪A5654</p></div>
+          <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:42%;left: 18%;width:24%;
+                      background:url(images/add.png); background-size:100% 100%" onclick="addClick(0)"/>
+          <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top: 42%;left:60%;width:24%;
+                      background:url(images/delete.png); background-size:100% 100%" onclick="addClick(1)" />
+
+        </div><!--in-right-->
+
+      </div><!--/.index-->
+
+
+    </div><!-- /.row -->
+
+  </div><!-- /#page-wrapper -->
+
+</div><!-- /#wrapper -->
+
 <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -228,6 +217,8 @@
     $("#base").dropdown('toggle');
   });
 </script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 <script type="text/javascript">
   var currentLng,currentLat;
   var polygon;//折线对象
@@ -242,7 +233,7 @@
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     var info=document.getElementById("info");
-    info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
+    info.innerHTML=(":("+e.point.lng+","+ e.point.lat+")");
     var point = new BMap.Point(e.point.lng, e.point.lat);
     map.panTo(point)
     marker = new BMap.Marker(point);// 创建标注
@@ -263,7 +254,7 @@
       success:function(data){
         $(data).each(function(index){
           points=eval(data[index].coords);
-         drawLine();
+          drawLine();
         })
         points=new Array();//清空
       }
@@ -366,10 +357,10 @@
     })
     map.addEventListener("click", function(e){
       var point=new BMap.Point(e.point.lng, e.point.lat);
-     /* if(BMapLib.GeoUtils.isPointInPolygon(point, polygon))
-        console.log(BMapLib.GeoUtils.getPolygonArea(polygon));
-      else
-        console.log("我不在范围内")*/
+      /* if(BMapLib.GeoUtils.isPointInPolygon(point, polygon))
+       console.log(BMapLib.GeoUtils.getPolygonArea(polygon));
+       else
+       console.log("我不在范围内")*/
     })
     map.clearOverlays();
     map.addOverlay(polygon);   //增加折线

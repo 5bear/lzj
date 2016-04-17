@@ -41,7 +41,7 @@ public class LineController extends BaseController{
     }
     @RequestMapping(value = "/line/add",method = RequestMethod.POST)
     @ResponseBody
-    public String add(HttpServletRequest request,@RequestParam(value = "realDistance")String realDistance,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,
+    public String add(HttpServletRequest request,@RequestParam(value = "realDistance")String realDistance,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,
                       @RequestParam(value = "direction")String direction, @RequestParam(value = "directionType")String directionType/*,@RequestParam(value = "remark")String remark*/){
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
@@ -56,6 +56,8 @@ public class LineController extends BaseController{
         line.setEndCoord(endCoord);
         line.setDirection(direction);
         line.setDirectionType(directionType);
+        line.setPackgeName(packageName);
+        line.setPackgeId(packageId);
         line.setInputMan(username);
       /*  line.setInputId(Long.parseLong(inputId));
         Account account =userDao.getById(Long.parseLong(inputId));
@@ -67,7 +69,7 @@ public class LineController extends BaseController{
 
     @RequestMapping(value = "/line/edit",method = RequestMethod.POST)
     @ResponseBody
-    public String edit(HttpServletRequest request,@RequestParam(value = "id")String id,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,/*,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,*/
+    public String edit(HttpServletRequest request,@RequestParam(value = "id")String id,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,/*,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,*/
                       @RequestParam(value = "direction")String direction,@RequestParam(value = "directionType")String directionType/*@RequestParam(value = "inputId")String inputId,*//*@RequestParam(value = "remark")String remark*/){
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
@@ -80,6 +82,8 @@ public class LineController extends BaseController{
         line.setDirection(direction);
         line.setDirectionType(directionType);
         line.setInputMan(username);
+        line.setPackgeId(packageId);
+        line.setPackgeName(packageName);
        /* line.setInputId(Long.parseLong(inputId));
         Account account =userDao.getById(Long.parseLong(inputId));
         line.setInputMan(account.getUsername());*/
@@ -132,5 +136,12 @@ public class LineController extends BaseController{
     public String getByCoords(@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "endCoord")String endCoord){
         Line line=lineDao.getByCoords(startCoord,endCoord);
         return JSONObject.fromObject(line).toString();
+    }
+    //通过包件id获取作业线路
+    @RequestMapping(value = "/line/getByPackage",method = RequestMethod.POST)
+    @ResponseBody
+    public String getByCoords(@RequestParam(value = "packageId")Long packageId){
+        List<Line> lineList=lineDao.getListByPackage(packageId);
+        return JSONArray.fromObject(lineList).toString();
     }
 }

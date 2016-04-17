@@ -14,6 +14,27 @@ public class Line {
     private String line;//线路名称
     private String startCoord;//开始坐标
 
+    private String packgeName;//所属包件
+
+    @Column()
+    public Long getPackgeId() {
+        return packgeId;
+    }
+
+    public void setPackgeId(Long packgeId) {
+        this.packgeId = packgeId;
+    }
+
+    @Column()
+    public String getPackgeName() {
+        return packgeName;
+    }
+
+    public void setPackgeName(String packgeName) {
+        this.packgeName = packgeName;
+    }
+
+    private Long packgeId;//包件id
     private Double lng;//定位
 
     @Column()
@@ -57,7 +78,7 @@ public class Line {
         this.realDistance = realDistance;
     }
 
-    private String realDistance;//实际路程
+    private String realDistance;//实际路程 精确到米
     @Column()
     public String getDirectionType() {
         return directionType;

@@ -200,7 +200,6 @@
     <jsp:param name="pageName" value="index"></jsp:param>
     <jsp:param name="pageFather" value="index"></jsp:param>
   </jsp:include>
-
   <div id="page-wrapper">
 
     <div class="row">
