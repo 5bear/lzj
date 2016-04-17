@@ -33,11 +33,13 @@ public class LoginController extends BaseController{
         HttpSession session= request.getSession();
         List<Account> accountList =userDao.getList();
         for(Account account : accountList){
-            if(username.equals(account.getUsername())){
+            if(username.equals(account.getAccount())){
                 if (password.equals(account.getPassword())) {
                     account.setLastLogin(simpleDateFormat.format(new Date()));
                     userDao.update(account);
-                    session.setAttribute("username",username);
+                    session.setAttribute("username",account.getUsername());
+                    session.setAttribute("power",account.getPower());
+                    session.setAttribute("company",account.getCompany());
                     return "success";
                 }
                 return "pwd_error";

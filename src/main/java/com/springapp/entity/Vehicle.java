@@ -15,7 +15,7 @@ public class Vehicle {
     private String vehicleLicence;//车辆牌照
     private String vehicleModel;//车辆型号
     private String eFence;//电子围栏
-    private Long eFenceId;//
+    private Long eFenceId;//??? 车载设备编号在哪里???
     private String remark;//备注
     private int isDelete;
     private String createTime;//添加时间

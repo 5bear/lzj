@@ -86,7 +86,7 @@
       <li <%if(pageFather.equals("management")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("management1")) {%>class="active"<%}%>><a href="User">用户管理</a></li>
+          <li <%if(pageName.equals("management1")) {%>class="active"<%}%>><a href="UserManage">用户管理</a></li>
           <li <%if(pageName.equals("management2")) {%>class="active"<%}%>><a href="Power">权限管理</a></li>
           <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="management3.html">网络状态</a></li>
         </ul>

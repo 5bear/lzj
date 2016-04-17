@@ -24,7 +24,7 @@
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
-
+  <script type="text/javascript" src="js/BMaplib.js"></script>
   <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
@@ -162,7 +162,7 @@
         <div id="in-right"><img src="images/in.png" width="100%"/>
           <p class="p" style="top:10%" id="info">(X,Y)</p>
 
-          <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;">
+          <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;" id="lineName">
           <select style="position: absolute; top: 28%;left: 35%; width: 32%;" id="company">
             <option value="上海成基公司">上海成基公司</option>
             <option value="上海高架养护公司">上海高架养护公司</option>
@@ -311,7 +311,7 @@
     var direction=$("#direction").val();
     var directionType=$("#directionType").val();
     var packageId=$("#package").val();
-    var packageName=$("#package").find([option="selected"]).value;
+    var packageName=$("#package").find("option:selected").text();
     var remark=$("#remark").val();
     console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
     var realDistance=BMapLib.GeoUtils.getPolylineDistance(polyline);
@@ -391,6 +391,7 @@
      */
     /* console.log(points)*/
     var driving = new BMap.DrivingRoute(map);    //创建驾车实例
+    var distance=0;
     for(var i=0;i<points.length-1;i++) {
       driving.search(points[i], points[i + 1])
       /* console.log(driving)*/
@@ -424,8 +425,12 @@
         })
       })
       map.addOverlay(polyline);
-      $("#realDistance").html(BMapLib.GeoUtils.getPolylineDistance(polyline));
+      console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
+      distance+=BMapLib.GeoUtils.getPolylineDistance(polyline);
+      console.log("d"+distance)
+      $("#realDistance").html(parseInt(distance));
     })
+    console.log("distance"+distance)
   }
   /*点数组转json*/
   function pointsTojson(points){

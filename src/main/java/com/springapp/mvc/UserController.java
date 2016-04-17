@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "**")
 public class UserController extends BaseController{
-    @RequestMapping(value = "/User",method = RequestMethod.GET)
+    @RequestMapping(value = "/UserManage",method = RequestMethod.GET)
     public ModelAndView home(){
         ModelAndView modelAndView=new ModelAndView();
         List<Account>accounts=userDao.getList();
@@ -25,7 +25,7 @@ public class UserController extends BaseController{
         modelAndView.setViewName("management1");
         return modelAndView;
     }
-    @RequestMapping(value = "/UserAdd",method = RequestMethod.GET)
+    @RequestMapping(value = "/User",method = RequestMethod.GET)
     public ModelAndView UserAdd(HttpServletRequest request){
         ModelAndView modelAndView=new ModelAndView();
         String id=request.getParameter("id");

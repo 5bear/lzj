@@ -12,12 +12,14 @@ public class Package {
     private Long id;
     private String company;//所属公司
     private String packageName;//包件名称
+    private Long realDistance;  //实际总里程
     private Long distance;//总里程
     private String roads;//包含路段名称
     private String inputMan;//录入人
     private Long inputId;//录入人id
     private int time;//次数
     private String remark;//备注
+    private int isDelete;
     private String createTime;//添加时间
     private String editTime;//修改时间
     private String deleteTime;//删除时间
@@ -63,6 +65,16 @@ public class Package {
     public void setDistance(Long distance) {
         this.distance = distance;
     }
+
+    @Column(length = 45,name = "realDistance")
+    public Long getRealDistance() {
+        return realDistance;
+    }
+
+    public void setRealDistance(Long realDistance) {
+        this.realDistance = realDistance;
+    }
+
     @Column(length = 255,name = "roads")
     public String getRoads() {
         return roads;
@@ -95,6 +107,11 @@ public class Package {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Column()
+    public int getIsDelete(){return isDelete;}
+    public void setIsDelete(int isDelete){this.isDelete=isDelete;}
+
     @Column(length = 45,name = "createTime")
     public String getCreateTime() {
         return createTime;

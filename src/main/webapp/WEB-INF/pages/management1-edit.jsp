@@ -94,7 +94,7 @@
 
     <div class="row">
       <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-        <button class="btn btn-default">提交</button>
+        <button class="btn btn-default" onclick="addUser()">提交</button>
         <button class="btn btn-default">取消</button>
       </div>
     </div>
@@ -118,16 +118,16 @@
     $("#remark").val('${account.remark}')
   })
   function addUser(){
-    var id=${account.id}
+    var id='${account.id}';
     var account=$("#account").val();
     var username=$("#username").val();
     var power=$("#power").val();
     var company=$("#company").val();
     var phoneNum=$("#phoneNum").val();
     var remark=$("#remark").val();
-    if(id==undefined){
+    if(id==''){
       $.ajax({
-        url:"add",
+        url:"User/add",
         type:"post",
         data:{account:account,username:username,power:power,company:company,phoneNum:phoneNum,remark:remark},
         success:function(data){
@@ -136,7 +136,7 @@
       })
     }else{
       $.ajax({
-        url:"edit",
+        url:"User/edit",
         type:"post",
         data:{id:'${account.id}',account:account,username:username,power:power,company:company,phoneNum:phoneNum,remark:remark},
         success:function(data){

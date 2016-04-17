@@ -79,7 +79,7 @@
                   <td>${account.phoneNum}</td>
                   <td>${account.lastLogin}</td>
                   <td>${account.remark}</td>
-                  <td><a href="management1-edit?id=${account.id}" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
+                  <td><a href="User?id=${account.id}" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
                     <a class="operation" data-toggle="modal" data-target="#delete" onclick="getID('${account.id}')"><img src="images/delete1.png" alt="删除"/>删除</a>
                   </td>
                 </tr>

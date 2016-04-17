@@ -52,6 +52,7 @@ public class Park {
     public void setTel(String tel) {
         this.tel = tel;
     }
+
     @Column(length = 45,name = "addr")
     public String getAddr() {
         return addr;
