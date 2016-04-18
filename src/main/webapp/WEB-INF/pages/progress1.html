@@ -244,44 +244,9 @@
                                         <td>15</td>
                                         <td>16</td>
                                     </tr>
-                                    <tr>
-                                        <td>有效作业率</td>
-                                        <td class="green"><a href="progress1-day.html">80</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="green"><a href="progress1-day.html">100</a></td>
-                                        <td class="yellow"><a href="progress1-day.html">70</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>匝道覆盖率</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                    </tr>
+                                    <tbody id="work">
+
+                                    </tbody>
                                     <tr>
                                         <td>日期</td>
                                         <td>17</td>
@@ -386,6 +351,25 @@
                 else if(obj == "month"){ window.location.href="progress1.html";}
                 else {window.location.href="progress1-year.html";}
             });
+            var work1="<tr><td>有效作业率</td>";
+            var zadao1="<tr><td>匝道覆盖率</td>";
+            var colour="";
+            for(var i=1;i<=16;i++){
+                if(i<=5)
+                    colour="red";
+                else if (i>5 && i<=10)
+                        colour = "yellow";
+                else
+                        colour = "green";
+                //alert(i+colour);
+                work1 +="<td class="+colour+"><a href='progress1-day.html'>"+i+"</a></td>" ;
+
+                zadao1 += " <td>" + 80 + "</td>" ;
+
+            }
+            work+="</tr>"
+            zadao1+="</tr>"
+            $("#work").html(work1+zadao1);
         </script>
   </body>
 </html>

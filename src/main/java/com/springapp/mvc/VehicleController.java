@@ -33,8 +33,8 @@ public class VehicleController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(value = "/index",method =RequestMethod.GET)
-    public ModelAndView list()
+    @RequestMapping(method=RequestMethod.GET)
+    public ModelAndView home()
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("VehicleIndex");
@@ -46,9 +46,13 @@ public class VehicleController extends BaseController {
     }
 
     @RequestMapping(value = "/add0")
-    public String add0()
+    @ResponseBody
+    public ModelAndView add0()
     {
-        return "VehicleAdd";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("VehicleAdd");
+        modelAndView.addObject("eFenceList", eFenceDao.getList());
+        return modelAndView;
     }
 
 

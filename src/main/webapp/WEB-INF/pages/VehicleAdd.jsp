@@ -38,14 +38,33 @@
         }
     </script>-->
 
+
+    <!--生成电子围栏的option标签,追加到select标签中-->
+    <script>
+        function load() {
+            var eFenceList="${eFenceList}";
+            for(var i=0;i<eFenceList.size();i++)
+            {
+                var eF=packageList.get(i).geteFence();
+                var opt=document.createElement("option");
+                opt.innerHTML=eF;
+                $("eFence").appendChild(opt);
+            }
+
+        }
+    </script>
+
 </head>
 
-<body>
+<body onload="load()">
 
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <jsp:include page="public.jsp" flush="true">
+        <jsp:param name="pageName" value="base2"></jsp:param>
+        <jsp:param name="pageFather" value="base"></jsp:param>
+    </jsp:include>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -190,7 +209,10 @@
                     </tr>
                     <tr>
                         <td>电子围栏</td>
-                        <td><input type="text" class="table-input" id="eFence"/></td>
+                        <td>
+                            <select id="eFence"></select>
+                        </td>
+                        <!--<td><input type="text" class="table-input" id="eFence"/></td>-->
                     </tr>
                     <tr>
                         <td>备注</td>
@@ -258,7 +280,7 @@
         var vehicleLicence=$("#vehicleLicence").val();
         var vehicleModel=$("#vehicleModel").val();
         var eFenceId=$("#eFenceId").val();
-        var eFence=$("#eFence").val();
+        var eFence=$("#eFence option:selected").text();
         var remark=$("#remark").val();
         var isDelete=$("#isDelete").val();
 

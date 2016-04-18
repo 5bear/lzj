@@ -60,7 +60,7 @@
                         <button class="btn btn-default" onclick="searchVehicle(document.getElementById('search').value)">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
+                        <a href="Vehicle/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">

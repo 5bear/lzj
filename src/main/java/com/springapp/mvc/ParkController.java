@@ -28,7 +28,7 @@ public class ParkController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(value = "/index",method =RequestMethod.GET)
+    @RequestMapping(method =RequestMethod.GET)
     public ModelAndView list()
     {
         System.out.println("index");

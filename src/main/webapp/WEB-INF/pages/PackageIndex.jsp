@@ -20,11 +20,11 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="../css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -32,8 +32,14 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
+    <jsp:include page="public.jsp" flush="true">
+        <jsp:param name="pageName" value="base4"></jsp:param>
+        <jsp:param name="pageFather" value="base"></jsp:param>
+    </jsp:include>
+
+
+
+    <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -41,32 +47,32 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+            <a class="navbar-brand" href="../index.html">上海市快速路养护监管系统</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="../index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="base1.html">停车场管理</a></li>
-                        <li><a href="base2.html">车辆管理</a></li>
-                        <li><a href="base3.html">RFID监测点管理</a></li>
-                        <li class="active"><a href="base4.html">包件信息管理</a></li>
-                        <li><a href="base5.html">电子围栏管理</a></li>
-                        <li><a href="base6.html">监管规则管理</a></li>
+                        <li><a href="../base1.html">停车场管理</a></li>
+                        <li><a href="../base2.html">车辆管理</a></li>
+                        <li><a href="../base3.html">RFID监测点管理</a></li>
+                        <li class="active"><a href="../base4.html">包件信息管理</a></li>
+                        <li><a href="../base5.html">电子围栏管理</a></li>
+                        <li><a href="../base6.html">监管规则管理</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="plan1.html">养护作业计划</a></li>
-                        <li><a href="plan2.html">作业线路管理</a></li>
-                        <li><a href="plan3.html">布点计划</a></li>
-                        <li><a href="plan4.html">驾驶员计划</a></li>
+                        <li><a href="../plan1.html">养护作业计划</a></li>
+                        <li><a href="../plan2.html">作业线路管理</a></li>
+                        <li><a href="../plan3.html">布点计划</a></li>
+                        <li><a href="../plan4.html">驾驶员计划</a></li>
                     </ul>
                 </li>
 
@@ -82,9 +88,9 @@
                 <li class="dropdown ">
                     <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="history1.html">历史轨迹查询</a></li>
-                        <li><a href="history2.html">历史视频查询</a></li>
-                        <li><a href="history3.html">异常查询</a></li>
+                        <li><a href="../history1.html">历史轨迹查询</a></li>
+                        <li><a href="../history2.html">历史视频查询</a></li>
+                        <li><a href="../history3.html">异常查询</a></li>
                     </ul>
                 </li>
 
@@ -101,9 +107,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="management1.html">用户管理</a></li>
-                        <li><a href="management2.html">权限管理</a></li>
-                        <li><a href="management3.html">网络状态图</a></li>
+                        <li><a href="../management1.html">用户管理</a></li>
+                        <li><a href="../management2.html">权限管理</a></li>
+                        <li><a href="../management3.html">网络状态图</a></li>
                     </ul>
                 </li>
 
@@ -113,7 +119,7 @@
                 <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
+                        <li><a href="../personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
                         <li class="divider"></li>
                         <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
                     </ul>
@@ -127,7 +133,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
+                    <li><a href="../index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 包件信息管理</li>
                 </ol>
             </div>
@@ -138,13 +144,13 @@
                 <div class="row">
                     <div class="col-lg-12 time-row text-right">
                         <div class="search-div">
-                            <img src="images/search1.png" alt="搜索"/>
+                            <img src="../images/search1.png" alt="搜索"/>
                             <input type="text"/>
                         </div>
                         <button class="btn btn-default" onclick="searchPackage()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="base4-edit.html" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
+                        <a href="add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">

@@ -26,7 +26,7 @@ import java.util.List;
 public class PackageController extends BaseController {
 
 
-    @RequestMapping(value = "/index",method =RequestMethod.GET)
+    @RequestMapping(method =RequestMethod.GET)
     public ModelAndView list()
     {
         ModelAndView modelAndView = new ModelAndView();

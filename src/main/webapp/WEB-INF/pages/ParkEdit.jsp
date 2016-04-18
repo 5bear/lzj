@@ -31,7 +31,10 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <jsp:include page="public.jsp" flush="true">
+        <jsp:param name="pageName" value="base1"></jsp:param>
+        <jsp:param name="pageFather" value="base"></jsp:param>
+    </jsp:include>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
