@@ -129,45 +129,277 @@
                     <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                         权限管理
                     </div>
-                    <div class="col-lg-6 col-lg-offset-3">
-                        <table class="table vertical-table">
-                            <tbody>
-                                <tr>
-                                    <td>用户名</td>
-                                    <td><input type="text" class="table-input"/></td>
-                                </tr>
-                                <tr>
-                                    <td>用户权限</td>
-                                    <td>
-                                        <select  type="text" class="table-input">
-                                            <option value="">超级管理员</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>所属部门</td>
-                                    <td><input type="text" class="table-input"/></td>
-                                </tr>
-                                <tr>
-                                    <td>联系电话</td>
-                                    <td><input type="text" class="table-input"/></td>
-                                </tr>
-                                <tr>
-                                    <td>备注</td>
-                                    <td><input type="text" class="table-input"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="table vertical-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="3" colspan="2" class="w200">用户权限</th>
+                                <th colspan="10">用户角色</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">系统管理员</th>
+                                <th colspan="2">领导</th>
+                                <th colspan="2">监理</th>
+                                <th colspan="2">养护公司管理</th>
+                                <th colspan="2">普通用户</th>
+                            </tr>
+                            <tr>
+                                <th>管理</th>
+                                <th>查看</th>
+                                <th>管理</th>
+                                <th>查看</th>
+                                <th>管理</th>
+                                <th>查看</th>
+                                <th>管理</th>
+                                <th>查看</th>
+                                <th>管理</th>
+                                <th>查看</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="6">基础数据</td>
+                                <td  class="table-th">停车场管理</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                            </tr>
+                            <tr>
+                                <td>车辆管理</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                            </tr>
+                            <tr>
+                                <td>RFID管理</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                            </tr>
+                            <tr>
+                                <td>包件管理</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                            </tr>
+                            <tr>
+                                <td>电子围栏</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                            </tr>
+                            <tr>
+                                <td>监控规则</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">计划管理</td>
+                                <td class="table-th">养护作业计划</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>作业路线管理</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>布点计划</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>驾驶员计划</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">进度管理</td>
+                                <td class="table-th">养护进度监控</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>实时监控</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>养护日志管理</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">历史数据</td>
+                                <td class="table-th">历史线路查询</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>历史视频查询</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>异常查询</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">其他</td>
+                                <td class="table-th">报表查询</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                            <tr>
+                                <td>网络状态</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man-fixed man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-green">yes</td>
+                                <td class="man man-yellow">no</td>
+                                <td class="man man-green">yes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-default float-right" id="save">编辑</button>
+                    <div class="col-lg-12 float-left">本表只有系统管理员能修改，点击编辑后出现下拉框可以更改yes与no，系统管理员不能改变自己的权限。</div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                        <button class="btn btn-default">提交</button>
-                        <button class="btn btn-default">取消</button>
-                    </div>
-                </div>
-
 
             </div><!-- /#page-wrapper -->
 
@@ -182,6 +414,26 @@
                 $("#management").dropdown('toggle');
             });
 
+            $("#save").click(function() {
+                var text = $(this).text();
+                if (text == "编辑") {
+                    $(this).text("保存");
+                    $(".man-green").html("<select class='table-input'><option value='1' selected='selected'>yes</option>" +
+                            "<option value='0'>no</option></select>");
+                    $(".man-yellow").html("<select class='table-input'><option value='1'>yes</option>" +
+                            "<option value='0' selected='selected'>no</option></select>");
+                    $(".man-fixed").html("yes");
+                } else {
+                    $(this).text("编辑");
+                    $(".man").each(function(){
+                        if($(this).children("select").children(":selected").text()=="yes"){
+                            $(this).html("yes").addClass("man-green").removeClass("man-yellow");
+                        } else{
+                            $(this).html("no").addClass("man-yellow").removeClass("man-green");
+                        }
+                    });
+                }
+            });
         </script>
   </body>
 </html>

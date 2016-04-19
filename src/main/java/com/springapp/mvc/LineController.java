@@ -47,8 +47,8 @@ public class LineController extends BaseController{
     @ResponseBody
     public String add(HttpServletRequest request,@RequestParam(value = "realDistance")String realDistance,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,
                       @RequestParam(value = "direction")String direction, @RequestParam(value = "directionType")String directionType/*,@RequestParam(value = "remark")String remark*/){
-        if(lineDao.isDuplicated(lineName))
-            return "duplicated";
+     /*   if(lineDao.isDuplicated(lineName))
+            return "duplicated";*/
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         Line line=new Line();
@@ -77,8 +77,8 @@ public class LineController extends BaseController{
     @ResponseBody
     public String edit(HttpServletRequest request,@RequestParam(value = "id")String id,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,/*,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,*/
                       @RequestParam(value = "direction")String direction,@RequestParam(value = "directionType")String directionType/*@RequestParam(value = "inputId")String inputId,*//*@RequestParam(value = "remark")String remark*/){
-        if(lineDao.isDuplicated(lineName))
-            return "duplicated";
+      /*  if(lineDao.isDuplicated(lineName))
+            return "duplicated";*/
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         Line line=lineDao.getById(Long.parseLong(id));

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,13 +39,28 @@ public class UserController extends BaseController{
         modelAndView.setViewName("management1-edit");
         return modelAndView;
     }
+    @RequestMapping(value = "/PersonalInfo",method = RequestMethod.GET)
+    public ModelAndView PersonalInfo(HttpServletRequest request){
+        ModelAndView modelAndView=new ModelAndView();
+        HttpSession session=request.getSession();
+        String user= (String) session.getAttribute("username");
+        try{
+            Account account=userDao.getByUsername(user);
+            modelAndView.addObject(account);
+        }catch (Exception e){
+            System.out.print("error");
+        }
+        modelAndView.setViewName("personalManagement");
+        return modelAndView;
+    }
     @RequestMapping(value = "/User/add",method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "power")String power,@RequestParam(value = "company")String company,
+    public String add(@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "password")String password,@RequestParam(value = "power")String power,@RequestParam(value = "company")String company,
                       @RequestParam(value = "phoneNum")String phoneNum,@RequestParam(value = "remark")String remark){
         Account a=new Account();
         a.setAccount(account);
         a.setUsername(username);
+        a.setPassword(password);
         a.setPower(power);
         a.setCompany(company);
         a.setPhoneNum(phoneNum);
@@ -54,11 +70,12 @@ public class UserController extends BaseController{
     }
     @RequestMapping(value = "/User/edit",method = RequestMethod.POST)
     @ResponseBody
-    public String edit(@RequestParam(value = "id")Long id,@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "power")String power,
+    public String edit(@RequestParam(value = "id")Long id,@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "password")String password,@RequestParam(value = "power")String power,
                        @RequestParam(value = "company")String company, @RequestParam(value = "phoneNum")String phoneNum,@RequestParam(value = "remark")String remark){
         Account a=userDao.getById(id);
         a.setAccount(account);
         a.setUsername(username);
+        a.setPassword(password);
         a.setPower(power);
         a.setCompany(company);
         a.setPhoneNum(phoneNum);
@@ -70,6 +87,26 @@ public class UserController extends BaseController{
     @ResponseBody
     public String delete(@RequestParam(value = "id")Long id){
         userDao.delete(Account.class,id);
+        return "success";
+    }
+    @RequestMapping(value = "/User/changePwd",method = RequestMethod.POST)
+    @ResponseBody
+    public String changePwd(@RequestParam(value = "id")Long id,@RequestParam(value = "newPwd")String newPwd){
+        Account account=userDao.getById(id);
+        account.setPassword(newPwd);
+        userDao.update(account);
+        return "success";
+    }
+    @RequestMapping(value = "/User/myEdit",method = RequestMethod.POST)
+    @ResponseBody
+    public String myEdit(@RequestParam(value = "id")Long id,@RequestParam(value = "username")String username,@RequestParam(value = "power")String power,
+                       @RequestParam(value = "company")String company, @RequestParam(value = "phoneNum")String phoneNum){
+        Account a=userDao.getById(id);
+        a.setUsername(username);
+        a.setPower(power);
+        a.setCompany(company);
+        a.setPhoneNum(phoneNum);
+        userDao.update(a);
         return "success";
     }
 }

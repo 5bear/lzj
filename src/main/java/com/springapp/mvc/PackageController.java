@@ -22,11 +22,11 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value = "/Package")
+@RequestMapping(value = "**")
 public class PackageController extends BaseController {
 
 
-    @RequestMapping(method =RequestMethod.GET)
+    @RequestMapping(value="/Package",method =RequestMethod.GET)
     public ModelAndView list()
     {
         ModelAndView modelAndView = new ModelAndView();
@@ -68,14 +68,14 @@ public class PackageController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/add0")
+    @RequestMapping(value = "/Package/add0")
     public String add0()
     {
         return "PackageAdd";
     }
 
 
-    @RequestMapping(value = "/add1")
+    @RequestMapping(value = "/Package/add1")
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "packageName") String packageName,
@@ -100,7 +100,7 @@ public class PackageController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/Package/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         Package pac = packageDao.getById(Long.parseLong(id));
@@ -110,7 +110,7 @@ public class PackageController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Package/edit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
@@ -136,7 +136,7 @@ public class PackageController extends BaseController {
 
 
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/Package/delete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Package pac = packageDao.getById(Long.parseLong(id));
@@ -147,7 +147,7 @@ public class PackageController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value="/search",method = RequestMethod.GET)
+    @RequestMapping(value="/Package/search",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
 
@@ -159,7 +159,7 @@ public class PackageController extends BaseController {
         modelAndView.addObject("search", search);
         return modelAndView;
     }
-    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    @RequestMapping(value = "/Package/get",method = RequestMethod.POST)
     @ResponseBody
     public String get(){
         List<Package> pacList = packageDao.getList();

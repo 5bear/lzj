@@ -66,7 +66,7 @@
       <li <%if(pageFather.equals("progress")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="MaintainProgress">养护进度监控</a></li>
+          <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="Progress1">养护进度监控</a></li>
           <li <%if(pageName.equals("progress2")) {%>class="active"<%}%>><a href="progress2.html">实时监控</a></li>
           <li <%if(pageName.equals("progress3")) {%>class="active"<%}%>><a href="progress3.html">养护日志管理</a></li>
         </ul>
@@ -106,7 +106,7 @@
       <li class="dropdown user-dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎,<%=username%> <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
+          <li><a href="PersonalInfo"><i class="fa fa-user"></i> 个人信息</a></li>
           <li class="divider"></li>
           <li><a href="login"><i class="fa fa-power-off"></i> 安全退出</a></li>
         </ul>

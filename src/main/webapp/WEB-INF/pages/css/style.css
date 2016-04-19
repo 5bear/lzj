@@ -9,7 +9,6 @@ a:hover, a:focus {
 
 .table {
     border: 1px solid #cccccc;
-    font-size: 14px;
 }
 
 th {
@@ -17,6 +16,7 @@ th {
     background-color: #0E618C;
     color: white;
     border-right: 1px solid #D4D3D1;
+    vertical-align: middle;
 }
 
 .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
@@ -61,7 +61,7 @@ td.going {
 select {
     background-color: #F2F2F2;
     padding: 3px 6px;
-    height: 30px;
+    height: 25px;
     border: none;
     margin-right: 10px;
     width: 150px;
@@ -290,4 +290,28 @@ select.table-input {
 .left-input {
     float: left;
     width: 80%;
+}
+
+.man-green {
+    color: #006B4A;
+}
+
+.man-yellow {
+    color: #FF7120;
+}
+
+table {
+    table-layout: fixed;
+}
+
+table thead tr th.w200 {
+    width: 200px;
+}
+
+.red-alert {
+    color: red;
+}
+
+.password-row table td:first-child {
+    width: 200px;
 }

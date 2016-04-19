@@ -170,8 +170,8 @@
           </select>
 
           <select style="position: absolute; top: 33.5%;left: 35%; width: 32%;" id="package">
-           <c:forEach items="${packages}" var="package">
-             <option value="${package.id}">${package.packageName}</option>
+           <c:forEach items="${packages}" var="item">
+             <option value="${item.id}">${item.packageName}</option>
            </c:forEach>
 
           </select>
@@ -190,9 +190,9 @@
             <option value="东侧">东侧</option>
             <option value="西侧">西侧</option>
           </select>
-          <p class="p1" style="top:52.5%;" id="startCoord">(X,Y)</p>
-          <p class="p1" style="top:58%;" id="endCoord">(X,Y)</p>
-          <p class="p1" style="top:65%;" id="realDistance">12348km</p>
+          <p class="p1" style="top:52.5%;" id="startCoord"></p>
+          <p class="p1" style="top:58%;" id="endCoord"></p>
+          <p class="p1" style="top:65%;" id="realDistance"></p>
           <input class="bt1" data-toggle="modal" data-target="#success" type="button" onclick="addClick(0)"  style=" top:72%;left: 18%;width:24%;
                       background:url(images/add.png); background-size:100% 100%" />
           <input class="bt1" type="button"   data-toggle="modal" data-target="#success" onclick="addClick(1)" style=" top:72%;left:60%;width:24%;
@@ -235,6 +235,7 @@
   var currentLng,currentLat;
   var polyline;//折线对象
   var marker;
+  var distance=0;
   var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   map.enableScrollWheelZoom();//允许放大缩放
@@ -304,7 +305,8 @@
     var packageName=$("#package").find("option:selected").text();
     var remark=$("#remark").val();
     console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
-    var realDistance=BMapLib.GeoUtils.getPolylineDistance(polyline);
+    var realDistance=parseInt(distance);
+    /*BMapLib.GeoUtils.getPolylineDistance(polyline);*/
     /* var inputMan=$("#inputMan").val();*/
     if(id==0) {
       console.log(id)
@@ -385,7 +387,6 @@
      */
     /* console.log(points)*/
     var driving = new BMap.DrivingRoute(map);    //创建驾车实例
-    var distance=0;
     for(var i=0;i<points.length-1;i++) {
       driving.search(points[i], points[i + 1])
       /* console.log(driving)*/
@@ -448,6 +449,9 @@
     var point=new BMap.Point(lng, lat);
     map.panTo(point);
   }
+  $('a[data-toggle="dropdown"]').click(function() {
+    $(this).nextAll().toggle();
+  });
 </script>
 
 </body>

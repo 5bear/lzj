@@ -275,8 +275,11 @@
         async :false,
         data: {lng:points[0].lng,lat:points[0].lat,coords: coords, eFenceName: eFence, company: company/*, inputMan: inputMan*/},
         success: function (data) {
-          if(data=="duplicated")
-          alert("电子围栏名称重复");
+          if(data=="duplicated"){
+            alert("电子围栏名称重复");
+            return false;
+          }
+
           location.reload(true);
         }
       })
@@ -288,8 +291,10 @@
         async :false,
         data:{id:id,lng:points[0].lng,lat:points[0].lat,coords:coords,eFenceName:eFence,company:company/*,inputMan:inputMan*/},
         success:function(data){
-          if(data=="duplicated")
+          if(data=="duplicated") {
             alert("电子围栏名称重复");
+            return false;
+          }
           location.reload(true);
         }
       })
@@ -311,6 +316,7 @@
   /*选点*/
   function choosePoint(){
     //地图点击事件,选择点
+    removeAll();
     points=new Array();
     map.addEventListener("click", function(e){
       var point=new BMap.Point(e.point.lng, e.point.lat);
@@ -380,7 +386,15 @@
   function panTo(lng,lat){
     var point=new BMap.Point(lng, lat);
     map.panTo(point);
+    map.setZoom(12);
   }
+  function removeAll(){
+    $("#eFence").val("");
+    $("#inputMan").val("");
+  }
+  $('a[data-toggle="dropdown"]').click(function() {
+    $(this).nextAll().toggle();
+  });
 </script>
 </body>
 </html>

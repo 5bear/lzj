@@ -66,6 +66,10 @@
             <td><input type="text" class="table-input" id="username"/></td>
           </tr>
           <tr>
+            <td>密码</td>
+            <td><input type="text" class="table-input" id="password"/></td>
+          </tr>
+          <tr>
             <td>用户权限</td>
             <td><select  class="table-input" id="power">
               <option value="系统管理员">系统管理员</option>
@@ -112,6 +116,7 @@
   $(document).ready(function(){
     $("#account").val('${account.account}')
     $("#username").val('${account.username}')
+    $("#password").val('${account.password}')
     $("#power").find("option[value="+'${account.power}'+"]").attr("selected",true);
     $("#company").val('${account.company}')
     $("#phoneNum").val('${account.phoneNum}')
@@ -121,6 +126,7 @@
     var id='${account.id}';
     var account=$("#account").val();
     var username=$("#username").val();
+    var password=$("#password").val();
     var power=$("#power").val();
     var company=$("#company").val();
     var phoneNum=$("#phoneNum").val();
@@ -129,8 +135,12 @@
       $.ajax({
         url:"User/add",
         type:"post",
-        data:{account:account,username:username,power:power,company:company,phoneNum:phoneNum,remark:remark},
+        data:{account:account,username:username,password:password,power:power,company:company,phoneNum:phoneNum,remark:remark},
         success:function(data){
+          if(data=="duplicated"){
+            alert("账号或用户名重复")
+            return false;
+          }
           location.reload(true)
         }
       })
@@ -138,8 +148,12 @@
       $.ajax({
         url:"User/edit",
         type:"post",
-        data:{id:'${account.id}',account:account,username:username,power:power,company:company,phoneNum:phoneNum,remark:remark},
+        data:{id:'${account.id}',account:account,username:username,password:password,power:power,company:company,phoneNum:phoneNum,remark:remark},
         success:function(data){
+          if(data=="duplicated"){
+            alert("账号或用户名重复")
+            return false;
+          }
           location.reload(true)
         }
       })

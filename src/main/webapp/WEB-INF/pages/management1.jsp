@@ -53,7 +53,7 @@
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-12 time-row">
-            <a href="management1-edit.html" class="add-operation"><img src="images/add1.png" alt="增加"/>新增用户</a>
+            <a href="User" class="add-operation"><img src="images/add1.png" alt="增加"/>新增用户</a>
           </div>
           <div class="col-lg-12 text-center">
             <table class="table">
@@ -61,6 +61,7 @@
               <tr>
                 <th>账号</th>
                 <th>用户名</th>
+                <th>密码</th>
                 <th>用户权限</th>
                 <th>所属部门</th>
                 <th>联系电话</th>
@@ -74,6 +75,7 @@
                 <tr>
                   <td>${account.account}</td>
                   <td>${account.username}</td>
+                  <td>${account.password}</td>
                   <td>${account.power}</td>
                   <td>${account.company}</td>
                   <td>${account.phoneNum}</td>
@@ -84,7 +86,7 @@
                   </td>
                 </tr>
               </c:forEach>
-              <tr>
+             <%-- <tr>
                 <td>XXX</td>
                 <td>XXX</td>
                 <td>超级管理员</td>
@@ -95,7 +97,7 @@
                 <td><a href="management1-edit.html" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
                   <a class="operation" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除"/>删除</a>
                 </td>
-              </tr>
+              </tr>--%>
               </tbody>
             </table>
           </div>

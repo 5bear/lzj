@@ -37,103 +37,12 @@
         <jsp:param name="pageFather" value="base"></jsp:param>
     </jsp:include>
 
-
-
-    <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../index.html">上海市快速路养护监管系统</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
-                <li><a href="../index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../base1.html">停车场管理</a></li>
-                        <li><a href="../base2.html">车辆管理</a></li>
-                        <li><a href="../base3.html">RFID监测点管理</a></li>
-                        <li class="active"><a href="../base4.html">包件信息管理</a></li>
-                        <li><a href="../base5.html">电子围栏管理</a></li>
-                        <li><a href="../base6.html">监管规则管理</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../plan1.html">养护作业计划</a></li>
-                        <li><a href="../plan2.html">作业线路管理</a></li>
-                        <li><a href="../plan3.html">布点计划</a></li>
-                        <li><a href="../plan4.html">驾驶员计划</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="progress1.html">养护进度监控</a></li>
-                        <li><a href="progress2.html">实时监控</a></li>
-                        <li><a href="progress3.html">养护日志管理</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown ">
-                    <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../history1.html">历史轨迹查询</a></li>
-                        <li><a href="../history2.html">历史视频查询</a></li>
-                        <li><a href="../history3.html">异常查询</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                        <li><a href="reports2.html">养护车辆作业区域</a></li>
-                        <li><a href="reports3.html">养护车辆作业情况</a></li>
-                        <li><a href="reports4.html">养护车辆超速</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../management1.html">用户管理</a></li>
-                        <li><a href="../management2.html">权限管理</a></li>
-                        <li><a href="../management3.html">网络状态图</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right navbar-user">
-                <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-
     <div id="page-wrapper">
 
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="../index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
+                    <li><a href="index"><i class="icon-dashboard"></i> 基础数据</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 包件信息管理</li>
                 </ol>
             </div>
@@ -150,7 +59,7 @@
                         <button class="btn btn-default" onclick="searchPackage()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
+                        <a href="Package/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -169,19 +78,19 @@
                             </thead>
                             <tbody>
 
-                            <c:forEach items="${PackageList}" var="package">
+                            <c:forEach items="${PackageList}" var="item">
                                 <tr>
-                                    <td>${package.company}</td>
-                                    <td>${package.packageName}</td>
-                                    <td>${package.distance}</td>
-                                    <td>${package.realDistance}</td>
-                                    <td>${package.roads}</td>
-                                    <td>${package.inputMan}</td>
-                                    <td>${package.time}</td>
-                                    <td>${package.remark}</td>
+                                    <td>${item.company}</td>
+                                    <td>${item.packageName}</td>
+                                    <td>${item.distance}</td>
+                                    <td>${item.realDistance}</td>
+                                    <td>${item.roads}</td>
+                                    <td>${item.inputMan}</td>
+                                    <td>${item.time}</td>
+                                    <td>${item.remark}</td>
                                     <td>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPackage('${package.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deletePackage(${package.id})">删除</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPackage('${item.id}')">编辑</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deletePackage(${item.id})">删除</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -241,14 +150,9 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
-<script>
-    $(function(){
-        $("#base").dropdown('toggle');
-    });
-</script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 
 <script type="text/javascript">
 
