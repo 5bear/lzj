@@ -4,27 +4,22 @@ package com.springapp.mvc;
  * Created by yanglin on 16/4/13.
  */
 
-import com.springapp.dao.VehicleDao;
 import com.springapp.entity.Vehicle;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 
 
 
 @Controller
-@RequestMapping(value = "/Vehicle")
+@RequestMapping(value = "**")
 public class VehicleController extends BaseController {
     /*@RequestMapping(value = "/index",method =RequestMethod.GET)
     public ModelAndView home() {
@@ -33,7 +28,7 @@ public class VehicleController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(value="/Vehicle",method=RequestMethod.GET)
     public ModelAndView home()
     {
         ModelAndView modelAndView = new ModelAndView();
@@ -45,7 +40,7 @@ public class VehicleController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/add0")
+    @RequestMapping(value = "/Vehicle/add0")
     @ResponseBody
     public ModelAndView add0()
     {
@@ -56,17 +51,19 @@ public class VehicleController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/add1")
+    @RequestMapping(value = "/Vehicle/add1")
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                       @RequestParam(value = "vehicleType") String vehicleType,
                       @RequestParam(value = "vehicleLicence") String vehicleLicence,
                       @RequestParam(value = "vehicleModel") String vehicleModel,
-                      @RequestParam(value = "eFenceId") String eFenceId,
+                      @RequestParam(value = "OBUId") String OBUId,
                       @RequestParam(value = "eFence") String eFence,
-                      @RequestParam(value = "remark") String remark,
-                      @RequestParam(value="isDelete") String isDelete)
+                       @RequestParam(value="eFenceId") String eFenceId,
+                      @RequestParam(value = "remark") String remark/*,
+                      @RequestParam(value="isDelete") String isDelete*/)
     {
+
 
         Vehicle vehicle = new Vehicle();
         vehicle.setCompany(company);
@@ -75,8 +72,9 @@ public class VehicleController extends BaseController {
         vehicle.setVehicleModel(vehicleModel);
         vehicle.seteFenceId(Long.parseLong(eFenceId));
         vehicle.seteFence(eFence);
+        vehicle.setOBUId(Long.parseLong(OBUId));
         vehicle.setRemark(remark);
-        vehicle.setIsDelete(Integer.parseInt(isDelete));
+        vehicle.setIsDelete(0);
         vehicle.setCreateTime(simpleDateFormat.format(new Date()));
 
 
@@ -84,17 +82,18 @@ public class VehicleController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/Vehicle/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         Vehicle vehicle = vehicleDao.getById(Long.parseLong(id));
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("VehicleEdit");
         modelAndView.addObject("Vehicle_edit", vehicle);
+        modelAndView.addObject("eFenceList", eFenceDao.getList());
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Vehicle/edit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                      @RequestParam(value = "company") String company,
@@ -120,7 +119,7 @@ public class VehicleController extends BaseController {
 
 
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/Vehicle/delete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Vehicle vehicle=vehicleDao.getById(Long.parseLong(id));
@@ -131,7 +130,8 @@ public class VehicleController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value="/search",method = RequestMethod.GET)
+    //利用所属公司或者车辆类型进行关键字查询
+    @RequestMapping(value="/Vehicle/search",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         //byte bb[];

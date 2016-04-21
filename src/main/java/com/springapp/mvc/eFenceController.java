@@ -1,5 +1,6 @@
 package com.springapp.mvc;
 
+import com.springapp.entity.Vehicle;
 import com.springapp.entity.eFence;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -114,6 +115,16 @@ public class eFenceController extends BaseController {
     @ResponseBody
     public String getByCoords(@RequestParam(value = "coords")String coords){
         eFence eFence= eFenceDao.getByCoords(coords);
+        List<Vehicle>vehicleList=vehicleDao.getByeFence(eFence.getId());
+        String vehicles="";
+        String vehicleIds="";
+        for(Vehicle vehicle:vehicleList){
+            vehicleIds+=vehicle.getId();
+            vehicles+=vehicle.getVehicleLicence();
+        }
+        eFence.setVehicleIds(vehicleIds);
+        eFence.setVehicles(vehicles);
+        eFenceDao.update(eFence);
         return JSONObject.fromObject(eFence).toString();
     }
     @RequestMapping(value = "/getIdByCoords",method = RequestMethod.POST)

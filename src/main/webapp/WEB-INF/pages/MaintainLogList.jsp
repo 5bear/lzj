@@ -2,12 +2,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: yanglin
-  Date: 16/4/17
-  Time: 上午0:34
+  Date: 16/4/19
+  Time: 下午10:15
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -34,58 +33,58 @@
 
     <!-- Sidebar -->
     <jsp:include page="public.jsp" flush="true">
-        <jsp:param name="pageName" value="base1"></jsp:param>
-        <jsp:param name="pageFather" value="base"></jsp:param>
+        <jsp:param name="pageName" value="progress3"></jsp:param>
+        <jsp:param name="pageFather" value="progress"></jsp:param>
     </jsp:include>
-
 
     <div id="page-wrapper">
 
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
-                    <li class="active"><i class="icon-file-alt"></i> 停车场管理</li>
+                    <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
+                    <li class="active"><i class="icon-file-alt"></i> 养护日志管理</li>
                 </ol>
             </div>
         </div><!-- /.row -->
 
-        <div class="row">
-            <div class="col-lg-12">
+
+    </div>
+
+            <div class="col-lg-9">
+
+
                 <div class="row">
-                    <div class="col-lg-12 time-row text-right">
-                        <div class="search-div">
-                            <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" value="${search}"/>
-                        </div>
-                        <button class="btn btn-default" onclick="searchPark(document.getElementById('search').value)">搜索</button>
-                    </div>
-                    <div class="col-lg-12 time-row">
-                        <a href="Park/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增停车场信息</a>
+                    <div class="col-lg-6 col-lg-offset-3 time-row">
+
+                        <a href="../MaintainLog" class="operation"><< 返回</a>
+
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>所属养护公司</th>
-                                <th>停车场名称</th>
-                                <th>联系电话</th>
-                                <th>地址</th>
-                                <th>服务器IP地址</th>
+                                <th>编号</th>
+                                <th>车辆牌照</th>
+                                <th>负责人</th>
+                                <th>路段信息</th>
+                                <th>事件类型</th>
+                                <th>日期</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${ParkList}" var="park">
+                            <c:forEach items="${MaintainLogList}" var="maintainLog">
                                 <tr>
-                                    <td>${park.company}</td>
-                                    <td>${park.parkName}</td>
-                                    <td>${park.tel}</td>
-                                    <td>${park.addr}</td>
-                                    <td>${park.serverIP}</td>
+                                    <td>${maintainLog.id}</td>
+                                    <td>${maintainLog.vehicleLicence}</td>
+                                    <td>${maintainLog.principal}</td>
+                                    <td>${maintainLog.road}</td>
+                                    <td>${maintainLog.eventType}</td>
+                                    <td>${maintainLog.dayTime}</td>
                                     <td>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPark('${park.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deletePark('${park.id}')">删除</button>
+                                        <button class="btn btn-default" onclick="MaintainLog_detail('${maintainLog.id}')">详细</button>
+                                        <button class="btn btn-default" onclick="deleteMaintainLog('${maintainLog.id}')">删除</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -93,24 +92,21 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="row text-right">
+                    <ul class="page">
+                        <li><a href="#"><</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">></a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+</div>
 
-        <div class="row text-right">
-            <ul class="page">
-                <li><a href="#"><</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">></a></li>
-            </ul>
-        </div>
-
-    </div><!-- /#page-wrapper -->
-
-</div><!-- /#wrapper -->
 
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog">
@@ -135,23 +131,28 @@
 <script src="../js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
-        $("#base").dropdown('toggle');
+        $("#progress").dropdown('toggle');
+    });
+
+
+    $('a[data-toggle="dropdown"]').click(function() {
+        $(this).nextAll().toggle();
     });
 </script>
 
 <script type="text/javascript">
 
-    function editPark(id)
+    function MaintainLog_detail(id)
     {
-        location.href="Park/edit?id="+id;
+        location.href="detail?id="+id;
 
 
     }
-    function deletePark(id)
+    function deleteMaintainLog(id)
     {
         alert("delete");
         $.ajax({
-            url:"Park/delete",
+            url:"delete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -165,13 +166,8 @@
         })
     }
 
-    function searchPark(search)
-    {
-        location.href="Park/search?search="+search;
-    }
-
 </script>
-
 
 </body>
 </html>
+

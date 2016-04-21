@@ -17,7 +17,7 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
     <link href="../css/sb-admin.css" rel="stylesheet">
@@ -53,10 +53,10 @@
                 <div class="row">
                     <div class="col-lg-12 time-row text-right">
                         <div class="search-div">
-                            <img src="../images/search1.png" alt="搜索"/>
-                            <input type="text"/>
+                            <img src="images/search1.png" alt="搜索"/>
+                            <input type="text" id="search" value="${search}"/>
                         </div>
-                        <button class="btn btn-default" onclick="searchPackage()">搜索</button>
+                        <button class="btn btn-default" onclick="searchPackage(document.getElementById('search').value)">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
                         <a href="Package/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
@@ -150,22 +150,23 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+<script src="../js/jquery-1.10.2.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/jquery.datetimepicker.js"></script>
 
 <script type="text/javascript">
 
     function editPackage(id)
     {
-        location.href="edit?id="+id;
+        location.href="Package/edit?id="+id;
 
 
     }
     function deletePackage(id)
     {
+        alert("delete");
         $.ajax({
-            url:"delete",
+            url:"Package/delete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -181,7 +182,7 @@
 
     function searchPackage(search)
     {
-        location.href="search?search="+search;
+        location.href="Package/search?search="+search;
     }
 
 </script>

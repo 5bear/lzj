@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yanglin
@@ -26,37 +27,9 @@
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="stylesheet" href="../css/panel-dropdown.css"/>
 
-    <!--<script type="text/javascript">
-        //添加用户
-        function addVehicle() {
-            var form = document.forms[0];
-            form.action = "${pageContext.request.contextPath}/Vehicle/add1";
-            //form.action = "${pageContext.request.contextPath}/user/addUser2";
-            //form.action = "${pageContext.request.contextPath}/user/addUser3";
-            form.method = "post";
-            form.submit();
-        }
-    </script>-->
-
-
-    <!--生成电子围栏的option标签,追加到select标签中-->
-    <script>
-        function load() {
-            var eFenceList="${eFenceList}";
-            for(var i=0;i<eFenceList.size();i++)
-            {
-                var eF=packageList.get(i).geteFence();
-                var opt=document.createElement("option");
-                opt.innerHTML=eF;
-                $("eFence").appendChild(opt);
-            }
-
-        }
-    </script>
-
 </head>
 
-<body onload="load()">
+<body>
 
 <div id="wrapper">
 
@@ -65,101 +38,12 @@
         <jsp:param name="pageName" value="base2"></jsp:param>
         <jsp:param name="pageFather" value="base"></jsp:param>
     </jsp:include>
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../index.html">上海市快速路养护监管系统</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
-                <li><a href="../index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../base1.html">停车场管理</a></li>
-                        <li class="active"><a href="../base2.html">车辆管理</a></li>
-                        <li><a href="../base3.html">RFID监测点管理</a></li>
-                        <li><a href="../base4.html">包件信息管理</a></li>
-                        <li><a href="../base5.html">电子围栏管理</a></li>
-                        <li><a href="../base6.html">监管规则管理</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../plan1.html">养护作业计划</a></li>
-                        <li><a href="../plan2.html">作业线路管理</a></li>
-                        <li><a href="../plan3.html">布点计划</a></li>
-                        <li><a href="../plan4.html">驾驶员计划</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../progress1.html">养护进度监控</a></li>
-                        <li><a href="../progress2.html">实时监控</a></li>
-                        <li><a href="../progress3.html">养护日志管理</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown ">
-                    <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../history1.html">历史轨迹查询</a></li>
-                        <li><a href="../history2.html">历史视频查询</a></li>
-                        <li><a href="../history3.html">异常查询</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../reports1.html">牵引车辆位置报表</a></li>
-                        <li><a href="../reports2.html">养护车辆作业区域</a></li>
-                        <li><a href="../reports3.html">养护车辆作业情况</a></li>
-                        <li><a href="../reports4.html">养护车辆超速</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../management1.html">用户管理</a></li>
-                        <li><a href="../management2.html">权限管理</a></li>
-                        <li><a href="../management3.html">网络状态图</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right navbar-user">
-                <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-
     <div id="page-wrapper">
 
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="../index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
+                    <li><a href="index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 车辆管理</li>
                 </ol>
             </div>
@@ -167,7 +51,8 @@
 
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
-                <a href="javascript:history.back();" class="operation"><< 返回</a>
+                <!--<a href="javascript:history.back();" class="operation"><< 返回</a>-->
+                <a href="../Vehicle" class="operation"><< 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 车辆管理信息录入
@@ -205,12 +90,17 @@
                     </tr>
                     <tr>
                         <td>车载设备编号</td>
-                        <td><input type="text" class="table-input" id="eFenceId"/></td>
+                        <td><input type="text" class="table-input" id="OBUId"/></td>
                     </tr>
                     <tr>
                         <td>电子围栏</td>
                         <td>
-                            <select id="eFence"></select>
+                            <!--<select id="eFence"></select>-->
+                            <select id="eFence">
+                                <c:forEach items="${eFenceList}" var="eFence">
+                                    <option value="${eFence.id}">${eFence.eFence}</option>
+                                </c:forEach>
+                            </select>
                         </td>
                         <!--<td><input type="text" class="table-input" id="eFence"/></td>-->
                     </tr>
@@ -218,9 +108,9 @@
                         <td>备注</td>
                         <td><input type="text" class="table-input" id="remark"/></td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td><input id="isDelete" type="hidden" value="0"/></td>
-                    </tr>
+                    </tr>-->
 
                     <input name="msg1" type="hidden" value="123"/>
                     </tbody>
@@ -279,10 +169,11 @@
 
         var vehicleLicence=$("#vehicleLicence").val();
         var vehicleModel=$("#vehicleModel").val();
-        var eFenceId=$("#eFenceId").val();
+        var OBUId=$("#OBUId").val();
         var eFence=$("#eFence option:selected").text();
+        var eFenceId=$("#eFence option:selected").val();
         var remark=$("#remark").val();
-        var isDelete=$("#isDelete").val();
+        //var isDelete=$("#isDelete").val();
 
         //alert("dsdsd");
         $.ajax({
@@ -292,10 +183,11 @@
                   vehicleType:vehicleType,
                  vehicleLicence:vehicleLicence,
                   vehicleModel:vehicleModel,
-                  eFenceId:eFenceId,
+                  OBUId:OBUId,
                   eFence:eFence,
-                  remark:remark,
-                  isDelete:isDelete
+                  eFenceId:eFenceId,
+                  remark:remark/*,
+                  isDelete:isDelete*/
             },
             success:function(data){
 

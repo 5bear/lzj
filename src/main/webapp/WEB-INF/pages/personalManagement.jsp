@@ -60,7 +60,7 @@
           </tr>
           <tr>
             <td>用户权限</td>
-            <td class="vertical-table-content" id="power">${account.power}</td>
+            <td class="vertical-table-select" id="power">${account.power}</td>
           </tr>
           <tr>
             <td>所属部门</td>
@@ -128,12 +128,17 @@
 <script>
   $("#save").click(function() {
     var text = $(this).text();
-    if (text == "编辑信息") {
+    if (text == "编辑信息"){
       $(this).text("保存信息");
       $(".vertical-table-content").each(function() {
         var val =  $(this).text();
         this.innerHTML = "<input class='table-input' name='info' value='"+ val + "'>";
       });
+      $(".vertical-table-select").html("<select class='table-input' name='info'><option value='系统管理员'>系统管理员</option>" +
+      "<option value='领导'>领导</option>" +
+      "<option value='监理'>监理</option>" +
+      "<option value='养护公司管理'>养护公司管理</option>" +
+      "<option value='普通用户'>普通用户</option></select>");
     } else {
       $(this).text("编辑信息");
       edit();
@@ -141,6 +146,7 @@
         var val =  $(this).children().val();
         this.innerHTML = val;
       });
+      $(".vertical-table-select").html($(".vertical-table-select select option:selected").text());
     }
   });
   function changePwd(){

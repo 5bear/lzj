@@ -115,7 +115,7 @@ public class PackageController extends BaseController {
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
                         @RequestParam(value = "packageName") String packageName,
-                        @RequestParam(value = "roads") String roads,
+                        //@RequestParam(value = "roads") String roads,
                         @RequestParam(value = "distance") String distance,
                         @RequestParam(value = "inputMan") String inputMan,
                         @RequestParam(value = "time") String time,
@@ -124,7 +124,7 @@ public class PackageController extends BaseController {
         Package pac = packageDao.getById(Long.parseLong(id));
         pac.setCompany(company);
         pac.setPackageName(packageName);
-        pac.setRoads(roads);
+        //pac.setRoads(roads);
         pac.setDistance(Long.parseLong(distance));
         pac.setInputMan(inputMan);
         pac.setTime(Integer.parseInt(time));
@@ -147,6 +147,7 @@ public class PackageController extends BaseController {
         return "success";
     }
 
+    //根据所属公司进行模糊查询
     @RequestMapping(value="/Package/search",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {

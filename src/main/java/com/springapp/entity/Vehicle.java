@@ -15,7 +15,8 @@ public class Vehicle {
     private String vehicleLicence;//车辆牌照
     private String vehicleModel;//车辆型号
     private String eFence;//电子围栏
-    private Long eFenceId;//??? 车载设备编号在哪里???
+    private Long eFenceId;//
+    private Long OBUId;//车载设备编号
     private String remark;//备注
     private int isDelete;
     private String createTime;//添加时间
@@ -43,6 +44,17 @@ public class Vehicle {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Column(name = "OBUId")
+    public Long getOBUId() {
+        return OBUId;
+    }
+
+    public void setOBUId(Long OBUId) {
+        this.OBUId = OBUId;
+    }
+
+
     @Column(name = "eFenceId")
     public Long geteFenceId() {
         return eFenceId;
@@ -51,6 +63,8 @@ public class Vehicle {
     public void seteFenceId(Long eFenceId) {
         this.eFenceId = eFenceId;
     }
+
+
     @Column(length = 45,name = "company")
     public String getCompany() {
         return company;

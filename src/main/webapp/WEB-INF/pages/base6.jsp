@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -32,7 +33,7 @@
 
   <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
-<jsp:param name="pageName" value="base6"></jsp:param>
+    <jsp:param name="pageName" value="base6"></jsp:param>
     <jsp:param name="pageFather" value="base"></jsp:param>
   </jsp:include>
 
@@ -128,6 +129,13 @@
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
 
+  $('#StartTime1').datetimepicker({
+    lang:'ch',
+    timepicker:false,
+    format:"Y-m-d",
+    yearStart: 2016,
+    yearEnd: 2050
+  });
 
   $(function(){
     $("#base").dropdown('toggle');
@@ -192,9 +200,20 @@
       "<tr> <td>巡视车</td>" +
       " <td class='vertical-table-content'><input class='left-input' id='ViewCarSpeed1'value=" + ViewCarSpeed + "></span><span id='ViewCarSpeed2'>km/h</span></td> </tr>");
       $("#Times").html("<tr> <td colspan='2'>超速记录阈值</td> <td class='vertical-table-content'><input class='left-input' id='Times1'value=" + Times + "></span><span id='Times2'>次</span></td> </tr>");
-      $("#StartTime").html("<tr> <td colspan='2'>封道开始时间</td> <td id='table-hour1' class='vertical-table-content'><input class='left-input' id='StartTime1'value=" + StartTime + "></span><span id='StartTime2'></span></td> </tr>");
-      $("#EndTime").html("<tr> <td colspan='2'>封道结束时间</td> <td id='table-hour2' class='vertical-table-content'><input class='left-input' id='EndTime1'value=" + EndTime + "></span><span id='EndTime2'></span></td> </tr>");
+      $("#StartTime").html("<tr> <td colspan='2'>封道开始时间</td> <td id='table-hour1' class='vertical-table-content'><input class='left-input' id='StartTime1' value=" + StartTime + "></span><span id='StartTime2'></span></td> </tr>");
+      $("#EndTime").html("<tr> <td colspan='2'>封道结束时间</td> <td id='table-hour2' class='vertical-table-content'><input class='left-input' id='EndTime1' value=" + EndTime + "></span><span id='EndTime2'></span></td> </tr>");
 
+      $('#StartTime1').datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        step: 5
+      });
+
+      $('#EndTime1').datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        step: 5
+      });
     }
     else {
       var CleanCarDeviate = document.getElementById("CleanCarDeviate1").value;
@@ -206,64 +225,91 @@
       var Times = document.getElementById("Times1").value;
       var StartTime = document.getElementById("StartTime1").value;
       var EndTime = document.getElementById("EndTime1").value;
-      document.getElementById("button").innerHTML = "更改";
 
-      $("#Deviate").html("<tr> <td rowspan='3'>车辆偏离容差</td> " +
-      "<td class='table-th'>清扫车</td>" +
-      "<td class='vertical-table-content'> <span id='CleanCarDeviate1'>" + CleanCarDeviate + "</span> <span id='CleanCarDeviate2'>m</span> </td> </tr>" +
-      "<tr> <td>牵引车</td>" +
-      "<td class='vertical-table-content'><span id='PullCarDeviate1'>" + PullCarDeviate + "</span><span id='PullCarDeviate2'>m</span></td></tr>" +
-      "<tr> <td>巡视车</td>" +
-      "<td class='vertical-table-content'><span id='ViewCarDeviate1'>" + ViewCarDeviate + "</span> <span id='ViewCarDeviate2'>m</span></td> </tr>");
+      var validArray = [];
+      validArray.push(CleanCarDeviate);
+      validArray.push(PullCarDeviate);
+      validArray.push(ViewCarDeviate);
+      validArray.push(CleanCarSpeed);
+      validArray.push(PullCarSpeed);
+      validArray.push(ViewCarSpeed);
+      validArray.push(Times);
 
-      $("#Speed").html("<tr> <td rowspan='3'>车辆最大车速</td> " +
-      "<td class='table-th'>清扫车</td>" +
-      "<td class='vertical-table-content'><span id='CleanCarSpeed1'>" + CleanCarSpeed + "</span><span id='CleanCarSpeed2'>km/h</span></td> </tr>" +
-      "<tr> <td>牵引车</td>" +
-      " <td class='vertical-table-content'><span id='PullCarSpeed1'>" + PullCarSpeed + "</span><span id='PullCarSpeed2'>km/h</span></td> </tr>" +
-      "<tr> <td>巡视车</td>" +
-      " <td class='vertical-table-content'><span id='ViewCarSpeed1'>" + ViewCarSpeed + "</span><span id='ViewCarSpeed2'>km/h</span></td> </tr>");
-      $("#Times").html("<tr> <td colspan='2'>超速记录阈值</td> <td class='vertical-table-content'><span id='Times1'>" + Times + "</span><span id='Times2'>次</span></td> </tr>");
-      $("#StartTime").html("<tr> <td colspan='2'>封道开始时间</td > <td id='table-hour1' class='vertical-table-content'><span id='StartTime1'>" + StartTime + "</span><span id='StartTime2'></span></td> </tr>");
-      $("#EndTime").html("<tr> <td colspan='2'>封道结束时间</td> <td id='table-hour2' class='vertical-table-content'><span id='EndTime1'>" + EndTime + "</span><span id='EndTime2'></span></td> </tr>");
+      if (valid(validArray) && (StartTime != "") && (EndTime != "")) {
+        document.getElementById("button").innerHTML = "更改";
 
-      $.ajax({
-        url: "/Rules/edit",
-        type: "post",
-        dataType: "json",
-        data: {
-          CleanCarDeviate1: CleanCarDeviate,
-          PullCarDeviate1: PullCarDeviate,
-          ViewCarDeviate1: ViewCarDeviate,
-          CleanCarSpeed1: CleanCarSpeed,
-          PullCarSpeed1: PullCarSpeed,
-          ViewCarSpeed1: ViewCarSpeed,
-          Times1: Times,
-          StartTime1: StartTime,
-          EndTime1: EndTime
-        },
-        success: function (data) {
-        }
-      })
-      /*var obj = $(this).text();
-       if (obj == "更改"){
-       $(this).text("保存");
-       $(".vertical-table-content").each(function() {
-       var val =  $(this).children().eq(0).text();
-       var unit = $(this).children().eq(1).text();
-       this.innerHTML = "<input class='left-input' value='"+ val + "'>" + "<span>"+ unit +"</span>";
-       });
-       } else {
-       $(this).text("更改");
-       $(".vertical-table-content").each(function() {
-       var val =  $(this).children().eq(0).val();
-       var unit = $(this).children().eq(1).text();
-       this.innerHTML = "<span>"+ val +"</span>" + "<span>"+ unit +"</span>";
-       });
-       }*/
+        $("#Deviate").html("<tr> <td rowspan='3'>车辆偏离容差</td> " +
+        "<td class='table-th'>清扫车</td>" +
+        "<td class='vertical-table-content'> <span id='CleanCarDeviate1'>" + CleanCarDeviate + "</span> <span id='CleanCarDeviate2'>m</span> </td> </tr>" +
+        "<tr> <td>牵引车</td>" +
+        "<td class='vertical-table-content'><span id='PullCarDeviate1'>" + PullCarDeviate + "</span><span id='PullCarDeviate2'>m</span></td></tr>" +
+        "<tr> <td>巡视车</td>" +
+        "<td class='vertical-table-content'><span id='ViewCarDeviate1'>" + ViewCarDeviate + "</span> <span id='ViewCarDeviate2'>m</span></td> </tr>");
 
+        $("#Speed").html("<tr> <td rowspan='3'>车辆最大车速</td> " +
+        "<td class='table-th'>清扫车</td>" +
+        "<td class='vertical-table-content'><span id='CleanCarSpeed1'>" + CleanCarSpeed + "</span><span id='CleanCarSpeed2'>km/h</span></td> </tr>" +
+        "<tr> <td>牵引车</td>" +
+        " <td class='vertical-table-content'><span id='PullCarSpeed1'>" + PullCarSpeed + "</span><span id='PullCarSpeed2'>km/h</span></td> </tr>" +
+        "<tr> <td>巡视车</td>" +
+        " <td class='vertical-table-content'><span id='ViewCarSpeed1'>" + ViewCarSpeed + "</span><span id='ViewCarSpeed2'>km/h</span></td> </tr>");
+        $("#Times").html("<tr> <td colspan='2'>超速记录阈值</td> <td class='vertical-table-content'><span id='Times1'>" + Times + "</span><span id='Times2'>次</span></td> </tr>");
+        $("#StartTime").html("<tr> <td colspan='2'>封道开始时间</td > <td id='table-hour1' class='vertical-table-content'><span id='StartTime1'>" + StartTime + "</span><span id='StartTime2'></span></td> </tr>");
+        $("#EndTime").html("<tr> <td colspan='2'>封道结束时间</td> <td id='table-hour2' class='vertical-table-content'><span id='EndTime1'>" + EndTime + "</span><span id='EndTime2'></span></td> </tr>");
+
+        $.ajax({
+          url: "/Rules/edit",
+          type: "post",
+          dataType: "json",
+          data: {
+            CleanCarDeviate1: CleanCarDeviate,
+            PullCarDeviate1: PullCarDeviate,
+            ViewCarDeviate1: ViewCarDeviate,
+            CleanCarSpeed1: CleanCarSpeed,
+            PullCarSpeed1: PullCarSpeed,
+            ViewCarSpeed1: ViewCarSpeed,
+            Times1: Times,
+            StartTime1: StartTime,
+            EndTime1: EndTime
+          },
+          success: function (data) {
+          }
+        })
+      }
+      else {
+        alert("输入数据不符合规则");
+      }
     }
   })
+
+  /*var obj = $(this).text();
+   if (obj == "更改"){
+   $(this).text("保存");
+   $(".vertical-table-content").each(function() {
+   var val =  $(this).children().eq(0).text();
+   var unit = $(this).children().eq(1).text();
+   this.innerHTML = "<input class='left-input' value='"+ val + "'>" + "<span>"+ unit +"</span>";
+   });
+   } else {
+   $(this).text("更改");
+   $(".vertical-table-content").each(function() {
+   var val =  $(this).children().eq(0).val();
+   var unit = $(this).children().eq(1).text();
+   this.innerHTML = "<span>"+ val +"</span>" + "<span>"+ unit +"</span>";
+   });
+   }*/
+
+  function valid(validArray){
+    var arr = validArray;
+    var reg = /^\d+(\.\d+)?$/;
+    for (x in arr) {
+      if(!reg.test(arr[x])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 </script>
 </body>
 </html>

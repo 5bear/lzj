@@ -7,7 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,21 +25,34 @@
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
-  <script type="text/javascript" src="js/BMaplib.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.js"></script>
 
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
 
 
   <style>
+
+
+    .bt{
+      width: 11%;
+      top: 2%;
+      left: 28%;
+      background-color: #00608B;
+      color: white;
+      font-size: 90%;
+      padding: 2px 8px;
+      border:0;
+    }
     #container{width: 57%;
       height: 600px;
       float: left;
       margin-left: 5px;
       margin-right: 5px;}
-    #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+    #index { width:100%; height:100%; min-width:940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
 
@@ -97,132 +112,153 @@
 
 
   </style>
+  <script >
+    $(function(){ $(".xuanfu3").hide(); //默认隐藏
+      $("#cute").on("click",function(){ $(".xuanfu3").toggle();//显示隐藏切换
+      }) })
+  </script>
 </head>
+
 <body>
+
 <div id="wrapper">
-<jsp:include page="public.jsp" flush="true">
-  <jsp:param name="pageFather" value="base"></jsp:param>
-  <jsp:param name="pageName" value="base3"></jsp:param>
-</jsp:include>
-<div id="page-wrapper">
 
-  <div class="row">
-    <div class="col-lg-12">
-      <ol class="breadcrumb">
-        <li><a href="index">基础数据</a></li>
-        <li><a href="RFID">RFID监测点管理</a></li>
-        <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
-      </ol>
-    </div>
-    <div id="index">
-      <!--<img src="images/index.jpg" width="100%"/>-->
-      <div id="in-left" style="float:left">
+  <!-- Sidebar -->
+  <jsp:include page="public.jsp" flush="true">
+    <jsp:param name="pageFather" value="base"></jsp:param>
+    <jsp:param name="pageName" value="base3"></jsp:param>
+  </jsp:include>
 
-        <div class="panel panel-primary">
-          <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
-          <div class="panel-body">
-            <li class="dropdown dropdown1">
-              <a href="#" data-toggle="dropdown">按照区域查</a>
-              <div class="arrow-section arrow-section1">
-                <div class="arrow-down arrow-down1"></div>
-              </div>
-              <ul class="dropdown-menu panel-menu">
-                <li class="dropdown dropdown2">
-                  <a href="#" data-toggle="dropdown">上海成基公司</a>
-                  <div class="arrow-section arrow-section2">
-                    <div class="arrow-down arrow-down2"></div>
-                  </div>
-                  <ul class="dropdown-menu panel-menu">
-                  <c:forEach items="${cjList}" var="line">
-                    <li class="dropdown dropdown3">
-                      <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
-                      <div class="arrow-section arrow-section3">
-                      </div>
-                    </li>
-                  </c:forEach>
-                  </ul>
-                </li>
-                <li class="dropdown dropdown2">
-                  <a href="#" data-toggle="dropdown">上海高架养护公司</a>
-                  <div class="arrow-section arrow-section2">
-                    <div class="arrow-down arrow-down2"></div>
-                  </div>
-                  <ul class="dropdown-menu panel-menu">
-                    <c:forEach items="${gjygList}" var="line">
-                      <li class="dropdown dropdown3">
-                        <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                    </c:forEach>
-                  </ul>
-                </li>
-              </ul>
-            </li><!--dropdown1-->
+  <div id="page-wrapper">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+          <li><a href="">基础数据</a></li>
+          <li><a href="">RFID监测点管理</a></li>
+          <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
+        </ol>
+      </div>
+
+
+
+
+
+      <div id="index">
+        <!--<img src="images/index.jpg" width="100%"/>-->
+        <div id="in-left" style="float:left">
+
+          <div class="panel panel-primary">
+            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
+            <div class="panel-body">
+              <li class="dropdown dropdown1">
+                <a href="#" data-toggle="dropdown">按照区域查</a>
+                <div class="arrow-section arrow-section1">
+                  <div class="arrow-down arrow-down1"></div>
+                </div>
+                <ul class="dropdown-menu panel-menu">
+                  <li class="dropdown dropdown2">
+                    <a href="#" data-toggle="dropdown">上海成基公司</a>
+                    <div class="arrow-section arrow-section2">
+                      <div class="arrow-down arrow-down2"></div>
+                    </div>
+                    <ul class="dropdown-menu panel-menu">
+                      <c:forEach items="${cjList}" var="line">
+                        <li class="dropdown dropdown3">
+                          <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
+                          <div class="arrow-section arrow-section3">
+                          </div>
+                        </li>
+                      </c:forEach>
+                    </ul>
+                  </li>
+                  <li class="dropdown dropdown2">
+                    <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                    <div class="arrow-section arrow-section2">
+                      <div class="arrow-down arrow-down2"></div>
+                    </div>
+                    <ul class="dropdown-menu panel-menu">
+                      <c:forEach items="${gjygList}" var="line">
+                        <li class="dropdown dropdown3">
+                          <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
+                          <div class="arrow-section arrow-section3">
+                          </div>
+                        </li>
+                      </c:forEach>
+
+                    </ul>
+                  </li>
+                </ul>
+              </li><!--dropdown1-->
+            </div>
           </div>
+
+        </div><!--in-left-->
+
+        <div id="in-mid" style="float:left"><!--<img src="images/mid2.png" width="100%"/>-->
+          <!--<input class="button" type="button"  value="搜索" style=" position: absolute;top: 15px;left: 30%; width:9%;"/>-->
+
+          <button class="button" style="top:15px;left:30%;width:9%;height:4%" onclick="query()">搜索</button>
+
+          <div style="width:4%;height: 20px; position: absolute; top: 15px; left: 2%;">
+            <img src="images/search_icon.png" style="width:100%" />
+          </div>
+
+
+          <div id="container" style="width:99%;top:52px"></div>
+
+
+
+          <input type="text" id="search"/>
         </div>
 
-      </div><!--in-left-->
 
-      <div id="in-mid" style="float:left"><!--<img src="images/mid2.png" width="100%"/>-->
-        <input class="bt" type="button" onclick="query()"  style=" position: absolute;top: 15px;left: 30%; width:9%;
-                     background:url(images/search.png); background-size:100% 100%" />
+        <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
+          <img src="images/in-right2.png" width="100%"/>
+          <div  class="p" style=" top: 10%; left:50%;" id="info"><p>(X,Y)</p></div>
+
+          <input class="r_text" id="serialNumber" type="text" style="top: 16.5%;left: 40%; width:50%"/>
+          <select style="position: absolute;top:23%;width: 40%; left:40%;" id="roadId">
+            <c:forEach items="${lineList}" var="line">
+              <option value="${line.id}">${line.line}</option>
+            </c:forEach>
+          </select>
+          <select style="position: absolute;top: 30%;width: 40%; left: 40%;" id="zhadao">
+            <option value="入口">入口</option>
+            <option value="出口">出口</option>
+          </select>
+
+          <select style="position: absolute;top: 37%;width: 40%; left:40%;" id="direction">
+            <option value="内圈">内圈</option>
+            <option value="外圈">外圈</option>
+            <option value="东侧">东侧</option>
+            <option value="西侧">西侧</option>
+            <option value="南侧">南侧</option>
+            <option value="北侧">北侧</option>
+          </select>
+
+          <input class="r_text" id="equipNum" type="text" style="top: 42.5%;left: 40%; width:50%"/>
+          <input class="r_text1" id="installPos1" type="text" style="top: 49.5%;left: 48%; width:42%"/>
+          <input class="r_text1" id="installPos2" type="text" style="top: 56%;left:48%; width:42%"/>
 
 
-        <div style="width:4%;height: 20px; position: absolute; top: 15px; left: 2%;">
-          <img src="images/search_icon.png" style="width:100%" />
+          <!-- <input class="button" data-toggle="modal" data-target="#success" type="button" value="增加/修改" style=" top:66%;left: 18%;width:23%;height:4%" />
+           <input class="button" type="button"   data-toggle="modal" data-target="#success" style=" top: 66%;left:63%;
+                  background:url(images/delete.png); background-size:100% 100%" />-->
+          <button class="button" data-toggle="modal" data-target="#success" style="top:66%;left:18%;width:28%;height:4%" onclick="addClick(0)">增加/修改</button>
+          <button class="button" data-toggle="modal" data-target="#success" style="top:66%;left:60%;width:28%;height:4%" onclick="addClick(1)">删除</button>
         </div>
 
-
-        <div id="container" style="width:99%;top:52px"></div>
-
+      </div><!--/.index-->
 
 
-        <input type="text" id="search"/>
-      </div>
+    </div><!-- /.row -->
+
+  </div><!-- /#page-wrapper -->
+
+</div><!-- /#wrapper -->
 
 
-      <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
-        <img src="images/in-right2.png" width="100%"/>
-        <div  class="p" style=" top: 10%; left:38%;"><p id="info"></p></div>
-
-        <input id="serialNumber" class="r_text" id="" type="text" style="top: 16.5%;left: 40%; width:50%" placeholder="序列号"/>
-        <select style="position: absolute;top:23%;width: 40%; left:40%;" id="roadId">
-          <c:forEach items="${lineList}" var="line">
-            <option value="${line.id}">${line.line}</option>
-          </c:forEach>
-        </select>
-        <select style="position: absolute;top: 30%;width: 40%; left: 40%;" id="zhadao">
-          <option value="入口">入口</option>
-          <option value="出口">出口</option>
-        </select>
-
-        <select style="position: absolute;top: 37%;width: 40%; left:40%;" id="direction">
-          <option value="内圈">内圈</option>
-          <option value="外圈">外圈</option>
-          <option value="东侧">东侧</option>
-          <option value="西侧">西侧</option>
-          <option value="南侧">南侧</option>
-          <option value="北侧">北侧</option>
-        </select>
-
-        <input class="r_text" id="equipNum" type="text" style="top: 42.5%;left: 40%; width:50%"/>
-        <input class="r_text1" id="installPos1" type="text" style="top: 49.5%;left: 48%; width:42%"/>
-        <input class="r_text1" id="installPos2" type="text" style="top: 56%;left:48%; width:42%"/>
-
-        <input class="bt" onclick="addClick(0)" data-toggle="modal" data-target="#success" type="button"  style=" top:66%;left: 18%;
-                      background:url(images/add.png); background-size:100% 100%" />
-        <input class="bt" onclick="addClick(1)" type="button"   data-toggle="modal" data-target="#success" style=" top: 66%;left:63%;
-                      background:url(images/delete.png); background-size:100% 100%" />
-      </div>
-
-    </div><!--/.index-->
-
-
-  </div><!-- /.row -->
-
-</div><!-- /#page-wrapper -->
-</div>
 <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -239,9 +275,16 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-</body>
+
+
+
+<!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
+
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
+
 <script>
 
   var currentLng,currentLat;
@@ -257,8 +300,8 @@
     currentLat= e.point.lat;
     var info=document.getElementById("info");
     info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
-   /* var obj=document.getElementById("editArea");
-    obj.style.display="";*/
+    /* var obj=document.getElementById("editArea");
+     obj.style.display="";*/
     if(e.overlay==null) {
       var point = new BMap.Point(e.point.lng, e.point.lat);
       marker = new BMap.Marker(point);// 创建标注
@@ -286,9 +329,9 @@
       }
     }
   });
-/*
-* 显示已存在的RFID点
-* */
+  /*
+   * 显示已存在的RFID点
+   * */
   $(document).ready(function(){
     /*添加比例尺*/
     map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
@@ -305,15 +348,15 @@
       }
     })
   })
-/*
-* 通过序列号查询
-* */
+  /*
+   * 通过序列号查询
+   * */
   function query(){
     var searchCondition=$("#search").val();
     var markers=map.getOverlays();
     for(var m in markers){
       if(markers[m].getTitle()==searchCondition){
-          map.panTo(markers[m].getPosition());
+        map.panTo(markers[m].getPosition());
         return false;
       }
     }
@@ -333,16 +376,16 @@
     var installPos2=$("#installPos2").val();
     var id =marker.getLabel();
     if(id==undefined){
-    $.ajax({
-      url:"RFID/add",
-      type:"post",
-      data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
-      success:function(data){
-        if(data=="duplicated")
+      $.ajax({
+        url:"RFID/add",
+        type:"post",
+        data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
+        success:function(data){
+          if(data=="duplicated")
             alert("重复的序列号");
-        location.reload(true);
-      }
-    })
+          location.reload(true);
+        }
+      })
     }else{
       $.ajax({
         url:"RFID/edit",
@@ -387,7 +430,7 @@
     var infoWindow = new BMap.InfoWindow("<p>序列号:"+serialNumber+"<br/>路段:"+road+"<br/>所属公司:"+company+"</p>", opts);  // 创建信息窗口对象
 
 
-     /*var pt = new BMap.Point(116.417, 39.909);
+    /*var pt = new BMap.Point(116.417, 39.909);
      var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
      var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注*/
 
@@ -405,7 +448,7 @@
     marker1.disableDragging();           // 不可拖拽
   }
   /*
-  显示某条路上的RFID*/
+   显示某条路上的RFID*/
   function getListByRoad(road){
     $.ajax({
       url:"RFID/getListByRoad",
@@ -413,14 +456,14 @@
       data:{road:road},
       dataType:"json",
       success:function(data){
-      /* var markers=map.getOverlays();
-        for(var i in markers){
-          markers[i].setLabel();
+        /* var markers=map.getOverlays();
+         for(var i in markers){
+         markers[i].setLabel();
          *//* console.log(markers[i].getLabel())
-          map.removeOverlay(markers[i]);*//*
-        }
-        console.log(markers[0].getLabel())*/
-       map.clearOverlays();
+         map.removeOverlay(markers[i]);*//*
+         }
+         console.log(markers[0].getLabel())*/
+        map.clearOverlays();
         $(data).each(function(index){
           var point=new BMap.Point(data[index].lng, data[index].lat);
           addMarker(point,data[index].serialNumber,data[index].road,data[index].company,data[index].id)
@@ -436,11 +479,11 @@
     map.removeOverlay(marker);
   }
   /*
-  * 添加点击事件
-  * */
+   * 添加点击事件
+   * */
   function addClick(type){
-   if(type==0)
-       $("#btn_type").click(addRFID);
+    if(type==0)
+      $("#btn_type").click(addRFID);
     else if(type==1)
       $("#btn_type").click(deleteRFID);
   }
@@ -680,4 +723,5 @@
     };
   }
 </script>
+</body>
 </html>

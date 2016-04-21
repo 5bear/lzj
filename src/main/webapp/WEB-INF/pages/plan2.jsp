@@ -76,8 +76,14 @@
                 <tr>
                   <td>${line.company}</td>
                   <td>${line.line}</td>
-                  <td>${line.startCoord}</td>
-                  <td>${line.endCoord}</td>
+                  <td><script>
+                    var point=eval('['+'${line.startCoord}'+']');
+                    document.write(point[0].lng+','+point[0].lat)
+                  </script></td>
+                  <td><script>
+                    var point=eval('['+'${line.endCoord}'+']');
+                    document.write(point[0].lng+','+point[0].lat)
+                  </script></td>
                   <td>${line.directionType}</td>
                   <td>${line.direction}</td>
                   <td>${line.inputMan}</td>
@@ -147,6 +153,9 @@
         location.reload(true);
       }
     })
+  }
+  function toPoint(coord){
+
   }
 </script>
 </body>

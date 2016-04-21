@@ -4,7 +4,6 @@ package com.springapp.mvc;
  * Created by yanglin on 16/4/16.
  */
 
-import com.springapp.dao.ParkDao;
 import com.springapp.entity.Park;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value = "/Park")
+@RequestMapping(value = "**")
 public class ParkController extends BaseController {
     /*@RequestMapping(value = "/index",method =RequestMethod.GET)
     public ModelAndView home() {
@@ -28,7 +28,7 @@ public class ParkController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(method =RequestMethod.GET)
+    @RequestMapping(value="/Park",method =RequestMethod.GET)
     public ModelAndView list()
     {
         System.out.println("index");
@@ -41,7 +41,7 @@ public class ParkController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/add0")
+    @RequestMapping(value = "/Park/add0")
     public String add0()
     {
         return "ParkAdd";
@@ -49,7 +49,7 @@ public class ParkController extends BaseController {
 
 
 
-    @RequestMapping(value = "/add1",method =RequestMethod.POST)
+    @RequestMapping(value = "/Park/add1",method =RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "parkName") String parkName,
@@ -70,7 +70,7 @@ public class ParkController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/Park/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         Park park = parkDao.getById(Long.parseLong(id));
@@ -80,7 +80,7 @@ public class ParkController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Park/edit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
@@ -102,7 +102,7 @@ public class ParkController extends BaseController {
 
 
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/Park/delete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Park park = parkDao.getById(Long.parseLong(id));
@@ -113,7 +113,7 @@ public class ParkController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value="/search",method = RequestMethod.GET)
+    @RequestMapping(value="/Park/search",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         ModelAndView modelAndView=new ModelAndView();

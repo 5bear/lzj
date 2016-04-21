@@ -16,8 +16,10 @@ public class BaseController{
     public SimpleDateFormat simpleDateFormat;
     @Autowired
     protected RFIDDao rfidDao;
+
     @Autowired
-    protected RulesDao rulesDao;
+    protected MaintainLogDao maintainLogDao;
+
     @Autowired
     protected eFenceDao eFenceDao;
     @Autowired
@@ -32,6 +34,10 @@ public class BaseController{
     protected UserDao userDao;
     @Autowired
     protected VehicleDao vehicleDao;
+    @Autowired
+    protected RulesDao rulesDao;
+    @Autowired
+    protected ProgressDao progressDao;
     public BaseController(){
        simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
     }

@@ -152,7 +152,7 @@
       margin-left: 5px;
       margin-right: 5px;}
 
-    #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+    /*#index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}*/
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:50%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-right { width:24%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}

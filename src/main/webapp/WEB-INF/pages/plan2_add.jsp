@@ -31,7 +31,7 @@
 
 
   <style>
-    #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+   /* #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}*/
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; position:relative}
@@ -159,7 +159,7 @@
 
         </div><!--in-mid-->
 
-        <div id="in-right"><img src="images/in.png" width="100%"/>
+        <div id="in-right"><img src="images/111.png" width="100%"/>
           <p class="p" style="top:10%" id="info">(X,Y)</p>
 
           <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;" id="lineName">
@@ -234,6 +234,7 @@
 <script>
   var currentLng,currentLat;
   var polyline;//折线对象
+  var polylines=new Array();//多条折线
   var marker;
   var distance=0;
   var points=new Array();//创建点的数组
@@ -260,7 +261,7 @@
     /*添加比例尺*/
     map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
     $.ajax({
-      url:"/line/list",
+      url:"line/list",
       type:"post",
       data:{},
       dataType:"json",
@@ -281,8 +282,8 @@
   /*添加电子围栏*/
   function addeLine(){
     var coords=pointsTojson(points);
-    var startCoords=pointsTojson(polyline.getPath()[0]);
-    var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length-1]);
+    var startCoords=pointsTojson(polylines[0].getPath()[0]);
+    var endCoords=pointsTojson(polylines[polylines.length-1].getPath()[polyline.getPath().length-1]);
     var id=0;
     $.ajax({
       url:"line/getIdByCoords",
@@ -304,7 +305,6 @@
     var packageId=$("#package").val();
     var packageName=$("#package").find("option:selected").text();
     var remark=$("#remark").val();
-    console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
     var realDistance=parseInt(distance);
     /*BMapLib.GeoUtils.getPolylineDistance(polyline);*/
     /* var inputMan=$("#inputMan").val();*/
@@ -338,12 +338,12 @@
   /*删除电子围栏*/
   function deleteLine(){
     var startCoords=pointsTojson(polyline.getPath()[0]);
-    var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length]);
+    var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length-1]);
+    console.log(startCoords)
     $.ajax({
       url:"line/deleteByCoords",
       type:"post",
       data:{startCoord:startCoords,endCoord:endCoords},
-      dataType:"json",
       success:function(data){
         location.reload(true);
       }
@@ -352,7 +352,9 @@
   /*选点*/
   function choosePoint(){
     //地图点击事件,选择点
+    removeAll()
     points=new Array();
+    polylines=new Array();
     map.addEventListener("click", function(e){
       var point=new BMap.Point(e.point.lng, e.point.lat);
       points.push(point)
@@ -369,6 +371,7 @@
   function undoAll(){
     map.clearOverlays();
     points=new Array();
+    polylines=new Array();
   }
   /*划线*/
   function drawLine(){
@@ -395,6 +398,7 @@
       /* console.log(driving.getResults())*/
       var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
       polyline = new BMap.Polyline(pts);
+      polylines.push(polyline);
       polyline.addEventListener("click",function(e){
         var target= e.currentTarget;
         polyline=target;
@@ -414,16 +418,14 @@
             $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
             $("#startCoord").html("("+startCoord.lng+","+startCoord.lat+")")
             $("#endCoord").html("("+endCoord.lng+","+endCoord.lat+")");
-            $("#realDistance").html(data.realDistance+"km");
+            $("#realDistance").html(data.realDistance+"m");
             /*$("#inputMan").val(data.inputMan);*/
           }
         })
       })
       map.addOverlay(polyline);
-      console.log(BMapLib.GeoUtils.getPolylineDistance(polyline))
       distance+=BMapLib.GeoUtils.getPolylineDistance(polyline);
-      console.log("d"+distance)
-      $("#realDistance").html(parseInt(distance));
+      $("#realDistance").html(parseInt(distance)+"m");
     })
     console.log("distance"+distance)
   }
@@ -448,6 +450,12 @@
   function panTo(lng,lat){
     var point=new BMap.Point(lng, lat);
     map.panTo(point);
+  }
+  function removeAll(){
+    $("#lineName").val("");
+    $("#startCoord").html("")
+    $("#endCoord").html("");
+    $("#realDistance").html("");
   }
   $('a[data-toggle="dropdown"]').click(function() {
     $(this).nextAll().toggle();

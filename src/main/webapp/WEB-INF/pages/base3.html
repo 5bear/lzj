@@ -15,21 +15,9 @@
     <!-- Add custom CSS here -->
    <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
-   <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
-    
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
-
-<script>
-var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
-    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-    map.enableScrollWheelZoom();//允许放大缩放
-    map.addControl(top_left_control);
-    map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-</script>
 
     
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
@@ -37,12 +25,32 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
 
     
     <style>
+	
+	.button{
+		position:absolute;
+		border-radius:5px;
+		border:none;
+    background-color: #00608B;
+    color: white;
+    font-size: 12px;
+    padding: 0;}
+	
+	.bt{
+	width: 11%;
+    top: 2%;
+    left: 28%;
+    background-color: #00608B;
+    color: white;
+    font-size: 90%;
+    padding: 2px 8px;
+	border:0;
+	}
 	#container{width: 57%;
     height: 600px;
     float: left;
     margin-left: 5px;
     margin-right: 5px;}
-	 #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+	 #index { width:100%; height:100%; min-width:940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
      #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
      #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
    
@@ -114,103 +122,18 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
     <div id="wrapper">
 
       <!-- Sidebar -->
-       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-            <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="base1.html">停车场管理</a></li>
-                <li><a href="base2.html">车辆管理</a></li>
-                <li class="active"><a href="base3.html">RFID监测点管理</a></li>
-                <li><a href="base4.html">包件信息管理</a></li>
-                <li><a href="base5.html">电子围栏管理</a></li>
-                <li><a href="base6.html">监管规则管理</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="plan1.html">养护作业计划</a></li>
-                <li><a href="plan2-add.html">作业线路管理</a></li>
-                <li><a href="plan3.html">布点计划</a></li>
-                <li><a href="plan4.html">驾驶员计划</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="progress1.html">养护进度监控</a></li>
-                <li><a href="progress2.html">实时监控</a></li>
-                <li><a href="progress3.html">养护日志管理</a></li>
-				</ul>
-			 </li>
-			 
-			 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="history1.html">历史轨迹查询</a></li>
-                <li><a href="history2.html">历史视频查询</a></li>
-                <li><a href="history3.html">异常查询</a></li>
-				</ul>
-			 </li>
-			 
-			 		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                <li><a href="reports2.html">养护车辆作业区域</a></li>
-                <li><a href="reports3.html">养护车辆作业情况</a></li>
-                <li><a href="reports4.html">养护车辆超速</a></li>
-				</ul>
-			 </li>
-			 
-			  		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
-                <li><a href="management1.html">用户管理</a></li>
-                <li><a href="management2.html">权限管理</a></li>
-                <li><a href="management3.html">网络状态图</a></li>
-				</ul>
-			 </li>
-			
-          </ul>
-
-         <ul class="nav navbar-nav navbar-right navbar-user">
-                        <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-        </div><!-- /.navbar-collapse -->
-      </nav>
+        <jsp:include page="public.jsp" flush="true">
+            <jsp:param name="pageFather" value="base"></jsp:param>
+            <jsp:param name="pageName" value="base3"></jsp:param>
+        </jsp:include>
       
       <div id="page-wrapper">
 
         <div class="row">
           <div class="col-lg-12">
             <ol class="breadcrumb">
-              <li><a href="base3.html">基础数据</a></li>
-              <li><a href="base3.html">RFID监测点管理</a></li>
+              <li><a href="">基础数据</a></li>
+              <li><a href="">RFID监测点管理</a></li>
            <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
             </ol>
           </div>
@@ -238,31 +161,13 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">中环路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">中环路立交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">上中路隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">军工路隧道交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">外滩隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
+                            <c:forEach items="${cjList}" var="line">
+                                <li class="dropdown dropdown3">
+                                    <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </li>
                     <li class="dropdown dropdown2">
@@ -271,11 +176,13 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">内环高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
+                            <c:forEach items="${gjygList}" var="line">
+                                <li class="dropdown dropdown3">
+                                    <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </c:forEach>
                            
                         </ul>
                     </li>
@@ -287,9 +194,9 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
             </div><!--in-left-->
             
             <div id="in-mid" style="float:left"><!--<img src="images/mid2.png" width="100%"/>-->
-              <input class="bt" type="button"  style=" position: absolute;top: 15px;left: 30%; width:9%;
-                     background:url(images/search.png); background-size:100% 100%" /> 
-                         
+              <!--<input class="button" type="button"  value="搜索" style=" position: absolute;top: 15px;left: 30%; width:9%;"/>--> 
+                  
+              <button class="button" style="top:15px;left:30%;width:9%;height:4%" onclick="query()">搜索</button>
               
               <div style="width:4%;height: 20px; position: absolute; top: 15px; left: 2%;">
                  <img src="images/search_icon.png" style="width:100%" />
@@ -306,35 +213,38 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
             
            <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
            	   <img src="images/in-right2.png" width="100%"/>
-               <div  class="p" style=" top: 10%; left:50%;"><p>(X,Y)</p></div>
+               <div  class="p" style=" top: 10%; left:50%;" id="info"><p>(X,Y)</p></div>
                
-               <input class="r_text" type="text" style="top: 16.5%;left: 40%; width:50%"/>
-               <select style="position: absolute;top:23%;width: 40%; left:40%;">
-                    <option value="外圈">中环路</option>
-                    <option value="外圈">中环路隧道</option>
+               <input class="r_text" id="serialNumber" type="text" style="top: 16.5%;left: 40%; width:50%"/>
+               <select style="position: absolute;top:23%;width: 40%; left:40%;" id="roadId">
+                   <c:forEach items="${lineList}" var="line">
+                       <option value="${line.id}">${line.line}</option>
+                   </c:forEach>
                </select>
-               <select style="position: absolute;top: 30%;width: 40%; left: 40%;">
-                    <option value="外圈">入口</option>
-                    <option value="外圈">出口</option>
+               <select style="position: absolute;top: 30%;width: 40%; left: 40%;" id="zhadao">
+                    <option value="入口">入口</option>
+                    <option value="出口">出口</option>
                </select>
                
-               <select style="position: absolute;top: 37%;width: 40%; left:40%;">
-               		<option value="外圈">内圈</option>
+               <select style="position: absolute;top: 37%;width: 40%; left:40%;" id="direction">
+               		<option value="内圈">内圈</option>
                     <option value="外圈">外圈</option>
-                    <option value="外圈">东侧</option>
-                    <option value="外圈">西侧</option>
-                    <option value="外圈">南侧</option>
-                    <option value="外圈">北侧</option>
+                    <option value="东侧">东侧</option>
+                    <option value="西侧">西侧</option>
+                    <option value="南侧">南侧</option>
+                    <option value="北侧">北侧</option>
                </select>
-               
-               <input class="r_text" type="text" style="top: 42.5%;left: 40%; width:50%"/>
-               <input class="r_text1" type="text" style="top: 49.5%;left: 48%; width:42%"/>
-			   <input class="r_text1" type="text" style="top: 56%;left:48%; width:42%"/>
-               
-               <input class="bt" data-toggle="modal" data-target="#success" type="button"  style=" top:66%;left: 18%;
-                      background:url(images/add.png); background-size:100% 100%" /> 
-               <input class="bt" type="button"   data-toggle="modal" data-target="#success" style=" top: 66%;left:63%;
-                      background:url(images/delete.png); background-size:100% 100%" /> 
+
+               <input class="r_text" id="equipNum" type="text" style="top: 42.5%;left: 40%; width:50%"/>
+               <input class="r_text1" id="installPos1" type="text" style="top: 49.5%;left: 48%; width:42%"/>
+               <input class="r_text1" id="installPos2" type="text" style="top: 56%;left:48%; width:42%"/>
+
+
+               <!-- <input class="button" data-toggle="modal" data-target="#success" type="button" value="增加/修改" style=" top:66%;left: 18%;width:23%;height:4%" />
+                <input class="button" type="button"   data-toggle="modal" data-target="#success" style=" top: 66%;left:63%;
+                       background:url(images/delete.png); background-size:100% 100%" />-->
+               <button class="button" data-toggle="modal" data-target="#success" style="top:66%;left:18%;width:28%;height:4%" onclick="addClick(0)">增加/修改</button>
+               <button class="button" data-toggle="modal" data-target="#success" style="top:66%;left:60%;width:28%;height:4%" onclick="addClick(1)">删除</button>
            </div>
             
 		  </div><!--/.index-->
@@ -357,7 +267,7 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
                         <p>是否确认此次更改</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_type">确定</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -383,12 +293,443 @@ var map = new BMap.Map("container", {enableMapClick:false});          // 创建�
 
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
-<script>
-var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
-    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-    map.enableScrollWheelZoom();//允许放大缩放
-    map.addControl(top_left_control);
-    map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-</script>
+    <script>
+
+        var currentLng,currentLat;
+        var marker;
+        var markerMap=new Map();
+        var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
+        map.enableScrollWheelZoom();//允许放大缩放
+
+        map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
+        //地图点击事件 显示RFID添加div
+        map.addEventListener("click", function(e){
+            currentLng= e.point.lng;
+            currentLat= e.point.lat;
+            var info=document.getElementById("info");
+            info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
+            /* var obj=document.getElementById("editArea");
+             obj.style.display="";*/
+            if(e.overlay==null) {
+                var point = new BMap.Point(e.point.lng, e.point.lat);
+                marker = new BMap.Marker(point);// 创建标注
+                map.addOverlay(marker);             // 将标注添加到地图中
+                marker.disableDragging();           // 不可拖拽
+            }else{
+                marker= e.overlay;
+                var id=markerMap.get(marker);
+                if(id!=undefined) {
+                    $.ajax({
+                        url: "RFID/get",
+                        type: "post",
+                        data: {id: id},
+                        dataType: "json",
+                        success: function (data) {
+                            $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
+                            $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+                            $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
+                            $("#equipNum").val(data.equipNum);
+                            $("#serialNumber").val(data.serialNumber);
+                            $("#installPos1").val(data.installPos1);
+                            $("#installPos2").val(data.installPos1);
+                        }
+                    })
+                }
+            }
+        });
+        /*
+         * 显示已存在的RFID点
+         * */
+        $(document).ready(function(){
+            /*添加比例尺*/
+            map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
+            $.ajax({
+                url:"RFID/list",
+                type:"post",
+                data:{},
+                dataType:"json",
+                success:function(data){
+                    $(data).each(function(index){
+                        var point=new BMap.Point(data[index].lng, data[index].lat);
+                        addMarker(point,data[index].serialNumber,data[index].road,data[index].company,data[index].id)
+                    })
+                }
+            })
+        })
+        /*
+         * 通过序列号查询
+         * */
+        function query(){
+            var searchCondition=$("#search").val();
+            var markers=map.getOverlays();
+            for(var m in markers){
+                if(markers[m].getTitle()==searchCondition){
+                    map.panTo(markers[m].getPosition());
+                    return false;
+                }
+            }
+        }
+        /*
+         * 添加/修改RFID点
+         * */
+        function addRFID(){
+            var equipNum=$("#equipNum").val();
+            var lng=currentLng;
+            var lat=currentLat;
+            var serialNumber=$("#serialNumber").val();
+            var roadId=$("#roadId").val();
+            var zhadao=$("#zhadao").val();
+            var direction=$("#direction").val();
+            var installPos1=$("#installPos1").val();
+            var installPos2=$("#installPos2").val();
+            var id =marker.getLabel();
+            if(id==undefined){
+                $.ajax({
+                    url:"RFID/add",
+                    type:"post",
+                    data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
+                    success:function(data){
+                        if(data=="duplicated")
+                            alert("重复的序列号");
+                        location.reload(true);
+                    }
+                })
+            }else{
+                $.ajax({
+                    url:"RFID/edit",
+                    type:"post",
+                    data:{id:id,equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
+                    success:function(data){
+                        if(data=="duplicated")
+                            alert("重复的序列号");
+                        location.reload(true);
+                    }
+                })
+            }
+
+        }
+        /*
+         * 删除RFID点
+         * */
+        function deleteRFID(){
+            var id=markerMap.get(marker)
+            deletemarker()
+            $.ajax({
+                url:"RFID/delete",
+                type:"post",
+                data:{id:id},
+                success:function(data){
+                    location.reload(true);
+                }
+            })
+        }
+        /*
+         * 添加标记
+         * */
+        function addMarker(point,serialNumber,road,company,id){
+            console.log(id)
+            var opts = {
+                width : 100,     // 信息窗口宽度
+                height: 100,     // 信息窗口高度
+                title : "RFID信息" , // 信息窗口标题
+                enableMessage:true,//设置允许信息窗发送短息
+                message:""
+            }
+            var infoWindow = new BMap.InfoWindow("<p>序列号:"+serialNumber+"<br/>路段:"+road+"<br/>所属公司:"+company+"</p>", opts);  // 创建信息窗口对象
+
+
+            /*var pt = new BMap.Point(116.417, 39.909);
+             var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
+             var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注*/
+
+            var marker1 = new BMap.Marker(point);// 创建标注
+            /*marker.setLabel(id);*/
+            marker1.setTitle(serialNumber)
+            marker1.addEventListener("mouseover",function(e){
+                map.openInfoWindow(infoWindow,point);
+            });
+            marker1.addEventListener("mouseout",function(e){
+                map.closeInfoWindow(infoWindow,point);
+            });
+            markerMap.put(marker1,id);
+            map.addOverlay(marker1);             // 将标注添加到地图中
+            marker1.disableDragging();           // 不可拖拽
+        }
+        /*
+         显示某条路上的RFID*/
+        function getListByRoad(road){
+            $.ajax({
+                url:"RFID/getListByRoad",
+                type:"post",
+                data:{road:road},
+                dataType:"json",
+                success:function(data){
+                    /* var markers=map.getOverlays();
+                     for(var i in markers){
+                     markers[i].setLabel();
+                     *//* console.log(markers[i].getLabel())
+                     map.removeOverlay(markers[i]);*//*
+                     }
+                     console.log(markers[0].getLabel())*/
+                    map.clearOverlays();
+                    $(data).each(function(index){
+                        var point=new BMap.Point(data[index].lng, data[index].lat);
+                        addMarker(point,data[index].serialNumber,data[index].road,data[index].company,data[index].id)
+                    })
+                }
+            })
+        }
+        /*
+         * 删除标记
+         * */
+        function deletemarker(){
+            console.log(marker)
+            map.removeOverlay(marker);
+        }
+        /*
+         * 添加点击事件
+         * */
+        function addClick(type){
+            if(type==0)
+                $("#btn_type").click(addRFID);
+            else if(type==1)
+                $("#btn_type").click(deleteRFID);
+        }
+        /*
+         * 清空输入
+         * */
+        function removeAll(){
+            $("#equipNum").val("");
+            $("#serialNumber").val("");
+            $("#installPos1").val("");
+            $("#installPos2").val("");
+        }
+        $('a[data-toggle="dropdown"]').click(function() {
+            $(this).nextAll().toggle();
+        });
+        /*
+         * MAP对象，实现MAP功能
+         *
+         * 接口：
+         * size()     获取MAP元素个数
+         * isEmpty()    判断MAP是否为空
+         * clear()     删除MAP所有元素
+         * put(key, value)   向MAP中增加元素（key, value)
+         * remove(key)    删除指定KEY的元素，成功返回True，失败返回False
+         * get(key)    获取指定KEY的元素值VALUE，失败返回NULL
+         * element(index)   获取指定索引的元素（使用element.key，element.value获取KEY和VALUE），失败返回NULL
+         * containsKey(key)  判断MAP中是否含有指定KEY的元素
+         * containsValue(value) 判断MAP中是否含有指定VALUE的元素
+         * values()    获取MAP中所有VALUE的数组（ARRAY）
+         * keys()     获取MAP中所有KEY的数组（ARRAY）
+         *
+         * 例子：
+         * var map = new Map();
+         *
+         * map.put("key", "value");
+         * var val = map.get("key")
+         * ……
+         *
+         */
+        function Map() {
+            this.elements = new Array();
+
+            //获取MAP元素个数
+            this.size = function() {
+                return this.elements.length;
+            };
+
+            //判断MAP是否为空
+            this.isEmpty = function() {
+                return (this.elements.length < 1);
+            };
+
+            //删除MAP所有元素
+            this.clear = function() {
+                this.elements = new Array();
+            };
+
+            //向MAP中增加元素（key, value)
+            this.put = function(_key, _value) {
+                this.elements.push( {
+                    key : _key,
+                    value : _value
+                });
+            };
+
+            //删除指定KEY的元素，成功返回True，失败返回False
+            this.removeByKey = function(_key) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].key == _key) {
+                            this.elements.splice(i, 1);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //删除指定VALUE的元素，成功返回True，失败返回False
+            this.removeByValue = function(_value) {//removeByValueAndKey
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value) {
+                            this.elements.splice(i, 1);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //删除指定VALUE的元素，成功返回True，失败返回False
+            this.removeByValueAndKey = function(_key,_value) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value && this.elements[i].key == _key) {
+                            this.elements.splice(i, 1);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //获取指定KEY的元素值VALUE，失败返回NULL
+            this.get = function(_key) {
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].key == _key) {
+                            return this.elements[i].value;
+                        }
+                    }
+                } catch (e) {
+                    return false;
+                }
+                return false;
+            };
+
+            //获取指定索引的元素（使用element.key，element.value获取KEY和VALUE），失败返回NULL
+            this.element = function(_index) {
+                if (_index < 0 || _index >= this.elements.length) {
+                    return null;
+                }
+                return this.elements[_index];
+            };
+
+            //判断MAP中是否含有指定KEY的元素
+            this.containsKey = function(_key) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].key == _key) {
+                            bln = true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //判断MAP中是否含有指定VALUE的元素
+            this.containsValue = function(_value) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value) {
+                            bln = true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //判断MAP中是否含有指定VALUE的元素
+            this.containsObj = function(_key,_value) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value && this.elements[i].key == _key) {
+                            bln = true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //获取MAP中所有VALUE的数组（ARRAY）
+            this.values = function() {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    arr.push(this.elements[i].value);
+                }
+                return arr;
+            };
+
+            //获取MAP中所有VALUE的数组（ARRAY）
+            this.valuesByKey = function(_key) {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    if (this.elements[i].key == _key) {
+                        arr.push(this.elements[i].value);
+                    }
+                }
+                return arr;
+            };
+
+            //获取MAP中所有KEY的数组（ARRAY）
+            this.keys = function() {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    arr.push(this.elements[i].key);
+                }
+                return arr;
+            };
+
+            //获取key通过value
+            this.keysByValue = function(_value) {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    if(_value == this.elements[i].value){
+                        arr.push(this.elements[i].key);
+                    }
+                }
+                return arr;
+            };
+
+            //获取MAP中所有KEY的数组（ARRAY）
+            this.keysRemoveDuplicate = function() {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    var flag = true;
+                    for(var j=0;j<arr.length;j++){
+                        if(arr[j] == this.elements[i].key){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(flag){
+                        arr.push(this.elements[i].key);
+                    }
+                }
+                return arr;
+            };
+        }
+    </script>
   </body>
 </html>

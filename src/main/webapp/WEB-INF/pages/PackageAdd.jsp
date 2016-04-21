@@ -53,7 +53,7 @@
 
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
-                <a href="javascript:history.back();" class="operation"><< 返回</a>
+                <a href="../Package" class="operation"><< 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 包件信息录入

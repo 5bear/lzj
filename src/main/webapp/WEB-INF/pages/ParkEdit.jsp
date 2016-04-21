@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="../index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
+                    <li><a href="index.html"><i class="icon-dashboard"></i> 基础数据</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 停车场管理</li>
                 </ol>
             </div>
@@ -51,7 +51,8 @@
 
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
-                <a href="../javascript:history.back();" class="operation"><< 返回</a>
+                <!--<a href="javascript:history.back();" class="operation"><< 返回</a>-->
+                <a href="../Park" class="operation"> << 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 停车场信息录入

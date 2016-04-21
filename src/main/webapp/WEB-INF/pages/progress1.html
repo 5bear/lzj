@@ -248,7 +248,44 @@
                                         <td>16</td>
                                     </tr>
                                     <tbody id="work">
-
+                                    <tr>
+                                        <td>有效作业率</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>匝道覆盖率</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                     </tbody>
                                     <tr>
                                         <td>日期</td>
@@ -365,9 +402,26 @@
                 else
                         colour = "green";
                 //alert(i+colour);
-                work1 +="<td class="+colour+"><a href='progress1-day.html'>"+i+"</a></td>" ;
+                for(var i=1;i<=16;i++){
+                    if(i<=5)
+                        colour="red";
+                    else if (i>5 && i<=10)
+                        colour = "yellow";
+                    else
+                        colour = "green";
+                    //alert(i+colour);
+                    if(i=='5'){
+                        work1 += "<td>N</td>";
 
-                zadao1 += " <td>" + 80 + "</td>" ;
+                        zadao1 += " <td></td>";
+                    }
+                    else {
+                        work1 += "<td class=" + colour + "><a href='progress1-day.html'>" + i + "</a></td>";
+
+                        zadao1 += " <td>" + 80 + "</td>";
+                    }
+
+                }
 
             }
             work+="</tr>"

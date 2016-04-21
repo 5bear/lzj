@@ -57,7 +57,7 @@ td.going {
 .time-row {
     margin-bottom: 10px;
 }
-
+#in-right{min-width:249px}
 select {
     background-color: #F2F2F2;
     padding: 3px 6px;
@@ -125,7 +125,15 @@ textarea::-webkit-input-placeholder {
 .add-operation {
     color: #0E618C;
 }
-
+#index { width:100%; height:100%;min-width: 940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+.button{
+    position:absolute;
+    border-radius:5px;
+    border:none;
+    background-color: #00608B;
+    color: white;
+    font-size: 12px;
+    padding: 0;}
 .btn-default, .btn-default:focus {
     background-color: #00608B;
     color: white;

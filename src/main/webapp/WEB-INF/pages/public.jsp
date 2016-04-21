@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
 <%
   String pageFather=request.getParameter("pageFather");
   String pageName=request.getParameter("pageName");
@@ -14,10 +14,7 @@
   String username= (String) session.getAttribute("username");
   System.out.print(pageName+pageFather);
 %>
-<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-<head>
-</head>
-<body>
+
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -44,12 +41,12 @@
       <li <%if(pageFather.equals("base")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("base1")) {%>class="active"<%}%>><a href="Park">停车场管理</a></li>
-          <li <%if(pageName.equals("base2")) {%>class="active"<%}%>><a href="Vehicle">车辆管理</a></li>
-          <li <%if(pageName.equals("base3")) {%>class="active"<%}%>><a href="RFID">RFID监测点管理</a></li>
-          <li <%if(pageName.equals("base4")) {%>class="active"<%}%>><a href="Package">包件信息管理</a></li>
-          <li <%if(pageName.equals("base5")) {%>class="active"<%}%>><a href="eFence">电子围栏管理</a></li>
-          <li <%if(pageName.equals("base6")) {%>class="active"<%}%>><a href="Rules">监管规则管理</a></li>
+          <li <%if(pageName.equals("base1")) {%>class="active"<%}%>><a href="/Park">停车场管理</a></li>
+          <li <%if(pageName.equals("base2")) {%>class="active"<%}%>><a href="/Vehicle">车辆管理</a></li>
+          <li <%if(pageName.equals("base3")) {%>class="active"<%}%>><a href="/RFID">RFID监测点管理</a></li>
+          <li <%if(pageName.equals("base4")) {%>class="active"<%}%>><a href="/Package">包件信息管理</a></li>
+          <li <%if(pageName.equals("base5")) {%>class="active"<%}%>><a href="/eFence">电子围栏管理</a></li>
+          <li <%if(pageName.equals("base6")) {%>class="active"<%}%>><a href="/Rules">监管规则管理</a></li>
         </ul>
       </li>
 
@@ -68,7 +65,7 @@
         <ul class="dropdown-menu">
           <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="Progress1">养护进度监控</a></li>
           <li <%if(pageName.equals("progress2")) {%>class="active"<%}%>><a href="progress2.html">实时监控</a></li>
-          <li <%if(pageName.equals("progress3")) {%>class="active"<%}%>><a href="progress3.html">养护日志管理</a></li>
+          <li <%if(pageName.equals("progress3")) {%>class="active"<%}%>><a href="MaintainLog">养护日志管理</a></li>
         </ul>
       </li>
 
@@ -114,8 +111,7 @@
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
-</body>
-<script>
+<%--<script>
   $(document).ready(function(){
     $("button.navbar-aside").click(function(){
       if ($("#wrapper").is(".left-wrapper")== true) {
@@ -127,5 +123,5 @@
       }
     });
   });
-</script>
-</html>
+</script>--%>
+

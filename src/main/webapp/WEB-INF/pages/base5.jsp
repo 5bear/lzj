@@ -36,7 +36,7 @@
 
 
   <style>
-    #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+    #index { width:100%; height:100%;min-width: 940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}
@@ -126,7 +126,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${gjyhList}" var="eFence">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="panTo('${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
+                          <a href="" onclick="panTo('${eFence.coords}','${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -155,7 +155,7 @@
 
 
         <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
-          <img src="images/in-right3.png" width="100%"/>
+          <img src="images/d.png" width="100%"/>
           <div style="position:absolute;top:0;width:100%">
             <img src="images/dianziweilan.png" width="100%"/>
           </div>
@@ -236,7 +236,7 @@
     /*添加比例尺*/
     map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
     $.ajax({
-      url:"/eFence/list",
+      url:"eFence/list",
       type:"post",
       data:{},
       dataType:"json",
@@ -350,7 +350,8 @@
         success:function(data){
           $("#eFence").val(data.eFence);
           $("#company").find("option[value="+data.company+"]").attr("selected",true);
-          $("#inputMan").val(data.inputMan);
+          $("#inputMan").html(data.inputMan);
+          $("#vehicles").html(data.vehicles);
         }
       })
       console.log(target.ia)//得到线的对象
@@ -383,6 +384,21 @@
       $("#btn_type").click(deleteFence);
   }
   /**/
+  function showeFence(coords,lng,lat){
+    $.ajax({
+      url:"eFence/getByCoords",
+      type:"post",
+      data:{coords:coords},
+      dataType:"json",
+      success:function(data){
+        $("#eFence").val(data.eFence);
+        $("#company").find("option[value="+data.company+"]").attr("selected",true);
+        $("#inputMan").html(data.inputMan);
+        $("#vehicles").html(data.vehicles);
+      }
+    })
+    panTo(lng,lat)
+  }
   function panTo(lng,lat){
     var point=new BMap.Point(lng, lat);
     map.panTo(point);

@@ -18,14 +18,14 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="../css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -84,7 +84,7 @@
                                     <td>${vehicle.vehicleType}</td>
                                     <td>${vehicle.vehicleLicence}</td>
                                     <td>${vehicle.vehicleModel}</td>
-                                    <td>${vehicle.eFenceId}</td>
+                                    <td>${vehicle.OBUId}</td>
                                     <td>${vehicle.eFence}</td>
                                     <td>${vehicle.remark}</td>
                                     <td>
@@ -138,9 +138,9 @@
 
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#base").dropdown('toggle');
@@ -150,7 +150,7 @@
 
     function editVehicle(id)
     {
-        location.href="edit?id="+id;
+        location.href="Vehicle/edit?id="+id;
 
 
     }
@@ -158,7 +158,7 @@
     {
         alert("delete");
         $.ajax({
-            url:"delete",
+            url:"Vehicle/delete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -183,7 +183,7 @@
             }
 
         })*/
-        location.href="search?search="+search;
+        location.href="Vehicle/search?search="+search;
     }
 
 

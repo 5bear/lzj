@@ -1,16 +1,18 @@
 package com.springapp.dao;
 
+import com.springapp.entity.MaintainProgress;
 import com.springapp.entity.Package;
-import com.sun.javaws.progress.Progress;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by as on 2016/4/18.
  */
-public class ProgressDao extends BaseDao {
-    public Progress getById(Long id){
-        return this.get(Progress.class,id);
+@Repository
+public class MaintainProgressDao extends BaseDao {
+    public MaintainProgress getById(Long id){
+        return this.get(MaintainProgress.class,id);
     }
     public List<Package> getNameList() {
         return this.findAll("from Package where isDelete = 0", Package.class);

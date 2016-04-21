@@ -14,7 +14,7 @@ public class LineDao extends BaseDao {
         return this.get(Line.class,id);
     }
     public Line getByCoords(String startCoord,String endCoord){
-        return this.find("from Line where startCoord=? and endCoord=?",Line.class,new Object[]{startCoord,endCoord});
+        return this.find("from Line where startCoord=? or endCoord=?",Line.class,new Object[]{startCoord,endCoord});
     }
     public List<Line>getList(){
         return this.findAll("from Line where isDelete=0",Line.class);
