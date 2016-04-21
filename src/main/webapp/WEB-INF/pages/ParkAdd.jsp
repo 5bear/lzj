@@ -36,11 +36,6 @@
         <jsp:param name="pageFather" value="base"></jsp:param>
     </jsp:include>
 
-
-<<<<<<< .mine
-=======
-
->>>>>>> .r78
     <div id="page-wrapper">
 
         <div class="row">

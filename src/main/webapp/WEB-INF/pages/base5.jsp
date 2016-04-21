@@ -111,7 +111,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${cjList}" var="eFence">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="panTo('${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
+                          <a href="" onclick="showeFence('${eFence.id}','${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -126,7 +126,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${gjyhList}" var="eFence">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="panTo('${eFence.coords}','${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
+                          <a href="" onclick="showeFence('${eFence.id}','${eFence.lng}','${eFence.lat}')" data-toggle="dropdown">${eFence.eFence}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -384,11 +384,11 @@
       $("#btn_type").click(deleteFence);
   }
   /**/
-  function showeFence(coords,lng,lat){
+  function showeFence(id,lng,lat){
     $.ajax({
-      url:"eFence/getByCoords",
+      url:"eFence/get",
       type:"post",
-      data:{coords:coords},
+      data:{id:id},
       dataType:"json",
       success:function(data){
         $("#eFence").val(data.eFence);

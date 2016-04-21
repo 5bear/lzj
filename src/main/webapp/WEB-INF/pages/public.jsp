@@ -53,7 +53,7 @@
       <li <%if(pageFather.equals("plan")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("plan1")) {%>class="active"<%}%>><a href="plan1.html">养护作业计划</a></li>
+          <li <%if(pageName.equals("plan1")) {%>class="active"<%}%>><a href="plan1">养护作业计划</a></li>
           <li <%if(pageName.equals("plan2")) {%>class="active"<%}%>><a href="line">作业线路管理</a></li>
           <li <%if(pageName.equals("plan3")) {%>class="active"<%}%>><a href="plan3.html">布点计划</a></li>
           <li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="Driver">驾驶员计划</a></li>

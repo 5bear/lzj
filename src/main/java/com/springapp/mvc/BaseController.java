@@ -37,7 +37,7 @@ public class BaseController{
     @Autowired
     protected RulesDao rulesDao;
     @Autowired
-    protected ProgressDao progressDao;
+    protected MaintainProgressDao progressDao;
     public BaseController(){
        simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
     }

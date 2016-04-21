@@ -9,6 +9,7 @@ a:hover, a:focus {
 
 .table {
     border: 1px solid #cccccc;
+    font-size: 14px;
 }
 
 th {
@@ -16,7 +17,6 @@ th {
     background-color: #0E618C;
     color: white;
     border-right: 1px solid #D4D3D1;
-    vertical-align: middle;
 }
 
 .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
@@ -57,11 +57,11 @@ td.going {
 .time-row {
     margin-bottom: 10px;
 }
-#in-right{min-width:249px}
+
 select {
     background-color: #F2F2F2;
     padding: 3px 6px;
-    height: 25px;
+    height: 30px;
     border: none;
     margin-right: 10px;
     width: 150px;
@@ -114,10 +114,9 @@ textarea::-webkit-input-placeholder {
     height: 18px;
 }
 
-.operation > img, .add-operation > img {
+.operation img, .add-operation img {
     width: 18px;
     height: 18px;
-    margin-right: 4px;
     position: relative;
     bottom: 4px;
 }
@@ -125,15 +124,7 @@ textarea::-webkit-input-placeholder {
 .add-operation {
     color: #0E618C;
 }
-#index { width:100%; height:100%;min-width: 940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
-.button{
-    position:absolute;
-    border-radius:5px;
-    border:none;
-    background-color: #00608B;
-    color: white;
-    font-size: 12px;
-    padding: 0;}
+
 .btn-default, .btn-default:focus {
     background-color: #00608B;
     color: white;
@@ -300,26 +291,13 @@ select.table-input {
     width: 80%;
 }
 
-.man-green {
-    color: #006B4A;
+.operation > label {
+    min-width: 60px;
+    cursor: pointer;
 }
 
-.man-yellow {
-    color: #FF7120;
-}
 
-table {
-    table-layout: fixed;
-}
 
-table thead tr th.w200 {
-    width: 200px;
-}
 
-.red-alert {
-    color: red;
-}
 
-.password-row table td:first-child {
-    width: 200px;
-}
+
