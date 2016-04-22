@@ -48,10 +48,7 @@
         <jsp:param name="pageFather" value="base"></jsp:param>
     </jsp:include>
 
-<<<<<<< .mine
 
-=======
->>>>>>> .r78
     <div id="page-wrapper">
 
         <div class="row">
@@ -79,8 +76,8 @@
                             <td>所属养护公司</td>
                             <td>
                                 <select name="company" id="company">
-                                    <option>上海成基公司</option>
-                                    <option>上海高架公司</option>
+                                    <option value="上海成基公司" <c:if test="${Vehicle_edit.company=='上海成基公司'}">selected="selected"</c:if>>上海成基公司</option>
+                                    <option value="上海高架公司" <c:if test="${Vehicle_edit.company=='上海高架公司'}">selected="selected"</c:if>>上海高架公司</option>
                                 </select>
 
 
@@ -90,9 +87,9 @@
                             <td>车辆类型</td>
                             <td>
                                 <select name="vehicleType" id="vehicleType">
-                                    <option >养护车</option>
-                                    <option>巡查车</option>
-                                    <option>牵引车</option>
+                                    <option value="养护车" <c:if test="${Vehicle_edit.vehicleType=='养护车'}">selected="selected"</c:if>>养护车</option>
+                                    <option value="巡查车" <c:if test="${Vehicle_edit.vehicleType=='巡查车'}">selected="selected"</c:if>>巡查车</option>
+                                    <option value="牵引车" <c:if test="${Vehicle_edit.vehicleType=='牵引车'}">selected="selected"</c:if>>牵引车</option>
                                 </select>
                             </td>
                         </tr>
@@ -113,7 +110,8 @@
                             <td>
                                 <select id="eFence">
                                     <c:forEach items="${eFenceList}" var="eFence">
-                                        <option v="${eFence.id}">${eFence.eFence}</option>
+                                        <option value="${eFence.id}">${eFence.eFence}</option>
+
                                     </c:forEach>
                                 </select>
                             </td>
@@ -180,7 +178,7 @@
         var OBUId=$("#OBUId").val();
         var remark=$("#remark").val();
         $.ajax({
-            url:"edit1",
+            url:"VehicleEdit1",
             type:"post",
             data:{id:'${Vehicle_edit.id}',company:company,vehicleType:vehicleType,vehicleLicence:vehicleLicence,
                 vehicleModel:vehicleModel,eFenceId:eFenceId,eFence:eFence,OBUId:OBUId,

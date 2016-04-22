@@ -40,7 +40,7 @@ public class VehicleController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/Vehicle/add0")
+    @RequestMapping(value = "/VehicleAdd0")
     @ResponseBody
     public ModelAndView add0()
     {
@@ -51,7 +51,7 @@ public class VehicleController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/Vehicle/add1")
+    @RequestMapping(value = "/VehicleAdd1")
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                       @RequestParam(value = "vehicleType") String vehicleType,
@@ -82,7 +82,7 @@ public class VehicleController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/Vehicle/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/VehicleEdit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         Vehicle vehicle = vehicleDao.getById(Long.parseLong(id));
@@ -93,7 +93,7 @@ public class VehicleController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/Vehicle/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/VehicleEdit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                      @RequestParam(value = "company") String company,
@@ -119,7 +119,7 @@ public class VehicleController extends BaseController {
 
 
 
-    @RequestMapping(value = "/Vehicle/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/VehicleDelete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Vehicle vehicle=vehicleDao.getById(Long.parseLong(id));
@@ -131,7 +131,7 @@ public class VehicleController extends BaseController {
     }
 
     //利用所属公司或者车辆类型进行关键字查询
-    @RequestMapping(value="/Vehicle/search",method = RequestMethod.GET)
+    @RequestMapping(value="/VehicleSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         //byte bb[];

@@ -17,14 +17,14 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="../css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -59,7 +59,7 @@
                         <button class="btn btn-default" onclick="searchPackage(document.getElementById('search').value)">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="Package/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
+                        <a href="PackageAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -72,6 +72,7 @@
                                 <th>包含路段名称</th>
                                 <th>录入人</th>
                                 <th>次数</th>
+                                <th>执行时间</th>
                                 <th>包件描述</th>
                                 <th>操作</th>
                             </tr>
@@ -87,6 +88,7 @@
                                     <td>${item.roads}</td>
                                     <td>${item.inputMan}</td>
                                     <td>${item.time}</td>
+                                    <td>${item.runtime}</td>
                                     <td>${item.remark}</td>
                                     <td>
                                         <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPackage('${item.id}')">编辑</button>
@@ -158,7 +160,7 @@
 
     function editPackage(id)
     {
-        location.href="Package/edit?id="+id;
+        location.href="PackageEdit?id="+id;
 
 
     }
@@ -166,7 +168,7 @@
     {
         alert("delete");
         $.ajax({
-            url:"Package/delete",
+            url:"PackageDelete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -182,7 +184,7 @@
 
     function searchPackage(search)
     {
-        location.href="Package/search?search="+search;
+        location.href="PackageSearch?search="+search;
     }
 
 </script>

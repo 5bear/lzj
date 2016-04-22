@@ -68,20 +68,21 @@ public class PackageController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/Package/add0")
+    @RequestMapping(value = "/PackageAdd0")
     public String add0()
     {
         return "PackageAdd";
     }
 
 
-    @RequestMapping(value = "/Package/add1")
+    @RequestMapping(value = "/PackageAdd1")
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "packageName") String packageName,
                        @RequestParam(value = "distance") String distance,
                        @RequestParam(value = "inputMan") String inputMan,
                        @RequestParam(value = "time") String time,
+                       @RequestParam(value = "runtime") String runtime,
                        @RequestParam(value = "remark") String remark)
     {
 
@@ -91,16 +92,17 @@ public class PackageController extends BaseController {
         pac.setDistance(Long.parseLong(distance));
         pac.setInputMan(inputMan);
         pac.setTime(Integer.parseInt(time));
+        pac.setRuntime(runtime);
         pac.setRemark(remark);
         pac.setIsDelete(0);
         pac.setCreateTime(simpleDateFormat.format(new Date()));
 
-
+        System.out.println(company);
         packageDao.save(pac);
         return "success";
     }
 
-    @RequestMapping(value = "/Package/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/PackageEdit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         Package pac = packageDao.getById(Long.parseLong(id));
@@ -110,7 +112,7 @@ public class PackageController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/Package/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/PackageEdit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
@@ -119,6 +121,7 @@ public class PackageController extends BaseController {
                         @RequestParam(value = "distance") String distance,
                         @RequestParam(value = "inputMan") String inputMan,
                         @RequestParam(value = "time") String time,
+                        @RequestParam(value = "runtime") String runtime,
                         @RequestParam(value = "remark") String remark)
     {
         Package pac = packageDao.getById(Long.parseLong(id));
@@ -128,6 +131,7 @@ public class PackageController extends BaseController {
         pac.setDistance(Long.parseLong(distance));
         pac.setInputMan(inputMan);
         pac.setTime(Integer.parseInt(time));
+        pac.setRuntime(runtime);
         pac.setRemark(remark);
         pac.setEditTime(simpleDateFormat.format(new Date()));
         packageDao.update(pac);
@@ -136,7 +140,7 @@ public class PackageController extends BaseController {
 
 
 
-    @RequestMapping(value = "/Package/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/PackageDelete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Package pac = packageDao.getById(Long.parseLong(id));
@@ -148,7 +152,7 @@ public class PackageController extends BaseController {
     }
 
     //根据所属公司进行模糊查询
-    @RequestMapping(value="/Package/search",method = RequestMethod.GET)
+    @RequestMapping(value="/PackageSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
 
@@ -160,7 +164,7 @@ public class PackageController extends BaseController {
         modelAndView.addObject("search", search);
         return modelAndView;
     }
-    @RequestMapping(value = "/Package/get",method = RequestMethod.POST)
+    @RequestMapping(value = "/PackageGet",method = RequestMethod.POST)
     @ResponseBody
     public String get(){
         List<Package> pacList = packageDao.getList();

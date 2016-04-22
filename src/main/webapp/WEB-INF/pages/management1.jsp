@@ -116,7 +116,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteUser()">确定</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -134,6 +134,16 @@
   var idForDelete;
   function getID(id){
     idForDelete=id;
+  }
+  function deleteUser(){
+    $.ajax({
+      url:"User/delete",
+      type:"post",
+      data:{id:idForDelete},
+      success:function(data){
+        location.reload(true)
+      }
+    })
   }
   $(function(){
     $("#management").dropdown('toggle');

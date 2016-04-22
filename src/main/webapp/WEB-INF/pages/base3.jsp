@@ -36,6 +36,14 @@
 
   <style>
 
+     .button{
+		position:absolute;
+		border-radius:5px;
+		border:none;
+    background-color: #00608B;
+    color: white;
+    font-size: 12px;
+    padding: 0;}
 
     .bt{
       width: 11%;
@@ -48,11 +56,11 @@
       border:0;
     }
     #container{width: 57%;
-      height: 600px;
+      height: 565px;
       float: left;
       margin-left: 5px;
       margin-right: 5px;}
-    #index { width:100%; height:100%; min-width:940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+    #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
 
@@ -198,7 +206,7 @@
         <div id="in-mid" style="float:left"><!--<img src="images/mid2.png" width="100%"/>-->
           <!--<input class="button" type="button"  value="搜索" style=" position: absolute;top: 15px;left: 30%; width:9%;"/>-->
 
-          <button class="button" style="top:15px;left:30%;width:9%;height:4%" onclick="query()">搜索</button>
+          <button class="button" style="top: 15px;left: 182px; width: 60px; height: 27px;" onclick="query()">搜索</button>
 
           <div style="width:4%;height: 20px; position: absolute; top: 15px; left: 2%;">
             <img src="images/search_icon.png" style="width:100%" />
@@ -213,22 +221,22 @@
         </div>
 
 
-        <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
+        <div id="in-right" style="position: relative; float: left;  left:0; top: 0;width:249px; height::600px;">
           <img src="images/in-right2.png" width="100%"/>
-          <div  class="p" style=" top: 10%; left:50%;" id="info"><p>(X,Y)</p></div>
+          <div  class="p" style=" top: 63px; left:100px;" id="info"><p>(X,Y)</p></div>
 
-          <input class="r_text" id="serialNumber" type="text" style="top: 16.5%;left: 40%; width:50%"/>
-          <select style="position: absolute;top:23%;width: 40%; left:40%;" id="roadId">
+          <input class="r_text" id="serialNumber" type="text" style="top: 105px;left: 100px; width:123px"/>
+          <select style="position: absolute;top:146px;width: 100px; left:100px; background-color:#FFF" id="roadId">
             <c:forEach items="${lineList}" var="line">
               <option value="${line.id}">${line.line}</option>
             </c:forEach>
           </select>
-          <select style="position: absolute;top: 30%;width: 40%; left: 40%;" id="zhadao">
+          <select style="position: absolute;top:190px;width: 100px; left: 100px; background-color:#FFF" id="zhadao">
             <option value="入口">入口</option>
             <option value="出口">出口</option>
           </select>
 
-          <select style="position: absolute;top: 37%;width: 40%; left:40%;" id="direction">
+          <select style="position: absolute;top: 230px;width: 100px; left:100px; background-color:#FFF" id="direction">
             <option value="内圈">内圈</option>
             <option value="外圈">外圈</option>
             <option value="东侧">东侧</option>
@@ -237,16 +245,16 @@
             <option value="北侧">北侧</option>
           </select>
 
-          <input class="r_text" id="equipNum" type="text" style="top: 42.5%;left: 40%; width:50%"/>
-          <input class="r_text1" id="installPos1" type="text" style="top: 49.5%;left: 48%; width:42%"/>
-          <input class="r_text1" id="installPos2" type="text" style="top: 56%;left:48%; width:42%"/>
+          <input class="r_text" id="equipNum" type="text" style="top: 272px;left: 100px; width:100px"/>
+          <input class="r_text1" id="installPos1" type="text" style="top: 313px;left: 120px; width:80px"/>
+          <input class="r_text1" id="installPos2" type="text" style="top: 356px;left:120px; width:80px"/>
 
 
           <!-- <input class="button" data-toggle="modal" data-target="#success" type="button" value="增加/修改" style=" top:66%;left: 18%;width:23%;height:4%" />
            <input class="button" type="button"   data-toggle="modal" data-target="#success" style=" top: 66%;left:63%;
                   background:url(images/delete.png); background-size:100% 100%" />-->
-          <button class="button" data-toggle="modal" data-target="#success" style="top:66%;left:18%;width:28%;height:4%" onclick="addClick(0)">增加/修改</button>
-          <button class="button" data-toggle="modal" data-target="#success" style="top:66%;left:60%;width:28%;height:4%" onclick="addClick(1)">删除</button>
+          <button class="button" data-toggle="modal" data-target="#success" style="top:430px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
+          <button class="button" data-toggle="modal" data-target="#success" style="top:430px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
         </div>
 
       </div><!--/.index-->
@@ -299,7 +307,7 @@
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     var info=document.getElementById("info");
-    info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
+    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     /* var obj=document.getElementById("editArea");
      obj.style.display="";*/
     if(e.overlay==null) {

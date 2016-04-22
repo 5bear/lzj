@@ -60,7 +60,7 @@
                         <button class="btn btn-default" onclick="searchVehicle(document.getElementById('search').value)">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="Vehicle/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
+                        <a href="VehicleAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -150,7 +150,7 @@
 
     function editVehicle(id)
     {
-        location.href="Vehicle/edit?id="+id;
+        location.href="VehicleEdit?id="+id;
 
 
     }
@@ -158,7 +158,7 @@
     {
         alert("delete");
         $.ajax({
-            url:"Vehicle/delete",
+            url:"VehicleDelete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -183,7 +183,7 @@
             }
 
         })*/
-        location.href="Vehicle/search?search="+search;
+        location.href="VehicleSearch?search="+search;
     }
 
 

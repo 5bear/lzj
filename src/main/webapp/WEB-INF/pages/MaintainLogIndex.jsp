@@ -17,13 +17,13 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="../css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -249,9 +249,9 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#progress").dropdown('toggle');
@@ -282,7 +282,7 @@
 
     function MaintainLog_detail(id)
     {
-        location.href="MaintainLog/detail?id="+id;
+        location.href="MaintainLogDetail?id="+id;
 
 
     }
@@ -290,7 +290,7 @@
     {
         alert("delete");
         $.ajax({
-            url:"MaintainLog/delete",
+            url:"MaintainLogDelete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -322,12 +322,12 @@
                 }
             }
         })*/
-        location.href="MaintainLog/searchByTime?date1="+date1+"&date2="+date2;
+        location.href="MaintainLogSearchByTime?date1="+date1+"&date2="+date2;
     }
 
     function search(search)
     {
-        location.href="MaintainLog/search?search="+search;
+        location.href="MaintainLogSearch?search="+search;
     }
 
 </script>

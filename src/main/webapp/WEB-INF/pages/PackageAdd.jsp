@@ -16,14 +16,14 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="../css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -53,7 +53,7 @@
 
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
-                <a href="../Package" class="operation"><< 返回</a>
+                <a href="Package" class="operation"><< 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 包件信息录入
@@ -100,6 +100,10 @@
                         <td><input type="text" class="table-input" id="time"/></td>
                     </tr>
                     <tr>
+                        <td>执行时间</td>
+                        <td><input type="text" class="table-input" id="runtime"/></td>
+                    </tr>
+                    <tr>
                         <td>包件描述</td>
                         <td><input type="text" class="table-input" id="remark"/></td>
                     </tr>
@@ -139,9 +143,9 @@
 
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#base").dropdown('toggle');
@@ -173,17 +177,20 @@
         var distance=$("#distance").val();
         var inputMan=$("#inputMan").val();
         var time=$("#time").val();
+        var runtime=$("#runtime").val();
         var remark=$("#remark").val();
 
-        alert(remark);
+        alert(company+packageName+distance+inputMan+time+runtime+remark);
         $.ajax({
-            url:"add1",
+            url:"/PackageAdd1",
             type:"post",
-            data:{company:company,
+            data:{
+                company:company,
                 packageName:packageName,
                 distance:distance,
                 inputMan:inputMan,
                 time:time,
+                runtime:runtime,
                 remark:remark},
 
             success:function(){

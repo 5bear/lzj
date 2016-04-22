@@ -18,14 +18,14 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="../css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
 
 </head>
 
@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
                 <!--<a href="javascript:history.back();" class="operation"><< 返回</a>-->
-                <a href="../Vehicle" class="operation"><< 返回</a>
+                <a href="Vehicle" class="operation"><< 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 车辆管理信息录入
@@ -148,9 +148,9 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#base").dropdown('toggle');
@@ -177,7 +177,7 @@
 
         //alert("dsdsd");
         $.ajax({
-            url:"add1",
+            url:"VehicleAdd1",
             type:"post",
             data:{company:company,
                   vehicleType:vehicleType,

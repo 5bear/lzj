@@ -1,7 +1,6 @@
 package com.springapp.mvc;
 
 import com.springapp.entity.Package;
-import com.springapp.entity.eFence;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +19,13 @@ import java.util.List;
 public class Plan1Controller extends BaseController{
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView home(ModelAndView modelAndView){
-        modelAndView.setViewName("plan1");
+        modelAndView.setViewName("Plan1");
         return modelAndView;
     }
     @RequestMapping(value="/search",method = RequestMethod.POST)
     @ResponseBody
-    public String getMilliage(@RequestParam(value = "company") String company,@RequestParam(value = "year") int year){
-        List<Package> packageList=packageDao.findAll("from Package where isDelete='0' and company like '%"+company+"%'and time like '%"+year+"%'",Package.class);
+    public String getMilliage(@RequestParam(value = "company") String company,@RequestParam(value = "year") String year){
+        List<Package> packageList=packageDao.findAll("from Package where isDelete='0' and company like '%"+company+"%'and runtime like '"+year+"%'",Package.class);
         return JSONArray.fromObject(packageList).toString();
     }
     @RequestMapping(value="/getYear",method = RequestMethod.POST)

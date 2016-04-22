@@ -1,4 +1,5 @@
 ﻿
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,10 +35,10 @@
 
     
     <style>
-	 #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+	 #index { width:100%; height:100%;min-width:990px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
      #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}
-     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;} 
-     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;margin-left:5px}
+     #in-mid { width:57%; height:652px; margin:0px; padding:0px; float:left; background-color:transparent;} 
+     #in-right { width:23.5%; height:600px; margin:0px; padding:0px; float:left; background-color:transparent;margin-left:5px}
 	
 	.bt{
 		 height: 22px;
@@ -87,7 +88,15 @@
    		position: absolute;
     	left: 513px;
 	}
-	
+	.hour{
+	border: none;
+    	background-color: #F2F2F2;
+    	border-radius: 5px;
+    	padding: 3px 6px;
+    	margin-right: 10px;
+    	width: 150px;
+		color: rgb(62,133,167);
+	}
 	.tt{
 		border: none;
     	background-color: #F2F2F2;
@@ -284,18 +293,20 @@ new scale('btn','bar','title');
 		 <div id="index">
 		  <!--<img src="images/index.jpg" width="100%"/>-->
          	<div id="in-left" style=" width:500px" >
-            	<input type="text" class="tt" id="hour" style="position: absolute;left: 21px;width: 82px;"/>
-                
-                <div style="width: 22px;height: 15px; position: absolute; top: 3px; ">
+            	<!--<input type="text" class="tt" id="hour" style="position: absolute;left: 21px;width: 82px;"/>-->
+                <input type="text" value="开始时间" class="hour"  style="position: absolute;left: 24px;width: 76px;"/>
+                <input type="text" value="结束时间" class="hour" style="position: absolute;left:105px;width: 91px;"/>
+    
+                <div style="width: 2%;height: 4%; position: absolute;">
                 <img src="images/search_icon.png" style="width:100%" />
                 </div>  
                 
-                <input type="button" id="xuanze" value="选择时间段" style="position: absolute;left: 110px;width:94px;"/>
-                <input type="text" class="tt" value="输入车牌" style="position: absolute;left: 214px;width: 99px;"/>
+              <!--  <input type="button" id="xuanze" value="选择时间段" style="position: absolute;left: 110px;width:94px;"/>-->
+                <input type="text" class="tt" value="输入车牌" style="position: absolute;left: 18%;width: 10%;"/>
                 
-                <input class="bt" type="button" style=" position: absolute;top: 4px;left: 325px;background:url(images/queren.png); background-size: 100% 100%;
+                <input class="bt" type="button" style=" position: absolute;margin-top:3px;left:319px;background:url(images/queren.png); background-size: 100% 100%;
                      " /> 
-                <input class="bt" type="button"  style=" position: absolute;top: 4px;left: 384px; width:111px;background:url(images/qianyin.png); background-size: 100% 100%;
+                <input class="bt" type="button"  style=" position: absolute;margin-top: 3px;left: 380px; width:111px;background:url(images/qianyin.png); background-size: 100% 100%;
                     " /> 
                 
                <video id="video1" width="100%" style="margin-top:0px; position:relative; top:62px;">
@@ -349,7 +360,7 @@ new scale('btn','bar','title');
                 
          	</div><!--in-left-->
             
-            <div id="in-mid" style="width:170px;">  
+            <div id="in-mid" style="width:158px;">  
                 <img src="images/bg.png" width="100%"/> 
                 <video id="video1" width="15%" style="margin-top:0px; top:10px">
    					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
@@ -378,7 +389,7 @@ new scale('btn','bar','title');
  			   </video>  
             </div><!--in-mid-->
             
-          <div id="in-right" style="width:400px">
+          <div id="in-right" style="width:327px;">
                <!--<img src="images/in-right10.png" width="100%"/>-->
               
                <div id="container" style="width:99%"></div> 
@@ -422,7 +433,7 @@ new scale('btn','bar','title');
                 yearEnd: 2050
             });
 
-            $('#hour').datetimepicker({
+            $('.hour').datetimepicker({
                 datepicker:false,
                 format:'H:i',
                 step:10

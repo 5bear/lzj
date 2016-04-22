@@ -45,7 +45,7 @@ public class MaintainLogController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/MaintainLog/add0")
+    @RequestMapping(value = "/MaintainLogAdd0")
     public ModelAndView add0()
     {
         ModelAndView modelAndView=new ModelAndView();
@@ -57,7 +57,7 @@ public class MaintainLogController extends BaseController {
 
 
 
-    @RequestMapping(value = "/MaintainLog/add1",method =RequestMethod.POST)
+    @RequestMapping(value = "/MaintainLogAdd1",method =RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "vehicleLicence") String vehicleLicence,
                        @RequestParam(value = "principal") String principal,
@@ -86,7 +86,7 @@ public class MaintainLogController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/MaintainLog/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/MaintainLogEdit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         MaintainLog mtl = maintainLogDao.getById(Long.parseLong(id));
@@ -98,7 +98,7 @@ public class MaintainLogController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/MaintainLog/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/MaintainLogEdit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "vehicleLicence") String vehicleLicence,
@@ -125,7 +125,7 @@ public class MaintainLogController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/MaintainLog/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/MaintainLogDelete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         MaintainLog mtl=maintainLogDao.getById(Long.parseLong(id));
@@ -136,7 +136,7 @@ public class MaintainLogController extends BaseController {
     }
 
 
-    @RequestMapping(value="/MaintainLog/searchByTime",method = RequestMethod.GET)
+    @RequestMapping(value="/MaintainLogSearchByTime",method = RequestMethod.GET)
     public ModelAndView searchByTime(@RequestParam(value = "date1") String date1,
                                @RequestParam(value = "date2") String date2)
     {
@@ -155,7 +155,7 @@ public class MaintainLogController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/MaintainLog/search",method = RequestMethod.GET)
+    @RequestMapping(value="/MaintainLogSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         ModelAndView modelAndView=new ModelAndView();
@@ -174,7 +174,7 @@ public class MaintainLogController extends BaseController {
     }
 
 
-    @RequestMapping(value="/MaintainLog/detail",method = RequestMethod.GET)
+    @RequestMapping(value="/MaintainLogDetail",method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "id") String id)
     {
         ModelAndView modelAndView=new ModelAndView();

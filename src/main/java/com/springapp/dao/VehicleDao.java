@@ -23,6 +23,26 @@ public class VehicleDao extends BaseDao {
         return this.find("from Vehicle where isDelete='0' and vehicleLicence='"+vehicleLicence+"'",Vehicle.class);
     }
 
+    public List<Vehicle> getCList(){
+        return this.findAll(("from Vehicle where isDelete='0' and company='上海成基公司'"),Vehicle.class);
+    }
+
+    public List<Vehicle> getGList(){
+        return this.findAll(("from Vehicle where isDelete='0' and company='上海养护公司'"),Vehicle.class);
+    }
+
+    public List<Vehicle> getXList(){
+        return this.findAll(("from Vehicle where isDelete='0' and vehicleType='巡查车'"),Vehicle.class);
+    }
+
+    public List<Vehicle> getYList(){
+        return this.findAll(("from Vehicle where isDelete='0' and vehicleType='养护车'"),Vehicle.class);
+    }
+
+    public List<Vehicle> getQList(){
+        return this.findAll(("from Vehicle where isDelete='0' and vehicleType='牵引车'"),Vehicle.class);
+    }
+
     public List<Vehicle> getCyList(){
         return this.findAll("from Vehicle where isDelete='0' and company='上海成基公司' and vehicleType='养护车'",Vehicle.class);
     }

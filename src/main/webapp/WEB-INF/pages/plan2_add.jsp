@@ -36,7 +36,15 @@
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; position:relative}
 
-
+ .button{
+		position:absolute;
+		border-radius:5px;
+		border:none;
+    background-color: #00608B;
+    color: white;
+    font-size: 12px;
+    padding: 0;}
+	
     .bt1{
       height: 23px;
       width: 60px;
@@ -48,7 +56,7 @@
     .p
     {
       position: absolute;
-      left: 49%;
+      left: 102px;
       font-family: Microsoft YaHei,STHeiti;
     }
 
@@ -112,7 +120,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${cjList}" var="item">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="panTo('${item.lng}','${item.lat}')" data-toggle="dropdown">${item.line}</a>
+                          <a href="" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="dropdown">${item.line}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -127,7 +135,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${gjyhList}" var="item">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="panTo('${item.lng}','${item.lat}')" data-toggle="dropdown">${item.line}</a>
+                          <a href="" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="dropdown">${item.line}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -159,30 +167,30 @@
 
         </div><!--in-mid-->
 
-        <div id="in-right"><img src="images/111.png" width="100%"/>
-          <p class="p" style="top:10%" id="info">(X,Y)</p>
+        <div id="in-right" style="width:249px"><img src="images/111.png" width="100%"/>
+          <p class="p" style="top:63px" id="info">(X,Y)</p>
 
-          <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;" id="lineName">
-          <select style="position: absolute; top: 28%;left: 35%; width: 32%;" id="company">
+          <input type="text" style="position: absolute; top: 140px; left: 70px; width: 125px;" id="lineName">
+          <select style="position: absolute; top: 175px;left:85px; width:108px;" id="company">
             <option value="上海成基公司">上海成基公司</option>
             <option value="上海高架养护公司">上海高架养护公司</option>
 
           </select>
 
-          <select style="position: absolute; top: 33.5%;left: 35%; width: 32%;" id="package">
+          <select style="position: absolute; top: 210px;left: 85px; width: 108px;" id="package">
            <c:forEach items="${packages}" var="item">
              <option value="${item.id}">${item.packageName}</option>
            </c:forEach>
 
           </select>
 
-          <select style="position: absolute; top: 39.5%;left: 25%; width: 40%;" id="direction">
+          <select style="position: absolute; top: 250px;left:70px; width: 100px;" id="direction">
             <option value="北">北</option>
             <option value="南">南</option>
             <option value="东">东</option>
             <option value="西">西</option>
           </select>
-          <select style="position: absolute; top: 45.5%; left:33%; width: 32%;" id="directionType">
+          <select style="position: absolute; top: 280px; left:90px; width: 80px;" id="directionType">
             <option value="外圈">外圈</option>
             <option value="内圈">内圈</option>
             <option value="南侧">南侧</option>
@@ -190,13 +198,11 @@
             <option value="东侧">东侧</option>
             <option value="西侧">西侧</option>
           </select>
-          <p class="p1" style="top:52.5%;" id="startCoord"></p>
-          <p class="p1" style="top:58%;" id="endCoord"></p>
-          <p class="p1" style="top:65%;" id="realDistance"></p>
-          <input class="bt1" data-toggle="modal" data-target="#success" type="button" onclick="addClick(0)"  style=" top:72%;left: 18%;width:24%;
-                      background:url(images/add.png); background-size:100% 100%" />
-          <input class="bt1" type="button"   data-toggle="modal" data-target="#success" onclick="addClick(1)" style=" top:72%;left:60%;width:24%;
-                      background:url(images/delete.png); background-size:100% 100%" />
+          <p class="p1" style="top:335px;" id="startCoord"></p>
+          <p class="p1" style="top:370px;" id="endCoord"></p>
+          <p class="p1" style="top:412px;" id="realDistance"></p>
+         <button class="button" data-toggle="modal" data-target="#success" style="top:470px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
+          <button class="button" data-toggle="modal" data-target="#success" style="top:470px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
         </div><!--in-right-->
 
       </div>
@@ -235,6 +241,7 @@
   var currentLng,currentLat;
   var polyline;//折线对象
   var polylines=new Array();//多条折线
+  var lineMap=new Map();
   var marker;
   var distance=0;
   var points=new Array();//创建点的数组
@@ -247,7 +254,7 @@
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     var info=document.getElementById("info");
-    info.innerHTML=("("+e.point.lng+","+ e.point.lat+")");
+    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     var point = new BMap.Point(e.point.lng, e.point.lat);
     map.panTo(point)
     marker = new BMap.Marker(point);// 创建标注
@@ -272,7 +279,7 @@
             var p=new BMap.Point(point[i].lng,point[i].lat);
             points.push(p);
           }
-          drawLine();
+          drawLine(data[index].id);
           points=new Array();//清空
         })
 
@@ -374,7 +381,7 @@
     polylines=new Array();
   }
   /*划线*/
-  function drawLine(){
+  function drawLine(id){
     /*
      var startX=document.getElementById("startX").value;
      var startY=document.getElementById("startY").value;
@@ -399,14 +406,16 @@
       var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
       polyline = new BMap.Polyline(pts);
       polylines.push(polyline);
+      lineMap.put(polyline,id)
       polyline.addEventListener("click",function(e){
         var target= e.currentTarget;
         polyline=target;
+        id=lineMap.get(polyline);
         points=target.getPath();
         $.ajax({
-          url:"line/getByCoords",
+          url:"line/get",
           type:"post",
-          data:{startCoord:pointsTojson(e.target.getPath()[0]),endCoord:pointsTojson(e.target.getPath()[e.target.getPath().length-1])},
+          data:{id:id},
           dataType:"json",
           success:function(data){
             var startCoord=jsonToPoints("["+data.startCoord+"]")[0]
@@ -451,6 +460,28 @@
     var point=new BMap.Point(lng, lat);
     map.panTo(point);
   }
+  function showLine(id,lng,lat){
+    panTo(lng,lat)
+    $.ajax({
+      url:"line/get",
+      type:"post",
+      data:{id:id},
+      dataType:"json",
+      success:function(data){
+        var startCoord=jsonToPoints("["+data.startCoord+"]")[0]
+        var endCoord=jsonToPoints("["+data.endCoord+"]")[0]
+        console.log(startCoord)
+        $("#lineName").val(data.line);
+        $("#company").find("option[value="+data.company+"]").attr("selected",true);
+        $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+        $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
+        $("#startCoord").html("("+startCoord.lng+","+startCoord.lat+")")
+        $("#endCoord").html("("+endCoord.lng+","+endCoord.lat+")");
+        $("#realDistance").html(data.realDistance+"m");
+        /*$("#inputMan").val(data.inputMan);*/
+      }
+    })
+  }
   function removeAll(){
     $("#lineName").val("");
     $("#startCoord").html("")
@@ -460,6 +491,206 @@
   $('a[data-toggle="dropdown"]').click(function() {
     $(this).nextAll().toggle();
   });
+
+  function Map() {
+    this.elements = new Array();
+
+    //获取MAP元素个数
+    this.size = function() {
+      return this.elements.length;
+    };
+
+    //判断MAP是否为空
+    this.isEmpty = function() {
+      return (this.elements.length < 1);
+    };
+
+    //删除MAP所有元素
+    this.clear = function() {
+      this.elements = new Array();
+    };
+
+    //向MAP中增加元素（key, value)
+    this.put = function(_key, _value) {
+      this.elements.push( {
+        key : _key,
+        value : _value
+      });
+    };
+
+    //删除指定KEY的元素，成功返回True，失败返回False
+    this.removeByKey = function(_key) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].key == _key) {
+            this.elements.splice(i, 1);
+            return true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //删除指定VALUE的元素，成功返回True，失败返回False
+    this.removeByValue = function(_value) {//removeByValueAndKey
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value) {
+            this.elements.splice(i, 1);
+            return true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //删除指定VALUE的元素，成功返回True，失败返回False
+    this.removeByValueAndKey = function(_key,_value) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value && this.elements[i].key == _key) {
+            this.elements.splice(i, 1);
+            return true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //获取指定KEY的元素值VALUE，失败返回NULL
+    this.get = function(_key) {
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].key == _key) {
+            return this.elements[i].value;
+          }
+        }
+      } catch (e) {
+        return false;
+      }
+      return false;
+    };
+
+    //获取指定索引的元素（使用element.key，element.value获取KEY和VALUE），失败返回NULL
+    this.element = function(_index) {
+      if (_index < 0 || _index >= this.elements.length) {
+        return null;
+      }
+      return this.elements[_index];
+    };
+
+    //判断MAP中是否含有指定KEY的元素
+    this.containsKey = function(_key) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].key == _key) {
+            bln = true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //判断MAP中是否含有指定VALUE的元素
+    this.containsValue = function(_value) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value) {
+            bln = true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //判断MAP中是否含有指定VALUE的元素
+    this.containsObj = function(_key,_value) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value && this.elements[i].key == _key) {
+            bln = true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //获取MAP中所有VALUE的数组（ARRAY）
+    this.values = function() {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        arr.push(this.elements[i].value);
+      }
+      return arr;
+    };
+
+    //获取MAP中所有VALUE的数组（ARRAY）
+    this.valuesByKey = function(_key) {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        if (this.elements[i].key == _key) {
+          arr.push(this.elements[i].value);
+        }
+      }
+      return arr;
+    };
+
+    //获取MAP中所有KEY的数组（ARRAY）
+    this.keys = function() {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        arr.push(this.elements[i].key);
+      }
+      return arr;
+    };
+
+    //获取key通过value
+    this.keysByValue = function(_value) {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        if(_value == this.elements[i].value){
+          arr.push(this.elements[i].key);
+        }
+      }
+      return arr;
+    };
+
+    //获取MAP中所有KEY的数组（ARRAY）
+    this.keysRemoveDuplicate = function() {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        var flag = true;
+        for(var j=0;j<arr.length;j++){
+          if(arr[j] == this.elements[i].key){
+            flag = false;
+            break;
+          }
+        }
+        if(flag){
+          arr.push(this.elements[i].key);
+        }
+      }
+      return arr;
+    };
+  }
 </script>
 
 </body>

@@ -41,7 +41,7 @@ public class ParkController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/Park/add0")
+    @RequestMapping(value = "/ParkAdd0")
     public String add0()
     {
         return "ParkAdd";
@@ -49,7 +49,7 @@ public class ParkController extends BaseController {
 
 
 
-    @RequestMapping(value = "/Park/add1",method =RequestMethod.POST)
+    @RequestMapping(value = "/ParkAdd1",method =RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "parkName") String parkName,
@@ -70,7 +70,7 @@ public class ParkController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/Park/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/ParkEdit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id)
     {
         Park park = parkDao.getById(Long.parseLong(id));
@@ -80,7 +80,7 @@ public class ParkController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/Park/edit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/ParkEdit1", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
@@ -102,7 +102,7 @@ public class ParkController extends BaseController {
 
 
 
-    @RequestMapping(value = "/Park/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/ParkDelete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Park park = parkDao.getById(Long.parseLong(id));
@@ -113,7 +113,7 @@ public class ParkController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value="/Park/search",method = RequestMethod.GET)
+    @RequestMapping(value="/ParkSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         ModelAndView modelAndView=new ModelAndView();

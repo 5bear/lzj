@@ -146,7 +146,7 @@
 
 
   <style>
-    #container{width: 55%;
+    #container{width: 99%;
       height: 600px;
       float: left;
       margin-left: 5px;
@@ -154,29 +154,29 @@
 
     /*#index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}*/
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-mid { width:50%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-right { width:24%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
+    #in-mid { width:58%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
+    #in-right {  height:600px; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #index-checkbox
     {
       position:absolute;
       top: 620px;
-      left: 200px;
+      left: 10px;
     }
     #_select
     {
       position: absolute;
-      top: 8%;
-      left: 10%;
-      width: 80%;
-      height:4%;
+      top: 55px;
+      left: 35px;
+      width: 200px;
+      height:25px;
     }
 
     .progressbar_1{
 
       background-color:rgb(255,255,255);
-      height:3%;
+      height:20px;
       border:2px solid rgb(179,179,179);
-      position:absolute;top: 23%; left: 9%; width: 47%;
+      position:absolute;top: 161px; left: 27px; width: 130px;
 
 
     }
@@ -328,7 +328,8 @@
 
         <!-- <div id="in-mid">--><!--<img src="images/map1.png" width="100%"/>-->
         <!-- <div id="container" style="height: 601px; width: 638px; top: 123px;left:447px; float:left">-->
-        <div id="container"></div>
+         <div id="mid" style="height:700px; width:55%; float:left; position:relative">
+        <div id="container" style=" height:600px; width:99%"></div>
 
 
 
@@ -343,18 +344,18 @@
           显示路径
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
         </form>
+        </div>
 
-
-        <div id="in-right"><img src="images/in-right1.png" width="100%"/>
+        <div id="in-right" style="width:249px; height:600px"><img src="images/in-right1.png" width="100%"/>
           <select id="_select">
             <option value="SH">上海</option>
           </select>
-          <div id="container2" style="width:49%;height:31%;position: absolute;top: 35%;left:1%"></div>
-          <div id="container1" style="width:47%;height:31%;position: absolute;top: 35%;left:52%"></div>
+          <div id="container2" style="width:120px;height:208px;position: absolute;top: 217px;left:2px"></div>
+          <div id="container1" style="width:120px;height:208px;position: absolute;top: 217px;left:130px"></div>
           <div class="progressbar_1" >
             <div class="bar" style="width: 50%;"></div>
           </div>
-          <p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 23%;left: 61%;">50% &nbsp;&nbsp;&nbsp;247km</p>
+          <p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 162px;left:170px;">50% &nbsp;&nbsp;&nbsp;247km</p>
         </div>
 
       </div>

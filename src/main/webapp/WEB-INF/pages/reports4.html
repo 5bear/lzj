@@ -130,7 +130,8 @@
                             <option value="" selected="selected">上海成基公司</option>
                         </select>
                         <input type="text" id="date" placeholder="选择日期"/>
-                        <input type="text" id="hour" placeholder="选择时间"/>
+                        <input type="text" id="hour1" placeholder="选择起始时间"/>
+                        <input type="text" id="hour2" placeholder="选择结束时间"/>
                     </div>
                     <div class="col-lg-12 text-center table-title">
                         牵引车辆位置信息报表
@@ -214,7 +215,13 @@
                 yearEnd: 2050
             });
 
-            $('#hour').datetimepicker({
+            $('#hour1').datetimepicker({
+                datepicker:false,
+                format:'H:i',
+                step:10
+            });
+
+            $('#hour2').datetimepicker({
                 datepicker:false,
                 format:'H:i',
                 step:10

@@ -20,9 +20,12 @@ public class Package {
     private int time;//次数
     private String remark;//备注
     private int isDelete;
+    private String runtime;//包件执行时间
     private String createTime;//添加时间
     private String editTime;//修改时间
     private String deleteTime;//删除时间
+
+
     @Column(name = "inputId")
     public Long getInputId() {
         return inputId;
@@ -112,6 +115,15 @@ public class Package {
     public int getIsDelete(){return isDelete;}
     public void setIsDelete(int isDelete){this.isDelete=isDelete;}
 
+    @Column(length = 45,name = "runtime")
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
     @Column(length = 45,name = "createTime")
     public String getCreateTime() {
         return createTime;
@@ -120,6 +132,7 @@ public class Package {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
+
     @Column(length = 45,name = "editTime")
     public String getEditTime() {
         return editTime;

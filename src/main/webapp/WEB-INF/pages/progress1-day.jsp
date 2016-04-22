@@ -294,8 +294,8 @@
                         <option value="year">本年</option>
                     </select>
 
-                    <div id="container" style="width:25%;height:28%;position: absolute;top:25%;left:52%"></div>
-                    <div id="container1" style="width:19%;height:28%;position: absolute;top: 25%;left:70%"></div>
+                    <div id="container" style="width:25%;height:36%;position: absolute;top:20%;left:49%"></div>
+                    <div id="container1" style="width:19%;height:36%;position: absolute;top: 20%;left:74%"></div>
                     <div class="progressbar_1" style="top: 30%; left:16%;  width: 15%" >
                         <div class="bar" style="width: 50%;"></div>
                     </div>

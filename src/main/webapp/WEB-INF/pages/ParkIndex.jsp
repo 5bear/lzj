@@ -18,14 +18,14 @@
     <title>上海市快速路养护监管系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="../css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -61,7 +61,7 @@
                         <button class="btn btn-default" onclick="searchPark(document.getElementById('search').value)">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="Park/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增停车场信息</a>
+                        <a href="ParkAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增停车场信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -130,9 +130,9 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#base").dropdown('toggle');
@@ -143,7 +143,7 @@
 
     function editPark(id)
     {
-        location.href="Park/edit?id="+id;
+        location.href="ParkEdit?id="+id;
 
 
     }
@@ -151,7 +151,7 @@
     {
         alert("delete");
         $.ajax({
-            url:"Park/delete",
+            url:"ParkDelete",
             type:"post",
             data:{id:id},
             success:function(){
@@ -167,7 +167,7 @@
 
     function searchPark(search)
     {
-        location.href="Park/search?search="+search;
+        location.href="ParkSearch?search="+search;
     }
 
 </script>

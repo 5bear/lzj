@@ -41,12 +41,12 @@
       <li <%if(pageFather.equals("base")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("base1")) {%>class="active"<%}%>><a href="/Park">停车场管理</a></li>
-          <li <%if(pageName.equals("base2")) {%>class="active"<%}%>><a href="/Vehicle">车辆管理</a></li>
-          <li <%if(pageName.equals("base3")) {%>class="active"<%}%>><a href="/RFID">RFID监测点管理</a></li>
-          <li <%if(pageName.equals("base4")) {%>class="active"<%}%>><a href="/Package">包件信息管理</a></li>
-          <li <%if(pageName.equals("base5")) {%>class="active"<%}%>><a href="/eFence">电子围栏管理</a></li>
-          <li <%if(pageName.equals("base6")) {%>class="active"<%}%>><a href="/Rules">监管规则管理</a></li>
+          <li <%if(pageName.equals("base1")) {%>class="active"<%}%>><a href="Park">停车场管理</a></li>
+          <li <%if(pageName.equals("base2")) {%>class="active"<%}%>><a href="Vehicle">车辆管理</a></li>
+          <li <%if(pageName.equals("base3")) {%>class="active"<%}%>><a href="RFID">RFID监测点管理</a></li>
+          <li <%if(pageName.equals("base4")) {%>class="active"<%}%>><a href="Package">包件信息管理</a></li>
+          <li <%if(pageName.equals("base5")) {%>class="active"<%}%>><a href="eFence">电子围栏管理</a></li>
+          <li <%if(pageName.equals("base6")) {%>class="active"<%}%>><a href="Rules">监管规则管理</a></li>
         </ul>
       </li>
 
@@ -101,17 +101,19 @@
 
     <ul class="nav navbar-nav navbar-right navbar-user">
       <li class="dropdown user-dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎,<%=username%> <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， <%=username%> <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="PersonalInfo"><i class="fa fa-user"></i> 个人信息</a></li>
           <li class="divider"></li>
-          <li><a href="login"><i class="fa fa-power-off"></i> 安全退出</a></li>
+          <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
         </ul>
       </li>
     </ul>
+
   </div><!-- /.navbar-collapse -->
 </nav>
-<%--<script>
+<script src="js/jquery-1.10.2.js"></script>
+<script>
   $(document).ready(function(){
     $("button.navbar-aside").click(function(){
       if ($("#wrapper").is(".left-wrapper")== true) {
@@ -123,5 +125,5 @@
       }
     });
   });
-</script>--%>
+</script>
 

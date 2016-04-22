@@ -36,10 +36,20 @@
 
 
   <style>
-    #index { width:100%; height:100%;min-width: 940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+   
+	 .button{
+		position:absolute;
+		border-radius:5px;
+		border:none;
+    background-color: #00608B;
+    color: white;
+    font-size: 12px;
+    padding: 0;}
+	
+    #index { width:100%; height:100%;min-width: 960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}
+    #in-right { height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}
     .bt1{
       height: 23px;
       width: 5%;
@@ -141,40 +151,47 @@
         </div><!--in-left-->
 
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
-          <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
+         <!-- <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
                      url(images/begin.png); background-size: 100% 100% " onclick="choosePoint()" />
           <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " onclick="undo()" />
           <input class="bt1" type="button" id="chexiao" value="撤销全部"style="width:11%;top: 2%;left: 28%; background-color: #00608B;color: white; font-size: 90%; padding: 2px 8px;" onclick="undoAll()"/>
 
-          <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " onclick="drawLine()" />
-
+          <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " onclick="drawLine()" />-->
+          
+          <button class="button" style="top:2%;left:2%;width:70px;height:29px" onclick="choosePoint()">开始绘制</button>
+          <button class="button" style="top:2%;left:15%;width:70px;height:29px" onclick="undo()" >撤销一次</button>
+          <button class="button" style="top:2%;left:28%;width:70px;height:29px" onclick="undoAll()">撤销全部</button>
+          <button class="button" style="top:2%;left:41%;width:70px;height:29px" onclick="drawLine()">完成</button>
 
           <div id="container" style="width:99%;top:52px"></div>
 
         </div><!--in-mid-->
 
 
-        <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
+        <div id="in-right" style="position: relative; float: left; left:0; top: 0;width:249px">
           <img src="images/d.png" width="100%"/>
           <div style="position:absolute;top:0;width:100%">
             <img src="images/dianziweilan.png" width="100%"/>
           </div>
-          <div  class="p" style=" top: 10%; left: 38%;"><p id="info"></p></div>
+          <div  class="p" style=" top: 65px; left: 100px;"><p id="info"></p></div>
 
           <!-- <input type="text" style="position:absolute;top: 14%; left: 50%; width:40%;height:3.5%"/>-->
-          <input type="text" style="position:absolute;top: 19%; left:40%; width:50%;height:3.5%" id="eFence"/>
+          <input type="text" style="position:absolute;top: 121px; left:100px; width:126px;height:24px" id="eFence"/>
 
-          <select style="position: absolute;top:23%;width: 50%; left:40%;" id="company">
+          <select style="position: absolute;top:151px;width: 126px; left:100px;" id="company">
             <option value="上海成基公司">上海成基公司</option>
             <option value="上海高架养护公司">上海高架养护公司</option>
           </select>
-          <div  class="p" style=" top: 28%; left:40%;" id="inputMan"><p></p></div>
-          <div  class="p" style=" top: 32.5%; left:40%;" id="vehicles"><p></p></div>
-          <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:42%;left: 18%;width:24%;
+          <div  class="p" style=" top: 180px; left:100px;" id="inputMan"><p></p></div>
+          <div  class="p" style=" top: 208px; left:100px;" id="vehicles"><p></p></div>
+         <!-- <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:270px;left: 50px;width:70px;height:28px;
                       background:url(images/add.png); background-size:100% 100%" onclick="addClick(0)"/>
-          <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top: 42%;left:60%;width:24%;
+          <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top: 270px;left:148px;width:70px;height:28px;
                       background:url(images/delete.png); background-size:100% 100%" onclick="addClick(1)" />
-
+-->
+ <button class="button" data-toggle="modal" data-target="#success" style="top:270px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
+               <button class="button" data-toggle="modal" data-target="#success" style="top:270px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
+           
         </div><!--in-right-->
 
       </div><!--/.index-->
@@ -222,7 +239,7 @@
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     var info=document.getElementById("info");
-    info.innerHTML=(":("+e.point.lng+","+ e.point.lat+")");
+    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     var point = new BMap.Point(e.point.lng, e.point.lat);
     map.panTo(point)
     marker = new BMap.Marker(point);// 创建标注
