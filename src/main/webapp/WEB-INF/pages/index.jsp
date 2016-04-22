@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -22,7 +23,6 @@
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
-
   <script type="text/javascript" src="js/BMaplib.js"></script>
   <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
   <script type="text/javascript" src="js/highcharts.js"></script>
@@ -329,11 +329,11 @@
         <!-- <div id="in-mid">--><!--<img src="images/map1.png" width="100%"/>-->
         <!-- <div id="container" style="height: 601px; width: 638px; top: 123px;left:447px; float:left">-->
          <div id="mid" style="height:700px; width:55%; float:left; position:relative">
-        <div id="container" style=" height:600px; width:99%"></div>
+        <div id="container" style=" height:650px; width:99%"></div>
 
 
 
-        <form id="index-checkbox">
+       <!-- <form id="index-checkbox">
           <input type="checkbox" name="speed" id="speed" />
           显示车速
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
@@ -343,7 +343,7 @@
           <input type="checkbox" name="path" id="path" />
           显示路径
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
-        </form>
+        </form>-->
         </div>
 
         <div id="in-right" style="width:249px; height:600px"><img src="images/in-right1.png" width="100%"/>
@@ -351,7 +351,7 @@
             <option value="SH">上海</option>
           </select>
           <div id="container2" style="width:120px;height:208px;position: absolute;top: 217px;left:2px"></div>
-          <div id="container1" style="width:120px;height:208px;position: absolute;top: 217px;left:130px"></div>
+          <div id="container1" style="width:120px;height:208px;position: absolute;top: 217px;left:127px"></div>
           <div class="progressbar_1" >
             <div class="bar" style="width: 50%;"></div>
           </div>

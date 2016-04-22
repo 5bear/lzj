@@ -14,7 +14,7 @@
   String username= (String) session.getAttribute("username");
   System.out.print(pageName+pageFather);
 %>
-
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -105,7 +105,7 @@
         <ul class="dropdown-menu">
           <li><a href="PersonalInfo"><i class="fa fa-user"></i> 个人信息</a></li>
           <li class="divider"></li>
-          <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
+          <li><a href="login"><i class="fa fa-power-off"></i> 安全退出</a></li>
         </ul>
       </li>
     </ul>
