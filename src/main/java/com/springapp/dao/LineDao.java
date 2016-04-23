@@ -24,7 +24,7 @@ public class LineDao extends BaseDao {
         return this.findAll("from Line where company=? and isDelete=0",Line.class,new Object[]{Company});
     }
     public List<Line>getListByPackage(Long packageId){
-        return this.findAll("from Line where packgeId=?", Line.class,new Object[]{packageId});
+        return this.findAll("from Line where packgeId=? and isDelete=0", Line.class,new Object[]{packageId});
     }
     public boolean isDuplicated(String lineName){
         List<Line>lineList=this.getList();

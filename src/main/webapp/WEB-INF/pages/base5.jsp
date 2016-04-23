@@ -23,10 +23,10 @@
   <!-- Add custom CSS here -->
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-  <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
 <%--  <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>--%>
   <script type="text/javascript" src="js/highcharts.js"></script>
+  <script type="text/javascript" src="js/BMaplib.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
 
@@ -227,31 +227,23 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 <script type="text/javascript">
   var currentLng,currentLat;
-  var polygon;//折线对象
-  var marker;
+  var polygon=null;//多边形
+  var markers=new Array();
+  var idForEdit=0;
   var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   map.enableScrollWheelZoom();//允许放大缩放
 
   map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-  //地图点击事件 显示RFID添加div
-  map.addEventListener("click", function(e){
-    currentLng= e.point.lng;
-    currentLat= e.point.lat;
-    var info=document.getElementById("info");
-    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
-    var point = new BMap.Point(e.point.lng, e.point.lat);
-    map.panTo(point)
-    marker = new BMap.Marker(point);// 创建标注
-    map.addOverlay(marker);             // 将标注添加到地图中
-    marker.disableDragging();           // 不可拖拽
-  });
-  /*
-   * 显示已存在的电子围栏
-   * */
+
+/*   * 显示已存在的电子围栏
+   **/
   $(document).ready(function(){
     /*添加比例尺*/
-    map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    map.addControl(top_left_control);
+    map.addControl(top_left_navigation);
     $.ajax({
       url:"eFence/list",
       type:"post",
@@ -268,24 +260,11 @@
   })
   /*添加电子围栏*/
   function addeFence(){
-    var coords=pointsTojson(points);
-    var id=0;
-    $.ajax({
-      url:"eFence/getIdByCoords",
-      type:"post",
-      async :false,
-      data:{coords:coords},
-      success:function(data){
-        if(data!="error") {
-          id = data;
-          console.log(id)
-        }
-      }
-    })
+    var coords=pointsTojson(points)
     var eFence=$("#eFence").val();
     var company=$("#company").val();
     var inputMan=$("#inputMan").val();
-    if(id==0) {
+    if(idForEdit==0) {
       $.ajax({
         url: "eFence/add",
         type: "post",
@@ -306,7 +285,7 @@
         url:"eFence/edit",
         type:"post",
         async :false,
-        data:{id:id,lng:points[0].lng,lat:points[0].lat,coords:coords,eFenceName:eFence,company:company/*,inputMan:inputMan*/},
+        data:{id:idForEdit,lng:points[0].lng,lat:points[0].lat,coords:coords,eFenceName:eFence,company:company/*,inputMan:inputMan*/},
         success:function(data){
           if(data=="duplicated") {
             alert("电子围栏名称重复");
@@ -332,28 +311,46 @@
   }
   /*选点*/
   function choosePoint(){
-    //地图点击事件,选择点
+    idForEdit=0;
+    map.removeEventListener("click",addMarker)
+    /*map.clearOverlays();*/
+    //地图点击事件
+    map.addEventListener("click", addMarker);
     removeAll();
     points=new Array();
-    map.addEventListener("click", function(e){
-      var point=new BMap.Point(e.point.lng, e.point.lat);
-      points.push(point)
-    });
+  }
+  function addMarker(e){
+    currentLng= e.point.lng;
+    currentLat= e.point.lat;
+    var info=document.getElementById("info");
+    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
+    var point = new BMap.Point(e.point.lng, e.point.lat);
+    points.push(point)
+    var marker = new BMap.Marker(point);// 创建标注
+    markers.push(marker)
+    map.addOverlay(marker);             // 将标注添加到地图中
+    marker.disableDragging();           // 不可拖拽
   }
   /*撤销一次*/
   function undo(){
-    map.removeOverlay(marker);
     points.pop();
+    console.log(points)
+    map.removeOverlay(markers.pop())
+    map.removeOverlay(polygon)
   }
   /*撤销全部*/
   function undoAll(){
-    map.clearOverlays();
+    map.removeOverlay(polygon);
+    for(var index in markers){
+      map.removeOverlay(markers[index]);
+    }
     points=new Array();
   }
   /*划线*/
   function drawLine(){
+
     polygon = new BMap.Polygon(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
-    polygon.disableMassClear();
+    polygon.enableMassClear();
     polygon.addEventListener("click",function(e){
       var target= e.target;
       polygon=target;
@@ -365,6 +362,17 @@
         data:{coords:coords},
         dataType:"json",
         success:function(data){
+          map.removeEventListener("click",addMarker)
+          map.addEventListener("click", addMarker);
+          idForEdit=data.id;
+          points=jsonToPoints(data.coords)
+          for(var i=0;i<points.length;i++){
+            var point = new BMap.Point(points[i].lng, points[i].lat);
+            var marker = new BMap.Marker(point);// 创建标注
+            markers.push(marker)
+            map.addOverlay(marker);             // 将标注添加到地图中
+            marker.disableDragging();           // 不可拖拽
+          }
           $("#eFence").val(data.eFence);
           $("#company").find("option[value="+data.company+"]").attr("selected",true);
           $("#inputMan").html(data.inputMan);
@@ -373,14 +381,14 @@
       })
       console.log(target.ia)//得到线的对象
     })
-    map.addEventListener("click", function(e){
+    /*map.addEventListener("click", function(e){
       var point=new BMap.Point(e.point.lng, e.point.lat);
-      /* if(BMapLib.GeoUtils.isPointInPolygon(point, polygon))
+      *//* if(BMapLib.GeoUtils.isPointInPolygon(point, polygon))
        console.log(BMapLib.GeoUtils.getPolygonArea(polygon));
        else
-       console.log("我不在范围内")*/
-    })
-    map.clearOverlays();
+       console.log("我不在范围内")*//*
+    })*/
+    /*map.clearOverlays();*/
     map.addOverlay(polygon);   //增加折线
   }
   /*点数组转json*/
@@ -402,6 +410,7 @@
   }
   /**/
   function showeFence(id,lng,lat){
+    idForEdit=id;
     $.ajax({
       url:"eFence/get",
       type:"post",
@@ -423,7 +432,8 @@
   }
   function removeAll(){
     $("#eFence").val("");
-    $("#inputMan").val("");
+    $("#inputMan").html("");
+    $("#vehicles").html("");
   }
   $('a[data-toggle="dropdown"]').click(function() {
     $(this).nextAll().toggle();

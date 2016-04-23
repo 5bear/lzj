@@ -76,14 +76,8 @@
                 <tr>
                   <td>${line.company}</td>
                   <td>${line.line}</td>
-                  <td><script>
-                    var point=eval('['+'${line.startCoord}'+']');
-                    document.write(point[0].lng+','+point[0].lat)
-                  </script></td>
-                  <td><script>
-                    var point=eval('['+'${line.endCoord}'+']');
-                    document.write(point[0].lng+','+point[0].lat)
-                  </script></td>
+                  <td>${line.startCoord}</td>
+                  <td>${line.endCoord}</td>
                   <td>${line.directionType}</td>
                   <td>${line.direction}</td>
                   <td>${line.inputMan}</td>
@@ -128,7 +122,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"  onclick="deleteLine()">确定</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -140,7 +134,7 @@
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
   var id;
-  function setCoords(i){
+  function setId(i){
    id=i;
   }
   function deleteLine(){
@@ -148,14 +142,11 @@
       url:"line/delete",
       type:"post",
       data:{id:id},
-      dataType:"json",
       success:function(data){
+        console.log(data)
         location.reload(true);
       }
     })
-  }
-  function toPoint(coord){
-
   }
 </script>
 </body>

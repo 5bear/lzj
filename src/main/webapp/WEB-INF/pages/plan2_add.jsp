@@ -242,32 +242,35 @@
   var polyline;//折线对象
   var polylines=new Array();//多条折线
   var lineMap=new Map();
-  var marker;
-  var distance=0;
+  var markers=new Array();
+  var idForEdit=0;
   var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   map.enableScrollWheelZoom();//允许放大缩放
-
   map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-  //地图点击事件 显示RFID添加div
-  map.addEventListener("click", function(e){
+  /*添加marker*/
+  function addMarker(e){
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     var info=document.getElementById("info");
     info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     var point = new BMap.Point(e.point.lng, e.point.lat);
-    map.panTo(point)
-    marker = new BMap.Marker(point);// 创建标注
+    points.push(point)
+    var marker = new BMap.Marker(point);// 创建标注
+    markers.push(marker)
     map.addOverlay(marker);             // 将标注添加到地图中
     marker.disableDragging();           // 不可拖拽
-  });
+  }
   /*
    * 显示已存在的线路
    * */
   $(document).ready(function(){
     /*添加比例尺*/
-    map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT}));
-    $.ajax({
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    map.addControl(top_left_control);
+    map.addControl(top_left_navigation);
+   /* $.ajax({
       url:"line/list",
       type:"post",
       data:{},
@@ -284,27 +287,14 @@
         })
 
       }
-    })
+    })*/
   })
   /*添加电子围栏*/
   function addeLine(){
     var coords=pointsTojson(points);
-    var startCoords=pointsTojson(polylines[0].getPath()[0]);
-    var endCoords=pointsTojson(polylines[polylines.length-1].getPath()[polyline.getPath().length-1]);
-    var id=0;
-    $.ajax({
-      url:"line/getIdByCoords",
-      type:"post",
-      async :false,
-      data:{startCoord:startCoords,endCoord:endCoords},
-      success:function(data){
-        console.log(data)
-        if(data!="error") {
-          id = data;
-          console.log(id)
-        }
-      }
-    })
+    var startCoords=$("#startCoord").html();
+    var endCoords=$("#endCoord").html();
+    var id=idForEdit
     var lineName=$("#lineName").val();
     var company=$("#company").val();
     var direction=$("#direction").val();
@@ -312,7 +302,7 @@
     var packageId=$("#package").val();
     var packageName=$("#package").find("option:selected").text();
     var remark=$("#remark").val();
-    var realDistance=parseInt(distance);
+    var realDistance=$("#realDistance").html();
     /*BMapLib.GeoUtils.getPolylineDistance(polyline);*/
     /* var inputMan=$("#inputMan").val();*/
     if(id==0) {
@@ -333,11 +323,11 @@
         url:"line/edit",
         async :false,
         type:"post",
-        data:{packageId:packageId,packageName:packageName,id:id,/*startCoord:startCoords,endCoord:endCoords,coords: coords,*/ lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+        data:{packageId:packageId,packageName:packageName,id:id,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success:function(data){
           if(data=="duplicated")
             alert("作业线路名称重复");
-          location.reload(true);
+         /* location.reload(true);*/
         }
       })
     }
@@ -358,20 +348,18 @@
   }
   /*选点*/
   function choosePoint(){
-    //地图点击事件,选择点
+    idForEdit=0;
+    map.removeEventListener("click",addMarker)
+    //地图点击事件
+    map.addEventListener("click",addMarker);
     removeAll()
     points=new Array();
     polylines=new Array();
-    map.addEventListener("click", function(e){
-      var point=new BMap.Point(e.point.lng, e.point.lat);
-      points.push(point)
-      $("#startCoord").html("("+points[0].lng+","+points[0].lat+")")
-      $("#endCoord").html("("+points[points.length-1].lng+","+points[points.length-1].lat+")")
-    });
   }
   /*撤销一次*/
   function undo(){
-    map.removeOverlay(marker);
+    map.removeOverlay(markers.pop());
+    map.removeOverlay(polylines.pop())
     points.pop();
   }
   /*撤销全部*/
@@ -381,7 +369,7 @@
     polylines=new Array();
   }
   /*划线*/
-  function drawLine(id){
+  function drawLine(){
     /*
      var startX=document.getElementById("startX").value;
      var startY=document.getElementById("startY").value;
@@ -396,6 +384,7 @@
      map.addOverlay(polyline);   //增加折线
      */
     /* console.log(points)*/
+    var distance=0;
     var driving = new BMap.DrivingRoute(map);    //创建驾车实例
     for(var i=0;i<points.length-1;i++) {
       driving.search(points[i], points[i + 1])
@@ -405,38 +394,52 @@
       /* console.log(driving.getResults())*/
       var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
       polyline = new BMap.Polyline(pts);
+      distance+=(BMapLib.GeoUtils.getPolylineDistance(polyline))
       polylines.push(polyline);
-      lineMap.put(polyline,id)
       polyline.addEventListener("click",function(e){
         var target= e.currentTarget;
         polyline=target;
-        id=lineMap.get(polyline);
         points=target.getPath();
         $.ajax({
           url:"line/get",
           type:"post",
-          data:{id:id},
+          data:{id:idForEdit},
           dataType:"json",
           success:function(data){
-            var startCoord=jsonToPoints("["+data.startCoord+"]")[0]
-            var endCoord=jsonToPoints("["+data.endCoord+"]")[0]
-            console.log(startCoord)
+            map.removeEventListener("click",addMarker)
+            map.addEventListener("click", addMarker);
+            points=jsonToPoints(data.coords)
+            for(var i=0;i<points.length;i++){
+              var point = new BMap.Point(points[i].lng, points[i].lat);
+              var marker = new BMap.Marker(point);// 创建标注
+              markers.push(marker)
+              map.addOverlay(marker);             // 将标注添加到地图中
+              marker.disableDragging();           // 不可拖拽
+            }
             $("#lineName").val(data.line);
             $("#company").find("option[value="+data.company+"]").attr("selected",true);
             $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
             $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
-            $("#startCoord").html("("+startCoord.lng+","+startCoord.lat+")")
-            $("#endCoord").html("("+endCoord.lng+","+endCoord.lat+")");
-            $("#realDistance").html(data.realDistance+"m");
+            $("#startCoord").html(data.startCoord)
+            $("#endCoord").html(data.endCoord);
+            $("#realDistance").html(data.realDistance);
             /*$("#inputMan").val(data.inputMan);*/
           }
         })
       })
       map.addOverlay(polyline);
-      distance+=BMapLib.GeoUtils.getPolylineDistance(polyline);
-      $("#realDistance").html(parseInt(distance)+"m");
+      $("#realDistance").html(parseInt(distance));
     })
-    console.log("distance"+distance)
+
+    var geoc = new BMap.Geocoder();
+    geoc.getLocation(points[0], function(rs){
+      var addComp = rs.addressComponents;
+      $("#startCoord").html(addComp.district + addComp.street +addComp.streetNumber);
+    });
+    geoc.getLocation(points[points.length-1], function(rs){
+      var addComp = rs.addressComponents;
+      $("#endCoord").html(addComp.district + addComp.street + addComp.streetNumber);
+    });
   }
   /*点数组转json*/
   function pointsTojson(points){
@@ -461,6 +464,7 @@
     map.panTo(point);
   }
   function showLine(id,lng,lat){
+    map.clearOverlays();
     panTo(lng,lat)
     $.ajax({
       url:"line/get",
@@ -468,21 +472,27 @@
       data:{id:id},
       dataType:"json",
       success:function(data){
-        var startCoord=jsonToPoints("["+data.startCoord+"]")[0]
-        var endCoord=jsonToPoints("["+data.endCoord+"]")[0]
-        console.log(startCoord)
+        idForEdit=data.id;
+        var point=jsonToPoints(data.coords)
+        for(var i=0;i<point.length;i++){
+          var p=new BMap.Point(point[i].lng,point[i].lat);
+          points.push(p);
+        }
+        drawLine()
         $("#lineName").val(data.line);
         $("#company").find("option[value="+data.company+"]").attr("selected",true);
         $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
         $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
-        $("#startCoord").html("("+startCoord.lng+","+startCoord.lat+")")
-        $("#endCoord").html("("+endCoord.lng+","+endCoord.lat+")");
+        $("#startCoord").html(data.startCoord)
+        $("#endCoord").html(data.endCoord);
         $("#realDistance").html(data.realDistance+"m");
         /*$("#inputMan").val(data.inputMan);*/
       }
     })
+    points=new Array();
   }
   function removeAll(){
+    map.clearOverlays()
     $("#lineName").val("");
     $("#startCoord").html("")
     $("#endCoord").html("");
