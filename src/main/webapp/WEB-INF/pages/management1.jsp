@@ -34,7 +34,7 @@
 
   <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
-    <jsp:param name="pageName" value="management2"></jsp:param>
+    <jsp:param name="pageName" value="management1"></jsp:param>
     <jsp:param name="pageFather" value="management"></jsp:param>
   </jsp:include>
 

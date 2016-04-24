@@ -157,11 +157,12 @@
           <input class="bt1" type="button" id="chexiao" value="撤销全部"style="width:11%;top: 2%;left: 28%; background-color: #00608B;color: white; font-size: 90%; padding: 2px 8px;" onclick="undoAll()"/>
 
           <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " onclick="drawLine()" />-->
-          
-          <button class="button" style="top:2%;left:2%;width:70px;height:29px" onclick="choosePoint()">开始绘制</button>
-          <button class="button" style="top:2%;left:15%;width:70px;height:29px" onclick="undo()" >撤销一次</button>
-          <button class="button" style="top:2%;left:28%;width:70px;height:29px" onclick="undoAll()">撤销全部</button>
-          <button class="button" style="top:2%;left:41%;width:70px;height:29px" onclick="drawLine()">完成</button>
+
+          <button class="button" style="top:2%;left:2%;width:70px;height:29px" onclick="newDraw()">新增</button>
+          <button class="button" style="top:2%;left:15%;width:70px;height:29px" onclick="choosePoint()">开始绘制</button>
+          <button class="button" style="top:2%;left:28%;width:70px;height:29px" onclick="undo()">撤销一次</button>
+          <button class="button" style="top:2%;left:41%;width:70px;height:29px" onclick="undoAll()">撤销全部</button>
+          <button class="button" style="top:2%;left:54%;width:70px;height:29px" onclick="drawLine()">完成</button>
 
           <div id="container" style="width:99%;top:52px"></div>
 
@@ -258,6 +259,12 @@
       }
     })
   })
+  //绘制新的电子围栏
+  function newDraw(){
+    idForEdit=0;
+    removeAll();
+    points=new Array();
+  }
   /*添加电子围栏*/
   function addeFence(){
     var coords=pointsTojson(points)
@@ -311,13 +318,10 @@
   }
   /*选点*/
   function choosePoint(){
-    idForEdit=0;
     map.removeEventListener("click",addMarker)
     /*map.clearOverlays();*/
     //地图点击事件
     map.addEventListener("click", addMarker);
-    removeAll();
-    points=new Array();
   }
   function addMarker(e){
     currentLng= e.point.lng;
@@ -362,8 +366,8 @@
         data:{coords:coords},
         dataType:"json",
         success:function(data){
-          map.removeEventListener("click",addMarker)
-          map.addEventListener("click", addMarker);
+         /* map.removeEventListener("click",addMarker)
+          map.addEventListener("click", addMarker);*/
           idForEdit=data.id;
           points=jsonToPoints(data.coords)
           for(var i=0;i<points.length;i++){
