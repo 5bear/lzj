@@ -111,7 +111,7 @@
     $(document).ready(function() {
         getCompany();
         $.ajax({
-            url: "/plan1/getYear",
+            url: "plan1/getYear",
             type: "post",
             dataType: "json",
             data: {
@@ -135,7 +135,7 @@
 
         getYear();
         $.ajax({
-            url: "/plan1/search",
+            url: "plan1/search",
             type: "post",
             dataType: "json",
             data: {
@@ -231,7 +231,7 @@
         getCompany();
 
         $.ajax({
-            url: "/plan1/getYear",
+            url: "plan1/getYear",
             type: "post",
             dataType: "json",
             data: {
@@ -318,7 +318,7 @@
         getCompany();
         getYear();
         $.ajax({
-            url: "/plan1/search",
+            url: "plan1/search",
             type: "post",
             dataType: "json",
             data: {

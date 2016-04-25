@@ -327,20 +327,17 @@
         success:function(data){
           if(data=="duplicated")
             alert("作业线路名称重复");
-         /* location.reload(true);*/
+          location.reload(true);
         }
       })
     }
   }
   /*删除电子围栏*/
   function deleteLine(){
-    var startCoords=pointsTojson(polyline.getPath()[0]);
-    var endCoords=pointsTojson(polyline.getPath()[polyline.getPath().length-1]);
-    console.log(startCoords)
     $.ajax({
-      url:"line/deleteByCoords",
+      url:"line/delete",
       type:"post",
-      data:{startCoord:startCoords,endCoord:endCoords},
+      data:{id:idForEdit},
       success:function(data){
         location.reload(true);
       }
@@ -422,13 +419,13 @@
             $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
             $("#startCoord").html(data.startCoord)
             $("#endCoord").html(data.endCoord);
-            $("#realDistance").html(data.realDistance);
+            $("#realDistance").html(data.realDistance+"m");
             /*$("#inputMan").val(data.inputMan);*/
           }
         })
       })
       map.addOverlay(polyline);
-      $("#realDistance").html(parseInt(distance));
+      $("#realDistance").html(parseInt(distance)+"m");
     })
 
     var geoc = new BMap.Geocoder();

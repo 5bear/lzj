@@ -142,7 +142,7 @@
   });
   $(document).ready(function() {
     $.ajax({
-      url: "/Rules/list",
+      url: "Rules/list",
       type: "post",
       data: {},
       dataType: "json",
@@ -258,7 +258,7 @@
         $("#EndTime").html("<tr> <td colspan='2'>封道结束时间</td> <td id='table-hour2' class='vertical-table-content'><span id='EndTime1'>" + EndTime + "</span><span id='EndTime2'></span></td> </tr>");
 
         $.ajax({
-          url: "/Rules/edit",
+          url: "Rules/edit",
           type: "post",
           dataType: "json",
           data: {
