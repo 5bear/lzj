@@ -39,6 +39,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
+                        <li class="text-right aside-li">
+                            <button type="button" class="navbar-aside" title="收起/展开菜单">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </li>
                         <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
@@ -157,19 +164,19 @@
                                 </tr>
                                 <tr>
                                     <td>日期</td>
-                                    <td><input type="text" class="table-input"/></td>
-                                </tr>
-                                <tr>
-                                    <td>事件介绍</td>
-                                    <td><input type="text" class="table-input"/></td>
+                                    <td><input type="text" class="table-input" id="happen-date"/></td>
                                 </tr>
                                 <tr>
                                     <td>发生时间</td>
-                                    <td><input type="text" class="table-input"/></td>
+                                    <td><input type="text" class="table-input" id="happen-hour"/></td>
                                 </tr>
                                 <tr>
                                     <td>养护公司</td>
                                     <td><input type="text" class="table-input"/></td>
+                                </tr>
+                                <tr>
+                                    <td>事件介绍</td>
+                                    <td><textarea class="table-input" rows="3" id=""></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -195,6 +202,20 @@
         <script>
             $(function(){
                 $("#progress").dropdown('toggle');
+            });
+
+            $('#happen-date').datetimepicker({
+                lang:'ch',
+                timepicker:false,
+                format:"Y-m-d",
+                yearStart: 2016,
+                yearEnd: 2050
+            });
+
+            $('#happen-hour').datetimepicker({
+                datepicker:false,
+                format:'H:i',
+                step:10
             });
 
         </script>

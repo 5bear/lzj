@@ -34,50 +34,50 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
 
     
     <style>
-	 #index { width:100%; height:100%; min-width:940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+   #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #top {background-color:transparent;height:47%;width:44%;float:left; margin-top:30px;position:relative;}
     #middle {background-color:transparent;height:47%;width:44%;float:left;margin-top:30px; margin-left:20px;position:relative;}
-	#bottom{ top: 10px;  width: 44%; height:47%;background-color:transparent;position:relative;}
-	#bottom1{ top: 55%; left:44%; width: 42%; height:47%;background-color:transparent; margin-left:20px;position:absolute;}
-	.bt{
-		 height: 22px;
-   		 width: 50px;
-		 position: absolute;
-		 left:10px;
-		 border:0;
-	 }
-	 
-	  .button{
-		position:absolute;
-		border-radius:5px;
-		border:none;
+  #bottom{ top: 10px;  width: 44%; height:47%;background-color:transparent;position:relative;}
+  #bottom1{ top: 55%; left:44%; width: 42%; height:47%;background-color:transparent; margin-left:20px;position:absolute;}
+  .bt{
+     height: 22px;
+       width: 50px;
+     position: absolute;
+     left:10px;
+     border:0;
+   }
+   
+    .button{
+    position:absolute;
+    border-radius:5px;
+    border:none;
     background-color: #00608B;
     color: white;
     font-size: 12px;
     padding: 0;}
-	
-	 .alert
-	 {
-		 width: 400px;
+  
+   .alert
+   {
+     width: 400px;
     background-color: #FF9335;
     color: black;
     position: fixed;
     bottom: 0px;
     right: 20px;
-	 }
+   }
     
-	</style>
+  </style>
     <script>
-	  $(function(){ $(".xuanfu1").hide(); //默认隐藏
-	  $("#qian").on("click",function(){ $(".xuanfu1").toggle();//显示隐藏切换
-	   }) }) 
-	   
-	  $(function(){ $(".xuanfu2").hide(); //默认隐藏
-	  $("#sao").on("click",function(){ $(".xuanfu2").toggle();//显示隐藏切换
-	   }) }) 
-	  
-	   $(function(){ $("#alert").hide();}) //默认隐藏 
-	</script>
+    $(function(){ $(".xuanfu1").hide(); //默认隐藏
+    $("#qian").on("click",function(){ $(".xuanfu1").toggle();//显示隐藏切换
+     }) }) 
+     
+    $(function(){ $(".xuanfu2").hide(); //默认隐藏
+    $("#sao").on("click",function(){ $(".xuanfu2").toggle();//显示隐藏切换
+     }) }) 
+    
+     $(function(){ $("#alert").hide();}) //默认隐藏 
+  </script>
   </head>
 
   <body>
@@ -100,66 +100,73 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+              <li class="text-right aside-li">
+                  <button type="button" class="navbar-aside" title="收起/展开菜单">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+              </li>
+            <li><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
             <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="base1.html">停车场管理</a></li>
                 <li><a href="base2.html">车辆管理</a></li>
                 <li><a href="base3.html">RFID监测点管理</a></li>
                 <li><a href="base4.html">包件信息管理</a></li>
                 <li><a href="base5.html">电子围栏管理</a></li>
                 <li><a href="base6.html">监管规则管理</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+         <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="plan1.html">养护作业计划</a></li>
                 <li><a href="plan2-add.html">作业线路管理</a></li>
                 <li><a href="plan3.html">布点计划</a></li>
                 <li><a href="plan4.html">驾驶员计划</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+         <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="progress1.html">养护进度监控</a></li>
                 <li class="active"><a href="progress2.html">实时监控</a></li>
                 <li><a href="progress3.html">养护日志管理</a></li>
-				</ul>
-			 </li>
-			 
-			 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+           <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="history1.html">历史轨迹查询</a></li>
                 <li><a href="history2.html">历史视频查询</a></li>
                 <li><a href="history3.html">异常查询</a></li>
-				</ul>
-			 </li>
-			 
-			 		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+               <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="reports1.html">牵引车辆位置报表</a></li>
                 <li><a href="reports2.html">养护车辆作业区域</a></li>
                 <li><a href="reports3.html">养护车辆作业情况</a></li>
                 <li><a href="reports4.html">养护车辆超速</a></li>
-				</ul>
-			 </li>
-			 
-			  		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+                 <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="management1.html">用户管理</a></li>
                 <li><a href="management2.html">权限管理</a></li>
                 <li><a href="management3.html">网络状态图</a></li>
-				</ul>
-			 </li>
-			
+        </ul>
+       </li>
+      
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -192,27 +199,25 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
           
           
        
-         	
+          
          
-		 <div id="index">
-		  <!--<img src="images/index.jpg" width="100%"/>-->
-            <a href="progress2.html">
-              <input type="button" class="bt" style="background:url(images/back1.png); background-size: 100% 100%;width:64px;"/>
-            </a>
-         	<div id="top">           
-            	<p>前置摄像头</p>
+     <div id="index">
+      <!--<img src="images/index.jpg" width="100%"/>-->
+             <div class="row"><a href="javascript:history.back();" class="operation"><< 返回</a></div>
+          <div id="top">           
+              <p>前置摄像头</p>
                   <button class="button" style="width:15%;height:8%;top:0;left:45%">获取视频</button>
                  <button class="button" style="width:15%;height :8%;top:0;left:62%">暂停</button>
                  <button class="button" style="width:15%;height:8%;top:0;left:79%">全屏</button>
                 <!--<img src="images/videoo.png" width="95%"/>-->
                  <video id="video1" width="95%" style="margin-top:0px;">
-   					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-    				 <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-   						 Your browser does not support HTML5 video.
- 				 </video>
+             <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
+             <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
+               Your browser does not support HTML5 video.
+         </video>
             </div><!--top-->
-            	
-           	<div id="middle">
+              
+            <div id="middle">
                 <p>后置摄像头</p>
                
                  <button class="button" style="width:15%;height:8%;top:0;left:45%">获取视频</button>
@@ -220,10 +225,10 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
                  <button class="button" style="width:15%;height:8%;top:0;left:79%">全屏</button>
                  
                 <video id="video1" width="95%" style="margin-top:0px;">
-   					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-    				 <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-   						 Your browser does not support HTML5 video.
- 				 </video>
+             <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
+             <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
+               Your browser does not support HTML5 video.
+         </video>
             </div><!--middle-->
            
             
@@ -233,14 +238,14 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
                  <button class="button" style="width:15%;height :4%;top:53%;left:62%">暂停</button>
                  <button class="button" style="width:15%;height:4%;top:53%;left:79%">全屏</button>
                  <video id="video1" width="95%" style="margin-top:0px;">
-   					 <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-    				 <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-   						 Your browser does not support HTML5 video.
- 				 </video>
+             <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
+             <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
+               Your browser does not support HTML5 video.
+         </video>
             </div><!--bottom-->
             
             <div id="bottom1">
-            	<p>云台控制</p>
+              <p>云台控制</p>
                 <!--<input type="button" class="bt" style="background:url(images/get.png); background-size: 100% 100%;width:15%;
                        top:22%;left:15%; position:absolute"/>
                 <input type="button" class="bt" style="background:url(images/getc.png); background-size: 100% 100%;width:15%;
@@ -258,7 +263,7 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
                 <img src="images/yuntai.png" width="95%"/>
             </div><!--bottom1-->
                                  
-		  </div><!--index-->
+      </div><!--index-->
    
           
         </div><!-- /.row -->
@@ -290,8 +295,8 @@ setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
         $('a[data-toggle="dropdown"]').click(function() {
             $(this).nextAll().toggle();
         });
-		
-		 $(function(){
+    
+     $(function(){
                 $("#progress").dropdown('toggle');
             });
     </script>

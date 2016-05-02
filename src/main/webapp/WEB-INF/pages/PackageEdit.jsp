@@ -158,7 +158,7 @@
         var runtime=$("#runtime").val();
         var remark=$("#remark").val();
         $.ajax({
-            url:"edit1",
+            url:"PackageEdit1",
             type:"post",
             data:{id:'${Package_edit.id}',
                 company:company,

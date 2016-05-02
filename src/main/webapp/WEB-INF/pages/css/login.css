@@ -1,9 +1,14 @@
+html {
+    height: 100%;
+}
+
 body {
   font-family: '΢���ź�', Microsoft YaHei,STHeiti;
   background-image: url("../images/login-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-
+    height: 100%;
+    overflow: hidden;
 }
 
 .alert-red {
@@ -12,8 +17,9 @@ body {
 
 .login-div {
     width: 400px;
-    margin: 15% auto;
+    margin: 10% auto;
     position: relative;
+    height: 100%;
 }
 
 .panel-login {
@@ -75,4 +81,23 @@ body {
 .login-title {
     font-size: 20px;
     margin-bottom: 30px;
+}
+
+.body404 {
+    height: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding-top: 5%;
+}
+
+.body404 h1{
+    font-size: 6em;
+    color: #0F618C;
+    text-shadow: 4px 4px 2px #CFCFCF;
+    margin: 90px 0px;
+}
+
+.body404 a {
+    text-decoration: underline;
+    color: black;
 }

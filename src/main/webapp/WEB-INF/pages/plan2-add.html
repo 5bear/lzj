@@ -25,50 +25,50 @@
   
     
     <style>
-	 #index { width:100%; height:100%; min-width:940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+   #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
      #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
      #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
-     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; position:relative}
-	
-	
-	 .bt1{
-		 height: 23px;
-   		 width: 60px;
-		 position: absolute;
-		 border:0;
-		 background-size:100% 100%;
-	 }
-	 
-	 .p
-	 {
-		 position: absolute;
-    	 left: 49%;
-		 font-family: Microsoft YaHei,STHeiti;
-	 }
-	 
-	 .p1
-	 {
-		 position: absolute;
-		 left:36%;
-		 font-family: Microsoft YaHei,STHeiti;
-	 }
-	 
-	  
-	 .button{
-		position:absolute;
-		border-radius:5px;
-		border:none;
+     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; position:relative; min-width:246px;}
+  
+  
+   .bt1{
+     height: 23px;
+       width: 60px;
+     position: absolute;
+     border:0;
+     background-size:100% 100%;
+   }
+   
+   .p
+   {
+     position: absolute;
+       left: 102px;
+     font-family: Microsoft YaHei,STHeiti;
+   }
+   
+   .p1
+   {
+     position: absolute;
+     left:36%;
+     font-family: Microsoft YaHei,STHeiti;
+   }
+   
+    
+   .button{
+    position:absolute;
+    border-radius:5px;
+    border:none;
     background-color: #00608B;
     color: white;
     font-size: 12px;
     padding: 0;}
-	
-	 #container{width: 56%;
+  
+   #container{width: 56%;
     height: 600px;
     float: left;
     margin-left: 5px;
     margin-right: 5px;}
-	</style>
+  </style>
   </head>
 
   <body>
@@ -91,66 +91,73 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
+              <li class="text-right aside-li">
+                  <button type="button" class="navbar-aside" title="收起/展开菜单">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+              </li>
             <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
             <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="base1.html">停车场管理</a></li>
                 <li><a href="base2.html">车辆管理</a></li>
                 <li><a href="base3.html">RFID监测点管理</a></li>
                 <li><a href="base4.html">包件信息管理</a></li>
                 <li><a href="base5.html">电子围栏管理</a></li>
                 <li><a href="base6.html">监管规则管理</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+         <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="plan1.html">养护作业计划</a></li>
                 <li class="active"><a href="plan2-add.html">作业线路管理</a></li>
                 <li><a href="plan3.html">布点计划</a></li>
                 <li><a href="plan4.html">驾驶员计划</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+         <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="progress1.html">养护进度监控</a></li>
                 <li><a href="progress2.html">实时监控</a></li>
                 <li><a href="progress3.html">养护日志管理</a></li>
-				</ul>
-			 </li>
-			 
-			 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+           <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="history1.html">历史轨迹查询</a></li>
                 <li><a href="history2.html">历史视频查询</a></li>
                 <li><a href="history3.html">异常查询</a></li>
-				</ul>
-			 </li>
-			 
-			 		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+               <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="reports1.html">牵引车辆位置报表</a></li>
                 <li><a href="reports2.html">养护车辆作业区域</a></li>
                 <li><a href="reports3.html">养护车辆作业情况</a></li>
                 <li><a href="reports4.html">养护车辆超速</a></li>
-				</ul>
-			 </li>
-			 
-			  		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+                 <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="management1.html">用户管理</a></li>
                 <li><a href="management2.html">权限管理</a></li>
                 <li><a href="management3.html">网络状态图</a></li>
-				</ul>
-			 </li>
-			
+        </ul>
+       </li>
+      
           </ul>
 
          <ul class="nav navbar-nav navbar-right navbar-user">
@@ -181,13 +188,13 @@
           
           
           
-		 <div id="index">
-		  <!--<img src="images/index.jpg" width="100%"/>-->
-         	<div id="in-left">
-            	<div class="panel panel-primary">
+     <div id="index">
+      <!--<img src="images/index.jpg" width="100%"/>-->
+          <div id="in-left">
+              <div class="panel panel-primary">
         <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
         <div class="panel-body">
-        	 <li class="dropdown dropdown1">
+           <li class="dropdown dropdown1">
                 <a href="#" data-toggle="dropdown">按照区域查</a>
                 <div class="arrow-section arrow-section1">
                     <div class="arrow-down arrow-down1"></div>
@@ -263,7 +270,7 @@
             
         </div>
     </div>
-        	</div><!--in-left-->
+          </div><!--in-left-->
             
             <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
              <!--<input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:  
@@ -280,48 +287,72 @@
             
             </div><!--in-mid-->
             
-            <div id="in-right"><img src="images/111.png" width="100%"/>
-            	<p class="p" style="top:10%">(X,Y)</p>
+            <div id="in-right" style="width:249px;">
+                
+               <div class="right-main" style="background-color:rgb(242,242,242);width:249px;height:599px;position:absolute;top:51px;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;">
+                <p style="position:absolute;top:13px;left:16px; font-weight:bold">选择点的坐标</p>
+                <p style="position:absolute;top:58px;left:16px; font-weight:bold">经度：</p>
+                <p style="position:absolute;top:96px;left:16px; font-weight:bold">纬度：</p>
+                <p style="position:absolute;top:142px;left:16px;font-weight:bold">作业线路信息：</p>
+                 <p style="position:absolute;top:182px;left:16px;font-weight:bold">名称：</p>
+                <p style="position:absolute;top:223px;left:16px;font-weight:bold">养护公司：</p>
+                <p style="position:absolute;top:262px;left:16px;font-weight:bold">所属包件：</p>
+                <p style="position:absolute;top:307px;left:16px;font-weight:bold">方向：</p>
+                <p style="position:absolute;top:352px;left:16px;font-weight:bold">方向类型：</p>
+                  <p style="position:absolute;top:397px;left:16px;font-weight:bold">开始坐标：</p>
+                <p style="position:absolute;top:442px;left:16px;font-weight:bold">结束坐标：</p>
+                <p style="position:absolute;top:487px;left:16px;font-weight:bold">里程数：</p>
+                
+               </div>
                
-                <input type="text" style="position: absolute; top: 22%; left: 25%; width: 52%;">
-               <select style="position: absolute; top: 28%;left: 35%; width: 32%;">
-  				  <option value="N">成基公司</option>
+               <div class="right-top" style="background-color:rgb(2,96,142);width:249px; height:100px;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+                 <p style="position:absolute;top:16px; left:65px; color:white;font-weight:bold;font-size:16px; letter-spacing:2px;">作业路线编辑区</p>
+               </div>
+              
+                 
+              <p class="p" style="top:63px">(X,Y)</p>
+                 <p style="position:absolute;top:110px;left:100px;">112</p>
+               <p style="position:absolute;top:148px;left:100px;">148</p>
+               
+                <input type="text" style="position: absolute; top:232px; left: 70px; width:125px;">
+               <select style="position: absolute; top: 272px;left:85px; width: 108px;">
+            <option value="N">成基公司</option>
                   <option value="S">上海高架养护公司</option>
                   
-			    </select>
+          </select>
                 
-                 <select style="position: absolute; top: 33.5%;left: 35%; width: 32%;">
-  				  <option value="N">包件一</option>
+                 <select style="position: absolute; top: 313px;left: 85px; width: 108px;">
+            <option value="N">包件一</option>
                   <option value="S">包件二</option>
                   
-			    </select>
+          </select>
                 
-                <select style="position: absolute; top: 39.5%;left: 25%; width: 40%;">
-  				  <option value="N">北</option>
+                <select style="position: absolute; top: 356px;left: 70px; width: 100px;">
+            <option value="N">北</option>
                   <option value="S">南</option>
                   <option value="E">东</option>
                   <option value="E">西</option>
-			    </select>
-                <select style="position: absolute; top: 45.5%; left:33%; width: 32%;">
-  				  <option value="N">外圈</option>
+          </select>
+                <select style="position: absolute; top: 402px; left:90px; width: 80px;">
+            <option value="N">外圈</option>
                   <option value="S">内圈</option>
                   <option value="E">南侧</option>
                   <option value="E">北侧</option>
                   <option value="E">东侧</option>
                   <option value="E">西侧</option>
-			    </select>
-                <p class="p1" style="top:52.5%;">(X,Y)</p>
-                <p class="p1" style="top:58%;">(X,Y)</p>
-                <p class="p1" style="top:65%;">12348km</p>
+          </select>
+                <p class="p1" style="top:442px;">(X,Y)</p>
+                <p class="p1" style="top:498px;">(X,Y)</p>
+                <p class="p1" style="top:538px;">12348km</p>
               <!-- <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:72%;left: 18%;width:24%;
                       background:url(images/add.png); background-size:100% 100%" /> 
                <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top:72%;left:60%;width:24%;
                       background:url(images/delete.png); background-size:100% 100%" />--> 
-               <button class="button" data-toggle="modal" data-target="#success" style="top:74%;left:18%;width:30%;height:5%">增加/修改</button>
-               <button class="button" data-toggle="modal" data-target="#success" style="top:74%;left:60%;width:30%;height:5%">删除</button>
+               <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:50px;width:70px;height:28px">增加/修改</button>
+               <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:148px;width:70px;height:28px">删除</button>
             </div><!--in-right-->
             
-		  </div>
+      </div>
    
           
         </div><!-- /.row -->
@@ -355,8 +386,8 @@
         $('a[data-toggle="dropdown"]').click(function() {
             $(this).nextAll().toggle();
         }); 
-		
-		$(function(){
+    
+    $(function(){
                 $("#plan").dropdown('toggle');
             });
 

@@ -120,7 +120,7 @@
             success: function (data) {
                 yearArray=[];
                 $(data).each(function (index) {
-                    newYear = data[index].runtime.substr(0,4);
+                    newYear = data[index].runtime;
                         yearArray.push(newYear);
                 })
                 uniqueArray(yearArray);
@@ -241,7 +241,7 @@
                 yearArray=[];
                 row6='';
                 $(data).each(function (index) {
-                    newYear = data[index].runtime.substr(0,4);
+                    newYear = data[index].runtime;
                     yearArray.push(newYear);
                 })
                 uniqueArray(yearArray);

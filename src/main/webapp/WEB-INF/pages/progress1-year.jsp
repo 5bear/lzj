@@ -88,7 +88,7 @@
                                     </c:forEach>
                                 </li>
                                 <li class="dropdown dropdown2">
-                                    <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                                    <a href="#" data-toggle="dropdown">上海高架公司</a>
                                     <div class="arrow-section arrow-section2">
                                         <div class="arrow-down arrow-down2"></div>
                                     </div>
@@ -218,87 +218,83 @@
         else if(obj == "month"){ window.location.href="progress1.html";}
         else {window.location.href="progress1-year.html";}
     });
-    var work1="<tr><td>有效作业率</td>";
-    var zadao1="<tr><td>匝道覆盖率</td>";
     var colour="";
     var packagename,roads;
     var company;
     var EffectiveDistance;
     var EffectiveCoverage;
-    var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+    var year;
+    var work1 = "";
+    var zadao1 = "";
     function CJgetRoad(packageName,Roads){
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
+        getYear();
         getTable();
     }
     function GJgetRoad(packageName,Roads){
-        company="上海高架养护公司";
+        company="上海高架公司";
         packagename=packageName;
         roads=Roads;
+        getYear();
         getTable();
+    }
+    function getYear(){
+        var myDate = new Date();
+        year = myDate.getFullYear();
     }
     function getTable(){
         $.ajax({
-            url:"/progress1-year/getMonthByYear",
+            url:"progress1-year/getMonthByYear",
             type:"post",
             dataType: "json",
             data:{
                 year:year,
                 company:company,
                 packageName:packageName,
-                Roads:roads
+                roads:roads
             },
             success:function(data) {
+                work1="<tr><td>有效作业率</td>";
+                zadao1="<tr><td>匝道覆盖率</td>";
+                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
                 $(data).each(function (index) {
-                    var dis=0;
                     if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        dis=Distance[0]+data[index].distance;               ///建立string数组存储匝道覆盖，未清扫为N的情况
-                        Distance[0].push(dis);
+                        Distance[0]+=data[index].distance;               ///建立string数组存储匝道覆盖，未清扫为N的情况
                     }else if(data[index].time.substr(5,2)=="02"){
-                        dis=Distance[1]+data[index].distance;
-                        Distance[1].push(dis);
+                        Distance[1]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="03"){
-                        dis=Distance[2]+data[index].distance;
-                        Distance[2].push(dis);
+                        Distance[2]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="04"){
-                        dis=Distance[3]+data[index].distance;
-                        Distance[3].push(dis);
+                        Distance[3]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="05"){
-                        dis=Distance[4]+data[index].distance;
-                        Distance[4].push(dis);
+                        Distance[4]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="06"){
-                        dis=Distance[5]+data[index].distance;
-                        Distance[5].push(dis);
+                        Distance[5]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="07"){
-                        dis=Distance[6]+data[index].distance;
-                        Distance[6].push(dis);
+                        Distance[6]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="08"){
-                        dis=Distance[7]+data[index].distance;
-                        Distance[7].push(dis);
+                        Distance[7]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="09"){
-                        dis=Distance[8]+data[index].distance;
-                        Distance[8].push(dis);
+                        Distance[8]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="10"){
-                        dis=Distance[9]+data[index].distance;
-                        Distance[9].push(dis);
+                        Distance[9]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="11"){
-                        dis=Distance[10]+data[index].distance;
-                        Distance[10].push(dis);
+                        Distance[10]+=data[index].distance;
                     }else if(data[index].time.substr(5,2)=="12"){
-                        dis=Distance[11]+data[index].distance;
-                        Distance[11].push(dis);
+                        Distance[11]+=data[index].distance;
                     }
                 })
-                getdata(Distance,data[index].coverage);
-                work += "<td>total</td></tr>"
+                getdata(Distance,zadao);                                       //作业+匝道
+                work1+= "<td>total</td></tr>"
                 zadao1 += "<td>total</td></tr>"
                 $("#work").html(work1 + zadao1);
             }
         });
     }
     function getdata(distance,coverage){
-        for(var a= 0;a<distance.length;a++)
+        for(var a= 0;a<12;a++)
         {
             EffectiveDistance = distance[a] / 2;
             EffectiveCoverage = coverage;
@@ -318,7 +314,7 @@
                 zadao1 += " <td></td>";
             }
             else {
-                work1 += "<td class=" + colour + "><a href='/progress1-year/month?month='" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + ">" + month + "</a></td>";
+                work1 += "<td class=" + colour + "><a href='progress1?year=" + year +"&month=" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
 
                 zadao1 += " <td>" + EffectiveCoverage + "</td>";
             }

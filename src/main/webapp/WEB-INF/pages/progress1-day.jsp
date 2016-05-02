@@ -32,122 +32,6 @@
     <script src="js/bootstrap.js"></script>
     <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
-    <script>
-
-
-        $(function () {
-            var chart;
-
-            $(document).ready(function () {
-
-                // Build the chart
-                chart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'container',
-                        backgroundColor: 'rgb(242, 242, 242)',
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false
-
-                    },
-
-
-
-                    title: {
-                        text: ''
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-                        style: {                      // 文字内容相关样式
-                            width:'10px',
-                            fontWeight: "blod",
-                            fontFamily: "Courir new"
-                        }
-
-
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        fontSize:"5px",
-                        type: 'pie',
-                        name: ' ',
-                        data: [
-                            ['有效作业率',   45.0],
-                            ['无效作业率',       55.0],
-
-                        ]
-                    }]
-                });
-            });
-        });
-
-
-        $(function () {
-            var chart;
-
-            $(document).ready(function () {
-
-                // Build the chart
-                chart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'container1',
-                        backgroundColor: 'rgb(242, 242, 242)',
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false
-
-                    },
-
-
-
-                    title: {
-                        text: ''
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-                        style: {                      // 文字内容相关样式
-                            width:'10px',
-                            fontWeight: "blod",
-                            fontFamily: "Courir new"
-                        }
-
-
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        fontSize:"5px",
-                        type: 'pie',
-                        name: ' ',
-                        data: [
-                            ['覆盖 3个',   75.0],
-                            ['未覆盖 1个', 25.0],
-
-                        ]
-                    }]
-                });
-            });
-        });
-    </script>
-
-
     <style>
         #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
         #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
@@ -209,10 +93,6 @@
                     <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
                 </ol>
             </div>
-
-
-
-
 
             <div id="index">
                 <!--<img src="images/index.jpg" width="100%"/>-->
@@ -296,18 +176,11 @@
 
                     <div id="container" style="width:25%;height:36%;position: absolute;top:20%;left:49%"></div>
                     <div id="container1" style="width:19%;height:36%;position: absolute;top: 20%;left:74%"></div>
-                    <div class="progressbar_1" style="top: 30%; left:16%;  width: 15%" >
-                        <div class="bar" style="width: 50%;"></div>
+                    <div class="progressbar_1" style="top: 30%; left:16%;  width: 15%" id="progress1">
                     </div>
-                    <p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 30%;left:35%;">50% &nbsp;&nbsp;&nbsp;                  247km</p>
-
+                    <p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 30%;left:35%;" id="progress2"></p>
                 </div><!--in-mid-->
-
-
-
             </div><!--index-->
-
-
         </div><!-- /.row -->
 
     </div><!-- /#page-wrapper -->
@@ -319,7 +192,118 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script>
+    var packagename= request.getParameter("packagename");
+    var roads =request.getParameter("roads");
+    var company=request.getParameter("company");
+    var year= request.getParameter("year");
+    var month = request.getParameter("month");
+    var day= request.getParameter("day");
 
+    $(function () {
+        var chart;
+        $(document).ready(function () {
+            // Build the chart
+            $('#progress1').html("<div class='bar' style='width: 80%;'></div>");
+            $('#progress2').html("50% &nbsp;&nbsp;&nbsp;30km");
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    backgroundColor: 'rgb(242, 242, 242)',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                    style: {                      // 文字内容相关样式
+                        width:'10px',
+                        fontWeight: "blod",
+                        fontFamily: "Courir new"
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    fontSize:"5px",
+                    type: 'pie',
+                    name: ' ',
+                    data: [
+                        ['有效作业率',   45.0],
+                        ['无效作业率',   55.0],
+
+                    ]
+                }]
+            });
+        });
+    });
+
+
+    $(function () {
+        var chart;
+
+        $(document).ready(function () {
+
+            // Build the chart
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container1',
+                    backgroundColor: 'rgb(242, 242, 242)',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+
+                },
+
+
+
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                    style: {                      // 文字内容相关样式
+                        width:'10px',
+                        fontWeight: "blod",
+                        fontFamily: "Courir new"
+                    }
+
+
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    fontSize:"5px",
+                    type: 'pie',
+                    name: ' ',
+                    data: [
+                        ['覆盖 3个',   75.0],
+                        ['未覆盖 1个', 25.0],
+
+                    ]
+                }]
+            });
+        });
+    });
     $('a[data-toggle="dropdown"]').click(function() {
         $(this).nextAll().toggle();
     });

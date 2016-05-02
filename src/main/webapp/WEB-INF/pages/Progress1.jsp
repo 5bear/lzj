@@ -155,7 +155,7 @@
     <td>15</td>
     <td>16</td>
     </tr>
-    <tbody id="work">
+    <tbody id="work1">
     <tr>
         <td>有效作业率</td>
         <td></td>
@@ -214,44 +214,46 @@
     <td>31</td>
     <td>合计</td>
     </tr>
+    <tbody id="work2">
     <tr>
     <td>有效作业率</td>
-    <td class="green"><a href="progress1-day.html">80</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="yellow"><a href="progress1-day.html">70</a></td>
-    <td class="red"><a href="progress1-day.html">50</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td>N</td>
-    <td class="green">80</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
     <td>匝道覆盖率</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td>80</td>
-    <td></td>
-    <td>80</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
+    </tbody>
     </tbody>
     </table>
     </div>
@@ -299,45 +301,109 @@
     else if(obj == "month"){ window.location.href="progress1.html";}
     else {window.location.href="progress1-year.html";}
     });
-    var work1="<tr><td>有效作业率</td>";
-    var zadao1="<tr><td>匝道覆盖率</td>";
+
     var colour="";
-    var packagename,roads;
-    var company;
+    var packagename= request.getParameter("packagename");
+    var roads =request.getParameter("roads");
+    var company=request.getParameter("company");
+    var year= request.getParameter("year");
+    var month = request.getParameter("month");
+    var work1 = "";
+    var zadao1 = "";
+    var work2 = "";
+    var zadao2 = "";
+    $(document).ready(function() {
+        getTable();
+    })
+
     function CJgetRoad(packageName,Roads){
-        company="上海高架养护公司";
+        company="上海高架公司";
         packagename=packageName;
         roads=Roads;
+        getTable();
     }
     function GJgetRoad(packageName,Roads){
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
+        getTable();
     }
-
-    for(var i=1;i<=16;i++){
-        if(i<=5)
-            colour="red";
-        else if (i>5 && i<=10)
-            colour = "yellow";
-        else
-            colour = "green";
-    //alert(i+colour);
-        if(i=='5'){
-            work1 += "<td >N</td>";
-
-            zadao1 += " <td></td>";
-        }
-        else {
-            work1 += "<td class=" + colour + "><a href='day?day='"+i+"&packageName="+packagename+"&Roads="+roads+">"+i + "</a></td>";
-
-            zadao1 += " <td>" + 80 + "</td>";
-        }
-
+    function getTable(){
+        $.ajax({
+            url:"progress1-year/getMonthByYear",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year,
+                month:month,
+                company:company,
+                packageName:packageName,
+                roads:roads
+            },success:function(data) {
+                work1="<tr><td>有效作业率</td>";
+                zadao1="<tr><td>匝道覆盖率</td>";
+                work2="<tr><td>有效作业率</td>";
+                zadao2="<tr><td>匝道覆盖率</td>";
+                var Distance=[];
+                for(var i= 0;i<31;i++) {
+                    Distance[i] = 0;
+                }
+                $(data).each(function (index) {
+                    Distance.push(data[index].distance);
+                })
+                getdata(Distance,zadao);                                       //作业+匝道
+                work2+= "<td>total</td></tr>"
+                zadao2 += "<td>total</td></tr>"
+                $("#work1").html(work1 + zadao1);
+                $("#work2").html(work2 + zadao2);
+            }
+        })
     }
-    work+="</tr>"
-    zadao1+="</tr>"
-    $("#work").html(work1+zadao1);
+    function getdata(distance,coverage){
+        for(var a= 0;a<31;a++)
+        {
+            EffectiveDistance = distance[a] / 2;
+            EffectiveCoverage = coverage;
+            setTable(a+1);
+        }
+    }
+    function setTable(day) {
+        if(day<=16) {
+            if (EffectiveDistance >= 1 && EffectiveDistance <= 59)
+                colour = "red";
+            else if (EffectiveDistance >= 60 && EffectiveDistance <= 79)
+                colour = "yellow";
+            else if (EffectiveDistance >= 80 && EffectiveDistance <= 100)
+                colour = "green";
+            if (EffectiveDistance == 0) {
+                work1 += "<td >N</td>";
+
+                zadao1 += " <td></td>";
+            }
+            else {
+                work1 += "<td class=" + colour + "><a href='progress1-day?year=" + year + "&month=" + month + "&day=" + day + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
+
+                zadao1 += " <td>" + EffectiveCoverage + "</td>";
+            }
+        }
+        else{
+            if (EffectiveDistance >= 1 && EffectiveDistance <= 59)
+                colour = "red";
+            else if (EffectiveDistance >= 60 && EffectiveDistance <= 79)
+                colour = "yellow";
+            else if (EffectiveDistance >= 80 && EffectiveDistance <= 100)
+                colour = "green";
+            if (EffectiveDistance == 0) {
+                work1 += "<td >N</td>";
+                zadao1 += " <td></td>";
+            }
+            else {
+                work2 += "<td class=" + colour + "><a href='progress1-day?year=" + year + "&month=" + month + "&day=" + day + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
+
+                zadao2 += " <td>" + EffectiveCoverage + "</td>";
+            }
+        }
+    }
 
     </script>
     </body>

@@ -39,6 +39,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
+                        <li class="text-right aside-li">
+                            <button type="button" class="navbar-aside" title="收起/展开菜单">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </li>
                         <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
@@ -141,7 +148,12 @@
                                 </tr>
                                 <tr>
                                     <td>车辆类型</td>
-                                    <td><input type="text" class="table-input"/></td>
+                                    <td>
+                                        <select type="text" class="table-input" id="vehicle-type">
+                                            <option value="">其他车辆</option>
+                                            <option value="">巡视车</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>车辆牌照</td>
@@ -157,7 +169,7 @@
                                 </tr>
                                 <tr>
                                     <td>电子围栏</td>
-                                    <td><input type="text" class="table-input"/></td>
+                                    <td><input type="text" class="table-input" id="fence"/></td>
                                 </tr>
                                 <tr>
                                     <td>备注</td>
@@ -203,6 +215,14 @@
         <script>
             $(function(){
                 $("#base").dropdown('toggle');
+            });
+
+            $("#vehicle-type").change(function(){
+                var obj = $(this).children(":selected").text();
+                if (obj=="巡视车")
+                    $("#fence").attr("disabled","disabled");
+                else
+                    $("#fence").removeAttr("disabled");
             });
 
         </script>

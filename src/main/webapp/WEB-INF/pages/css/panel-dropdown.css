@@ -16,9 +16,11 @@
 .panel-primary > .panel-body {
     padding: 0;
     border: none;
-    height: 556px;
+    height: 610px;
     background-color: #F3F3F3;
 }
+
+
 
 .panel-menu {
     position: inherit;

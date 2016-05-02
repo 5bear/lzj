@@ -45,10 +45,6 @@ html {
       -ms-text-size-adjust: 100%;
 }
 
-body {
-  margin: 0;
-}
-
 a {
   background: transparent;
 }
@@ -1104,7 +1100,7 @@ pre code {
   margin-left: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 0px) {
   .container {
     width: 750px;
   }

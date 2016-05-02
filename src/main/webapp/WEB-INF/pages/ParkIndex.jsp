@@ -154,7 +154,7 @@
             url:"ParkDelete",
             type:"post",
             data:{id:id},
-            success:function(){
+            success:function(data){
 
                 if(data=="success"){
                     location.reload();

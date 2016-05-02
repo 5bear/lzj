@@ -38,8 +38,8 @@ public class RFID {
     private String company;//所属公司
     private String zhadao;//布设闸道
     private String direction;//方向
-    private String installPos1;//安装位置1
-    private String installPos2;//安装位置2
+    private String installPos;//安装位置
+  /*  private String installPos2;//安装位置2*/
     private int isDelete;
     private String createTime;//添加时间
     private String editTime;//修改时间
@@ -77,20 +77,12 @@ public class RFID {
         this.direction = direction;
     }
     @Column(length = 45,name = "installPos1")
-    public String getInstallPos1() {
-        return installPos1;
+    public String getInstallPos() {
+        return installPos;
     }
 
-    public void setInstallPos1(String installPos1) {
-        this.installPos1 = installPos1;
-    }
-    @Column(length = 45,name = "installPos2")
-    public String getInstallPos2() {
-        return installPos2;
-    }
-
-    public void setInstallPos2(String installPos2) {
-        this.installPos2 = installPos2;
+    public void setInstallPos(String installPos1) {
+        this.installPos = installPos1;
     }
     @Column(length = 45,name = "serialNumber")
     public String getSerialNumber() {

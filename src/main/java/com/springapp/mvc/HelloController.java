@@ -37,6 +37,12 @@ public class HelloController extends BaseController{
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}
+	@RequestMapping(method = RequestMethod.GET,value = "/404")
+	public ModelAndView errorPage() {
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("404");
+		return modelAndView;
+	}
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView modelAndView=new ModelAndView();

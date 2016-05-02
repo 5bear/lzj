@@ -68,7 +68,7 @@ select {
     text-align: center;
 }
 
-#date, #hour, #date1, #date2 {
+#date, #hour, #hour1, #hour2, #date1, #date2 {
     border: none;
     background-color: #F2F2F2;
     border-radius: 5px;
@@ -135,10 +135,11 @@ textarea::-webkit-input-placeholder {
 }
 
 .btn-default:hover {
-    background-color: #005C95;
+    background-color: #003E5A;
     color: white;
 }
  #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative; }
+
 .vertical-table > tbody > tr > td {
     text-align: center;
     height: 43px;
@@ -146,7 +147,7 @@ textarea::-webkit-input-placeholder {
 
 .vertical-table > tbody > tr > td:first-child, .vertical-table > tbody > tr > td.table-th {
     text-align: center;
-    background-color: #0E618C;
+    background-color: #00608B;
     color: white;
     border-right: 1px solid #D4D3D1;
 }
@@ -220,6 +221,7 @@ select.table-input {
 
 .progress-table > tbody > tr > td:first-child {
     width: 15%;
+    min-width: 100px;
 }
 
 .progress-table > tbody > tr > td.green {
@@ -303,7 +305,163 @@ select.table-input {
     cursor: pointer;
 }
 
- #in-right { width:24%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;min-width:249px;}
+.blue-tr td {
+    background-color: #0E618C!important;
+    color: white;
+}
+
+textarea.table-input {
+    resize: none;
+    border: 1px solid #ccc;
+}
+
+.top {
+    background-color: #D3D1C4;
+    height: 60%;
+}
+
+.top p {
+    color: #93908B;
+    padding-top: 40%;
+    font-size: 1.54em;
+}
+
+.top h1 {
+    font-size: 6em;
+    margin-top: 0;
+    height: 100%;
+}
+
+.top h1:first-child {
+    padding-top: 20%;
+}
+
+@media screen and (max-width: 769px) {
+    .top p {
+        padding-top: 0;
+        text-align: center;
+    }
+}
+
+.middle {
+    background-color: #eff3e6;
+    height: 5%;
+}
+
+.bottom {
+    background-color: #8B8786;
+    height: 35%;
+    padding-top: 10%;
+}
+
+.bottom p{
+    color: #D4D1CA;
+    font-size: 1.5em;
+}
+.bottom a {
+    color: #f5f2eb;
+    text-decoration: underline;
+    margin: 0 10px;
+}
+
+html, body.body404 {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.panel-right {
+    margin-left: 5px;
+}
+
+.panel-right .panel-body {
+    padding: 10px 0px;
+}
+
+.panel-right .row {
+    margin: 10px 10px;
+}
+
+.panel-right label {
+    width: 100px;
+}
+
+.panel-right select {
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.panel-right p, .panel-right input, .panel-right select {
+    width: 100px;
+    display: inline-block;
+    margin-right: 0px;
+}
+
+.panel-right button {
+    width: 80px;
+    padding: 2px;
+    margin: 10px 0;
+}
+
+.panel-index .panel-body {
+    height: 610px;
+}
+
+.panel-index .panel-section {
+    background-color: #F2F2F2;
+    margin-bottom: 20px;
+    border-bottom: 4px white solid;
+    padding: 0px 10px 10px 10px;
+}
+
+.panel-section-left {
+    display: inline-block;
+    width: 110px;
+    float: left;
+}
+
+.clearboth {
+    clear: both;
+}
+
+.panel-section.explain-row {
+    border-bottom: none;
+}
+
+.panel-section.explain-row p {
+    display: block;
+    width: 100%;
+}
+
+.panel-section span {
+    margin-right: 5px;
+    color: #0E618C;
+}
+
+select.panel-select {
+    width: 100%!important;
+}
+
+.mid-btn-row {
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.panel-row-left {
+    width: 50%;
+    float: left;
+    margin-top: 30px;
+}
+
+.panel-row-left span {
+    color: #0E618C;
+}
+
+.button:hover{
+    background-color: #003E5A;
+}
+
+#in-right { width:24%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;min-width:249px;}
 
 
 

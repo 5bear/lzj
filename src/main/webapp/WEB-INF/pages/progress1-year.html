@@ -39,6 +39,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
+                        <li class="text-right aside-li">
+                            <button type="button" class="navbar-aside" title="收起/展开菜单">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </li>
                         <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
@@ -117,7 +124,7 @@
             <div id="page-wrapper">
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-12">
                         <ol class="breadcrumb">
                             <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
                             <li class="active"><i class="icon-file-alt"></i> 养护进度监控</li>
@@ -126,7 +133,7 @@
                 </div><!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-sm-3">
                         <div class="panel panel-primary">
                             <div class="panel-heading text-center">作业进度查看列表</div>
                             <div class="panel-body">
@@ -206,26 +213,26 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
+                    <div class="col-sm-9">
 
                         <div class="row">
-                            <div class="col-lg-12 text-right search-row">
+                            <div class="col-sm-12 text-right search-row">
                                 <select name="" id="select-time">
                                     <option value="day">本日</option>
                                     <option value="month">本月</option>
                                     <option value="year" selected="selected">本年</option>
                                 </select>
                             </div>
-                            <div class="col-lg-12 text-center table-title time-row">
+                            <div class="col-sm-12 text-center table-title time-row">
                                 上海市全包件工作情况
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-12 text-center">
+                            <div class="col-sm-12 text-center">
                                 <table class="table vertical-table progress-table">
                                     <tbody>
-                                    <tr>
+                                    <tr class="blue-tr">
                                         <td>月份</td>
                                         <td>1</td>
                                         <td>2</td>
@@ -242,7 +249,7 @@
                                         <td>合计</td>
                                     </tr>
                                     <tr>
-                                        <td>有效作业率</td>
+                                        <td>有效作业率<br/>(单位：%)</td>
                                         <td class="green"><a href="progress1.html">80</a></td>
                                         <td class="green"><a href="progress1.html">100</a></td>
                                         <td class="green"><a href="progress1.html">100</a></td>
@@ -258,7 +265,7 @@
                                         <td class="yellow"><a href="progress1.html">70</a></td>
                                     </tr>
                                     <tr>
-                                        <td>匝道覆盖率</td>
+                                        <td>匝道覆盖率<br/>(单位：%)</td>
                                         <td>80</td>
                                         <td>80</td>
                                         <td>80</td>
@@ -276,7 +283,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-lg-12">注：未清扫则为N，为白色；1-59之间为红色，60-79之间为黄色，80-100之间为绿色。点击跳转详情。</div>
+                            <div class="col-sm-12">注：未清扫则为N，为白色；1-59之间为红色，60-79之间为黄色，80%-100%之间为绿色。点击跳转详情。</div>
                         </div>
                     </div>
                 </div>

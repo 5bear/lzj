@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,26 +25,26 @@
   <!-- Add custom CSS here -->
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
   <link rel="stylesheet" href="css/style.css"/>
-  <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.js"></script>
-
-
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
 
 
   <style>
 
-     .button{
-		position:absolute;
-		border-radius:5px;
-		border:none;
-    background-color: #00608B;
-    color: white;
-    font-size: 12px;
-    padding: 0;}
+    .button{
+      position:absolute;
+      border-radius:5px;
+      border:none;
+      background-color: #00608B;
+      color: white;
+      font-size: 12px;
+      padding: 0;}
 
     .bt{
       width: 11%;
@@ -56,11 +57,11 @@
       border:0;
     }
     #container{width: 57%;
-      height: 565px;
+      height: 600px;
       float: left;
       margin-left: 5px;
       margin-right: 5px;}
-    #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+    #index { width:100%; height:100%; min-width:960px; min-height:600px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
 
@@ -127,7 +128,7 @@
   </script>
 </head>
 
-<body>
+<body style="overflow:scroll">
 
 <div id="wrapper">
 
@@ -160,13 +161,13 @@
             <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
             <div class="panel-body">
               <li class="dropdown dropdown1">
-                <a href="#" data-toggle="dropdown">按照区域查</a>
+                <a href="#" data-toggle="droplist">按照区域查</a>
                 <div class="arrow-section arrow-section1">
                   <div class="arrow-down arrow-down1"></div>
                 </div>
                 <ul class="dropdown-menu panel-menu">
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="dropdown">上海成基公司</a>
+                    <a href="#" data-toggle="droplist">上海成基公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -181,7 +182,7 @@
                     </ul>
                   </li>
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -206,7 +207,7 @@
         <div id="in-mid" style="float:left"><!--<img src="images/mid2.png" width="100%"/>-->
           <!--<input class="button" type="button"  value="搜索" style=" position: absolute;top: 15px;left: 30%; width:9%;"/>-->
 
-          <button class="button" style="top: 15px;left: 182px; width: 60px; height: 27px;" onclick="query()">搜索</button>
+          <button class="button" style="top:15px;left:30%;width:9%;height:4%" onclick="query()">搜索</button>
 
           <div style="width:4%;height: 20px; position: absolute; top: 15px; left: 2%;">
             <img src="images/search_icon.png" style="width:100%" />
@@ -221,40 +222,66 @@
         </div>
 
 
-        <div id="in-right" style="position: relative; float: left;  left:0; top: 0;width:249px; height::600px;">
-          <img src="images/in-right2.png" width="100%"/>
-          <div  class="p" style=" top: 63px; left:100px;" id="info"><p>(X,Y)</p></div>
+        <div id="in-right" style="position: relative;float: left;  left:0; top: 0; width:249px; height:600px;">
+          <div class="panel panel-primary panel-right">
+            <div class="panel-heading text-center" style=" letter-spacing:3px">RFID编辑区</div>
+            <div class="panel-body">
+              <div class="row">
+                <label>选择点的坐标</label>
+                <p id="info">(X, Y)</p>
+              </div>
+              <div class="row">
+                <label>经度：</label>
+                <p id="lng"></p>
+              </div>
+              <div class="row">
+                <label>纬度：</label>
+                <p id="lat"></p>
+              </div>
+              <div class="row">
+                <label>RFID信息：</label>
+              </div>
+              <div class="row">
+                <label>所属路段：</label>
+                <select id="roadId">
+                  <c:forEach items="${lineList}" var="line">
+                    <option value="${line.id}">${line.line}</option>
+                  </c:forEach>
+                </select>
+              </div>
+              <div class="row">
+                <label>布设匝道：</label>
+                <select id="zhadao">
+                  <option value="入口">入口</option>
+                  <option value="出口">出口</option>
+                </select>
+              </div>
+              <div class="row">
+                <label>方向：</label>
+                <select id="direction">
+                  <option value="内圈">内圈</option>
+                  <option value="外圈">外圈</option>
+                  <option value="东侧">东侧</option>
+                  <option value="西侧">西侧</option>
+                  <option value="南侧">南侧</option>
+                  <option value="北侧">北侧</option>
+                </select>
+              </div>
+              <div class="row">
+                <label>设备编号：</label>
+                <input type="text" id="equipNum"/>
+              </div>
+              <div class="row">
+                <label>设置安装位置：</label>
+                <input type="text" id="installPos"/>
+              </div>
+              <div class="row text-center">
+                <button class="btn btn-default" onclick="addClick(0)">增加/修改</button>
+                <button class="btn btn-default" onclick="addClick(1)">删除</button>
+              </div>
+            </div>
+          </div>
 
-          <input class="r_text" id="serialNumber" type="text" style="top: 105px;left: 100px; width:123px"/>
-          <select style="position: absolute;top:146px;width: 100px; left:100px; background-color:#FFF" id="roadId">
-            <c:forEach items="${lineList}" var="line">
-              <option value="${line.id}">${line.line}</option>
-            </c:forEach>
-          </select>
-          <select style="position: absolute;top:190px;width: 100px; left: 100px; background-color:#FFF" id="zhadao">
-            <option value="入口">入口</option>
-            <option value="出口">出口</option>
-          </select>
-
-          <select style="position: absolute;top: 230px;width: 100px; left:100px; background-color:#FFF" id="direction">
-            <option value="内圈">内圈</option>
-            <option value="外圈">外圈</option>
-            <option value="东侧">东侧</option>
-            <option value="西侧">西侧</option>
-            <option value="南侧">南侧</option>
-            <option value="北侧">北侧</option>
-          </select>
-
-          <input class="r_text" id="equipNum" type="text" style="top: 272px;left: 100px; width:100px"/>
-          <input class="r_text1" id="installPos1" type="text" style="top: 313px;left: 120px; width:80px"/>
-          <input class="r_text1" id="installPos2" type="text" style="top: 356px;left:120px; width:80px"/>
-
-
-          <!-- <input class="button" data-toggle="modal" data-target="#success" type="button" value="增加/修改" style=" top:66%;left: 18%;width:23%;height:4%" />
-           <input class="button" type="button"   data-toggle="modal" data-target="#success" style=" top: 66%;left:63%;
-                  background:url(images/delete.png); background-size:100% 100%" />-->
-          <button class="button" data-toggle="modal" data-target="#success" style="top:430px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
-          <button class="button" data-toggle="modal" data-target="#success" style="top:430px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
         </div>
 
       </div><!--/.index-->
@@ -284,12 +311,23 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script>
 
+  $('a[data-toggle="droplist"]').click(function() {
+    $(this).nextAll().toggle();
+  });
+</script>
+<!--    <script>
 
-<!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-
+        $('a[data-toggle="droplist"]').click(function() {
+            $(this).nextAll().toggle();
+        });
+    </script>
+    <script>
+            $(function(){
+                $("#base").dropdown('toggle');
+            });
+        </script>-->
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
@@ -306,6 +344,8 @@
   map.addEventListener("click", function(e){
     currentLng= e.point.lng;
     currentLat= e.point.lat;
+    $("#lng").html(Math.round(e.point.lng*100)/100)
+    $("#lat").html(Math.round(e.point.lat*100)/100)
     var info=document.getElementById("info");
     info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     /* var obj=document.getElementById("editArea");

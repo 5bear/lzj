@@ -235,7 +235,7 @@
       validArray.push(ViewCarSpeed);
       validArray.push(Times);
 
-      if (valid(validArray) && (StartTime != "") && (EndTime != "")) {
+      if (valid(validArray) && (StartTime != "") && (EndTime != "")&&(EndTime > StartTime)) {
         document.getElementById("button").innerHTML = "更改";
 
         $("#Deviate").html("<tr> <td rowspan='3'>车辆偏离容差</td> " +

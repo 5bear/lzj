@@ -39,6 +39,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
+                        <li class="text-right aside-li">
+                            <button type="button" class="navbar-aside" title="收起/展开菜单">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </li>
                         <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
@@ -114,10 +121,10 @@
                 </div><!-- /.navbar-collapse -->
             </nav>
 
-            <div id="page-wrapper">
+            <div id="page-wrapper" class="panel-wrapper">
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-12">
                         <ol class="breadcrumb">
                             <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
                             <li class="active"><i class="icon-file-alt"></i> 养护日志管理</li>
@@ -126,24 +133,24 @@
                 </div><!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-sm-3">
                         <div class="panel panel-primary">
                             <div class="panel-heading text-center">选择车辆</div>
                             <div class="panel-body">
                                 <li class="dropdown dropdown1">
-                                    <a href="#" data-toggle="dropdown">按照车辆查看</a>
+                                    <a href="#" data-toggle="droplist">按照车辆查看</a>
                                     <div class="arrow-section arrow-section1">
                                         <div class="arrow-down arrow-down1"></div>
                                     </div>
                                     <ul class="dropdown-menu panel-menu">
                                         <li class="dropdown dropdown2">
-                                            <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                                            <a href="#" data-toggle="droplist">上海高架养护公司</a>
                                             <div class="arrow-section arrow-section2">
                                                 <div class="arrow-down arrow-down2"></div>
                                             </div>
                                             <ul class="dropdown-menu panel-menu">
                                                 <li class="dropdown dropdown3">
-                                                    <a href="#" data-toggle="dropdown">清扫车</a>
+                                                    <a href="#" data-toggle="droplist">清扫车</a>
                                                     <div class="arrow-section arrow-section3">
                                                         <div class="arrow-down arrow-down3"></div>
                                                     </div>
@@ -155,7 +162,7 @@
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown dropdown3">
-                                                    <a href="#" data-toggle="dropdown">牵引车</a>
+                                                    <a href="#" data-toggle="droplist">牵引车</a>
                                                     <div class="arrow-section arrow-section3">
                                                         <div class="arrow-down arrow-down3"></div>
                                                     </div>
@@ -169,13 +176,13 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown2">
-                                            <a href="#" data-toggle="dropdown">上海成基公司</a>
+                                            <a href="#" data-toggle="droplist">上海成基公司</a>
                                             <div class="arrow-section arrow-section2">
                                                 <div class="arrow-down arrow-down2"></div>
                                             </div>
                                             <ul class="dropdown-menu panel-menu">
                                                 <li class="dropdown dropdown3">
-                                                    <a href="#" data-toggle="dropdown">清扫车</a>
+                                                    <a href="#" data-toggle="droplist">清扫车</a>
                                                     <div class="arrow-section arrow-section3">
                                                         <div class="arrow-down arrow-down3"></div>
                                                     </div>
@@ -187,7 +194,7 @@
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown dropdown3">
-                                                    <a href="#" data-toggle="dropdown">牵引车</a>
+                                                    <a href="#" data-toggle="droplist">牵引车</a>
                                                     <div class="arrow-section arrow-section3">
                                                         <div class="arrow-down arrow-down3"></div>
                                                     </div>
@@ -206,9 +213,9 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
+                    <div class="col-sm-9">
                         <div class="row">
-                            <div class="col-lg-12 text-left search-row">
+                            <div class="col-sm-12 text-left search-row">
                                 <p>选择查看日志时间</p>
                                 从<input type="text" id="date1" placeholder="选择开始日期"/>到
                                 <input type="text" id="date2" placeholder="选择结束日期"/>
@@ -217,10 +224,10 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-12 time-row">
+                            <div class="col-sm-12 time-row">
                                 <a href="progress3-add.html" class="add-operation"><img src="images/add1.png" alt="增加"/>新增养护纪录</a>
                             </div>
-                            <div class="col-lg-12 text-center">
+                            <div class="col-sm-12 text-center">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -321,7 +328,7 @@
                 yearEnd: 2050
             });
 
-            $('a[data-toggle="dropdown"]').click(function() {
+            $('a[data-toggle="droplist"]').click(function() {
                 $(this).nextAll().toggle();
             });
         </script>

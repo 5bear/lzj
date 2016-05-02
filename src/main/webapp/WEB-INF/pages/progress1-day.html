@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
+      <link rel="stylesheet" href="css/style.css"/>
     
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
@@ -26,40 +27,40 @@
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
   
     <script>
-	 
-		
+     
+        
 $(function () {
     var chart;
     
     $(document).ready(function () {
-    	
-    	// Build the chart
+        
+        // Build the chart
         chart = new Highcharts.Chart({ 
             chart: {
-			    renderTo: 'container',
-				backgroundColor: 'rgb(242, 242, 242)',
+                renderTo: 'container',
+                backgroundColor: 'rgb(242, 242, 242)',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false	
-				
+                plotShadow: false   
+                
             },
-			
-		
-	
+            
+        
+    
             title: {
                 text: '有效作业率',
-				style: {                      // 文字内容相关样式              
-				fontSize:"12px",
+                style: {                      // 文字内容相关样式              
+                fontSize:"12px",
                 }
             },
             tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-				style: {                      // 文字内容相关样式              
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                style: {                      // 文字内容相关样式              
                 width:'10px',
                 fontWeight: "blod",
                 fontFamily: "Courir new"
                 }
-				               
+                               
     
             },
             plotOptions: {
@@ -73,7 +74,7 @@ $(function () {
                 }
             },
             series: [{
-				fontSize:"5px",
+                fontSize:"5px",
                 type: 'pie',
                 name: ' ',
                 data: [
@@ -83,42 +84,42 @@ $(function () {
                 ]
             }]
         });
-	});
-});				
+    });
+});             
 
 
 $(function () {
     var chart;
     
     $(document).ready(function () {
-    	
-    	// Build the chart
+        
+        // Build the chart
         chart = new Highcharts.Chart({ 
             chart: {
-			    renderTo: 'container1',
-				backgroundColor: 'rgb(242, 242, 242)',
+                renderTo: 'container1',
+                backgroundColor: 'rgb(242, 242, 242)',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false	
-				
+                plotShadow: false   
+                
             },
-			
-		
-	
+            
+        
+    
             title: {
                 text: '匝道覆盖率',
-				style: {                      // 文字内容相关样式              
-				fontSize:"12px",
+                style: {                      // 文字内容相关样式              
+                fontSize:"12px",
                 }
             },
             tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-				style: {                      // 文字内容相关样式               
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                style: {                      // 文字内容相关样式               
                 width:'10px',
                 fontWeight: "blod",
                 fontFamily: "Courir new"
                 }
-				               
+                               
     
             },
             plotOptions: {
@@ -132,7 +133,7 @@ $(function () {
                 }
             },
             series: [{
-				fontSize:"5px",
+                fontSize:"5px",
                 type: 'pie',
                 name: ' ',
                 data: [
@@ -142,48 +143,40 @@ $(function () {
                 ]
             }]
         });
-	});
-});				
+    });
+});             
   </script>
 
     
     <style>
-	 #index { width:100%; height:100%; min-width:940px;margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+     #index { width:100%; height:100%; min-width:960px;margin-left:16px; padding:0px; background-color:transparent; position:relative;}
      #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
      #in-mid { width:640px; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
-     #in-right { width:258px; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-	 #index-checkbox
-	 {
-		 position:absolute;
-		 top: 620px;
-    	 left: 200px;		
-	 }
+     #in-right { width:258px; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;min-width:249px;}
+     #index-checkbox
+     {
+         position:absolute;
+         top: 620px;
+         left: 200px;       
+     }
 
-     #select-time
-	 {
-		 position: absolute;
-   		 top: 54px;
-    	 left: 843px;
-         width: 213px;
-		 height:25px;		 
-	 }
-	 
     .progressbar_1{ 
-	
-    	 background-color:rgb(255,255,255); 
-   		 height:18px; 
-   		 border:2px solid rgb(179,179,179);
-		 position:absolute;top: 162px; left: 843px; width: 120px; 
-		
-   		 
-	} 
-	.progressbar_1 .bar { 
-		background-color:rgb(2,96,142); 
-		height:12px; 
-    	width:0; 
-		margin:1px;
-	} 
-	</style>
+    
+         background-color:rgb(255,255,255); 
+         height:18px; 
+         border:2px solid rgb(179,179,179);
+        width: 40%;
+        margin-left: 15%;
+        float: left;
+         
+    } 
+    .progressbar_1 .bar { 
+        background-color:rgb(2,96,142); 
+        height:12px; 
+        width:0; 
+        margin:1px;
+    } 
+    </style>
   </head>
 
   <body>
@@ -206,66 +199,73 @@ $(function () {
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
+              <li class="text-right aside-li">
+                  <button type="button" class="navbar-aside" title="收起/展开菜单">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+              </li>
             <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
             <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
                 <li><a href="base1.html">停车场管理</a></li>
                 <li><a href="base2.html">车辆管理</a></li>
                 <li><a href="base3.html">RFID监测点管理</a></li>
                 <li><a href="base4.html">包件信息管理</a></li>
                 <li><a href="base5.html">电子围栏管理</a></li>
                 <li><a href="base6.html">监管规则管理</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+                </ul>
+             </li>
+             
+               <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
                 <li><a href="plan1.html">养护作业计划</a></li>
                 <li><a href="plan2-add.html">作业线路管理</a></li>
                 <li><a href="plan3.html">布点计划</a></li>
                 <li><a href="plan4.html">驾驶员计划</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+                </ul>
+             </li>
+             
+               <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
                 <li class="active"><a href="progress1.html">养护进度监控</a></li>
                 <li><a href="progress2.html">实时监控</a></li>
                 <li><a href="progress3.html">养护日志管理</a></li>
-				</ul>
-			 </li>
-			 
-			 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+                </ul>
+             </li>
+             
+                   <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
                 <li><a href="history1.html">历史轨迹查询</a></li>
                 <li><a href="history2.html">历史视频查询</a></li>
                 <li><a href="history3.html">异常查询</a></li>
-				</ul>
-			 </li>
-			 
-			 		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+                </ul>
+             </li>
+             
+                           <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
                 <li><a href="reports1.html">牵引车辆位置报表</a></li>
                 <li><a href="reports2.html">养护车辆作业区域</a></li>
                 <li><a href="reports3.html">养护车辆作业情况</a></li>
                 <li><a href="reports4.html">养护车辆超速</a></li>
-				</ul>
-			 </li>
-			 
-			  		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+                </ul>
+             </li>
+             
+                           <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
                 <li><a href="management1.html">用户管理</a></li>
                 <li><a href="management2.html">权限管理</a></li>
                 <li><a href="management3.html">网络状态图</a></li>
-				</ul>
-			 </li>
-			
+                </ul>
+             </li>
+            
           </ul>
 <ul class="nav navbar-nav navbar-right navbar-user">
                         <li class="dropdown user-dropdown">
@@ -296,10 +296,10 @@ $(function () {
           
           
           
-		 <div id="index">
-		  <!--<img src="images/index.jpg" width="100%"/>-->
-         	<div id="in-left" style="width:21%; float:left">
-            
+         <div id="index">
+          <!--<img src="images/index.jpg" width="100%"/>-->
+            <div id="in-left" style="width:25%; float:left">
+
             <div class="panel panel-primary">
         <div class="panel-heading text-center">作业进度查看列表</div>
         <div class="panel-body">
@@ -394,28 +394,47 @@ $(function () {
         </div>
     </div>
             
-         	</div><!--in-left-->
-            
-            <div id="in-mid" style="width:76%;"><img src="images/mid4.png" width="100%"/>
-              
-               <select id="select-time" style="left: 61%; width: 9%; height: 4%;">
-  				<option value="today">本日</option>
-                <option value="month">本月</option>  
-                 <option value="year">本年</option>                
-			   </select> 
-               
-               <div id="container" style="width:25%;height:36%;position: absolute;top:20%;left:51%"></div>
-               <div id="container1" style="width:19%;height:36%;position: absolute;top: 20%;left:76%"></div>
-               <div class="progressbar_1" style="top: 30%; left:16%;  width: 15%" > 
-                    <div class="bar" style="width: 50%;"></div>
-               </div> 
-               <p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 30%;left:35%;">50% &nbsp;&nbsp;&nbsp;                  247km</p>
-              
+            </div><!--in-left-->
+
+
+
+            <div id="in-mid" style="width:70%;margin-left: 1%">
+
+                <div class="panel panel-primary panel-right panel-index">
+                    <div class="panel-heading text-center" style="height: 40px;"></div>
+                    <div class="panel-body">
+                        <div class="text-center">
+                            上海市全包件工作情况
+                            <select class="table-input" id="select-time">
+                                <option value="" selected="selected">本日</option>
+                                <option value="">本月</option>
+                                <option value="">本年</option>
+                            </select>
+                        </div>
+                        <div class="panel-row-left text-center">
+                            <h5 style="margin-bottom: 40px;">作业进度与时间进度表</h5>
+                            <div class="progressbar_1" >
+                                <div class="bar" style="width: 50%;"></div>
+                            </div>
+                            <span style="margin-left: 20px;">50%</span>
+                            <span>247km</span>
+                        </div>
+                        <div class="panel-row-left">
+                            <div class="panel-section-left">
+                                <div id="container" style="width:25%;height:36%;position: absolute;left:49%"></div>
+                            </div>
+                            <div class="panel-section-left">
+                                <div id="container1" style="width:25%;height:36%;position: absolute;left:74%"></div>
+                            </div>
+                            <div class="clearboth"></div>
+                        </div>
+                    </div>
+                </div>
             </div><!--in-mid-->
             
            
             
-		  </div><!--index-->
+          </div><!--index-->
    
           
         </div><!-- /.row -->
@@ -441,7 +460,7 @@ $(function () {
             else {window.location.href="progress1-year.html";}
         });
 
-		 $(function(){
+         $(function(){
                 $("#progress").dropdown('toggle');
             });
     </script>

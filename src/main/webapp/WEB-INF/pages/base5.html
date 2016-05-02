@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
+      <link rel="stylesheet" href="css/style.css"/>
    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
@@ -28,40 +29,40 @@
 
     
     <style>
-	 #index { width:100%; height:100%;min-width:940px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+   #index { width:100%; height:100%;min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
      #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
      #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
-     #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}
-	 .bt1{
-		 height: 23px;
-   		 width: 5%;
-		 position: absolute;
-		 border:0;
-		 background-size:100% 100%;
-	 }
-	 
-	 .button{
-		position:absolute;
-		border-radius:5px;
-		border:none;
+     #in-right { height:600px; margin:0px; padding:0px; float:left; background-color:transparent;}
+   .bt1{
+     height: 23px;
+       width: 5%;
+     position: absolute;
+     border:0;
+     background-size:100% 100%;
+   }
+   
+   .button{
+    position:absolute;
+    border-radius:5px;
+    border:none;
     background-color: #00608B;
     color: white;
     font-size: 12px;
     padding: 0;}
-	
-	.bt{border:0;}
-	 .p
-	 {
-		 position: absolute;
-		 font-family:
-		 font-size:15px;
-	 }
-	#container{width: 56%;
+  
+  .bt{border:0;}
+   .p
+   {
+     position: absolute;
+     font-family:
+     font-size:15px;
+   }
+  #container{width: 56%;
     height: 600px;
     float: left;
     margin-left: 5px;
     margin-right: 5px;}
-	</style>
+  </style>
     
   </head>
 
@@ -85,66 +86,73 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+              <li class="text-right aside-li">
+                  <button type="button" class="navbar-aside" title="收起/展开菜单">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+              </li>
+            <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
             <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="base1.html">停车场管理</a></li>
                 <li><a href="base2.html">车辆管理</a></li>
                 <li><a href="base3.html">RFID监测点管理</a></li>
                 <li><a href="base4.html">包件信息管理</a></li>
                 <li class="active"><a href="base5.html">电子围栏管理</a></li>
                 <li><a href="base6.html">监管规则管理</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+         <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="plan1.html">养护作业计划</a></li>
                 <li><a href="plan2-add.html">作业线路管理</a></li>
                 <li><a href="plan3.html">布点计划</a></li>
                 <li><a href="plan4.html">驾驶员计划</a></li>
-				</ul>
-			 </li>
-			 
-			   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+         <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="progress1.html">养护进度监控</a></li>
                 <li><a href="progress2.html">实时监控</a></li>
                 <li><a href="progress3.html">养护日志管理</a></li>
-				</ul>
-			 </li>
-			 
-			 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+           <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="history1.html">历史轨迹查询</a></li>
                 <li><a href="history2.html">历史视频查询</a></li>
                 <li><a href="history3.html">异常查询</a></li>
-				</ul>
-			 </li>
-			 
-			 		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+               <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="reports1.html">牵引车辆位置报表</a></li>
                 <li><a href="reports2.html">养护车辆作业区域</a></li>
                 <li><a href="reports3.html">养护车辆作业情况</a></li>
                 <li><a href="reports4.html">养护车辆超速</a></li>
-				</ul>
-			 </li>
-			 
-			  		 	   <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-			    <ul class="dropdown-menu">
+        </ul>
+       </li>
+       
+                 <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
                 <li><a href="management1.html">用户管理</a></li>
                 <li><a href="management2.html">权限管理</a></li>
                 <li><a href="management3.html">网络状态图</a></li>
-				</ul>
-			 </li>
-			
+        </ul>
+       </li>
+      
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -175,60 +183,59 @@
           
           
           
-		 <div id="index">
-		  <!--<img src="images/index.jpg" width="100%"/>-->
+     <div id="index">
+      <!--<img src="images/index.jpg" width="100%"/>-->
             <div id="in-left">
             
-            	
-            		<div class="panel panel-primary">
+              
+                <div class="panel panel-primary">
         <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
         <div class="panel-body">
-        	 <li class="dropdown dropdown1">
-                <a href="#" data-toggle="dropdown">按照名称查看</a>
+           <li class="dropdown dropdown1">
+                <a href="#" data-toggle="droplist">按照名称查看</a>
                 <div class="arrow-section arrow-section1">
                     <div class="arrow-down arrow-down1"></div>
                 </div>
                 <ul class="dropdown-menu panel-menu">
                     <li class="dropdown dropdown2">
-                        <a href="#" data-toggle="dropdown">上海成基公司</a>
+                        <a href="#" data-toggle="droplist">上海成基公司</a>
                         <div class="arrow-section arrow-section2">
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
                             <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">电子围栏一</a>
+                                <a href="#" data-toggle="droplist">电子围栏一</a>
                                 <div class="arrow-section arrow-section3">
                                 </div>                                                               
                             </li>
                             <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">电子围栏二</a>
+                                <a href="#" data-toggle="droplist">电子围栏二</a>
                                 <div class="arrow-section arrow-section3">                                    
                                 </div>                               
                             </li>                          
                             <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">电子围栏三</a>
+                                <a href="#" data-toggle="droplist">电子围栏三</a>
                                 <div class="arrow-section arrow-section3">                                    
                                 </div>                               
                             </li>                            
                         </ul>
                     </li>
                     <li class="dropdown dropdown2">
-                        <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                        <a href="#" data-toggle="droplist">上海高架养护公司</a>
                         <div class="arrow-section arrow-section2">
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
                             <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">电子围栏四</a>
+                                <a href="#" data-toggle="droplist">电子围栏四</a>
                                 <div class="arrow-section arrow-section3">
                                 </div>                                                               
                             </li>
                             <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">电子围栏五</a>
+                                <a href="#" data-toggle="droplist">电子围栏五</a>
                                 <div class="arrow-section arrow-section3">
                                 </div>                                                               
                             </li>
-                           
                         </ul>
                     </li>
                 </ul>
@@ -246,41 +253,63 @@
                   
               <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " /> 
               -->
-              
-              <button class="button" style="top:2%;left:2%;width:70px;height:29px">开始绘制</button>
-              <button class="button" style="top:2%;left:15%;width:70px;height:29px">撤销一次</button>
-              <button class="button" style="top:2%;left:28%;width:70px;height:29px">撤销全部</button>
-              <button class="button" style="top:2%;left:41%;width:70px;height:29px">完成</button>
+               <button class="button" style="top:2%;left:2%;width:70px;height:29px">开始</button>
+              <button class="button" style="top:2%;left:15%;width:70px;height:29px">开始绘制</button>
+              <button class="button" style="top:2%;left:28%;width:70px;height:29px">撤销一次</button>
+              <button class="button" style="top:2%;left:41%;width:70px;height:29px">撤销全部</button>
+              <button class="button" style="top:2%;left:54%;width:70px;height:29px">完成</button>
                
               <div id="container" style="width:99%;top:52px"></div>
                
             </div><!--in-mid-->
             
             
-            <div id="in-right" style="position: relative; float: left; width: 23%; left:0; top: 1%;">
-               <img src="images/d.png" width="100%"/> 
-              
-               <div  class="p" style=" top: 10%; left: 50%;"><p>(X,Y)</p></div>
-               
-               <input type="text" style="position:absolute;top: 14%; left: 50%; width:40%;height:3.5%"/>
-               <input type="text" style="position:absolute;top: 19%; left:40%; width:50%;height:3.5%"/>
-               
-               <select style="position: absolute;top:23%;width: 50%; left:40%;">
-                    <option value="">上海成基公司</option>
-                    <option value="">上海高架养护公司</option>
-               </select>
-               <div  class="p" style=" top: 28%; left:40%;"><p>XXX</p></div>
-               <div  class="p" style=" top: 32.5%; left:40%;"><p>沪A5654</p></div>
-                <!--<input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:42%;left: 18%;width:24%;
-                      background:url(images/add.png); background-size:100% 100%" /> 
-               <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top: 42%;left:60%;width:24%;
-                      background:url(images/delete.png); background-size:100% 100%" /> -->
-              
-              <button class="button" data-toggle="modal" data-target="#success" style="top:42%;left:18%;width:30%;height:5%">增加/修改</button>
-               <button class="button" data-toggle="modal" data-target="#success" style="top:42%;left:60%;width:30%;height:5%">删除</button>
-            </div><!--in-right-->
+            <div id="in-right" style="position: relative; float: left; left:0; top: 0;width:249px">
+              <!-- <img src="images/d.png" width="100%"/> -->
+                <div class="panel panel-primary panel-right">
+                    <div class="panel-heading text-center" style="letter-spacing:3px">电子围栏编辑区域</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label>选择点的坐标</label>
+                            <p>(X, Y)</p>
+                        </div>
+                        <div class="row">
+                            <label>经度：</label>
+                            <p>112</p>
+                        </div>
+                        <div class="row">
+                            <label>纬度：</label>
+                            <p>148</p>
+                        </div>
+                        <div class="row">
+                            <label>电子围栏信息：</label>
+                        </div>
+                        <div class="row">
+                            <label>名称：</label>
+                            <input type="text"/>
+                        </div>
+                        <div class="row">
+                            <label>所属公司：</label>
+                            <select>
+                                <option value="">上海成基公司</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <label>录入人：</label>
+                            <p>XXX</p>
+                        </div>
+                        <div class="row">
+                            <label>相关车辆：</label>
+                            <p>沪A5654</p>
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn btn-default">增加/修改</button>
+                            <button class="btn btn-default">删除</button>
+                        </div>
+                    </div>
+                </div>
             
-		  </div><!--/.index-->
+      </div><!--/.index-->
    
           
         </div><!-- /.row -->
@@ -311,14 +340,13 @@
     <script src="js/bootstrap.js"></script>
     <script>
 
-        $('a[data-toggle="dropdown"]').click(function() {
+        $('a[data-toggle="droplist"]').click(function() {
             $(this).nextAll().toggle();
         });
-    </script>
-    <script>
-            $(function(){
-                $("#base").dropdown('toggle');
-            });
+
+        $(function(){
+            $("#base").dropdown('toggle');
+        });
     </script>
 
  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
