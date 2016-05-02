@@ -242,6 +242,10 @@
                 <label>RFID信息：</label>
               </div>
               <div class="row">
+                <label>序列号：</label>
+                <input type="text" id="serialNumber"/>
+              </div>
+              <div class="row">
                 <label>所属路段：</label>
                 <select id="roadId">
                   <c:forEach items="${lineList}" var="line">
@@ -276,8 +280,8 @@
                 <input type="text" id="installPos"/>
               </div>
               <div class="row text-center">
-                <button class="btn btn-default" onclick="addClick(0)">增加/修改</button>
-                <button class="btn btn-default" onclick="addClick(1)">删除</button>
+                <button class="btn btn-default" onclick="addClick(0)" data-toggle="modal" data-target="#success">增加/修改</button>
+                <button class="btn btn-default" onclick="addClick(1)" data-toggle="modal" data-target="#success">删除</button>
               </div>
             </div>
           </div>
@@ -342,6 +346,7 @@
   map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
   //地图点击事件 显示RFID添加div
   map.addEventListener("click", function(e){
+    removeAll()
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     $("#lng").html(Math.round(e.point.lng*100)/100)
@@ -370,8 +375,7 @@
             $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
             $("#equipNum").val(data.equipNum);
             $("#serialNumber").val(data.serialNumber);
-            $("#installPos1").val(data.installPos1);
-            $("#installPos2").val(data.installPos1);
+            $("#installPos").val(data.installPos);
           }
         })
       }
@@ -423,17 +427,19 @@
     var roadId=$("#roadId").val();
     var zhadao=$("#zhadao").val();
     var direction=$("#direction").val();
-    var installPos1=$("#installPos1").val();
-    var installPos2=$("#installPos2").val();
-    var id =marker.getLabel();
+    var installPos=$("#installPos").val();
+    var id =markerMap.get(marker)
     if(id==undefined){
       $.ajax({
         url:"RFID/add",
         type:"post",
-        data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
+        data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos:installPos},
         success:function(data){
-          if(data=="duplicated")
+          if(data=="duplicated"){
             alert("重复的序列号");
+            return false
+          }
+
           location.reload(true);
         }
       })
@@ -441,10 +447,12 @@
       $.ajax({
         url:"RFID/edit",
         type:"post",
-        data:{id:id,equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
+        data:{id:id,equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos:installPos},
         success:function(data){
-          if(data=="duplicated")
+          if(data=="duplicated"){
             alert("重复的序列号");
+            return false
+          }
           location.reload(true);
         }
       })
@@ -544,12 +552,8 @@
   function removeAll(){
     $("#equipNum").val("");
     $("#serialNumber").val("");
-    $("#installPos1").val("");
-    $("#installPos2").val("");
+    $("#installPos").val("");
   }
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
-  });
   /*
    * MAP对象，实现MAP功能
    *

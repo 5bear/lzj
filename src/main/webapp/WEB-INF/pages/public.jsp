@@ -105,7 +105,7 @@
         <ul class="dropdown-menu">
           <li><a href="PersonalInfo"><i class="fa fa-user"></i> 个人信息</a></li>
           <li class="divider"></li>
-          <li><a href="login"><i class="fa fa-power-off"></i> 安全退出</a></li>
+          <li><a href="logout"><i class="fa fa-power-off"></i> 安全退出</a></li>
         </ul>
       </li>
     </ul>

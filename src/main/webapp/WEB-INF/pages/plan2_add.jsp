@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +25,8 @@
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.js"></script>
   <script type="text/javascript" src="js/BMaplib.js"></script>
   <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
@@ -31,20 +34,12 @@
 
 
   <style>
-   /* #index { width:100%; height:100%; margin-left:16px; padding:0px; background-color:transparent; position:relative;}*/
+    #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; position:relative}
+    #in-right { width:23.5%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; position:relative; min-width:246px;}
 
- .button{
-		position:absolute;
-		border-radius:5px;
-		border:none;
-    background-color: #00608B;
-    color: white;
-    font-size: 12px;
-    padding: 0;}
-	
+
     .bt1{
       height: 23px;
       width: 60px;
@@ -66,6 +61,16 @@
       left:36%;
       font-family: Microsoft YaHei,STHeiti;
     }
+
+
+    .button{
+      position:absolute;
+      border-radius:5px;
+      border:none;
+      background-color: #00608B;
+      color: white;
+      font-size: 12px;
+      padding: 0;}
 
     #container{width: 56%;
       height: 600px;
@@ -90,8 +95,8 @@
     <div class="row">
       <div class="col-lg-12">
         <ol class="breadcrumb">
-          <li><a href="plan2-add.html">计划管理</a></li>
-          <li><a href="plan2-add.html">作业路线管理</a></li>
+          <li><a href="">计划管理</a></li>
+          <li><a href="">作业路线管理</a></li>
           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
         </ol>
       </div>
@@ -107,13 +112,13 @@
             <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
             <div class="panel-body">
               <li class="dropdown dropdown1">
-                <a href="#" data-toggle="dropdown">按照区域查</a>
+                <a href="#" data-toggle="droplist">按照区域查</a>
                 <div class="arrow-section arrow-section1">
                   <div class="arrow-down arrow-down1"></div>
                 </div>
                 <ul class="dropdown-menu panel-menu">
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="dropdown">上海成基公司</a>
+                    <a href="#" data-toggle="droplist">上海成基公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -128,7 +133,7 @@
                     </ul>
                   </li>
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -140,7 +145,6 @@
                           </div>
                         </li>
                       </c:forEach>
-
                     </ul>
                   </li>
                 </ul>
@@ -157,40 +161,66 @@
         </div><!--in-left-->
 
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
-          <input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
-                     url(images/begin.png); background-size: 100% 100% " onclick="choosePoint()" />
-          <input class="bt1" type="button" id="reset" onclick="undo()" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
-          <input class="bt1" type="button" id="chexiao" onclick="drawLine()" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " />
-          <a class="bt1" href="line" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% " ></a>
-
+          <!--<input class="bt1" type="button"  id="begin"  style="top: 2%;left: 2%; width:11%; background:
+                  url(images/begin.png); background-size: 100% 100% " />
+           <input class="bt1" type="button" id="reset" style="top: 2%;left: 15%;width:11%; background:  url(images/reset.png);background-size: 100% 100% " />
+           <input class="bt1" type="button" id="chexiao" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " />
+           <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% " />
+           -->
+          <button class="button" style="top:2%;left:2%;width:12%;height:5%" onclick="choosePoint()">开始绘制</button>
+          <button class="button" style="top:2%;left:15%;width:12%;height:5%" onclick="undo()">撤销一次</button>
+          <button class="button" style="top:2%;left:28%;width:12%;height:5%" onclick="drawLine()">完成</button>
+          <button class="button" style="top:2%;left:41%;width:12%;height:5%" onclick="javascipt:history.back('-1')">返回</button>
           <div id="container" style="width:98%;top:52px"></div>
 
         </div><!--in-mid-->
 
-        <div id="in-right" style="width:249px"><img src="images/111.png" width="100%"/>
-          <p class="p" style="top:63px" id="info">(X,Y)</p>
+        <div id="in-right" style="width:249px;">
 
-          <input type="text" style="position: absolute; top: 140px; left: 70px; width: 125px;" id="lineName">
-          <select style="position: absolute; top: 175px;left:85px; width:108px;" id="company">
+          <div class="right-main" style="background-color:rgb(242,242,242);width:249px;height:599px;position:absolute;top:51px;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;">
+            <p style="position:absolute;top:13px;left:16px; font-weight:bold">选择点的坐标</p>
+            <p style="position:absolute;top:58px;left:16px; font-weight:bold">经度：</p>
+            <p style="position:absolute;top:96px;left:16px; font-weight:bold">纬度：</p>
+            <p style="position:absolute;top:142px;left:16px;font-weight:bold">作业线路信息：</p>
+            <p style="position:absolute;top:182px;left:16px;font-weight:bold">名称：</p>
+            <p style="position:absolute;top:223px;left:16px;font-weight:bold">养护公司：</p>
+            <p style="position:absolute;top:262px;left:16px;font-weight:bold">所属包件：</p>
+            <p style="position:absolute;top:307px;left:16px;font-weight:bold">方向：</p>
+            <p style="position:absolute;top:352px;left:16px;font-weight:bold">方向类型：</p>
+            <p style="position:absolute;top:397px;left:16px;font-weight:bold">开始坐标：</p>
+            <p style="position:absolute;top:442px;left:16px;font-weight:bold">结束坐标：</p>
+            <p style="position:absolute;top:487px;left:16px;font-weight:bold">里程数(m)：</p>
+
+          </div>
+
+          <div class="right-top" style="background-color:rgb(2,96,142);width:249px; height:100px;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+            <p style="position:absolute;top:16px; left:65px; color:white;font-weight:bold;font-size:16px; letter-spacing:2px;">作业路线编辑区</p>
+          </div>
+
+
+          <p class="p" style="top:63px" id="info"></p>
+          <p style="position:absolute;top:110px;left:100px;" id="lng"></p>
+          <p style="position:absolute;top:148px;left:100px;" id="lat"></p>
+
+          <input type="text" style="position: absolute; top:232px; left: 70px; width:125px;" id="lineName">
+          <select style="position: absolute; top: 272px;left:85px; width: 108px;" id="company">
             <option value="上海成基公司">上海成基公司</option>
             <option value="上海高架养护公司">上海高架养护公司</option>
-
           </select>
 
-          <select style="position: absolute; top: 210px;left: 85px; width: 108px;" id="package">
-           <c:forEach items="${packages}" var="item">
-             <option value="${item.id}">${item.packageName}</option>
-           </c:forEach>
-
+          <select style="position: absolute; top: 313px;left: 85px; width: 108px;" id="package">
+            <c:forEach items="${packages}" var="item">
+              <option value="${item.id}">${item.packageName}</option>
+            </c:forEach>
           </select>
 
-          <select style="position: absolute; top: 250px;left:70px; width: 100px;" id="direction">
+          <select style="position: absolute; top: 356px;left: 70px; width: 100px;" id="direction">
             <option value="北">北</option>
             <option value="南">南</option>
             <option value="东">东</option>
             <option value="西">西</option>
           </select>
-          <select style="position: absolute; top: 280px; left:90px; width: 80px;" id="directionType">
+          <select style="position: absolute; top: 402px; left:90px; width: 80px;" id="directionType">
             <option value="外圈">外圈</option>
             <option value="内圈">内圈</option>
             <option value="南侧">南侧</option>
@@ -198,11 +228,15 @@
             <option value="东侧">东侧</option>
             <option value="西侧">西侧</option>
           </select>
-          <p class="p1" style="top:335px;" id="startCoord"></p>
-          <p class="p1" style="top:370px;" id="endCoord"></p>
-          <p class="p1" style="top:412px;" id="realDistance"></p>
-         <button class="button" data-toggle="modal" data-target="#success" style="top:470px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
-          <button class="button" data-toggle="modal" data-target="#success" style="top:470px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
+          <p class="p1" style="top:442px;" id="startCoord"></p>
+          <p class="p1" style="top:498px;" id="endCoord"></p>
+          <p class="p1" style="top:538px;" id="realDistance"></p>
+          <!-- <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:72%;left: 18%;width:24%;
+                  background:url(images/add.png); background-size:100% 100%" />
+           <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top:72%;left:60%;width:24%;
+                  background:url(images/delete.png); background-size:100% 100%" />-->
+          <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
+          <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
         </div><!--in-right-->
 
       </div>
@@ -232,8 +266,12 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
+
+<script>
+  $('a[data-toggle="droplist"]').click(function() {
+    $(this).nextAll().toggle();
+  });
+</script>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
@@ -252,6 +290,8 @@
   function addMarker(e){
     currentLng= e.point.lng;
     currentLat= e.point.lat;
+    $("#lng").html(Math.round(e.point.lng*100)/100)
+    $("#lat").html(Math.round(e.point.lat*100)/100)
     var info=document.getElementById("info");
     info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     var point = new BMap.Point(e.point.lng, e.point.lat);
@@ -270,24 +310,7 @@
     var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
     map.addControl(top_left_control);
     map.addControl(top_left_navigation);
-   /* $.ajax({
-      url:"line/list",
-      type:"post",
-      data:{},
-      dataType:"json",
-      success:function(data){
-        $(data).each(function(index){
-          var point=eval(data[index].coords);
-          for(var i=0;i<point.length;i++){
-            var p=new BMap.Point(point[i].lng,point[i].lat);
-            points.push(p);
-          }
-          drawLine(data[index].id);
-          points=new Array();//清空
-        })
-
-      }
-    })*/
+    showLine('${line.id}','${line.lng}','${line.lat}')
   })
   /*添加电子围栏*/
   function addeLine(){
@@ -303,18 +326,24 @@
     var packageName=$("#package").find("option:selected").text();
     var remark=$("#remark").val();
     var realDistance=$("#realDistance").html();
+    if(realDistance==NaN)
+    {
+      alert("无效的里程数,请重新选择");
+      return false;
+    }
     /*BMapLib.GeoUtils.getPolylineDistance(polyline);*/
     /* var inputMan=$("#inputMan").val();*/
     if(id==0) {
-      console.log(id)
       $.ajax({
         url: "line/add",
         async :false,
         type: "post",
         data: {packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success: function (data) {
-          if(data=="duplicated")
+          if(data=="duplicated"){
             alert("作业线路名称重复");
+            return false
+          }
           location.reload(true);
         }
       })
@@ -325,8 +354,11 @@
         type:"post",
         data:{packageId:packageId,packageName:packageName,id:id,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success:function(data){
-          if(data=="duplicated")
+          if(data=="duplicated"){
             alert("作业线路名称重复");
+            return false
+          }
+
           location.reload(true);
         }
       })
@@ -419,13 +451,13 @@
             $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
             $("#startCoord").html(data.startCoord)
             $("#endCoord").html(data.endCoord);
-            $("#realDistance").html(data.realDistance+"m");
+            $("#realDistance").html(data.realDistance);
             /*$("#inputMan").val(data.inputMan);*/
           }
         })
       })
       map.addOverlay(polyline);
-      $("#realDistance").html(parseInt(distance)+"m");
+      $("#realDistance").html(parseInt(distance));
     })
 
     var geoc = new BMap.Geocoder();
@@ -498,7 +530,9 @@
   $('a[data-toggle="dropdown"]').click(function() {
     $(this).nextAll().toggle();
   });
-
+/*
+map
+ */
   function Map() {
     this.elements = new Array();
 

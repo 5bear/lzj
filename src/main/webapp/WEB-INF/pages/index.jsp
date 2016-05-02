@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ZhanShaoxiong
@@ -52,7 +53,7 @@
 
           title: {
             text: '有效作业率',
-            style:{fontSize:"13px",}
+            style:{fontSize:"13px"}
           },
           tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
@@ -109,7 +110,7 @@
 
           title: {
             text: '匝道覆盖率',
-            style:{fontSize:"13px",}
+            style:{fontSize:"13px"}
           },
           tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
@@ -200,102 +201,10 @@
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav side-nav">
-        <li class="text-right aside-li">
-          <button type="button" class="navbar-aside" title="收起/展开菜单">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </li>
-        <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="base1.html">停车场管理</a></li>
-            <li><a href="base2.html">车辆管理</a></li>
-            <li><a href="base3.html">RFID监测点管理</a></li>
-            <li><a href="base4.html">包件信息管理</a></li>
-            <li><a href="base5.html">电子围栏管理</a></li>
-            <li><a href="base6.html">监管规则管理</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="plan1.html">养护作业计划</a></li>
-            <li><a href="plan2.html">作业线路管理</a></li>
-            <li><a href="plan3.html">布点计划</a></li>
-            <li><a href="plan4.html">驾驶员计划</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="progress1.html">养护进度监控</a></li>
-            <li><a href="progress2.html">实时监控</a></li>
-            <li><a href="progress3.html">养护日志管理</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown ">
-          <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="history1.html">历史轨迹查询</a></li>
-            <li><a href="history2.html">历史视频查询</a></li>
-            <li><a href="history3.html">异常查询</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="reports1.html">牵引车辆位置报表</a></li>
-            <li><a href="reports2.html">养护车辆作业区域</a></li>
-            <li><a href="reports3.html">养护车辆作业情况</a></li>
-            <li><a href="reports4.html">养护车辆超速</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="management1.html">用户管理</a></li>
-            <li><a href="management2.html">权限管理</a></li>
-            <li><a href="management3.html">网络状态图</a></li>
-          </ul>
-        </li>
-
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right navbar-user">
-        <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-            <li class="divider"></li>
-            <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </nav>
+  <jsp:include page="public.jsp" flush="true">
+    <jsp:param name="pageFather" value="index"></jsp:param>
+    <jsp:param name="pageName" value="index"></jsp:param>
+  </jsp:include>
 
   <div id="page-wrapper">
 
@@ -329,31 +238,14 @@
                       <div class="arrow-down arrow-down2"></div>
                     </div>
                     <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">中环路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">中环路立交</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">上中路隧道</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">军工路隧道交</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">外滩隧道</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
+
+                      <c:forEach items="${cjList}" var="item">
+                        <li class="dropdown dropdown3">
+                          <a href="#" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="droplist">${item.line}</a>
+                          <div class="arrow-section arrow-section3">
+                          </div>
+                        </li>
+                      </c:forEach>
                     </ul>
                   </li>
                   <li class="dropdown dropdown2">
@@ -362,11 +254,13 @@
                       <div class="arrow-down arrow-down2"></div>
                     </div>
                     <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">内环高架路路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
+                     <c:forEach items="${gjyhList}" var="item">
+                       <li class="dropdown dropdown3">
+                         <a href="#" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="droplist">${item.line}</a>
+                         <div class="arrow-section arrow-section3">
+                         </div>
+                       </li>
+                     </c:forEach>
                     </ul>
                   </li>
                 </ul>
@@ -381,21 +275,22 @@
                 </div>
                 <ul class="dropdown-menu panel-menu">
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
+                    <a href="#" data-toggle="droplist">上海成基公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
                     <ul class="dropdown-menu panel-menu">
                       <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">清扫车</a>
+                        <a href="#" data-toggle="droplist">养护车</a>
                         <div class="arrow-section arrow-section3">
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                          <li>
-                            <a href="#">沪BD4802</a>
-                          </li>
-                          <li><a href="#">沪BD4802</a></li>
+                          <c:forEach items="${cyList}" var="item">
+                            <li>
+                              <a href="#">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
                         </ul>
                       </li>
                       <li class="dropdown dropdown3">
@@ -404,17 +299,79 @@
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                          <li>
-                            <a href="#">沪BD4802</a>
-                          </li>
-                          <li><a href="#">沪BD4802</a></li>
+                          <c:forEach items="${cqList}" var="item">
+                            <li>
+                              <a href="#">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">巡查车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${cxList}" var="item">
+                            <li>
+                              <a href="#">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
                         </ul>
                       </li>
                     </ul>
                   </li>
-
                 </ul>
-              </li><!--dropdown1-->
+                <ul class="dropdown-menu panel-menu">
+                  <li class="dropdown dropdown2">
+                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
+                    <div class="arrow-section arrow-section2">
+                      <div class="arrow-down arrow-down2"></div>
+                    </div>
+                    <ul class="dropdown-menu panel-menu">
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">养护车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${gyList}" var="item">
+                            <li>
+                              <a href="#">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">牵引车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${gqList}" var="item">
+                            <li>
+                              <a href="#">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">巡查车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${gxList}" var="item">
+                            <li>
+                              <a href="#">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+              </ul>
+              </li>
 
 
 
@@ -426,7 +383,7 @@
         <!-- <div id="" style="height: 601px; width: 638px; top: 123px;left:447px; float:left">-->
         <div id="mid" style="height:700px; width:55%; float:left;position:relative">
           <div class="mid-btn-row text-right">
-            <button class="btn btn-default">设置常用区域</button>
+            <button class="btn btn-default" onclick="addArea()">设置常用区域</button>
           </div>
 
           <div id="container" style=" height: 610px; width:99%"></div>
@@ -511,13 +468,43 @@
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 <script>
+  var currentLng,currentLat;
+  var polyline;//折线对象
+  var polylines=new Array();//多条折线
+  var lineMap=new Map();
+  var markers=new Array();
+  var idForEdit=0;
+  var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+  map.centerAndZoom("上海");
   map.enableScrollWheelZoom();//允许放大缩放
   map.addControl(top_left_control);
-  map.centerAndZoom("上海");
+
   // 初始化地图，设置中心点坐标和地图级别 设置为上海
   $(document).ready(function(){
+
+    $.ajax({
+      url:"getMap",
+      type:"post",
+      data:{},
+      dataType:"json",
+      success:function(data){
+        if(data=="fail")
+        {
+          console.log(data)
+
+        }else{
+          console.log(jsonToPoints("["+data.center+"]")[0])
+          var point = new BMap.Point(jsonToPoints("["+data.center+"]")[0].lng, jsonToPoints("["+data.center+"]")[0].lat);
+          map.centerAndZoom(point,data.zoom);
+        }
+        /*
+         do nothing
+         */
+      }
+    })
+
     $("button.navbar-aside").click(function(){
       if ($("#wrapper").is(".left-wrapper")== true) {
         $(".side-nav").removeClass("left-nav");
@@ -528,6 +515,313 @@
       }
     });
   });
+  function addArea(){
+    var center=pointsTojson(map.getCenter());
+    var zoom=map.getZoom();
+    $.ajax({
+      url:"addArea",
+      type:"post",
+      data:{center:center,zoom:zoom},
+      success:function(data){
+        if(data=="fail")
+        alert("请先登录")
+        /*
+        do nothing
+        */
+      }
+    })
+  }
+
+
+  /*划线*/
+  function drawLine() {
+    /*
+     var startX=document.getElementById("startX").value;
+     var startY=document.getElementById("startY").value;
+     var endX=document.getElementById("endX").value;
+     var endY=document.getElementById("endY").value;
+
+     var polyline = new BMap.Polyline(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+     polyline.addEventListener("click",function(e){
+     var target= e.target;
+     console.log(target.ia)//得到线的对象
+     })
+     map.addOverlay(polyline);   //增加折线
+     */
+    /* console.log(points)*/
+    var driving = new BMap.DrivingRoute(map);    //创建驾车实例
+    for (var i = 0; i < points.length - 1; i++) {
+      driving.search(points[i], points[i + 1])
+      /* console.log(driving)*/
+    }
+    driving.setSearchCompleteCallback(function () {
+      /* console.log(driving.getResults())*/
+      var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+      polyline = new BMap.Polyline(pts);
+      polylines.push(polyline);
+      polyline.addEventListener("click", function (e) {
+        var target = e.currentTarget;
+        polyline = target;
+        points = target.getPath();
+        $.ajax({
+          url: "line/get",
+          type: "post",
+          data: {id: idForEdit},
+          dataType: "json",
+          success: function (data) {
+            map.removeEventListener("click", addMarker)
+            map.addEventListener("click", addMarker);
+            points = jsonToPoints(data.coords)
+            for (var i = 0; i < points.length; i++) {
+              var point = new BMap.Point(points[i].lng, points[i].lat);
+              var marker = new BMap.Marker(point);// 创建标注
+              markers.push(marker)
+              map.addOverlay(marker);             // 将标注添加到地图中
+              marker.disableDragging();           // 不可拖拽
+            }
+          }
+        })
+      })
+      map.addOverlay(polyline);
+    })
+  }
+  /**/
+  function panTo(lng,lat){
+    var point=new BMap.Point(lng, lat);
+    map.panTo(point);
+  }
+  function showLine(id,lng,lat){
+    map.clearOverlays();
+    panTo(lng,lat)
+    $.ajax({
+      url:"line/get",
+      type:"post",
+      data:{id:id},
+      dataType:"json",
+      success:function(data){
+        idForEdit=data.id;
+        var point=jsonToPoints(data.coords)
+        for(var i=0;i<point.length;i++){
+          var p=new BMap.Point(point[i].lng,point[i].lat);
+          points.push(p);
+        }
+        drawLine()
+        /*$("#inputMan").val(data.inputMan);*/
+      }
+    })
+    points=new Array();
+  }
+
+  /*点数组转json*/
+  function pointsTojson(points){
+    return JSON.stringify(points);
+  }
+  /*json数据转成点数组*/
+  function jsonToPoints(jsonData){
+    return eval(jsonData);
+  }
+  /*
+   map
+   */
+  function Map() {
+    this.elements = new Array();
+
+    //获取MAP元素个数
+    this.size = function() {
+      return this.elements.length;
+    };
+
+    //判断MAP是否为空
+    this.isEmpty = function() {
+      return (this.elements.length < 1);
+    };
+
+    //删除MAP所有元素
+    this.clear = function() {
+      this.elements = new Array();
+    };
+
+    //向MAP中增加元素（key, value)
+    this.put = function(_key, _value) {
+      this.elements.push( {
+        key : _key,
+        value : _value
+      });
+    };
+
+    //删除指定KEY的元素，成功返回True，失败返回False
+    this.removeByKey = function(_key) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].key == _key) {
+            this.elements.splice(i, 1);
+            return true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //删除指定VALUE的元素，成功返回True，失败返回False
+    this.removeByValue = function(_value) {//removeByValueAndKey
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value) {
+            this.elements.splice(i, 1);
+            return true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //删除指定VALUE的元素，成功返回True，失败返回False
+    this.removeByValueAndKey = function(_key,_value) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value && this.elements[i].key == _key) {
+            this.elements.splice(i, 1);
+            return true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //获取指定KEY的元素值VALUE，失败返回NULL
+    this.get = function(_key) {
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].key == _key) {
+            return this.elements[i].value;
+          }
+        }
+      } catch (e) {
+        return false;
+      }
+      return false;
+    };
+
+    //获取指定索引的元素（使用element.key，element.value获取KEY和VALUE），失败返回NULL
+    this.element = function(_index) {
+      if (_index < 0 || _index >= this.elements.length) {
+        return null;
+      }
+      return this.elements[_index];
+    };
+
+    //判断MAP中是否含有指定KEY的元素
+    this.containsKey = function(_key) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].key == _key) {
+            bln = true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //判断MAP中是否含有指定VALUE的元素
+    this.containsValue = function(_value) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value) {
+            bln = true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //判断MAP中是否含有指定VALUE的元素
+    this.containsObj = function(_key,_value) {
+      var bln = false;
+      try {
+        for (i = 0; i < this.elements.length; i++) {
+          if (this.elements[i].value == _value && this.elements[i].key == _key) {
+            bln = true;
+          }
+        }
+      } catch (e) {
+        bln = false;
+      }
+      return bln;
+    };
+
+    //获取MAP中所有VALUE的数组（ARRAY）
+    this.values = function() {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        arr.push(this.elements[i].value);
+      }
+      return arr;
+    };
+
+    //获取MAP中所有VALUE的数组（ARRAY）
+    this.valuesByKey = function(_key) {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        if (this.elements[i].key == _key) {
+          arr.push(this.elements[i].value);
+        }
+      }
+      return arr;
+    };
+
+    //获取MAP中所有KEY的数组（ARRAY）
+    this.keys = function() {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        arr.push(this.elements[i].key);
+      }
+      return arr;
+    };
+
+    //获取key通过value
+    this.keysByValue = function(_value) {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        if(_value == this.elements[i].value){
+          arr.push(this.elements[i].key);
+        }
+      }
+      return arr;
+    };
+
+    //获取MAP中所有KEY的数组（ARRAY）
+    this.keysRemoveDuplicate = function() {
+      var arr = new Array();
+      for (i = 0; i < this.elements.length; i++) {
+        var flag = true;
+        for(var j=0;j<arr.length;j++){
+          if(arr[j] == this.elements[i].key){
+            flag = false;
+            break;
+          }
+        }
+        if(flag){
+          arr.push(this.elements[i].key);
+        }
+      }
+      return arr;
+    };
+  }
 </script>
 </body>
 </html>

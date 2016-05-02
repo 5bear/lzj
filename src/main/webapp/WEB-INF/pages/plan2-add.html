@@ -76,110 +76,18 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-              <li class="text-right aside-li">
-                  <button type="button" class="navbar-aside" title="收起/展开菜单">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-              </li>
-            <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-            <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="base1.html">停车场管理</a></li>
-                <li><a href="base2.html">车辆管理</a></li>
-                <li><a href="base3.html">RFID监测点管理</a></li>
-                <li><a href="base4.html">包件信息管理</a></li>
-                <li><a href="base5.html">电子围栏管理</a></li>
-                <li><a href="base6.html">监管规则管理</a></li>
-        </ul>
-       </li>
-       
-         <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="plan1.html">养护作业计划</a></li>
-                <li class="active"><a href="plan2-add.html">作业线路管理</a></li>
-                <li><a href="plan3.html">布点计划</a></li>
-                <li><a href="plan4.html">驾驶员计划</a></li>
-        </ul>
-       </li>
-       
-         <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="progress1.html">养护进度监控</a></li>
-                <li><a href="progress2.html">实时监控</a></li>
-                <li><a href="progress3.html">养护日志管理</a></li>
-        </ul>
-       </li>
-       
-           <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="history1.html">历史轨迹查询</a></li>
-                <li><a href="history2.html">历史视频查询</a></li>
-                <li><a href="history3.html">异常查询</a></li>
-        </ul>
-       </li>
-       
-               <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                <li><a href="reports2.html">养护车辆作业区域</a></li>
-                <li><a href="reports3.html">养护车辆作业情况</a></li>
-                <li><a href="reports4.html">养护车辆超速</a></li>
-        </ul>
-       </li>
-       
-                 <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="management1.html">用户管理</a></li>
-                <li><a href="management2.html">权限管理</a></li>
-                <li><a href="management3.html">网络状态图</a></li>
-        </ul>
-       </li>
-      
-          </ul>
-
-         <ul class="nav navbar-nav navbar-right navbar-user">
-                        <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-        </div><!-- /.navbar-collapse -->
-      </nav>
+        <jsp:include page="public.jsp" flush="true">
+            <jsp:param name="pageFather" value="plan"></jsp:param>
+            <jsp:param name="pageName" value="plan2"></jsp:param>
+        </jsp:include>
 
       <div id="page-wrapper">
 
         <div class="row">
           <div class="col-lg-12">
             <ol class="breadcrumb">
-              <li><a href="plan2-add.html">计划管理</a></li>
-              <li><a href="plan2-add.html">作业路线管理</a></li>
+              <li><a href="">计划管理</a></li>
+              <li><a href="">作业路线管理</a></li>
            <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
             </ol>
           </div>
@@ -206,31 +114,13 @@
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">中环路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">中环路立交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">上中路隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">军工路隧道交</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">外滩隧道</a>
-                                <div class="arrow-section arrow-section3">                                    
-                                </div>                               
-                            </li>
+                            <c:forEach items="${cjList}" var="item">
+                                <li class="dropdown dropdown3">
+                                    <a href="" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="dropdown">${item.line}</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </li>
                     <li class="dropdown dropdown2">
@@ -239,24 +129,13 @@
                             <div class="arrow-down arrow-down2"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                            <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">内环高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                           
-                           <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">延安高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                           
-                           <li class="dropdown dropdown3">
-                                <a href="#" data-toggle="dropdown">南北高架路路</a>
-                                <div class="arrow-section arrow-section3">
-                                </div>                                                               
-                            </li>
-                           
+                            <c:forEach items="${gjyhList}" var="item">
+                                <li class="dropdown dropdown3">
+                                    <a href="" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="dropdown">${item.line}</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </li>
                 </ul>
@@ -279,10 +158,10 @@
               <input class="bt1" type="button" id="chexiao" style="top: 2%;left: 28%; background:url(images/complete.png);   background-size: 100% 100% " />  
               <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/back.png);  background-size: 100% 100% " /> 
               -->
-               <button class="button" style="top:2%;left:2%;width:12%;height:5%">开始绘制</button>
-              <button class="button" style="top:2%;left:15%;width:12%;height:5%">撤销一次</button>
-              <button class="button" style="top:2%;left:28%;width:12%;height:5%">完成</button>
-              <button class="button" style="top:2%;left:41%;width:12%;height:5%">返回</button>
+               <button class="button" style="top:2%;left:2%;width:12%;height:5%" onclick="choosePoint()">开始绘制</button>
+              <button class="button" style="top:2%;left:15%;width:12%;height:5%" onclick="undo()">撤销一次</button>
+              <button class="button" style="top:2%;left:28%;width:12%;height:5%" onclick="drawLine()">完成</button>
+              <a class="button" style="top:2%;left:41%;width:12%;height:5%" onclick="undoAll()"  href="line">返回</a>
                  <div id="container" style="width:98%;top:52px"></div>
             
             </div><!--in-mid-->
@@ -310,46 +189,45 @@
                </div>
               
                  
-              <p class="p" style="top:63px">(X,Y)</p>
-                 <p style="position:absolute;top:110px;left:100px;">112</p>
-               <p style="position:absolute;top:148px;left:100px;">148</p>
+              <p class="p" style="top:63px" id="info">(X,Y)</p>
+                 <p style="position:absolute;top:110px;left:100px;" id="lng"></p>
+               <p style="position:absolute;top:148px;left:100px;" id="lat"></p>
                
-                <input type="text" style="position: absolute; top:232px; left: 70px; width:125px;">
-               <select style="position: absolute; top: 272px;left:85px; width: 108px;">
-            <option value="N">成基公司</option>
-                  <option value="S">上海高架养护公司</option>
-                  
+                <input type="text" style="position: absolute; top:232px; left: 70px; width:125px;" id="lineName">
+               <select style="position: absolute; top: 272px;left:85px; width: 108px;" id="company">
+                   <option value="上海成基公司">上海成基公司</option>
+                   <option value="上海高架养护公司">上海高架养护公司</option>
           </select>
                 
-                 <select style="position: absolute; top: 313px;left: 85px; width: 108px;">
-            <option value="N">包件一</option>
-                  <option value="S">包件二</option>
-                  
+                 <select style="position: absolute; top: 313px;left: 85px; width: 108px;" id="package">
+                     <c:forEach items="${packages}" var="item">
+                         <option value="${item.id}">${item.packageName}</option>
+                     </c:forEach>
           </select>
                 
-                <select style="position: absolute; top: 356px;left: 70px; width: 100px;">
-            <option value="N">北</option>
-                  <option value="S">南</option>
-                  <option value="E">东</option>
-                  <option value="E">西</option>
+                <select style="position: absolute; top: 356px;left: 70px; width: 100px;" id="direction">
+                    <option value="北">北</option>
+                    <option value="南">南</option>
+                    <option value="东">东</option>
+                    <option value="西">西</option>
           </select>
-                <select style="position: absolute; top: 402px; left:90px; width: 80px;">
-            <option value="N">外圈</option>
-                  <option value="S">内圈</option>
-                  <option value="E">南侧</option>
-                  <option value="E">北侧</option>
-                  <option value="E">东侧</option>
-                  <option value="E">西侧</option>
+                <select style="position: absolute; top: 402px; left:90px; width: 80px;" id="directionType">
+                    <option value="外圈">外圈</option>
+                    <option value="内圈">内圈</option>
+                    <option value="南侧">南侧</option>
+                    <option value="北侧">北侧</option>
+                    <option value="东侧">东侧</option>
+                    <option value="西侧">西侧</option>
           </select>
-                <p class="p1" style="top:442px;">(X,Y)</p>
-                <p class="p1" style="top:498px;">(X,Y)</p>
-                <p class="p1" style="top:538px;">12348km</p>
+                <p class="p1" style="top:442px;" id="startCoord"></p>
+                <p class="p1" style="top:498px;" id="endCoord">(X,Y)</p>
+                <p class="p1" style="top:538px;" id="realDistance"></p>
               <!-- <input class="bt1" data-toggle="modal" data-target="#success" type="button"  style=" top:72%;left: 18%;width:24%;
                       background:url(images/add.png); background-size:100% 100%" /> 
                <input class="bt1" type="button"   data-toggle="modal" data-target="#success" style=" top:72%;left:60%;width:24%;
                       background:url(images/delete.png); background-size:100% 100%" />--> 
-               <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:50px;width:70px;height:28px">增加/修改</button>
-               <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:148px;width:70px;height:28px">删除</button>
+               <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:50px;width:70px;height:28px" onclick="addClick(0)">增加/修改</button>
+               <button class="button" data-toggle="modal" data-target="#success" style="top:580px;left:148px;width:70px;height:28px" onclick="addClick(1)">删除</button>
             </div><!--in-right-->
             
       </div>
@@ -371,7 +249,7 @@
                         <p>是否确认此次更改</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_type">确定</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -395,13 +273,468 @@
     
      <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
-<script>
-var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
-    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-    map.enableScrollWheelZoom();//允许放大缩放
-    map.addControl(top_left_control);
-    map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-</script>
+    <script>
+        var currentLng,currentLat;
+        var polyline;//折线对象
+        var polylines=new Array();//多条折线
+        var lineMap=new Map();
+        var markers=new Array();
+        var idForEdit=0;
+        var points=new Array();//创建点的数组
+        var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
+        map.enableScrollWheelZoom();//允许放大缩放
+        map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
+        /*添加marker*/
+        function addMarker(e){
+            currentLng= e.point.lng;
+            currentLat= e.point.lat;
+            var info=document.getElementById("info");
+            info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
+            var point = new BMap.Point(e.point.lng, e.point.lat);
+            points.push(point)
+            var marker = new BMap.Marker(point);// 创建标注
+            markers.push(marker)
+            map.addOverlay(marker);             // 将标注添加到地图中
+            marker.disableDragging();           // 不可拖拽
+        }
+        /*
+         * 显示已存在的线路
+         * */
+        $(document).ready(function(){
+            /*添加比例尺*/
+            var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+            var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+            map.addControl(top_left_control);
+            map.addControl(top_left_navigation);
+            /* $.ajax({
+             url:"line/list",
+             type:"post",
+             data:{},
+             dataType:"json",
+             success:function(data){
+             $(data).each(function(index){
+             var point=eval(data[index].coords);
+             for(var i=0;i<point.length;i++){
+             var p=new BMap.Point(point[i].lng,point[i].lat);
+             points.push(p);
+             }
+             drawLine(data[index].id);
+             points=new Array();//清空
+             })
+
+             }
+             })*/
+        })
+        /*添加电子围栏*/
+        function addeLine(){
+            var coords=pointsTojson(points);
+            var startCoords=$("#startCoord").html();
+            var endCoords=$("#endCoord").html();
+            var id=idForEdit
+            var lineName=$("#lineName").val();
+            var company=$("#company").val();
+            var direction=$("#direction").val();
+            var directionType=$("#directionType").val();
+            var packageId=$("#package").val();
+            var packageName=$("#package").find("option:selected").text();
+            var remark=$("#remark").val();
+            var realDistance=$("#realDistance").html();
+            /*BMapLib.GeoUtils.getPolylineDistance(polyline);*/
+            /* var inputMan=$("#inputMan").val();*/
+            if(id==0) {
+                console.log(id)
+                $.ajax({
+                    url: "line/add",
+                    async :false,
+                    type: "post",
+                    data: {packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+                    success: function (data) {
+                        if(data=="duplicated")
+                            alert("作业线路名称重复");
+                        location.reload(true);
+                    }
+                })
+            }else{
+                $.ajax({
+                    url:"line/edit",
+                    async :false,
+                    type:"post",
+                    data:{packageId:packageId,packageName:packageName,id:id,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+                    success:function(data){
+                        if(data=="duplicated")
+                            alert("作业线路名称重复");
+                        location.reload(true);
+                    }
+                })
+            }
+        }
+        /*删除电子围栏*/
+        function deleteLine(){
+            $.ajax({
+                url:"line/delete",
+                type:"post",
+                data:{id:idForEdit},
+                success:function(data){
+                    location.reload(true);
+                }
+            })
+        }
+        /*选点*/
+        function choosePoint(){
+            idForEdit=0;
+            map.removeEventListener("click",addMarker)
+            //地图点击事件
+            map.addEventListener("click",addMarker);
+            removeAll()
+            points=new Array();
+            polylines=new Array();
+        }
+        /*撤销一次*/
+        function undo(){
+            map.removeOverlay(markers.pop());
+            map.removeOverlay(polylines.pop())
+            points.pop();
+        }
+        /*撤销全部*/
+        function undoAll(){
+            map.clearOverlays();
+            points=new Array();
+            polylines=new Array();
+        }
+        /*划线*/
+        function drawLine(){
+            /*
+             var startX=document.getElementById("startX").value;
+             var startY=document.getElementById("startY").value;
+             var endX=document.getElementById("endX").value;
+             var endY=document.getElementById("endY").value;
+
+             var polyline = new BMap.Polyline(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+             polyline.addEventListener("click",function(e){
+             var target= e.target;
+             console.log(target.ia)//得到线的对象
+             })
+             map.addOverlay(polyline);   //增加折线
+             */
+            /* console.log(points)*/
+            var distance=0;
+            var driving = new BMap.DrivingRoute(map);    //创建驾车实例
+            for(var i=0;i<points.length-1;i++) {
+                driving.search(points[i], points[i + 1])
+                /* console.log(driving)*/
+            }
+            driving.setSearchCompleteCallback(function(){
+                /* console.log(driving.getResults())*/
+                var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+                polyline = new BMap.Polyline(pts);
+                distance+=(BMapLib.GeoUtils.getPolylineDistance(polyline))
+                polylines.push(polyline);
+                polyline.addEventListener("click",function(e){
+                    var target= e.currentTarget;
+                    polyline=target;
+                    points=target.getPath();
+                    $.ajax({
+                        url:"line/get",
+                        type:"post",
+                        data:{id:idForEdit},
+                        dataType:"json",
+                        success:function(data){
+                            map.removeEventListener("click",addMarker)
+                            map.addEventListener("click", addMarker);
+                            points=jsonToPoints(data.coords)
+                            for(var i=0;i<points.length;i++){
+                                var point = new BMap.Point(points[i].lng, points[i].lat);
+                                var marker = new BMap.Marker(point);// 创建标注
+                                markers.push(marker)
+                                map.addOverlay(marker);             // 将标注添加到地图中
+                                marker.disableDragging();           // 不可拖拽
+                            }
+                            $("#lineName").val(data.line);
+                            $("#company").find("option[value="+data.company+"]").attr("selected",true);
+                            $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+                            $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
+                            $("#startCoord").html(data.startCoord)
+                            $("#endCoord").html(data.endCoord);
+                            $("#realDistance").html(data.realDistance+"m");
+                            /*$("#inputMan").val(data.inputMan);*/
+                        }
+                    })
+                })
+                map.addOverlay(polyline);
+                $("#realDistance").html(parseInt(distance)+"m");
+            })
+
+            var geoc = new BMap.Geocoder();
+            geoc.getLocation(points[0], function(rs){
+                var addComp = rs.addressComponents;
+                $("#startCoord").html(addComp.district + addComp.street +addComp.streetNumber);
+            });
+            geoc.getLocation(points[points.length-1], function(rs){
+                var addComp = rs.addressComponents;
+                $("#endCoord").html(addComp.district + addComp.street + addComp.streetNumber);
+            });
+        }
+        /*点数组转json*/
+        function pointsTojson(points){
+            return JSON.stringify(points);
+        }
+        /*json数据转成点数组*/
+        function jsonToPoints(jsonData){
+            return eval(jsonData);
+        }
+        /*
+         * 添加点击事件
+         * */
+        function addClick(type){
+            if(type==0)
+                $("#btn_type").click(addeLine);
+            else if(type==1)
+                $("#btn_type").click(deleteLine);
+        }
+        /**/
+        function panTo(lng,lat){
+            var point=new BMap.Point(lng, lat);
+            map.panTo(point);
+        }
+        function showLine(id,lng,lat){
+            map.clearOverlays();
+            panTo(lng,lat)
+            $.ajax({
+                url:"line/get",
+                type:"post",
+                data:{id:id},
+                dataType:"json",
+                success:function(data){
+                    idForEdit=data.id;
+                    var point=jsonToPoints(data.coords)
+                    for(var i=0;i<point.length;i++){
+                        var p=new BMap.Point(point[i].lng,point[i].lat);
+                        points.push(p);
+                    }
+                    drawLine()
+                    $("#lineName").val(data.line);
+                    $("#company").find("option[value="+data.company+"]").attr("selected",true);
+                    $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+                    $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
+                    $("#startCoord").html(data.startCoord)
+                    $("#endCoord").html(data.endCoord);
+                    $("#realDistance").html(data.realDistance+"m");
+                    /*$("#inputMan").val(data.inputMan);*/
+                }
+            })
+            points=new Array();
+        }
+        function removeAll(){
+            map.clearOverlays()
+            $("#lineName").val("");
+            $("#startCoord").html("")
+            $("#endCoord").html("");
+            $("#realDistance").html("");
+        }
+        $('a[data-toggle="dropdown"]').click(function() {
+            $(this).nextAll().toggle();
+        });
+
+        function Map() {
+            this.elements = new Array();
+
+            //获取MAP元素个数
+            this.size = function() {
+                return this.elements.length;
+            };
+
+            //判断MAP是否为空
+            this.isEmpty = function() {
+                return (this.elements.length < 1);
+            };
+
+            //删除MAP所有元素
+            this.clear = function() {
+                this.elements = new Array();
+            };
+
+            //向MAP中增加元素（key, value)
+            this.put = function(_key, _value) {
+                this.elements.push( {
+                    key : _key,
+                    value : _value
+                });
+            };
+
+            //删除指定KEY的元素，成功返回True，失败返回False
+            this.removeByKey = function(_key) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].key == _key) {
+                            this.elements.splice(i, 1);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //删除指定VALUE的元素，成功返回True，失败返回False
+            this.removeByValue = function(_value) {//removeByValueAndKey
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value) {
+                            this.elements.splice(i, 1);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //删除指定VALUE的元素，成功返回True，失败返回False
+            this.removeByValueAndKey = function(_key,_value) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value && this.elements[i].key == _key) {
+                            this.elements.splice(i, 1);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //获取指定KEY的元素值VALUE，失败返回NULL
+            this.get = function(_key) {
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].key == _key) {
+                            return this.elements[i].value;
+                        }
+                    }
+                } catch (e) {
+                    return false;
+                }
+                return false;
+            };
+
+            //获取指定索引的元素（使用element.key，element.value获取KEY和VALUE），失败返回NULL
+            this.element = function(_index) {
+                if (_index < 0 || _index >= this.elements.length) {
+                    return null;
+                }
+                return this.elements[_index];
+            };
+
+            //判断MAP中是否含有指定KEY的元素
+            this.containsKey = function(_key) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].key == _key) {
+                            bln = true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //判断MAP中是否含有指定VALUE的元素
+            this.containsValue = function(_value) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value) {
+                            bln = true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //判断MAP中是否含有指定VALUE的元素
+            this.containsObj = function(_key,_value) {
+                var bln = false;
+                try {
+                    for (i = 0; i < this.elements.length; i++) {
+                        if (this.elements[i].value == _value && this.elements[i].key == _key) {
+                            bln = true;
+                        }
+                    }
+                } catch (e) {
+                    bln = false;
+                }
+                return bln;
+            };
+
+            //获取MAP中所有VALUE的数组（ARRAY）
+            this.values = function() {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    arr.push(this.elements[i].value);
+                }
+                return arr;
+            };
+
+            //获取MAP中所有VALUE的数组（ARRAY）
+            this.valuesByKey = function(_key) {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    if (this.elements[i].key == _key) {
+                        arr.push(this.elements[i].value);
+                    }
+                }
+                return arr;
+            };
+
+            //获取MAP中所有KEY的数组（ARRAY）
+            this.keys = function() {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    arr.push(this.elements[i].key);
+                }
+                return arr;
+            };
+
+            //获取key通过value
+            this.keysByValue = function(_value) {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    if(_value == this.elements[i].value){
+                        arr.push(this.elements[i].key);
+                    }
+                }
+                return arr;
+            };
+
+            //获取MAP中所有KEY的数组（ARRAY）
+            this.keysRemoveDuplicate = function() {
+                var arr = new Array();
+                for (i = 0; i < this.elements.length; i++) {
+                    var flag = true;
+                    for(var j=0;j<arr.length;j++){
+                        if(arr[j] == this.elements[i].key){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(flag){
+                        arr.push(this.elements[i].key);
+                    }
+                }
+                return arr;
+            };
+        }
+    </script>
     
   </body>
 </html>

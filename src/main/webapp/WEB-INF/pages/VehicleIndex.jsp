@@ -103,17 +103,10 @@
             </div>
         </div>
 
-        <div class="row text-right">
-            <ul class="page">
-                <li><a href="#"><</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">></a></li>
-            </ul>
-        </div>
+        <jsp:include page="page.jsp" flush="true">
+            <jsp:param name="totalPage" value="5"></jsp:param>
+            <jsp:param name="currentPage" value="1"></jsp:param>
+        </jsp:include>
 
     </div><!-- /#page-wrapper -->
 

@@ -16,6 +16,26 @@ public class Account {
     private String phoneNum;//联系电话
     private String lastLogin;//最后登录时间 yyyy/MM/dd
     private String remark;
+
+    @Column()
+    public String getCenter() {
+        return center;
+    }
+
+    public void setCenter(String center) {
+        this.center = center;
+    }
+    @Column()
+    public int getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(int zoom) {
+        this.zoom = zoom;
+    }
+
+    private String center;//常用地区地图中心点
+    private int zoom;//地图当前缩放比例
     @Column()
     public String getAccount() {
         return account;

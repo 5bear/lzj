@@ -25,7 +25,16 @@ public class LoginController extends BaseController{
         modelAndView.setViewName("login");
         return modelAndView;
     }
-
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest request){
+        ModelAndView modelAndView=new ModelAndView();
+        HttpSession session=request.getSession();
+        session.removeAttribute("username");
+        session.removeAttribute("power");
+        session.removeAttribute("company");
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
     @RequestMapping(value = "/loginCheck",method = RequestMethod.POST)
     @ResponseBody
     public String loginCheck(HttpServletRequest request,@RequestParam(value = "username")String username,@RequestParam(value = "password")String password){

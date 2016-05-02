@@ -129,7 +129,6 @@ textarea::-webkit-input-placeholder {
     background-color: #00608B;
     color: white;
     font-size: 14px;
-    padding: 2px 25px;
     line-height: 22px;
     outline: none;
 }

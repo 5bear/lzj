@@ -27,6 +27,10 @@
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 <body>
+<%
+  int totalPage= (Integer) request.getAttribute("totalPage");
+  int currentPage= (Integer) request.getAttribute("totalPage");
+%>
 <div id="wrapper">
 <jsp:include page="public.jsp" flush="true">
   <jsp:param name="pageFather" value="plan"></jsp:param>
@@ -49,9 +53,9 @@
           <div class="col-lg-12 time-row text-right">
             <div class="search-div">
               <img src="images/search1.png" alt="搜索"/>
-              <input type="text"/>
+              <input type="text" id="query"/>
             </div>
-            <button class="btn btn-default">搜索</button>
+            <button class="btn btn-default" onclick="query()">搜索</button>
           </div>
           <div class="col-lg-12 time-row">
             <a href="drawLine" class="add-operation"><img src="images/add1.png" alt="增加"/>新增作业路线</a>
@@ -71,7 +75,7 @@
                 <th>操作</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody id="lineList">
               <c:forEach items="${lineList}" var="line">
                 <tr>
                   <td>${line.company}</td>
@@ -82,7 +86,7 @@
                   <td>${line.direction}</td>
                   <td>${line.inputMan}</td>
                   <td>${line.remark}</td>
-                  <td><a href="drawLine" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
+                  <td><a href="drawLine?id=${line.id}" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
                     <a class="operation" onclick="setId('${line.id}')" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除"/>删除</a>
                   </td>
                 </tr>
@@ -103,6 +107,11 @@
               </tbody>
             </table>
           </div>
+          <jsp:include page="page.jsp" flush="true">
+            <jsp:param name="currentPage" value="<%=currentPage%>"></jsp:param>
+            <jsp:param name="totalPage" value="<%=totalPage%>"></jsp:param>
+
+          </jsp:include>
         </div>
       </div>
     </div>
@@ -145,6 +154,25 @@
       success:function(data){
         console.log(data)
         location.reload(true);
+      }
+    })
+  }
+  function query(){
+    var name=$("#query").val();
+    showLine(name);
+  }
+  function showLine(lineName){
+    $.ajax({
+      url:"line/getByName",
+      type:"post",
+      data:{lineName:lineName},
+      dataType:"json",
+      success:function(data){
+        var info="";
+        $(data).each(function (index) {
+          info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
+        })
+        $("#lineList").html(info);
       }
     })
   }

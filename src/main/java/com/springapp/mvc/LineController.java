@@ -23,32 +23,51 @@ import java.util.List;
 @RequestMapping(value = "**")
 public class LineController extends BaseController{
     @RequestMapping(value = "/line",method = RequestMethod.GET)
-    public ModelAndView home(){
+    public ModelAndView home(HttpServletRequest request){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("plan2");
+        String pn=request.getParameter("pn");
+        int pageNum=1,start=0,end=0;
+        if(pn!=null&&!pn.equals(""))
+            pageNum=Integer.parseInt(pn);
+        start = (pageNum - 1) * 10 + 1;
+        end=start+9;
         List<Line>lineList=lineDao.getList();
-
-        modelAndView.addObject("lineList",lineList);
+        int totalPage;
+        if(lineList.size()%10==0)
+            totalPage=lineList.size()/10;
+        else
+            totalPage=lineList.size()/10+1;
+        request.setAttribute("currentPage",pageNum);
+        request.setAttribute("totalPage",totalPage);
+        List<Line>myList=lineDao.getByPage(start,end);
+        modelAndView.addObject("lineList",myList);
+        modelAndView.setViewName("plan2");
         return modelAndView;
     }
     @RequestMapping(value="/drawLine",method = RequestMethod.GET)
-    public ModelAndView manage(){
+    public ModelAndView manage(HttpServletRequest request){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("plan2_add");
+        String id=request.getParameter("id");
+        if(id!=null&&id!="") {
+            Line line = lineDao.getById(Long.parseLong(id));
+            modelAndView.addObject("line",line);
+        }
         List<Line>cjList=lineDao.getListByCompany("上海成基公司");
         List<Line>gjyhList=lineDao.getListByCompany("上海高架养护公司");
         List<Package>packages=packageDao.getList();
         modelAndView.addObject("packages",packages);
         modelAndView.addObject("cjList",cjList);
         modelAndView.addObject("gjyhList",gjyhList);
+        modelAndView.setViewName("plan2_add");
+
         return modelAndView;
     }
     @RequestMapping(value = "/line/add",method = RequestMethod.POST)
     @ResponseBody
     public String add(HttpServletRequest request,@RequestParam(value = "realDistance")String realDistance,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,
                       @RequestParam(value = "direction")String direction, @RequestParam(value = "directionType")String directionType/*,@RequestParam(value = "remark")String remark*/){
-     /*   if(lineDao.isDuplicated(lineName))
-            return "duplicated";*/
+        if(lineDao.isDuplicated(null,lineName))
+            return "duplicated";
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         Line line=new Line();
@@ -77,11 +96,12 @@ public class LineController extends BaseController{
     @ResponseBody
     public String edit(HttpServletRequest request,@RequestParam(value = "id")String id,@RequestParam(value = "realDistance")String realDistance,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,
                       @RequestParam(value = "direction")String direction,@RequestParam(value = "directionType")String directionType/*@RequestParam(value = "inputId")String inputId,*//*@RequestParam(value = "remark")String remark*/){
-      /*  if(lineDao.isDuplicated(lineName))
-            return "duplicated";*/
+
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         Line line=lineDao.getById(Long.parseLong(id));
+           if(lineDao.isDuplicated(line,lineName))
+            return "duplicated";
         line.setRealDistance(realDistance);
         line.setCompany(company);
         line.setLine(lineName);
@@ -104,16 +124,14 @@ public class LineController extends BaseController{
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Line line=lineDao.getById(Long.parseLong(id));
-        line.setIsDelete(1);
-        lineDao.update(line);
+        lineDao.delete(line);
         return "success";
     }
     @RequestMapping(value = "/line/deleteByCoords",method = RequestMethod.POST)
     @ResponseBody
     public String deleteByCoords(@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "endCoord")String endCoord){
         Line line=lineDao.getByCoords(startCoord,endCoord);
-        line.setIsDelete(1);
-        lineDao.update(line);
+        lineDao.delete(line);
         return "success";
     }
 
@@ -139,6 +157,12 @@ public class LineController extends BaseController{
         }catch (Exception e){
             return "error";
         }
+    }
+    @RequestMapping(value = "/line/getByName",method = RequestMethod.POST)
+    @ResponseBody
+    public String getByName(@RequestParam(value = "lineName")String lineName){
+        List<Line> lineList=lineDao.getByName(lineName);
+        return JSONArray.fromObject(lineList).toString();
     }
     @RequestMapping(value = "/line/getByCoords",method = RequestMethod.POST)
     @ResponseBody
