@@ -72,7 +72,7 @@
       <li <%if(pageFather.equals("history")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("history1")) {%>class="active"<%}%>><a href="history1.html">历史轨迹查询</a></li>
+          <li <%if(pageName.equals("history1")) {%>class="active"<%}%>><a href="history1">历史轨迹查询</a></li>
           <li <%if(pageName.equals("history2")) {%>class="active"<%}%>><a href="history2.html">历史视频查询</a></li>
           <li <%if(pageName.equals("history3")) {%>class="active"<%}%>><a href="history3.html">异常查询</a></li>
         </ul>
@@ -81,10 +81,10 @@
       <li <%if(pageFather.equals("reports")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("reports1")) {%>class="active"<%}%>><a href="reports1.html">牵引车辆位置报表</a></li>
-          <li <%if(pageName.equals("reports2")) {%>class="active"<%}%>><a href="reports2.html">养护车辆作业区域</a></li>
-          <li <%if(pageName.equals("reports3")) {%>class="active"<%}%>><a href="reports3.html">养护车辆作业情况</a></li>
-          <li <%if(pageName.equals("reports4")) {%>class="active"<%}%>><a href="reports4.html">养护车辆超速</a></li>
+          <li <%if(pageName.equals("reports1")) {%>class="active"<%}%>><a href="reports1">牵引车辆位置报表</a></li>
+          <li <%if(pageName.equals("reports2")) {%>class="active"<%}%>><a href="reports2">养护车辆作业区域</a></li>
+          <li <%if(pageName.equals("reports3")) {%>class="active"<%}%>><a href="reports3">养护车辆作业情况</a></li>
+          <li <%if(pageName.equals("reports4")) {%>class="active"<%}%>><a href="reports4">养护车辆超速</a></li>
         </ul>
       </li>
 

@@ -10,6 +10,11 @@ import javax.persistence.Id;
  */
 @Entity
 public class Power {
+    private Long id;
+    private String pageName;
+    private String role;//角色
+    private int view;//0 不能访问 1 能访问
+    private int manage;//0 不能管理 1 能管理
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -19,6 +24,4 @@ public class Power {
     public void setId(Long id) {
         this.id = id;
     }
-
-    private Long id;
 }

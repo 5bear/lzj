@@ -51,6 +51,11 @@
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-12 time-row text-right">
+            <select name="" id="company">
+              <option value="" ></option>
+              <option value="上海成基公司" >上海成基公司</option>
+              <option value="上海高架养护公司">上海高架养护公司</option>
+            </select>
             <div class="search-div">
               <img src="images/search1.png" alt="搜索"/>
               <input type="text" id="query"/>
@@ -110,7 +115,7 @@
           <jsp:include page="page.jsp" flush="true">
             <jsp:param name="currentPage" value="<%=currentPage%>"></jsp:param>
             <jsp:param name="totalPage" value="<%=totalPage%>"></jsp:param>
-
+            <jsp:param name="url" value="line"></jsp:param>
           </jsp:include>
         </div>
       </div>
@@ -159,9 +164,10 @@
   }
   function query(){
     var name=$("#query").val();
-    showLine(name);
+    var company=$("#company").val();
+    showLine(name,company);
   }
-  function showLine(lineName){
+  function showLine(lineName,company){
     $.ajax({
       url:"line/getByName",
       type:"post",
@@ -170,7 +176,12 @@
       success:function(data){
         var info="";
         $(data).each(function (index) {
-          info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
+          if(company=="")
+              info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
+          else{
+            if(data[index].company==company)
+              info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
+          }
         })
         $("#lineList").html(info);
       }

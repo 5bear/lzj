@@ -300,6 +300,10 @@
       var eFence=$("#eFence").val();
       var company=$("#company").val();
       var inputMan=$("#inputMan").val();
+      if(eFence==""){
+        alert("电子围栏名不能为空");
+        return true;
+      }
       if(idForEdit==0) {
         $.ajax({
           url: "eFence/add",

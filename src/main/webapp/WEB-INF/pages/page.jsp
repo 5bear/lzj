@@ -11,8 +11,8 @@
   int currentPage=(Integer) request.getAttribute("currentPage");
   int lastPage=1;
   int nextPage=currentPage+1;
-  String url=request.getContextPath();
-  System.out.print("currentPage"+currentPage);
+  String url=request.getParameter("url");
+  System.out.print(url);
 %>
 <div class="row text-right">
   <ul class="page">

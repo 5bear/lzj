@@ -26,9 +26,8 @@
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
   <link rel="stylesheet" href="css/style.css"/>
-
-
   <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.js"></script>
   <script type="text/javascript" src="js/highcharts.js"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
@@ -211,7 +210,7 @@
     <div class="row">
       <div class="col-lg-12">
         <ol class="breadcrumb">
-          <li><a href="index.html"><i class="icon-dashboard"></i>首页</a></li>
+          <li><a href="index"><i class="icon-dashboard"></i>首页</a></li>
           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
         </ol>
       </div>
@@ -449,6 +448,23 @@
       </div>
 
 
+      <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">成功提示</h4>
+            </div>
+            <div class="modal-body text-center">
+              <p>设置成功</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
     </div><!-- /.row -->
 
   </div><!-- /#page-wrapper -->
@@ -457,10 +473,7 @@
 
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
 <script>
-
   $('a[data-toggle="droplist"]').click(function() {
     $(this).nextAll().toggle();
   });
@@ -477,7 +490,7 @@
   var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-  map.centerAndZoom("上海");
+
   map.enableScrollWheelZoom();//允许放大缩放
   map.addControl(top_left_control);
 
@@ -492,7 +505,7 @@
       success:function(data){
         if(data=="fail")
         {
-          console.log(data)
+          map.centerAndZoom("上海");
 
         }else{
           console.log(jsonToPoints("["+data.center+"]")[0])
@@ -505,7 +518,7 @@
       }
     })
 
-    $("button.navbar-aside").click(function(){
+/*    $("button.navbar-aside").click(function(){
       if ($("#wrapper").is(".left-wrapper")== true) {
         $(".side-nav").removeClass("left-nav");
         $("#wrapper").removeClass("left-wrapper");
@@ -513,7 +526,7 @@
         $(".side-nav").addClass("left-nav");
         $("#wrapper").addClass("left-wrapper");
       }
-    });
+    });*/
   });
   function addArea(){
     var center=pointsTojson(map.getCenter());
@@ -525,6 +538,9 @@
       success:function(data){
         if(data=="fail")
         alert("请先登录")
+        else{
+          $("#success").modal("show");
+        }
         /*
         do nothing
         */

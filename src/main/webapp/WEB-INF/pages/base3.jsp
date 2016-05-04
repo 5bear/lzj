@@ -30,7 +30,6 @@
   <link rel="stylesheet" href="css/style.css"/>
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.js"></script>
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
 

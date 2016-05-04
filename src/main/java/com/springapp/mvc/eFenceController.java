@@ -119,9 +119,15 @@ public class eFenceController extends BaseController {
         List<Vehicle>vehicleList=vehicleDao.getByeFence(eFence.getId());
         String vehicles="";
         String vehicleIds="";
-        for(Vehicle vehicle:vehicleList){
-            vehicleIds+=vehicle.getId();
-            vehicles+=vehicle.getVehicleLicence();
+        int size=vehicleList.size();
+        for(int i=0;i<size;i++){
+            if(i==0) {
+                vehicleIds+=vehicleList.get(i).getId();
+                vehicles+=vehicleList.get(i).getVehicleLicence();
+            }else{
+                vehicleIds+=","+vehicleList.get(i).getId();
+                vehicles+=","+vehicleList.get(i).getVehicleLicence();
+            }
         }
         eFence.setVehicleIds(vehicleIds);
         eFence.setVehicles(vehicles);
