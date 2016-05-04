@@ -518,7 +518,7 @@
       }
     })
 
-/*    $("button.navbar-aside").click(function(){
+/*    $("button.navbar-aside").click(function( ){
       if ($("#wrapper").is(".left-wrapper")== true) {
         $(".side-nav").removeClass("left-nav");
         $("#wrapper").removeClass("left-wrapper");
