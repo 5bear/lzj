@@ -12,7 +12,7 @@
   String pageName=request.getParameter("pageName");
   session=request.getSession();
   String username= (String) session.getAttribute("username");
-  System.out.print(pageName+pageFather);
+/*  System.out.print(pageName+pageFather);*/
 %>
 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

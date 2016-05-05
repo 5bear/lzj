@@ -1,6 +1,7 @@
 package com.springapp.mvc;
 
 import com.springapp.entity.Account;
+import com.springapp.entity.Auth;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +47,8 @@ public class LoginController extends BaseController{
                 if (password.equals(account.getPassword())) {
                     account.setLastLogin(simpleDateFormat.format(new Date()));
                     userDao.update(account);
+                    List<Auth> authList=powerDao.getByRole(account.getPower());
+                    session.setAttribute("list",authList);
                     session.setAttribute("username",account.getUsername());
                     session.setAttribute("power",account.getPower());
                     session.setAttribute("company",account.getCompany());
