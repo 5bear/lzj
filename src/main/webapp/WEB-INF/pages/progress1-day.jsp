@@ -125,8 +125,11 @@
                                                         <script>
                                                             var roads='${item.roads}';
                                                             var road = roads.split(',');
+                                                            var a="AllRoads";
+                                                            var packageName1='${item.packageName}';
+                                                            document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
                                                             for(var i=0;i<road.length;i++){
-                                                                document.write("<li > <a href='#'>"+road[i]+"</a> </li>");
+                                                                document.write("<li onclick=CJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
                                                             }
                                                         </script>
                                                     </ul>
@@ -135,7 +138,7 @@
                                         </c:forEach>
                                     </li>
                                     <li class="dropdown dropdown2">
-                                        <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                                        <a href="#" data-toggle="dropdown">上海高架公司</a>
                                         <div class="arrow-section arrow-section2">
                                             <div class="arrow-down arrow-down2"></div>
                                         </div>
@@ -150,8 +153,11 @@
                                                         <script>
                                                             var roads='${item.roads}';
                                                             var road = roads.split(',');
+                                                            var a="AllRoads";
+                                                            var packageName1='${item.packageName}';
+                                                            document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
                                                             for(var i=0;i<road.length;i++){
-                                                                document.write("<li > <a href='#'>"+road[i]+"</a> </li>");
+                                                                document.write("<li onclick=GJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
                                                             }
                                                         </script>
                                                     </ul>
@@ -199,111 +205,135 @@
     var month = request.getParameter("month");
     var day= request.getParameter("day");
 
-    $(function () {
-        var chart;
         $(document).ready(function () {
-            // Build the chart
-            $('#progress1').html("<div class='bar' style='width: 80%;'></div>");
-            $('#progress2').html("50% &nbsp;&nbsp;&nbsp;30km");
-            chart = new Highcharts.Chart({
-                chart: {
-                    renderTo: 'container',
-                    backgroundColor: 'rgb(242, 242, 242)',
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-
-                },
-                title: {
-                    text: ''
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-                    style: {                      // 文字内容相关样式
-                        width:'10px',
-                        fontWeight: "blod",
-                        fontFamily: "Courir new"
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
-                    }
-                },
-                series: [{
-                    fontSize:"5px",
-                    type: 'pie',
-                    name: ' ',
-                    data: [
-                        ['有效作业率',   45.0],
-                        ['无效作业率',   55.0],
-
-                    ]
-                }]
-            });
+            setChart();
         });
-    });
-
-
-    $(function () {
-        var chart;
-
-        $(document).ready(function () {
-
-            // Build the chart
-            chart = new Highcharts.Chart({
-                chart: {
-                    renderTo: 'container1',
-                    backgroundColor: 'rgb(242, 242, 242)',
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-
-                },
-
-
-
-                title: {
-                    text: ''
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-                    style: {                      // 文字内容相关样式
-                        width:'10px',
-                        fontWeight: "blod",
-                        fontFamily: "Courir new"
-                    }
-
-
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
-                    }
-                },
-                series: [{
-                    fontSize:"5px",
-                    type: 'pie',
-                    name: ' ',
-                    data: [
-                        ['覆盖 3个',   75.0],
-                        ['未覆盖 1个', 25.0],
-
-                    ]
-                }]
-            });
+    function setChart(){
+        $.ajax({
+            url:"progress1-day/getDay",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year,
+                month:month,
+                day:day,
+                company:company,
+                packageName:packagename,
+                roads:roads
+            },
+            success:function(data) {
+                var EffectiveDistance;
+                var EffectiveCoverage;
+                $(data).each(function (index) {
+                    EffectiveDistance=data[index].distance/2;
+                    EffectiveCoverage=data[index].coverage;
+                })
+            }
         });
-    });
+            var chart;
+                // Build the chart
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container',
+                        backgroundColor: 'rgb(242, 242, 242)',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+
+                    },
+
+
+
+                    title: {
+                        text: '有效作业率',
+                        style: {                      // 文字内容相关样式
+                            fontSize:"12px",
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                        style: {                      // 文字内容相关样式
+                            width:'10px',
+                            fontWeight: "blod",
+                            fontFamily: "Courir new"
+                        }
+
+
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        fontSize:"5px",
+                        type: 'pie',
+                        name: ' ',
+                        data: [
+                            ['有效作业率',EffectiveDistance],
+                            ['无效作业率',100-EffectiveDistance],
+
+                        ]
+                    }]
+                });
+
+                // Build the chart
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container1',
+                        backgroundColor: 'rgb(242, 242, 242)',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+
+                    },
+
+
+
+                    title: {
+                        text: '匝道覆盖率',
+                        style: {                      // 文字内容相关样式
+                            fontSize:"12px",
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                        style: {                      // 文字内容相关样式
+                            width:'10px',
+                            fontWeight: "blod",
+                            fontFamily: "Courir new"
+                        }
+
+
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        fontSize:"5px",
+                        type: 'pie',
+                        name: ' ',
+                        data: [
+                            ['覆盖 3个',   75.0],
+                            ['未覆盖 1个', 25.0],
+
+                        ]
+                    }]
+                });
+
+    }
     $('a[data-toggle="dropdown"]').click(function() {
         $(this).nextAll().toggle();
     });

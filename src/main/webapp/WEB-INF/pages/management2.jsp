@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ZhanShaoxiong
@@ -78,8 +79,8 @@
           <th>查看</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
+        <tbody id="myBody">
+<%--        <tr>
           <td rowspan="6">基础数据</td>
           <td  class="table-th">停车场管理</td>
           <td class="man-fixed man-green">yes</td>
@@ -94,7 +95,7 @@
           <td class="man man-yellow">no</td>
         </tr>
         <tr>
-          <td>车辆管理</td>
+          <td class="pageName">车辆管理</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -107,7 +108,7 @@
           <td class="man man-yellow">no</td>
         </tr>
         <tr>
-          <td>RFID管理</td>
+          <td class="pageName">RFID管理</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -120,7 +121,7 @@
           <td class="man man-yellow">no</td>
         </tr>
         <tr>
-          <td>包件管理</td>
+          <td class="pageName">包件管理</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-green">yes</td>
@@ -133,7 +134,7 @@
           <td class="man man-yellow">no</td>
         </tr>
         <tr>
-          <td>电子围栏</td>
+          <td class="pageName">电子围栏</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -146,7 +147,7 @@
           <td class="man man-yellow">no</td>
         </tr>
         <tr>
-          <td>监控规则</td>
+          <td class="pageName">监控规则</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-green">yes</td>
@@ -173,7 +174,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>作业路线管理</td>
+          <td class="pageName">作业路线管理</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -186,7 +187,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>布点计划</td>
+          <td class="pageName">布点计划</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -199,7 +200,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>驾驶员计划</td>
+          <td class="pageName">驾驶员计划</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -226,7 +227,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>实时监控</td>
+          <td class="pageName">实时监控</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-green">yes</td>
@@ -239,7 +240,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>养护日志管理</td>
+          <td class="pageName">养护日志管理</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-green">yes</td>
@@ -266,7 +267,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>历史视频查询</td>
+          <td class="pageName">历史视频查询</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-green">yes</td>
@@ -279,7 +280,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>异常查询</td>
+          <td class="pageName">异常查询</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-yellow">no</td>
@@ -306,7 +307,7 @@
           <td class="man man-green">yes</td>
         </tr>
         <tr>
-          <td>网络状态</td>
+          <td class="pageName">网络状态</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man-fixed man-green">yes</td>
           <td class="man man-green">yes</td>
@@ -317,7 +318,7 @@
           <td class="man man-green">yes</td>
           <td class="man man-yellow">no</td>
           <td class="man man-green">yes</td>
-        </tr>
+        </tr>--%>
         </tbody>
       </table>
       <button type="button" class="btn btn-default float-right" id="save">编辑</button>
@@ -337,7 +338,97 @@
     $("#management").dropdown('toggle');
   });
 
+  $(document).ready(function(){
+    $.ajax({
+      url:"/Power/get",
+      type:"post",
+      data:{},
+      dataType:"json",
+      success:function(data) {
+        if (data != "") {
+          var pageNames = ["停车场管理", "车辆管理", "RFID管理", "包件管理", "电子围栏", "监控规则", "养护作业计划", "作业路线管理", "布点计划", "驾驶员计划",
+            "养护进度监控", "实时监控", "养护日志管理", "历史线路查询", "历史视频查询", "异常查询", "报表查询", "网络状态"];
+          var myTbody = document.getElementsByTagName("tbody");
+          var trList = myTbody[0].children;
+          var info = ""
+          $(data).each(function (index) {
+            if (pageNames[index] == "停车场管理") {
+              info += "<tr>" +
+              "<td rowspan='6'>基础数据</td>" +
+              "<td  class='table-th'>停车场管理</td>" +
+              "<td class='man-fixed man-green'>yes</td>" +
+              "<td class='man-fixed man-green'>yes</td>";
+              $(data[index][pageNames[index]]).each(function (i) {
+                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
+                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+              })
+              info += "</tr>";
+            } else if (pageNames[index] == "养护作业计划") {
+              info += "<tr>" +
+              "<td rowspan='4'>计划管理</td>" +
+              "<td  class='table-th'>养护作业计划</td>" +
+              "<td class='man-fixed man-green'>yes</td>" +
+              "<td class='man-fixed man-green'>yes</td>";
+              $(data[index][pageNames[index]]).each(function (i) {
+                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
+                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+              })
+              info += "</tr>";
+            } else if (pageNames[index] == "养护进度监控") {
+              info += "<tr>" +
+              "<td rowspan='3'>进度管理</td>" +
+              "<td  class='table-th'>进度计划监控</td>" +
+              "<td class='man-fixed man-green'>yes</td>" +
+              "<td class='man-fixed man-green'>yes</td>";
+              $(data[index][pageNames[index]]).each(function (i) {
+                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
+                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+              })
+              info += "</tr>";
+            } else if (pageNames[index] == "历史线路查询") {
+              info += "<tr>" +
+              "<td rowspan='3'>历史数据</td>" +
+              "<td  class='table-th'>历史线路查询</td>" +
+              "<td class='man-fixed man-green'>yes</td>" +
+              "<td class='man-fixed man-green'>yes</td>";
+              $(data[index][pageNames[index]]).each(function (i) {
+                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
+                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+              })
+              info += "</tr>";
+            } else if (pageNames[index] == "报表查询") {
+              info += "<tr>" +
+              "<td rowspan='2'>其他</td>" +
+              "<td  class='table-th'>报表查询</td>" +
+              "<td class='man-fixed man-green'>yes</td>" +
+              "<td class='man-fixed man-green'>yes</td>";
+              $(data[index][pageNames[index]]).each(function (i) {
+                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
+                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+              })
+              info += "</tr>";
+            } else {
+              info += "<tr>" +
+              "<td  class='table-th'>" + pageNames[index] + "</td>" +
+              "<td class='man-fixed man-green'>yes</td>" +
+              "<td class='man-fixed man-green'>yes</td>";
+              $(data[index][pageNames[index]]).each(function (i) {
+                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
+                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+              })
+              info += "</tr>";
+            }
+          })
+          /*console.log(info)*/
+          $("#myBody").html(info)
+        }
+      }
+    })
+  })
+
   $("#save").click(function() {
+
+
     var text = $(this).text();
     if (text == "编辑") {
       $(this).text("保存");
@@ -347,6 +438,42 @@
       "<option value='0' selected='selected'>no</option></select>");
       $(".man-fixed").html("yes");
     } else {
+      var myTbody=document.getElementsByTagName("tbody");
+      var trList=myTbody[0].children;
+      console.log(trList)
+      var chooses="";
+      $(trList).each(function(index){
+        var tdList=trList[index].children;
+        var count=0;
+        var choose="";
+        var pageName="";
+        $(tdList).each(function (index) {
+          if(tdList[index].className=="pageName"||tdList[index].className=="table-th")
+            pageName=tdList[index].innerHTML;
+          if(tdList[index].className=="man man-green"||tdList[index].className=="man man-yellow")
+          {
+            var tmp=tdList[index].childNodes[0].value==0?"no":"yes";
+            if(count==0)
+              choose+=tmp;
+            else
+              choose+=","+tmp;
+            count++;
+          }
+        })
+        choose=choose+"#"+pageName;
+        if(index==0)
+          chooses+=choose;
+        else
+          chooses+="!"+choose;
+      })
+      $.ajax({
+        url:"/Power/editPower",
+        type:"post",
+        data:{chooses:chooses},
+        success:function(data){
+          location.reload(true)
+        }
+      })
       $(this).text("编辑");
       $(".man").each(function(){
         if($(this).children("select").children(":selected").text()=="yes"){

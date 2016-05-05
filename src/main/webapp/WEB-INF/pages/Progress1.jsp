@@ -77,8 +77,11 @@
                                                     <script>
                                                         var roads='${item.roads}';
                                                         var road = roads.split(',');
+                                                        var a="AllRoads";
+                                                        var packageName1='${item.packageName}';
+                                                        document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
                                                         for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick=CJgetRoad(packageName,roads[i])>"+road[i]+"</li>");
+                                                            document.write("<li onclick=CJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
                                                         }
                                                     </script>
                                                 </ul>
@@ -87,7 +90,7 @@
                                     </c:forEach>
                                 </li>
                                     <li class="dropdown dropdown2">
-                                        <a href="#" data-toggle="dropdown">上海高架养护公司</a>
+                                        <a href="#" data-toggle="dropdown">上海高架公司</a>
                                         <div class="arrow-section arrow-section2">
                                             <div class="arrow-down arrow-down2"></div>
                                         </div>
@@ -99,11 +102,15 @@
                                                         <div class="arrow-down arrow-down3"></div>
                                                     </div>
                                                     <ul class="dropdown-menu panel-menu">
+
                                                         <script>
                                                             var roads='${item.roads}';
                                                             var road = roads.split(',');
+                                                            var a="AllRoads";
+                                                            var packageName1='${item.packageName}';
+                                                            document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
                                                             for(var i=0;i<road.length;i++){
-                                                                document.write("<li onclick=GJgetRoad(packageName,roads[i])>"+road[i]+"</li>");
+                                                                document.write("<li onclick=GJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
                                                             }
                                                         </script>
                                                     </ul>
@@ -157,7 +164,7 @@
     </tr>
     <tbody id="work1">
     <tr>
-        <td>有效作业率</td>
+        <td>有效作业率<br/>(单位：%)</td>
         <td></td>
         <td></td>
         <td></td>
@@ -176,7 +183,7 @@
         <td></td>
     </tr>
     <tr>
-        <td>匝道覆盖率</td>
+        <td>匝道覆盖率<br/>(单位：%)</td>
         <td></td>
         <td></td>
         <td></td>
@@ -216,7 +223,7 @@
     </tr>
     <tbody id="work2">
     <tr>
-    <td>有效作业率</td>
+    <td>有效作业率<br/>(单位：%)</td>
         <td></td>
         <td></td>
         <td></td>
@@ -235,7 +242,7 @@
         <td></td>
     </tr>
     <tr>
-    <td>匝道覆盖率</td>
+    <td>匝道覆盖率<br/>(单位：%)</td>
         <td></td>
         <td></td>
         <td></td>
@@ -320,30 +327,34 @@
         company="上海高架公司";
         packagename=packageName;
         roads=Roads;
+        if(Roads=="AllRoads")
+            roads='';
         getTable();
     }
     function GJgetRoad(packageName,Roads){
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
+        if(Roads=="AllRoads")
+            roads='';
         getTable();
     }
     function getTable(){
         $.ajax({
-            url:"progress1-year/getMonthByYear",
+            url:"/progress1/getDayByMonth",
             type:"post",
             dataType: "json",
             data:{
                 year:year,
                 month:month,
                 company:company,
-                packageName:packageName,
+                packageName:packagename,
                 roads:roads
             },success:function(data) {
-                work1="<tr><td>有效作业率</td>";
-                zadao1="<tr><td>匝道覆盖率</td>";
-                work2="<tr><td>有效作业率</td>";
-                zadao2="<tr><td>匝道覆盖率</td>";
+                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                work2="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao2="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
                 var Distance=[];
                 for(var i= 0;i<31;i++) {
                     Distance[i] = 0;

@@ -99,6 +99,13 @@ public class HelloController extends BaseController{
 		modelAndView.setViewName("RFID");
 		return modelAndView;
 	}
+
+	@RequestMapping(value = "/NoPower",method = RequestMethod.GET)
+	public ModelAndView NoPower(){
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("NoPower");
+		return modelAndView;
+	}
 	@RequestMapping(value = "/ping",method = RequestMethod.POST)
 	@ResponseBody
 	public String pint(HttpServletRequest request,@RequestParam(value = "ip")String ip){

@@ -133,7 +133,7 @@
         })
 
 
-        getYear();
+        year=yearArray[0];
         $.ajax({
             url: "plan1/search",
             type: "post",

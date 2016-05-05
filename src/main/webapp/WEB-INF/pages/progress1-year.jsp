@@ -75,11 +75,13 @@
                                                 </div>
                                                 <ul class="dropdown-menu panel-menu">
                                                     <script>
-                                                        var packageName='${item.packageName}';
                                                         var roads='${item.roads}';
                                                         var road = roads.split(',');
+                                                        var a="AllRoads";
+                                                        var packageName1='${item.packageName}';
+                                                        document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
                                                         for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick=CJgetRoad(packageName,roads[i])>"+road[i]+"</li>");
+                                                            document.write("<li onclick=CJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
                                                         }
                                                     </script>
                                                 </ul>
@@ -103,8 +105,11 @@
                                                     <script>
                                                         var roads='${item.roads}';
                                                         var road = roads.split(',');
+                                                        var a="AllRoads";
+                                                        var packageName1='${item.packageName}';
+                                                        document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
                                                         for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick=GJgetRoad(packageName,roads[i])>"+road[i]+"</li>");
+                                                            document.write("<li onclick=GJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
                                                         }
                                                     </script>
                                                 </ul>
@@ -155,7 +160,7 @@
                             </tr>
                             <tbody id="work">
                             <tr>
-                                <td>有效作业率</td>
+                                <td>有效作业率<br/>(单位：%)</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -171,7 +176,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>匝道覆盖率</td>
+                                <td>匝道覆盖率<br/>(单位：%)</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -230,6 +235,8 @@
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
+        if(Roads=="AllRoads")
+            roads='';
         getYear();
         getTable();
     }
@@ -237,6 +244,8 @@
         company="上海高架公司";
         packagename=packageName;
         roads=Roads;
+        if(Roads=="AllRoads")
+            roads='';
         getYear();
         getTable();
     }
@@ -252,12 +261,12 @@
             data:{
                 year:year,
                 company:company,
-                packageName:packageName,
+                packageName:packagename,
                 roads:roads
             },
             success:function(data) {
-                work1="<tr><td>有效作业率</td>";
-                zadao1="<tr><td>匝道覆盖率</td>";
+                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
                 var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
                 $(data).each(function (index) {
                     if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
