@@ -55,7 +55,7 @@
         <ul class="dropdown-menu">
           <li <%if(pageName.equals("plan1")) {%>class="active"<%}%>><a href="plan1">养护作业计划</a></li>
           <li <%if(pageName.equals("plan2")) {%>class="active"<%}%>><a href="line">作业线路管理</a></li>
-          <li <%if(pageName.equals("plan3")) {%>class="active"<%}%>><a href="plan3.html">布点计划</a></li>
+          <li <%if(pageName.equals("plan3")) {%>class="active"<%}%>><a href="plan3">布点计划</a></li>
           <li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="Driver">驾驶员计划</a></li>
         </ul>
       </li>

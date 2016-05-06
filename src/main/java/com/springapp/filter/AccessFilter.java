@@ -40,9 +40,12 @@ public class AccessFilter implements Filter {
         HttpServletRequest request= (HttpServletRequest) servletRequest;
         HttpServletResponse response= (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
-        String key=url.substring(url.indexOf("/") + 1, url.length());
+        String []keys=url.split("/");
+        String key="";
+        if(keys.length>=1)
+          key=keys[keys.length-1];
         String pageName= (String) myMap().get(key);
-        System.out.print(pageName);
+        System.out.print(key);
         boolean flag=url.contains(".");
         HttpSession session=request.getSession();
         session.setAttribute("pageName",pageName);
@@ -54,6 +57,10 @@ public class AccessFilter implements Filter {
             if(username==null||username.equals("")){
                 response.sendRedirect("login");
             }else{
+                if(key.equals("UserManage")||key.equals("User")||key.equals("Power")){
+                    if(!power.equals("系统管理员"))
+                        response.sendRedirect("NoPower");
+                }
                 List<Auth> authList= (List<Auth>) session.getAttribute("list");
                 Auth myAuth=null;
                 for(Auth auth:authList){

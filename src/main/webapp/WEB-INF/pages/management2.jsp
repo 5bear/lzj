@@ -340,7 +340,7 @@
 
   $(document).ready(function(){
     $.ajax({
-      url:"/Power/get",
+      url:"Power/get",
       type:"post",
       data:{},
       dataType:"json",
@@ -467,7 +467,7 @@
           chooses+="!"+choose;
       })
       $.ajax({
-        url:"/Power/editPower",
+        url:"Power/editPower",
         type:"post",
         data:{chooses:chooses},
         success:function(data){

@@ -1,12 +1,13 @@
 package com.springapp.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ZhanShaoxiong on 2016/5/2.
  */
 @Entity
-public class Auth {
+public class Auth implements Serializable{
     private Long id;
     private String pageName;
     private String role;//角色
