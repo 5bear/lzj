@@ -89,7 +89,7 @@
                                     <td>${vehicle.remark}</td>
                                     <td>
                                         <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editVehicle('${vehicle.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deleteVehicle(${vehicle.id})">删除</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deleteVehicle('${vehicle.id}')">删除</button>
                                         <!--<a href="#" class="operation"><img src="images/edit.png" alt="编辑" onclick="editVehicle('${vehicle.id}')"/>编辑</a>
                                         <a class="operation" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除" onclick="deleteVehicle(${vehicle.id})"/>删除</a>-->
                                     </td>
@@ -103,10 +103,7 @@
             </div>
         </div>
 
-        <jsp:include page="page.jsp" flush="true">
-            <jsp:param name="totalPage" value="5"></jsp:param>
-            <jsp:param name="currentPage" value="1"></jsp:param>
-        </jsp:include>
+
 
     </div><!-- /#page-wrapper -->
 
@@ -154,7 +151,7 @@
             url:"VehicleDelete",
             type:"post",
             data:{id:id},
-            success:function(){
+            success:function(data){
 
                 if(data=="success"){
                     location.reload();

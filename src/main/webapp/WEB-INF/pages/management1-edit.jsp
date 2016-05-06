@@ -131,6 +131,18 @@
     var company=$("#company").val();
     var phoneNum=$("#phoneNum").val();
     var remark=$("#remark").val();
+    if(account==""){
+      alert("账号不能为空")
+      return true;
+    }
+    if(username==""){
+      alert("用户名不能为空")
+      return true;
+    }
+    if(password==""){
+      alert("密码不能为空")
+      return true;
+    }
     if(id==''){
       $.ajax({
         url:"User/add",
@@ -141,7 +153,7 @@
             alert("账号或用户名重复")
             return false;
           }
-          location.reload(true)
+          location.href="UserManage";
         }
       })
     }else{
@@ -154,7 +166,7 @@
             alert("账号或用户名重复")
             return false;
           }
-          location.reload(true)
+          location.href="UserManage";
         }
       })
     }

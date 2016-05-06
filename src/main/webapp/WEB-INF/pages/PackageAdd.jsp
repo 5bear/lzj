@@ -182,7 +182,7 @@
 
         alert(company+packageName+distance+inputMan+time+runtime+remark);
         $.ajax({
-            url:"/PackageAdd1",
+            url:"PackageAdd1",
             type:"post",
             data:{
                 company:company,

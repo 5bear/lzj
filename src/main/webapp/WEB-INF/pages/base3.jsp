@@ -227,7 +227,7 @@
             <div class="panel-body">
               <div class="row">
                 <label>选择点的坐标</label>
-                <p id="info">(X, Y)</p>
+                <p id="info"></p>
               </div>
               <div class="row">
                 <label>经度：</label>
@@ -336,7 +336,7 @@
 
 <script>
 
-  var currentLng,currentLat;
+  var currentLng=0,currentLat=0;
   var marker;
   var markerMap=new Map();
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
@@ -355,6 +355,8 @@
     /* var obj=document.getElementById("editArea");
      obj.style.display="";*/
     if(e.overlay==null) {
+      if(!confirm('是否增加定位?'))
+      return true;
       var point = new BMap.Point(e.point.lng, e.point.lat);
       marker = new BMap.Marker(point);// 创建标注
       map.addOverlay(marker);             // 将标注添加到地图中
@@ -419,16 +421,34 @@
    * 添加/修改RFID点
    * */
   function addRFID(){
+    console.log(markerMap)
     var equipNum=$("#equipNum").val();
     var lng=currentLng;
     var lat=currentLat;
+    if(currentLat==0||currentLng==0){
+      alert("清先在地图上选择");
+      return false;
+    }
     var serialNumber=$("#serialNumber").val();
     var roadId=$("#roadId").val();
     var zhadao=$("#zhadao").val();
     var direction=$("#direction").val();
     var installPos=$("#installPos").val();
     var id =markerMap.get(marker)
-    if(id==undefined){
+    console.log(id)
+    if(serialNumber==""){
+      alert("序列号不能为空");
+      return true;
+    }
+    if(equipNum==""){
+      alert("设备编号不能为空");
+      return true;
+    }
+    if(installPos==""){
+      alert("设备安装位置不能为空");
+      return true;
+    }
+    if(id=="-1"){
       $.ajax({
         url:"RFID/add",
         type:"post",
@@ -660,9 +680,9 @@
           }
         }
       } catch (e) {
-        return false;
+        return "-1";
       }
-      return false;
+      return "-1";
     };
 
     //获取指定索引的元素（使用element.key，element.value获取KEY和VALUE），失败返回NULL

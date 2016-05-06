@@ -539,7 +539,7 @@
         if(data=="fail")
         alert("请先登录")
         else{
-          $("#success").modal("show");
+          $("#success").modal('show');
         }
         /*
         do nothing

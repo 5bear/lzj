@@ -327,7 +327,7 @@
           success:function(data){
             if(data=="duplicated") {
               alert("电子围栏名称重复");
-              return false;
+              return true;
             }
             location.reload(true);
           }
@@ -341,8 +341,9 @@
         url:"eFence/deleteByCoords",
         type:"post",
         data:{coords:coords},
-        dataType:"json",
         success:function(data){
+          console.log(data)
+          if(data=="success")
           location.reload(true);
         }
       })
@@ -355,6 +356,8 @@
       map.addEventListener("click", addMarker);
     }
     function addMarker(e){
+      if(!confirm('是否增加定位?'))
+        return true;
       currentLng= e.point.lng;
       currentLat= e.point.lat;
       $("#lng").html(Math.round(e.point.lng*100)/100)
@@ -396,6 +399,8 @@
           for(var index in markers){
             map.removeOverlay(markers[index]);
           }
+        }else{
+          return true
         }
         polygon=target;
         points=target.ro;

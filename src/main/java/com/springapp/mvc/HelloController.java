@@ -108,7 +108,7 @@ public class HelloController extends BaseController{
 	}
 	@RequestMapping(value = "/ping",method = RequestMethod.POST)
 	@ResponseBody
-	public String pint(HttpServletRequest request,@RequestParam(value = "ip")String ip){
+	public String ping(HttpServletRequest request,@RequestParam(value = "ip")String ip){
 		/*String ip= request.getParameter("ip");*/
 		pingTest.isAddressAvailable(ip);
 		return "success";

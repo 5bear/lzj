@@ -108,6 +108,20 @@
     $(function(){
         $("#plan").dropdown('toggle');
     });
+    var newYear;
+    var yearArray = [];
+    var row1='';
+    var row2='';
+    var row3='';
+    var row4='';
+    var row5='';
+    var row6='';
+    var row = '';
+    var totaldays=0;
+    var BJcounts=0;
+    var totalmileage=0;
+    var company=0;
+    var year=0;
     $(document).ready(function() {
         getCompany();
         $.ajax({
@@ -131,9 +145,7 @@
                 $("#year").html(row6);
             }
         })
-
-
-        year=yearArray[0];
+        getYear();
         $.ajax({
             url: "plan1/search",
             type: "post",
@@ -165,11 +177,11 @@
 
                     BJ++;
                 })
-                getTime(1);
+                getTime(1);  //赋值totaldays
+                var a=0;
                 for(var BJ=1;BJ<=totalmileage.length;BJ++) {
                     for (var i = 1; i <= 12; i++) {       //月份
-
-                        document.getElementById('Mileage' + BJ + i).innerHTML = Math.round((totalmileage[BJ-1] / totaldays) * getTime(i));  //取整数
+                       document.getElementById('Mileage' + BJ + i).innerHTML =Number( Math.round((Number(totalmileage[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
                     }
                     document.getElementById('Mileage' + BJ + '13').innerHTML = totalmileage[BJ-1];
                 }
@@ -191,20 +203,7 @@
             }
         })
     })
-    var newYear;
-    var yearArray = [];
-    var row1='';
-    var row2='';
-    var row3='';
-    var row4='';
-    var row5='';
-    var row6='';
-    var row = '';
-    var totaldays;
-    var BJcounts;
-    var totalmileage;
-    var company;
-    var year;
+
     function des(a,b){
         return a-b;
     }
@@ -255,7 +254,7 @@
 
     }
     function getTime(month){
-        var day;
+        var day=0;
         time = document.getElementById("year").value;
         if((time%4==0 && time%100!=0) ||time%400==0)
             totaldays = 366;
@@ -349,7 +348,7 @@
                 })
                 for(var BJ=1;BJ<=totalmileage.length;BJ++) {
                     for (var i = 1; i <= 12; i++) {       //月份
-                        document.getElementById('Mileage' + BJ + i).innerHTML = Math.round((totalmileage[BJ-1] / totaldays) * getTime(i));  //取整数
+                        document.getElementById('Mileage' + BJ + i).innerHTML =Number( Math.round((Number(totalmileage[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
                     }
                     document.getElementById('Mileage' + BJ + '13').innerHTML = totalmileage[BJ-1];
                 }

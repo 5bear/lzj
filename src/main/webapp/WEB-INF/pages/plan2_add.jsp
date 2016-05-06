@@ -288,6 +288,8 @@
   map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
   /*添加marker*/
   function addMarker(e){
+    if(!confirm('是否增加定位?'))
+      return true;
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     $("#lng").html(Math.round(e.point.lng*100)/100)

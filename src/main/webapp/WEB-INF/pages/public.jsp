@@ -114,6 +114,14 @@
 </nav>
 <script src="js/jquery-1.10.2.js"></script>
 <script>
+
+  $('a[data-toggle="droplist"]').click(function() {
+    $(this).nextAll().toggle();
+  });
+
+</script>
+<script>
+
   $(document).ready(function(){
     $("button.navbar-aside").click(function(){
       if ($("#wrapper").is(".left-wrapper")== true) {

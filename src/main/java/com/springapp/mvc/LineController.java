@@ -71,6 +71,7 @@ public class LineController extends BaseController{
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         Line line=new Line();
+        if(realDistance.equals("")||realDistance!=null)
         line.setRealDistance(realDistance);
         line.setLng(lng);
         line.setLat(lat);

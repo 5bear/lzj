@@ -166,12 +166,19 @@
     var roadId=$("#road").value;
     var zhadao=$("#zhadao").val();
     var direction=$("#direction").val();
-    var installPos1=$("#installPos1").val();
-    var installPos2=$("#installPos2").val();
+    var installPos=$("#installPos").val();
+    if(serialNumber==""){
+      alert("序列号不能为空");
+      return false;
+    }
+    if(serialNumber==""){
+      alert("序列号不能为空");
+      return false;
+    }
     $.ajax({
       url:"/RFID/add",
       type:"post",
-      data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos1:installPos1,installPos2:installPos2},
+      data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos:installPos},
       success:function(data){
 
       }

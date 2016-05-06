@@ -208,6 +208,22 @@
         $(document).ready(function () {
             setChart();
         });
+    function CJgetRoad(packageName,Roads){
+        company="上海成基公司";
+        packagename=packageName;
+        roads=Roads;
+        if(Roads=="AllRoads")
+            roads='';
+        setChart();
+    }
+    function GJgetRoad(packageName,Roads){
+        company="上海高架公司";
+        packagename=packageName;
+        roads=Roads;
+        if(Roads=="AllRoads")
+            roads='';
+        setChart();
+    }
     function setChart(){
         $.ajax({
             url:"progress1-day/getDay",
@@ -340,9 +356,16 @@
 
     $("#select-time").change(function(){
         var obj = $("#select-time").val();
-        if(obj == "day"){ window.location.href="progress1-day.html";}
-        else if(obj == "month"){ window.location.href="progress1.html";}
-        else {window.location.href="progress1-year.html";}
+        var myDate = new Date();
+        var year1 = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        var month1 = myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+        var day1 = myDate.getDate();        //获取当前日(1-31)
+        if(obj == "day"){
+            window.location.href="progress1-day?year="+year1+"&month="+month1+"&day="+day1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;
+        }
+        else if(obj == "month"){
+            window.location.href="Progress1?year="+year1+"&month="+month1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
+        else {window.location.href="progress1-year?year="+year1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
     });
 
     $(function(){
