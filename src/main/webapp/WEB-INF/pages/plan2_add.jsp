@@ -170,7 +170,7 @@
           <button class="button" style="top:2%;left:2%;width:12%;height:5%" onclick="choosePoint()">开始绘制</button>
           <button class="button" style="top:2%;left:15%;width:12%;height:5%" onclick="undo()">撤销一次</button>
           <button class="button" style="top:2%;left:28%;width:12%;height:5%" onclick="drawLine()">完成</button>
-          <button class="button" style="top:2%;left:41%;width:12%;height:5%" onclick="javascipt:history.back('-1')">返回</button>
+          <button class="button" style="top:2%;left:41%;width:12%;height:5%" onclick="javascipt:location.href='line'">返回</button>
           <div id="container" style="width:98%;top:52px"></div>
 
         </div><!--in-mid-->
@@ -294,10 +294,14 @@
     currentLat= e.point.lat;
     $("#lng").html(Math.round(e.point.lng*100)/100)
     $("#lat").html(Math.round(e.point.lat*100)/100)
-    var info=document.getElementById("info");
-    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
     var point = new BMap.Point(e.point.lng, e.point.lat);
     points.push(point)
+    var info=document.getElementById("info");
+    var geoc = new BMap.Geocoder();
+    geoc.getLocation(point, function(rs){
+      var addComp = rs.addressComponents;
+      $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
+    });
     var marker = new BMap.Marker(point);// 创建标注
     markers.push(marker)
     map.addOverlay(marker);             // 将标注添加到地图中

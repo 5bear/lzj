@@ -79,8 +79,8 @@
             type: 'pie',
             name: ' ',
             data: [
-              ['有效作业率',   45.0],
-              ['无效作业率',       55.0],
+              ['有效作业率',   90.0],
+              ['无效作业率',       10.0],
 
             ]
           }]
@@ -410,10 +410,12 @@
               <div class="panel-section">
                 <select class="panel-select">
                   <option value="">上海</option>
+                  <option value="">上海成基公司</option>
+                  <option value="">上海高架养护公司</option>
                 </select>
               </div>
               <div class="panel-section">
-                <h5>作业进度与时间进度表</h5>
+                <h5>作业进度</h5>
                 <div class="progressbar_1" >
                   <div class="bar" style="width: 50%;"></div>
                 </div>
@@ -446,7 +448,7 @@
         </div>
 
       </div>
-
+<button data-target="#success" data-toggle="modal" id="setBtn" style="display: none"></button>
 
       <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
@@ -483,6 +485,9 @@
 <script>
   var currentLng,currentLat;
   var polyline;//折线对象
+  var linePoints=new Array();
+  var myCar;
+  var qian,sao,xun;
   var polylines=new Array();//多条折线
   var lineMap=new Map();
   var markers=new Array();
@@ -494,8 +499,171 @@
   map.enableScrollWheelZoom();//允许放大缩放
   map.addControl(top_left_control);
 
+  //每两秒车辆位置变化
+  var z=1;
+  setTimeout(function(){
+    console.log(polylines)
+    for(i=0;i<polylines.length;i++){
+      console.log(polylines[i])
+      var v=polylines[i].ia;
+      for(var j=0;j< v.length;j++){
+        linePoints.push(v[j])
+      }
+    }
+    setInterval(function(){
+      panTo(linePoints[1].lng,linePoints[1].lat)
+      var ps=new Array()
+      ps.push(linePoints[z-1])
+      ps.push(linePoints[z])
+      var p = new BMap.Polyline(ps,{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+      map.addOverlay(p);   //增加折线
+      map.removeOverlay(xun)
+      xun = new ComplexCustomOverlay(linePoints[z], "images/xun.png");
+      map.addOverlay(xun);
+      z+=1;
+    },"1000");
+  },"2000")
+
+
+ /* map.addEventListener('click',mapClick)*/
+
+  function mapClick(e){
+    var point = new BMap.Point(e.point.lng, e.point.lat);
+    console.log(point)
+    addVehicle(1,point);
+  }
+  function addVehicle(vehicle,Point){
+    switch(vehicle){
+      case 1:
+        myCar = new ComplexCustomOverlay(Point, "images/xun.png");
+        break
+      case 2:
+        myCar = new ComplexCustomOverlay(Point, "images/qian.png");
+        break
+      case 3:
+        myCar = new ComplexCustomOverlay(Point, "images/sao.png");
+        break
+    }
+    map.addOverlay(myCar);
+
+  }
+  // 复杂的自定义覆盖物
+  function ComplexCustomOverlay(point, images){
+    this._point = point;
+    this._images = images;
+  }
+  ComplexCustomOverlay.prototype = new BMap.Overlay();
+  ComplexCustomOverlay.prototype.initialize = function(map){
+    this._map = map;
+    var div = this._div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.border="0px"
+    /*div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);*/
+    /* div.style.backgroundColor = "#EE5D5B";
+     div.style.border = "1px solid #BC3B3A";
+     div.style.color = "white";
+     div.style.height = "18px";
+     div.style.padding = "2px";
+     div.style.lineHeight = "18px";
+     div.style.whiteSpace = "nowrap";
+     div.style.MozUserSelect = "none";
+     div.style.fontSize = "12px"*/
+   /* var input = this._input = document.createElement("input");
+    input.type="button";
+    input.class="bt";
+    input.style.background="url("+this._images+")";
+    input.style.backgroundSize="100% 100%";
+    input.style.width="32px";
+    input.style.height="16px";
+    div.appendChild(input);*/
+    var that = this;
+
+    var arrow = this._arrow = document.createElement("div");
+    arrow.style.background = "url("+this._images+") no-repeat";
+    arrow.style.backgroundSize="100% 100%";
+    arrow.style.position = "absolute";
+    arrow.style.width = "32px";
+    arrow.style.height = "16px";
+    arrow.style.top = "22px";
+    arrow.style.left = "10px";
+    arrow.style.overflow = "hidden";
+    div.appendChild(arrow);
+    arrow.onclick=function(){
+      location.href="progress2-1"
+    }
+    /*   div.onmouseover = function(){
+     this.style.backgroundColor = "#6BADCA";
+     this.style.borderColor = "#0000ff";
+     this.getElementsByTagName("span")[0].innerHTML = that._overText;
+     arrow.style.backgroundPosition = "0px -20px";
+     }
+
+     div.onmouseout = function(){
+     this.style.backgroundColor = "#EE5D5B";
+     this.style.borderColor = "#BC3B3A";
+     this.getElementsByTagName("span")[0].innerHTML = that._text;
+     arrow.style.backgroundPosition = "0px 0px";
+     }*/
+
+    map.getPanes().labelPane.appendChild(div);
+
+    return div;
+  }
+  ComplexCustomOverlay.prototype.draw = function(){
+    var map = this._map;
+    var pixel = map.pointToOverlayPixel(this._point);
+    this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
+    this._div.style.top  = pixel.y - 30 + "px";
+  }
+ /* xun = new ComplexCustomOverlay(new BMap.Point(121.503231,31.204382), "images/xun.png");
+  map.addOverlay(xun);
+  qian = new ComplexCustomOverlay(new BMap.Point(121.529964,39.917657), "images/qian.png");
+  map.addOverlay(qian);
+  sao = new ComplexCustomOverlay(new BMap.Point(121.478797,39.917657), "images/sao.png");
+  map.addOverlay(sao);*/
+  function getLine(pos){
+    console.log(pos)
+    var driving = new BMap.DrivingRoute(map);    //创建驾车实例
+    for (var i = 0; i < pos.length - 1; i++) {
+      driving.search(pos[i], pos[i + 1])
+      /* console.log(driving)*/
+    }
+    driving.setSearchCompleteCallback(function () {
+      /* console.log(driving.getResults())*/
+      var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+      polyline = new BMap.Polyline(pts);
+      polylines.push(polyline);
+    })
+  }
   // 初始化地图，设置中心点坐标和地图级别 设置为上海
   $(document).ready(function(){
+    $("button.navbar-aside").click(function(){
+      if ($("#wrapper").is(".left-wrapper")== true) {
+        $(".side-nav").removeClass("left-nav");
+        $("#wrapper").removeClass("left-wrapper");
+      } else {
+        $(".side-nav").addClass("left-nav");
+        $("#wrapper").addClass("left-wrapper");
+      }
+    });
+
+    $.ajax({
+      url:"line/get",
+      type:"post",
+      data:{id:1},
+      dataType:"json",
+      success:function(data){
+        var ps=jsonToPoints(data.coords)
+        console.log(ps)
+        for(var i=0;i<ps.length;i++){
+          var p=new BMap.Point(ps[i].lng,ps[i].lat);
+          linePoints.push(p)
+        }
+        console.log(linePoints)
+        getLine(linePoints)
+        linePoints=new Array()
+      }
+    })
 
     $.ajax({
       url:"getMap",
@@ -506,11 +674,14 @@
         if(data=="fail")
         {
           map.centerAndZoom("上海");
-
         }else{
-          console.log(jsonToPoints("["+data.center+"]")[0])
-          var point = new BMap.Point(jsonToPoints("["+data.center+"]")[0].lng, jsonToPoints("["+data.center+"]")[0].lat);
-          map.centerAndZoom(point,data.zoom);
+          if(data.center=="")
+            map.centerAndZoom("上海");
+         else{
+            var point = new BMap.Point(jsonToPoints("["+data.center+"]")[0].lng, jsonToPoints("["+data.center+"]")[0].lat);
+            map.centerAndZoom(point,data.zoom);
+          }
+
         }
         /*
          do nothing
@@ -539,7 +710,7 @@
         if(data=="fail")
         alert("请先登录")
         else{
-          $("#success").modal('show');
+          $("#setBtn").click();
         }
         /*
         do nothing

@@ -350,8 +350,13 @@
     currentLat= e.point.lat;
     $("#lng").html(Math.round(e.point.lng*100)/100)
     $("#lat").html(Math.round(e.point.lat*100)/100)
+    var point1 = new BMap.Point(e.point.lng, e.point.lat);
     var info=document.getElementById("info");
-    info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
+    var geoc = new BMap.Geocoder();
+    geoc.getLocation(point1, function(rs){
+      var addComp = rs.addressComponents;
+      $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
+    });
     /* var obj=document.getElementById("editArea");
      obj.style.display="";*/
     if(e.overlay==null) {

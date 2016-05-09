@@ -115,6 +115,7 @@
     <div class="row">
       <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
         <button class="btn btn-default" id="button">更改</button>
+        <button class="btn btn-default" id="button1">恢复默认值</button>
       </div>
     </div>
 
@@ -169,6 +170,54 @@
         })
       }
     });
+  })
+  $("#button1").click(function(){
+      var CleanCarDeviate = 20;
+      var PullCarDeviate = 40;
+      var ViewCarDeviate = 40;
+      var CleanCarSpeed = 20;
+      var PullCarSpeed = 80;
+      var ViewCarSpeed = 80;
+      var Times = 2;
+      var StartTime="00:00";
+      var EndTime = "05:00";
+        $("#Deviate").html("<tr> <td rowspan='3'>车辆偏离容差</td> " +
+                "<td class='table-th'>清扫车</td>" +
+                "<td class='vertical-table-content'> <span id='CleanCarDeviate1'>" + CleanCarDeviate + "</span> <span id='CleanCarDeviate2'>m</span> </td> </tr>" +
+                "<tr> <td>牵引车</td>" +
+                "<td class='vertical-table-content'><span id='PullCarDeviate1'>" + PullCarDeviate + "</span><span id='PullCarDeviate2'>m</span></td></tr>" +
+                "<tr> <td>巡视车</td>" +
+                "<td class='vertical-table-content'><span id='ViewCarDeviate1'>" + ViewCarDeviate + "</span> <span id='ViewCarDeviate2'>m</span></td> </tr>");
+
+        $("#Speed").html("<tr> <td rowspan='3'>车辆最大车速</td> " +
+                "<td class='table-th'>清扫车</td>" +
+                "<td class='vertical-table-content'><span id='CleanCarSpeed1'>" + CleanCarSpeed + "</span><span id='CleanCarSpeed2'>km/h</span></td> </tr>" +
+                "<tr> <td>牵引车</td>" +
+                " <td class='vertical-table-content'><span id='PullCarSpeed1'>" + PullCarSpeed + "</span><span id='PullCarSpeed2'>km/h</span></td> </tr>" +
+                "<tr> <td>巡视车</td>" +
+                " <td class='vertical-table-content'><span id='ViewCarSpeed1'>" + ViewCarSpeed + "</span><span id='ViewCarSpeed2'>km/h</span></td> </tr>");
+        $("#Times").html("<tr> <td colspan='2'>超速记录阈值</td> <td class='vertical-table-content'><span id='Times1'>" + Times + "</span><span id='Times2'>次</span></td> </tr>");
+        $("#StartTime").html("<tr> <td colspan='2'>封道开始时间</td > <td id='table-hour1' class='vertical-table-content'><span id='StartTime1'>" + StartTime + "</span><span id='StartTime2'></span></td> </tr>");
+        $("#EndTime").html("<tr> <td colspan='2'>封道结束时间</td> <td id='table-hour2' class='vertical-table-content'><span id='EndTime1'>" + EndTime + "</span><span id='EndTime2'></span></td> </tr>");
+
+        $.ajax({
+          url: "Rules/edit",
+          type: "post",
+          dataType: "json",
+          data: {
+            CleanCarDeviate1: CleanCarDeviate,
+            PullCarDeviate1: PullCarDeviate,
+            ViewCarDeviate1: ViewCarDeviate,
+            CleanCarSpeed1: CleanCarSpeed,
+            PullCarSpeed1: PullCarSpeed,
+            ViewCarSpeed1: ViewCarSpeed,
+            Times1: Times,
+            StartTime1: StartTime,
+            EndTime1: EndTime
+          },
+          success: function (data) {
+          }
+        })
   })
   $("#button").click(function() {
     var Button = document.getElementById("button").innerHTML;

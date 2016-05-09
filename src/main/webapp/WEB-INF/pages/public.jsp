@@ -56,15 +56,15 @@
           <li <%if(pageName.equals("plan1")) {%>class="active"<%}%>><a href="plan1">养护作业计划</a></li>
           <li <%if(pageName.equals("plan2")) {%>class="active"<%}%>><a href="line">作业线路管理</a></li>
           <li <%if(pageName.equals("plan3")) {%>class="active"<%}%>><a href="plan3">布点计划</a></li>
-          <li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="Driver">驾驶员计划</a></li>
+          <%--<li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="Driver">驾驶员计划</a></li>--%>
         </ul>
       </li>
 
       <li <%if(pageFather.equals("progress")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="Progress1">养护进度监控</a></li>
-          <li <%if(pageName.equals("progress2")) {%>class="active"<%}%>><a href="progress2.html">实时监控</a></li>
+          <li <%if(pageName.equals("progress1")) {%>class="active"<%}%>><a href="progress1-year">养护进度监控</a></li>
+          <li <%if(pageName.equals("progress2")) {%>class="active"<%}%>><a href="progress2">实时监控</a></li>
           <li <%if(pageName.equals("progress3")) {%>class="active"<%}%>><a href="MaintainLog">养护日志管理</a></li>
         </ul>
       </li>
@@ -73,8 +73,8 @@
         <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li <%if(pageName.equals("history1")) {%>class="active"<%}%>><a href="history1">历史轨迹查询</a></li>
-          <li <%if(pageName.equals("history2")) {%>class="active"<%}%>><a href="history2.html">历史视频查询</a></li>
-          <li <%if(pageName.equals("history3")) {%>class="active"<%}%>><a href="history3.html">异常查询</a></li>
+          <li <%if(pageName.equals("history2")) {%>class="active"<%}%>><a href="history2">历史视频查询</a></li>
+          <li <%if(pageName.equals("history3")) {%>class="active"<%}%>><a href="history3">异常查询</a></li>
         </ul>
       </li>
 
@@ -93,7 +93,7 @@
         <ul class="dropdown-menu">
           <li <%if(pageName.equals("management1")) {%>class="active"<%}%>><a href="UserManage">用户管理</a></li>
           <li <%if(pageName.equals("management2")) {%>class="active"<%}%>><a href="Power">权限管理</a></li>
-          <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="management3.html">网络状态</a></li>
+          <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="management3">网络状态</a></li>
         </ul>
       </li>
 

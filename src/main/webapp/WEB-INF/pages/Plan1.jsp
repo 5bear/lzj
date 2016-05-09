@@ -68,7 +68,7 @@
                         <table class="table vertical-table plan1-table">
                             <thead>
                             <tr>
-                                <th colspan="2"></th>
+                                <th colspan="2">包件</th>
                                 <th>一月</th>
                                 <th>二月</th>
                                 <th>三月</th>
@@ -158,10 +158,11 @@
                 BJcounts=data.length;
                 var BJ=1;
                 var totalmileage=[];
-
+                var totaltime=[];
                 $(data).each(function (index) {
                         totalmileage.push(data[index].distance);
-                        row1 = "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">"  + data[index].packageName + "</a></td>";
+                        totaltime.push(data[index].time);
+                        row1 = "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">" + BJ+". " + data[index].packageName + "</a></td>";
                         row2 = "<td class='table-th'>里程数</td>";
                         for (var i = 1; i <= 13; i++) {
                             row2 += "<td id=" + "Mileage" + BJ + i + "></td>";
@@ -197,7 +198,13 @@
                 row5+="</tr>";
                 $("#total").html(row4+row5);
 
-                setTime();
+                    for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
+                        for (var i = 1; i <= 12; i++) {       //月份
+                            //alert("包件"+Bj+j);
+                            document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
+                        }
+                        document.getElementById('Time'+Bj+'13').innerHTML = totaltime[BJ-1];
+                    }
                 setTotalMileage();
                 setTotalTime();
             }
@@ -282,15 +289,7 @@
         return company;
     }
 
-    function setTime() {
-        for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
-            for (var i = 1; i <= 12; i++) {       //月份
-                //alert("包件"+Bj+j);
-                document.getElementById('Time'+Bj+i).innerHTML = getTime(i);
-            }
-            document.getElementById('Time'+Bj+'13').innerHTML = totaldays;
-        }
-    };
+
 
     var tolMileage;
     function setTotalMileage(){
@@ -302,9 +301,14 @@
             document.getElementById('totalMileage'+ i).innerHTML = tolMileage;
         }
     }
+    var tolTime;
     function setTotalTime(){
         for (var i = 1; i <= 12; i++) {       //月份
-            document.getElementById('totalTime'+ i).innerHTML = BJcounts*getTime(i);
+            tolTime=0;
+            for (var Bj = 1; Bj <= BJcounts; Bj++) {    //包件
+                tolTime += Number(document.getElementById('Time'+Bj+i).innerHTML);
+            }
+            document.getElementById('totalTime'+ i).innerHTML = tolTime;
         }
     }
     function select1(){
@@ -364,7 +368,13 @@
                 row5+="</tr>";
                 $("#total").html(row4+row5);
 
-                setTime();
+                for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
+                    for (var i = 1; i <= 12; i++) {       //月份
+                        //alert("包件"+Bj+j);
+                        document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
+                    }
+                    document.getElementById('Time'+Bj+'13').innerHTML = totaltime[BJ-1];
+                }
                 setTotalMileage();
                 setTotalTime();
             }

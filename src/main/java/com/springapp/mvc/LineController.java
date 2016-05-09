@@ -29,7 +29,7 @@ public class LineController extends BaseController{
         int pageNum=1,start=0,end=0;
         if(pn!=null&&!pn.equals(""))
             pageNum=Integer.parseInt(pn);
-        start = (pageNum - 1) * 10 + 1;
+        start = (pageNum - 1) * 10;
         end=start+9;
         List<Line>lineList=lineDao.getList();
         int totalPage;

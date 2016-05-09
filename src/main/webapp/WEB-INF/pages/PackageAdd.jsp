@@ -91,10 +91,10 @@
                         <td><input type="text" class="table-input" id="distance" /></td>
                     </tr>
 
-                    <tr>
+                    <!--<tr>
                         <td>录入人</td>
                         <td><input type="text" class="table-input" id="inputMan"/></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>次数</td>
                         <td><input type="text" class="table-input" id="time"/></td>
@@ -175,12 +175,12 @@
         var company=$("#company option:selected").text();
         var packageName=$("#packageName").val();
         var distance=$("#distance").val();
-        var inputMan=$("#inputMan").val();
+        //var inputMan=$("#inputMan").val();
         var time=$("#time").val();
         var runtime=$("#runtime").val();
         var remark=$("#remark").val();
 
-        alert(company+packageName+distance+inputMan+time+runtime+remark);
+        alert(company+packageName+distance+time+runtime+remark);
         $.ajax({
             url:"PackageAdd1",
             type:"post",
@@ -188,7 +188,7 @@
                 company:company,
                 packageName:packageName,
                 distance:distance,
-                inputMan:inputMan,
+                //inputMan:inputMan,
                 time:time,
                 runtime:runtime,
                 remark:remark},

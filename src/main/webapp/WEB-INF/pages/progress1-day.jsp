@@ -129,7 +129,7 @@
                                                             var packageName1='${item.packageName}';
                                                             document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
                                                             for(var i=0;i<road.length;i++){
-                                                                document.write("<li onclick=CJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
+                                                                document.write("<li onclick='CJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
                                                             }
                                                         </script>
                                                     </ul>
@@ -157,7 +157,7 @@
                                                             var packageName1='${item.packageName}';
                                                             document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
                                                             for(var i=0;i<road.length;i++){
-                                                                document.write("<li onclick=GJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
+                                                                document.write("<li onclick='GJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
                                                             }
                                                         </script>
                                                     </ul>
@@ -212,17 +212,149 @@
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads")
-            roads='';
-        setChart();
+        if(Roads=="AllRoads"){
+            setChart1();
+        }
+        else {
+            setChart();
+        }
+
     }
     function GJgetRoad(packageName,Roads){
         company="上海高架公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads")
-            roads='';
-        setChart();
+        if(Roads=="AllRoads"){
+            setChart1();
+        }
+        else {
+            setChart();
+        }
+    }
+    function setChart1(){
+        $.ajax({
+            url:"progress1-day/getDay1",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year,
+                month:month,
+                day:day,
+                company:company,
+                packageName:packagename,
+            },
+            success:function(data) {
+                var EffectiveDistance;
+                var EffectiveCoverage;
+                $(data).each(function (index) {
+                    EffectiveDistance=data[index].distance/2;
+                    EffectiveCoverage=data[index].coverage;
+                })
+            }
+        });
+        var chart;
+        // Build the chart
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                backgroundColor: 'rgb(242, 242, 242)',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+
+            },
+
+
+
+            title: {
+                text: '有效作业率',
+                style: {                      // 文字内容相关样式
+                    fontSize:"12px",
+                }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                style: {                      // 文字内容相关样式
+                    width:'10px',
+                    fontWeight: "blod",
+                    fontFamily: "Courir new"
+                }
+
+
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                fontSize:"5px",
+                type: 'pie',
+                name: ' ',
+                data: [
+                    ['有效作业率',EffectiveDistance],
+                    ['无效作业率',100-EffectiveDistance],
+
+                ]
+            }]
+        });
+
+        // Build the chart
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container1',
+                backgroundColor: 'rgb(242, 242, 242)',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+
+            },
+
+
+
+            title: {
+                text: '匝道覆盖率',
+                style: {                      // 文字内容相关样式
+                    fontSize:"12px",
+                }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                style: {                      // 文字内容相关样式
+                    width:'10px',
+                    fontWeight: "blod",
+                    fontFamily: "Courir new"
+                }
+
+
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                fontSize:"5px",
+                type: 'pie',
+                name: ' ',
+                data: [
+                    ['覆盖 3个',   75.0],
+                    ['未覆盖 1个', 25.0],
+
+                ]
+            }]
+        });
+
     }
     function setChart(){
         $.ajax({
@@ -235,7 +367,7 @@
                 day:day,
                 company:company,
                 packageName:packagename,
-                roads:roads
+                Roads:roads
             },
             success:function(data) {
                 var EffectiveDistance;

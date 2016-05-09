@@ -81,7 +81,7 @@
                                                         var packageName1='${item.packageName}';
                                                         document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
                                                         for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick=CJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
+                                                            document.write("<li onclick='CJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
                                                         }
                                                     </script>
                                                 </ul>
@@ -110,7 +110,7 @@
                                                             var packageName1='${item.packageName}';
                                                             document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
                                                             for(var i=0;i<road.length;i++){
-                                                                document.write("<li onclick=GJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
+                                                                document.write("<li onclick='GJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
                                                             }
                                                         </script>
                                                     </ul>
@@ -334,21 +334,57 @@
         company="上海高架公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads")
-            roads='';
-        getTable();
+        if(Roads=="AllRoads"){
+            getTable();
+        }
+        else {
+            getTable1();
+        }
     }
     function GJgetRoad(packageName,Roads){
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads")
-            roads='';
-        getTable();
+        if(Roads=="AllRoads"){
+            getTable1();
+        }
+        else {
+            getTable();
+        }
     }
-    function getTable(){
+    function getTable1(){
         $.ajax({
-            url:"progress1/getDayByMonth",
+            url:"Progress1/getDayByMonth1",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year,
+                month:month,
+                company:company,
+                packageName:packagename
+            },success:function(data) {
+                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                work2="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao2="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                var Distance=[];
+                for(var i= 0;i<31;i++) {
+                    Distance[i] = 0;
+                }
+                $(data).each(function (index) {
+                    Distance.push(data[index].distance);
+                })
+                getdata(Distance,zadao);                                       //作业+匝道
+                work2+= "<td>total</td></tr>"
+                zadao2 += "<td>total</td></tr>"
+                $("#work1").html(work1 + zadao1);
+                $("#work2").html(work2 + zadao2);
+            }
+        })
+    }
+    function getTable1(){
+        $.ajax({
+            url:"Progress1/getDayByMonth1",
             type:"post",
             dataType: "json",
             data:{
@@ -356,7 +392,7 @@
                 month:month,
                 company:company,
                 packageName:packagename,
-                roads:roads
+                Roads:roads
             },success:function(data) {
                 work1="<tr><td>有效作业率<br/>(单位：%)</td>";
                 zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";

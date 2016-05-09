@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<context:component-scan base-package="com.springapp"/>
+    <context:component-scan base-package="com.springapp"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -23,10 +23,8 @@
     <mvc:default-servlet-handler/>
 
     <context:annotation-config/>
-    <!-- 资源位置映射配置-->
-    <mvc:resources mapping="**" location="/WEB-INF/pages/"></mvc:resources>
 
-
+    <mvc:resources mapping="**" location="/WEB-INF/pages/"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
@@ -34,13 +32,18 @@
     <bean id="stringHttpMessageConverter"
           class="org.springframework.http.converter.StringHttpMessageConverter">
         <constructor-arg value="UTF-8" index="0"></constructor-arg>
-        <!--
-                    避免出现乱码 -->
+        <!--避免出现乱码 -->
         <property name="supportedMediaTypes">
             <list>
                 <value>text/plain;charset=UTF-8</value>
             </list>
         </property>
+    </bean>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
     </bean>
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -60,9 +63,6 @@
         </property>
     </bean>
 
-
-
-
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -73,7 +73,8 @@
             </list>
         </property>
     </bean>
-    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${connection.driver_class}"/>
         <property name="url" value="${connection.url}"/>
         <property name="username" value="${connection.username}"/>
@@ -84,79 +85,30 @@
         <property name="validationQuery" value="SELECT 1"></property>
         <property name="timeBetweenEvictionRunsMillis" value="30000"></property>
         <property name="minEvictableIdleTimeMillis" value="60000"></property>
-    </bean>-->
-   <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
-        <property name="driverClass" value="${connection.driver_class}"></property>
-        <property name="jdbcUrl" value="${connection.url}"></property>
-        <property name="user" value="${connection.username}"></property>
-        <property name="password" value="${connection.password}"></property>
-
-    </bean>-->
-    <!-- c3p0连接池配置 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!-- 用户名-->
-        <property name="user" value="${connection.username}"/>
-        <!-- 用户密码-->
-        <property name="password" value="${connection.password}"/>
-        <property name="driverClass" value="${connection.driver_class}"/>
-        <property name="jdbcUrl" value="${connection.url}"/>
-
-        <!--连接池中保留的最大连接数。默认值: 15 -->
-        <property name="maxPoolSize" value="20"/>
-        <!-- 连接池中保留的最小连接数，默认为：3-->
-        <property name="minPoolSize" value="2"/>
-        <!-- 初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3-->
-        <property name="initialPoolSize" value="2"/>
-
-        <!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 -->
-        <property name="checkoutTimeout" value="3000"/>
-
-        <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 -->
-        <property name="acquireIncrement" value="2"/>
-
-        <!--定义在从数据库获取新连接失败后重复尝试的次数。默认值: 30 ；小于等于0表示无限次-->
-        <property name="acquireRetryAttempts" value="0"/>
-
-        <!--重新尝试的时间间隔，默认为：1000毫秒-->
-        <property name="acquireRetryDelay" value="1000" />
-
     </bean>
+
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <!-- 注入数据源 -->
         <property name="dataSource" ref="dataSource"/>
-
+        <!-- 设置spring到哪些包中找相应的实体类 -->
         <property name="packagesToScan">
-            <list>
-                <value>com.springapp.entity</value>
-            </list>
+            <value>com.springapp.entity</value>
         </property>
-
-        <!--<property name="mappingLocations">
-            <list>
-                <value>classpath:hbm/*.hbm.xml</value>
-            </list>
-        </property>-->
-
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-
                 <prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
                 <prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
                 <prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
                 <prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
-                <prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}
-                </prop>
-
+                <prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
                 <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
                 <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
                 <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
-
                 <prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
-
                 <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
             </props>
         </property>

@@ -362,10 +362,15 @@
       currentLat= e.point.lat;
       $("#lng").html(Math.round(e.point.lng*100)/100)
       $("#lat").html(Math.round(e.point.lat*100)/100)
-      var info=document.getElementById("info");
-      info.innerHTML=("("+Math.round(e.point.lng*100)/100+","+ Math.round(e.point.lat*100)/100+")");
       var point = new BMap.Point(e.point.lng, e.point.lat);
       points.push(point)
+      var info=document.getElementById("info");
+      var geoc = new BMap.Geocoder();
+      geoc.getLocation(point, function(rs){
+        var addComp = rs.addressComponents;
+        $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
+      });
+
       var marker = new BMap.Marker(point);// 创建标注
       markers.push(marker)
       map.addOverlay(marker);             // 将标注添加到地图中

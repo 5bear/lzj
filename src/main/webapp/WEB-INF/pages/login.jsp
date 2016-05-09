@@ -48,7 +48,7 @@
         </div>
         <p class="alert-red text-center" id="error"></p>
         <div class="text-center">
-          <button class="btn btn-default" onclick="login()">登陆</button>
+          <button class="btn btn-default" onclick="login()">登录</button>
         </div>
     </div>
   </div>

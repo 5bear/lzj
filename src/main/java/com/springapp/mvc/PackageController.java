@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -80,12 +81,16 @@ public class PackageController extends BaseController {
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "packageName") String packageName,
                        @RequestParam(value = "distance") String distance,
-                       @RequestParam(value = "inputMan") String inputMan,
+                       //@RequestParam(value = "inputMan") String inputMan,
                        @RequestParam(value = "time") String time,
                        @RequestParam(value = "runtime") String runtime,
-                       @RequestParam(value = "remark") String remark)
+                       @RequestParam(value = "remark") String remark,
+                       HttpSession session)
+
     {
 
+        //HttpSession session=request.getSession();
+        String inputMan=(String)session.getAttribute("username");
         Package pac = new Package();
         pac.setCompany(company);
         pac.setPackageName(packageName);
@@ -144,6 +149,9 @@ public class PackageController extends BaseController {
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         Package pac = packageDao.getById(Long.parseLong(id));
+        String r=pac.getRoads();
+        if(r=="")
+            return "false";
         pac.setIsDelete(1);
         pac.setDeleteTime(simpleDateFormat.format(new Date()));
 

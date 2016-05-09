@@ -81,7 +81,7 @@
                                                         var packageName1='${item.packageName}';
                                                         document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
                                                         for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick=CJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
+                                                            document.write("<li onclick='CJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
                                                         }
                                                     </script>
                                                 </ul>
@@ -109,7 +109,7 @@
                                                         var packageName1='${item.packageName}';
                                                         document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
                                                         for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick=GJgetRoad(packageName1,roads[i])>"+road[i]+"</li>");
+                                                            document.write("<li onclick='GJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
                                                         }
                                                     </script>
                                                 </ul>
@@ -242,19 +242,27 @@
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads")
-            roads='';
-        getYear();
-        getTable();
+        if(Roads=="AllRoads"){
+            getYear();
+            getTable();
+        }
+        else {
+            getYear();
+            getTable1();
+        }
     }
     function GJgetRoad(packageName,Roads){
         company="上海高架公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads")
-            roads='';
-        getYear();
-        getTable();
+        if(Roads=="AllRoads"){
+            getYear();
+            getTable1();
+        }
+        else {
+            getYear();
+            getTable();
+        }
     }
     function getYear(){
         var myDate = new Date();
@@ -268,8 +276,56 @@
             data:{
                 year:year,
                 company:company,
+                packageName:packagename
+            },
+            success:function(data) {
+                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+                $(data).each(function (index) {
+                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
+                        Distance[0]+=data[index].distance;               ///建立string数组存储匝道覆盖，未清扫为N的情况
+                    }else if(data[index].time.substr(5,2)=="02"){
+                        Distance[1]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="03"){
+                        Distance[2]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="04"){
+                        Distance[3]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="05"){
+                        Distance[4]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="06"){
+                        Distance[5]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="07"){
+                        Distance[6]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="08"){
+                        Distance[7]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="09"){
+                        Distance[8]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="10"){
+                        Distance[9]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="11"){
+                        Distance[10]+=data[index].distance;
+                    }else if(data[index].time.substr(5,2)=="12"){
+                        Distance[11]+=data[index].distance;
+                    }
+                })
+                getdata(Distance,zadao);                                       //作业+匝道
+                work1+= "<td>total</td></tr>"
+                zadao1 += "<td>total</td></tr>"
+                $("#work").html(work1 + zadao1);
+            }
+        });
+    }
+    function getTable1(){
+        $.ajax({
+            url:"progress1-year/getMonthByYear1",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year,
+                company:company,
                 packageName:packagename,
-                roads:roads
+                Roads:roads
             },
             success:function(data) {
                 work1="<tr><td>有效作业率<br/>(单位：%)</td>";
