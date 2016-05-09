@@ -31,10 +31,102 @@
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <jsp:include page="public.jsp" flush="true">
-    <jsp:param name="pageName" value="reports3"></jsp:param>
-    <jsp:param name="pageFather" value="reports"></jsp:param>
-  </jsp:include>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav side-nav">
+        <li class="text-right aside-li">
+          <button type="button" class="navbar-aside" title="收起/展开菜单">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </li>
+        <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="base1.html">停车场管理</a></li>
+            <li><a href="base2.html">车辆管理</a></li>
+            <li><a href="base3.html">RFID监测点管理</a></li>
+            <li><a href="base4.html">包件信息管理</a></li>
+            <li><a href="base5.html">电子围栏管理</a></li>
+            <li><a href="base6.html">监管规则管理</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="plan1.html">养护作业计划</a></li>
+            <li><a href="plan2.html">作业线路管理</a></li>
+            <li><a href="plan3.html">布点计划</a></li>
+            <li><a href="plan4.html">驾驶员计划</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="progress1.html">养护进度监控</a></li>
+            <li><a href="progress2.html">实时监控</a></li>
+            <li><a href="progress3.html">养护日志管理</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown ">
+          <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="history1.html">历史轨迹查询</a></li>
+            <li><a href="history2.html">历史视频查询</a></li>
+            <li><a href="history3.html">异常查询</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="reports1.html">牵引车辆位置报表</a></li>
+            <li><a href="reports2.html">养护车辆作业区域</a></li>
+            <li class="active"><a href="reports3.html">养护车辆作业情况</a></li>
+            <li><a href="reports4.html">养护车辆超速</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="management1.html">用户管理</a></li>
+            <li><a href="management2.html">权限管理</a></li>
+            <li><a href="management3.html">网络状态图</a></li>
+          </ul>
+        </li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right navbar-user">
+        <li class="dropdown user-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
 
   <div id="page-wrapper">
 
@@ -75,35 +167,136 @@
             <th>实际作业区域</th>
             <th>起始时间</th>
             <th>结束</th>
-            <th>累计停留时间</th>
-            <th>累计作业时间</th>
-            <th>里程</th>
+            <th>累计停留时间（分钟）</th>
+            <th>累计作业时间（分钟）</th>
+            <th>里程（米）</th>
             <th>备注</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td rowspan="2">成基公司</td>
+            <td rowspan="10">成基公司</td>
             <td>1</td>
             <td>沪A86574</td>
             <td>中山北路外侧</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>0时30分</td>
+            <td>4时30分</td>
+            <td>30</td>
+            <td>210</td>
+            <td>85300</td>
+            <td>无</td>
           </tr>
           <tr>
-            <td>1</td>
-            <td>沪A86574</td>
-            <td>中山北路外侧</td>
+            <td>2</td>
+            <td>沪A32574</td>
+            <td>曹安公路外侧</td>
+            <td>2时30分</td>
+            <td>4时30分</td>
+            <td>60</td>
+            <td>60</td>
+            <td>20100</td>
+            <td>无</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>沪A3k576</td>
+            <td>中环路外侧</td>
+            <td>1时30分</td>
+            <td>4时30分</td>
+            <td>30</td>
+            <td>180</td>
+            <td>31047</td>
+            <td>无</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>沪A74789</td>
+            <td>中山西路外侧</td>
+            <td>1时20分</td>
+            <td>5时00分</td>
+            <td>23</td>
+            <td>220</td>
+            <td>65408</td>
+            <td>无</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>沪A32US7</td>
+            <td>延安高架外侧</td>
+            <td>0时34分</td>
+            <td>4时54分</td>
+            <td>87</td>
+            <td>263</td>
+            <td>62214</td>
+            <td>无</td>
+          </tr>
+
+
+          <tr>
+            <td>6</td>
+            <td>沪A32KK1</td>
+            <td>杨高南路外侧</td>
+            <td>0时30分</td>
+            <td>4时30分</td>
+            <td>74</td>
+            <td>214</td>
+            <td>58336</td>
+            <td>无</td>
+          </tr>
+
+
+          <tr>
+            <td>7</td>
+            <td>沪A32749</td>
+            <td>内环高架外侧</td>
+            <td>0时20分</td>
+            <td>4时30分</td>
+            <td>25</td>
+            <td>260</td>
+            <td>62841</td>
+            <td>无</td>
+          </tr>
+
+
+          <tr>
+            <td>8</td>
+            <td>沪A1K574</td>
+            <td>南北高架路外侧</td>
+            <td>2时30分</td>
+            <td>4时30分</td>
+            <td>45</td>
+            <td>130</td>
+            <td>71749</td>
+            <td>无</td>
+          </tr>
+
+
+          <tr>
+            <td>9</td>
+            <td>沪A32532</td>
+            <td>沪闵高架外侧</td>
+            <td>2时30分</td>
+            <td>4时30分</td>
+            <td>60</td>
+            <td>60</td>
+            <td>61200</td>
+            <td>无</td>
+          </tr>
+
+
+          <tr>
+            <td>10</td>
+            <td>沪A67574</td>
+            <td>嘉闵路外侧</td>
+            <td>0时30分</td>
+            <td>4时30分</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>248</td>
+            <td>59671</td>
+            <td>无</td>
           </tr>
           </tbody>
         </table>
@@ -119,6 +312,9 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
+  $(function(){
+    $("#reports").dropdown('toggle');
+  });
 
   $('#date').datetimepicker({
     lang:'ch',

@@ -330,7 +330,7 @@
                 zadao1 += " <td></td>";
             }
             else {
-                work1 += "<td class=" + colour + "><a href='progress1?year=" + year +"&month=" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
+                work1 += "<td class=" + colour + "><a href='Progress1?year=" + year +"&month=" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
 
                 zadao1 += " <td>" + EffectiveCoverage + "</td>";
             }

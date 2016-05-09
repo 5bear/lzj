@@ -348,7 +348,7 @@
     }
     function getTable(){
         $.ajax({
-            url:"/progress1/getDayByMonth",
+            url:"progress1/getDayByMonth",
             type:"post",
             dataType: "json",
             data:{
