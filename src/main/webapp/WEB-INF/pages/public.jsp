@@ -93,7 +93,7 @@
         <ul class="dropdown-menu">
           <li <%if(pageName.equals("management1")) {%>class="active"<%}%>><a href="UserManage">用户管理</a></li>
           <li <%if(pageName.equals("management2")) {%>class="active"<%}%>><a href="Power">权限管理</a></li>
-          <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="management3">网络状态</a></li>
+          <li <%if(pageName.equals("management3")) {%>class="active"<%}%>><a href="Management3">网络状态</a></li>
         </ul>
       </li>
 
