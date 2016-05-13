@@ -19,6 +19,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
+    <link href="css/style.css" rel="stylesheet">
     <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -43,7 +44,7 @@
         #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
         #top {background-color:transparent;height:47%;width:44%;float:left; margin-top:30px;position:relative;}
         #middle {background-color:transparent;height:47%;width:44%;float:left;margin-top:30px; margin-left:20px;position:relative;}
-        #bottom{ top: 10px;  width: 44%; height:47%;background-color:transparent;position:relative;}
+        #bottom{ top: 10px;  width: 44%;background-color:transparent;position:relative;}
         #bottom1{ top: 55%; left:44%; width: 42%; height:47%;background-color:transparent; margin-left:20px;position:absolute;}
         .bt{
             height: 22px;
@@ -88,7 +89,7 @@
 
     <script type="text/javascript" >
         var view;
-        var id = "0100001";
+        var id = "0200001";
         //window.setTimeout("init()", 500) ;
         function init()
         {
@@ -121,8 +122,8 @@
         }
         function startVideoBack()
         {
-            viewBack.StartVideo(id, 0, 0);
-            viewBack.SetViewTitle(0,id+" 后置摄像头"); //1通道 1窗口
+            viewBack.StartVideo(id, 1, 0);
+            viewBack.SetViewTitle(0,id+" 后置摄像头"); //2通道 1窗口
         }
         function stopVideoBack()
         {
@@ -150,10 +151,29 @@
         function videoCloud(){
             viewCloud.FullScreen();
         }
+        function goPTZ(type)
+        {
+
+            var result = viewCloud.PtzControl(0,type,100,0);
+        }
+        function stopPTZ()
+        {
+
+            viewCloud.PtzControl(0,19,100,0);
+        }
+        function getParam( paramName )
+        {
+            var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
+            var oMatch = oRegex.exec( window.location.search ) ;
+            if ( oMatch && oMatch.length > 1 )
+                return oMatch[1] ;
+            else
+                return '' ;
+        }
     </script>
 </head>
 
-<body onload="init()">
+<body onLoad="init()">
 
 <div id="wrapper">
 
@@ -185,9 +205,9 @@
                 <div class="row"><a href="javascript:history.back();" class="operation"><< 返回</a></div>
                 <div id="top" style="height:47%">
                     <p>前置摄像头</p>
-                    <button class="button" style="width:15%;height:8%;top:0;left:45%" onclick="startVideoFront()">获取视频</button>
-                    <button class="button" style="width:15%;height :8%;top:0;left:62%" onclick="stopVideoFront()">暂停</button>
-                    <button class="button" style="width:15%;height:8%;top:0;left:79%" onclick="videoFront()">全屏</button>
+                    <button class="button" style="width:15%;height:8%;top:0;left:45%" onClick="startVideoFront()">获取视频</button>
+                    <button class="button" style="width:15%;height :8%;top:0;left:62%" onClick="stopVideoFront()">暂停</button>
+                    <button class="button" style="width:15%;height:8%;top:0;left:79%" onClick="videoFront()">全屏</button>
 
                     <div style="width:95%;margin-top:0; height:226px; z-index:-1" >
                         <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
@@ -220,7 +240,7 @@
                 <div id="bottom">
                     <p>云台摄像头</p>
                     <button class="button" style="width:15%;height:4%;top:53%;left:45%"onclick="startVideoCloud()">获取视频</button>
-                    <button class="button" style="width:15%;height :4%;top:53%;left:62%" onclick="stopVideoCloud()">暂停</button>
+                    <button class="button" style="width:15%;height :4%;top:53%;left:62%" onClick="stopVideoCloud()">暂停</button>
                     <button class="button" style="width:15%;height:4%;top:53%;left:79%"onclick="videoCloud()">全屏</button>
 
                     <div style="width:95%;margin-top:0; height:226px; z-index:-1" >
@@ -230,16 +250,21 @@
                     </div>
                 </div><!--bottom-->
 
-                <div id="bottom1">
+                <!--<div id="bottom1">
                     <p>云台控制</p>
-
-
                     <button class="button" style="width:15%;top:22%;left:15%;height:8%">获取视频</button>
                     <button class="button" style="width:15%;top:22%;left:34%;height:8%">获取控制</button>
                     <button class="button" style="width:15%;top:22%;left:53%;height:8%">停止控制</button>
-                    <button class="button" style="width:15%;top:22%;left:72%;height:8%">预置点</button>
+                    <button class="button" style="width:15%;top:22%;left:72%;height:8%">预置点</button>-->
 
-                    <img src="images/yuntai.png" width="95%"/>
+                    <div id="map">
+                        <a id="top-map"onmousedown="goPTZ(2)" onmouseup="stopPTZ()"></a>
+                        <a id="bottom-map"onmousedown="goPTZ(3)" onmouseup="stopPTZ()"></a>
+                        <a id="left-map"onmousedown="goPTZ(0)" onmouseup="stopPTZ()"></a>
+                        <a id="right-map"onmousedown="goPTZ(1)" onmouseup="stopPTZ()"></a>
+
+                    </div>
+                  <!--  <img src="images/yuntai.png" width="95%"/>-->
                 </div><!--bottom1-->
 
             </div><!--index-->
@@ -248,7 +273,7 @@
         </div><!-- /.row -->
 
 
-        <!--<div class="alert" id="alert" style="width:30%;height:30%; bottom:30%; right:30%; border:1px solid rgb(2,96,142); background-color:white; z-index:10">
+        <div class="alert" id="alert" style="width:30%;height:30%; bottom:0; right:0; border:1px solid rgb(2,96,142); background-color:white; z-index:10">
             <p class="alert-title text-center" style="margin-top:10%">是否返回实时监控</p>
 
             <div class="row text-center" style="margin-top:15%;">
@@ -257,7 +282,7 @@
                 </a>
                 <button style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">否</button>
             </div>
-        </div>-->
+        </div>
 
 
     </div><!-- /#page-wrapper -->
@@ -269,16 +294,7 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 
-<script>
 
-    $('a[data-toggle="dropdown"]').click(function() {
-        $(this).nextAll().toggle();
-    });
-
-    $(function(){
-        $("#progress").dropdown('toggle');
-    });
-</script>
 
 
 <script type="text/javascript"  for="testen" event="OnRecSearchEvent(strFile, nStartTime,nEndTime,nFileLen,nFileType,nSvrID,nLocation,nChannel)" >

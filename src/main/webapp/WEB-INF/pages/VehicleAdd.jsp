@@ -59,69 +59,72 @@
             </div>
             <div class="col-lg-6 col-lg-offset-3">
                 <form>
-                <table class="table vertical-table">
-                    <tbody>
-                    <tr>
-                        <td>所属养护公司</td>
-                        <td>
-                            <select name="company" id="company">
-                                <option>上海成基公司</option>
-                                <option>上海高架公司</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>车辆类型</td>
-                        <td>
-                            <select name="vehicleType" id="vehicleType">
-                                <option>养护车</option>
-                                <option>巡查车</option>
-                                <option>牵引车</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>车辆牌照</td>
-                        <td><input type="text" class="table-input"  id="vehicleLicence"/></td>
-                    </tr>
-                    <tr>
-                        <td>车辆型号</td>
-                        <td><input type="text" class="table-input" id="vehicleModel"/></td>
-                    </tr>
-                    <tr>
-                        <td>车载设备编号</td>
-                        <td><input type="text" class="table-input" id="OBUId"/></td>
-                    </tr>
-                    <tr>
-                        <td>电子围栏</td>
-                        <td>
-                            <!--<select id="eFence"></select>-->
-                            <select id="eFence">
-                                <c:forEach items="${eFenceList}" var="eFence">
-                                    <option value="${eFence.id}">${eFence.eFence}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                        <!--<td><input type="text" class="table-input" id="eFence"/></td>-->
-                    </tr>
-                    <tr>
-                        <td>备注</td>
-                        <td><input type="text" class="table-input" id="remark"/></td>
-                    </tr>
-                    <!--<tr>
-                        <td><input id="isDelete" type="hidden" value="0"/></td>
-                    </tr>-->
+                    <table class="table vertical-table">
+                        <tbody>
+                        <tr>
+                            <td>所属养护公司</td>
+                            <td>
+                                <select name="company" id="company">
+                                    <option>上海成基公司</option>
+                                    <option>上海高架公司</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>车辆类型</td>
+                            <td>
+                                <select name="vehicleType" id="vehicleType">
+                                    <option>请选择</option>
+                                    <option>清扫车</option>
+                                    <option>巡视车</option>
+                                    <option>牵引车</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>车辆牌照</td>
+                            <td><input type="text" class="table-input"  id="vehicleLicence"/></td>
+                        </tr>
+                        <tr>
+                            <td>车辆型号</td>
+                            <td><input type="text" class="table-input" id="vehicleModel"/></td>
+                        </tr>
+                        <tr>
+                            <td>车载设备编号</td>
+                            <td><input type="text" class="table-input" id="OBUId"/></td>
+                        </tr>
+                        <tr>
+                            <td>电子围栏</td>
+                            <td>
 
-                    <input name="msg1" type="hidden" value="123"/>
-                    </tbody>
-                </table>
+                                <select id="eFence">
+                                    <option value="0"></option>
+                                    <c:forEach items="${eFenceList}" var="eFence">
+                                        <option value="${eFence.id}">${eFence.eFence}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                            <!--<td><input type="text" class="table-input" id="eFence"/></td>-->
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+
+                            <td><textarea class="table-input" rows="3" id="remark"></textarea></td>
+                        </tr>
+                        <!--<tr>
+                            <td><input id="isDelete" type="hidden" value="0"/></td>
+                        </tr>-->
+
+                        <input name="msg1" type="hidden" value="123"/>
+                        </tbody>
+                    </table>
                 </form>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="addVehicle()">提交</button>
+                <button class="btn btn-default" onclick="addVehicle()">提交</button>
                 <button class="btn btn-default">取消</button>
             </div>
         </div>
@@ -141,7 +144,23 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">重复提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>同一车辆不能重复添加</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -156,10 +175,21 @@
         $("#base").dropdown('toggle');
     });
 
+    $("#vehicleType").change(function(){
+        var obj = $(this).children(":selected").text();
+        if (obj!="巡视车")
+            $("#eFence").attr("disabled","disabled");
+        else
+            $("#eFence").removeAttr("disabled");
+    });
 </script>
 
 
 <script type="text/javascript">
+
+    function index() {
+        location.href="Vehicle";
+    }
 
     function addVehicle(){
 
@@ -180,19 +210,27 @@
             url:"VehicleAdd1",
             type:"post",
             data:{company:company,
-                  vehicleType:vehicleType,
-                 vehicleLicence:vehicleLicence,
-                  vehicleModel:vehicleModel,
-                  OBUId:OBUId,
-                  eFence:eFence,
-                  eFenceId:eFenceId,
-                  remark:remark/*,
-                  isDelete:isDelete*/
+                vehicleType:vehicleType,
+                vehicleLicence:vehicleLicence,
+                vehicleModel:vehicleModel,
+                OBUId:OBUId,
+                eFence:eFence,
+                eFenceId:eFenceId,
+                remark:remark/*,
+                 isDelete:isDelete*/
             },
             success:function(data){
 
-                if(data==0)
-                        alert("success");
+                if(data=="success")
+                {
+                    //alert("已经成功提交");
+                    $('#success').modal('show');
+
+                }
+                else if(data=="false")
+                    $('#false').modal('show');
+                        //alert("同一车辆不能重复添加");
+
 
 
             }
@@ -201,33 +239,7 @@
     }
 </script>
 
-<!--<script type="text/javascript">
-    $(document).ready(function(){
-        $("#button_submit").click(function(){
-            var company=document.getElementById("company");
-            var vehicleType=document.getElementById("vehicleType");
-            var vehicleLicence=$("#vehicleLicence").val();
-            var vehicleModel=$("#vehicleModel").val();
-            var eFenceId=$("#eFenceId").val();
-            var eFence=$("#eFence").val();
-            var remark=$("#remark").val();
 
-            $.ajax({
-                type:"POST",
-                url:"/Vehicle/add1",
-                data:{company:company,vehicle:vehicle,vehicleLicence:vehicleLicence,
-                    vehicleModel:vehicleModel,eFenceId:eFenceId,eFence:eFence,
-                    remark:remark},
-                success:function(data){
-                    alert("成功");
-                },
-                error:function(e) {
-                    alert("出错："+e);
-                }
-            });
-        });
-    });
-</script>-->
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yanglin
@@ -87,7 +88,7 @@
                         <td><input type="text" class="table-input" id=""/></td>
                     </tr>-->
                     <tr>
-                        <td>总里程</td>
+                        <td>总里程(千米)</td>
                         <td><input type="text" class="table-input" id="distance" /></td>
                     </tr>
 
@@ -100,12 +101,19 @@
                         <td><input type="text" class="table-input" id="time"/></td>
                     </tr>
                     <tr>
-                        <td>执行时间</td>
-                        <td><input type="text" class="table-input" id="runtime"/></td>
+                        <td>执行时间(年)</td>
+                        <!--<td><input type="text" class="table-input" id="happen-year" /></td>-->
+                        <td>
+                            <select id="happen-year" style="max-height: 5s">
+                                <c:forEach items="${yearList}" var="year">
+                                    <option>${year}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>包件描述</td>
-                        <td><input type="text" class="table-input" id="remark"/></td>
+                        <td><textarea class="table-input" rows="3" id="remark"></textarea></td>
                     </tr>
                     </tbody>
                 </table>
@@ -115,7 +123,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="addPackage()">提交</button>
+                <button class="btn btn-default" onclick="addPackage()">提交</button>
                 <button class="btn btn-default">取消</button>
             </div>
         </div>
@@ -135,18 +143,50 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="null" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>包件名称不能为空!</p>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>包件名称已存在,不能重复添加!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
+
     $(function(){
         $("#base").dropdown('toggle');
     });
@@ -154,33 +194,21 @@
 </script>
 
 <script type="text/javascript">
-    /*function getRoads(){
-        alert("add");
-        var obj=document.getElementsByName("roads");
-        var roads="";
-        var distance=0;
-        for(var i=0;i<obj.length;i++){
-            if(obj[i].checked){
-                roads=roads+obj[i].nextSibling.nodeValue;
-                distance=distance+obj[i].value;
-                document.distance.value=distance;
-                document.roads.value=roads;
-            }
-        }
 
-    }*/
+    function index() {
+        location.href="Package";
+    }
+
     function addPackage(){
-
 
         var company=$("#company option:selected").text();
         var packageName=$("#packageName").val();
         var distance=$("#distance").val();
         //var inputMan=$("#inputMan").val();
         var time=$("#time").val();
-        var runtime=$("#runtime").val();
+        var runtime=$("#happen-year").val();
         var remark=$("#remark").val();
 
-        alert(company+packageName+distance+time+runtime+remark);
         $.ajax({
             url:"PackageAdd1",
             type:"post",
@@ -193,7 +221,14 @@
                 runtime:runtime,
                 remark:remark},
 
-            success:function(){
+            success:function(data){
+
+                if(data=="success")
+                    $('#success').modal('show');
+                else if(data=="null")
+                    $('#null').modal('show');
+                else if(data=="false")
+                    $('#false').modal('show');
 
             }
         })

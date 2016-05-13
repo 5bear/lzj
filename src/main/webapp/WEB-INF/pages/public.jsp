@@ -53,7 +53,7 @@
       <li <%if(pageFather.equals("plan")) {%>class="dropdown open"<%}else{%>class="dropdown"<%}%>>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li <%if(pageName.equals("plan1")) {%>class="active"<%}%>><a href="plan1">养护作业计划</a></li>
+          <li <%if(pageName.equals("Plan1")) {%>class="active"<%}%>><a href="plan1">养护作业计划</a></li>
           <li <%if(pageName.equals("plan2")) {%>class="active"<%}%>><a href="line">作业线路管理</a></li>
           <li <%if(pageName.equals("plan3")) {%>class="active"<%}%>><a href="plan3">布点计划</a></li>
           <%--<li <%if(pageName.equals("plan4")) {%>class="active"<%}%>><a href="Driver">驾驶员计划</a></li>--%>
@@ -74,7 +74,7 @@
         <ul class="dropdown-menu">
           <li <%if(pageName.equals("history1")) {%>class="active"<%}%>><a href="history1">历史轨迹查询</a></li>
           <li <%if(pageName.equals("history2")) {%>class="active"<%}%>><a href="history2">历史视频查询</a></li>
-          <li <%if(pageName.equals("history3")) {%>class="active"<%}%>><a href="history3">异常查询</a></li>
+          <li <%if(pageName.equals("history3")) {%>class="active"<%}%>><a href="History3">异常查询</a></li>
         </ul>
       </li>
 
@@ -115,7 +115,7 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script>
 
-  $('a[data-toggle="droplist"]').click(function() {
+  $('a[data-toggle="dropdown"]').click(function() {
     $(this).nextAll().toggle();
   });
 

@@ -58,12 +58,22 @@ public class VehicleController extends BaseController {
                       @RequestParam(value = "vehicleLicence") String vehicleLicence,
                       @RequestParam(value = "vehicleModel") String vehicleModel,
                       @RequestParam(value = "OBUId") String OBUId,
-                      @RequestParam(value = "eFence") String eFence,
+                      @RequestParam(value = "eFence") String ef,
                        @RequestParam(value="eFenceId") String eFenceId,
                       @RequestParam(value = "remark") String remark/*,
                       @RequestParam(value="isDelete") String isDelete*/)
     {
 
+
+        List<Vehicle> vehicleList=vehicleDao.getList();
+        for(int i=0;i<vehicleList.size();i++)
+        {
+
+            Vehicle vehicle=vehicleList.get(i);
+            if(vehicleLicence.equals(vehicle.getVehicleLicence())) {
+                return "false";
+            }
+        }
 
         Vehicle vehicle = new Vehicle();
         vehicle.setCompany(company);
@@ -71,8 +81,8 @@ public class VehicleController extends BaseController {
         vehicle.setVehicleLicence(vehicleLicence);
         vehicle.setVehicleModel(vehicleModel);
         vehicle.seteFenceId(Long.parseLong(eFenceId));
-        vehicle.seteFence(eFence);
-        vehicle.setOBUId(Long.parseLong(OBUId));
+        vehicle.seteFence(ef);
+        vehicle.setOBUId(OBUId);
         vehicle.setRemark(remark);
         vehicle.setIsDelete(0);
         vehicle.setCreateTime(simpleDateFormat.format(new Date()));
@@ -101,16 +111,27 @@ public class VehicleController extends BaseController {
                      @RequestParam(value = "vehicleLicence") String vehicleLicence,
                      @RequestParam(value = "vehicleModel") String vehicleModel,
                      @RequestParam(value = "eFenceId") String eFenceId,
-                     @RequestParam(value = "eFence") String eFence,
+                     @RequestParam(value = "eFence") String ef,
+                        @RequestParam(value="OBUId") String OBUId,
                      @RequestParam(value = "remark") String remark)
     {
+        /*List<Vehicle> vehicleList=vehicleDao.getList();
+        for(int i=0;i<vehicleList.size();i++)
+        {
+
+            Vehicle vehicle=vehicleList.get(i);
+            if(vehicleLicence.equals(vehicle.getVehicleLicence())) {
+                return "false";
+            }
+        }*/
         Vehicle vehicle = vehicleDao.getById(Long.parseLong(id));
         vehicle.setCompany(company);
         vehicle.setVehicleType(vehicleType);
         vehicle.setVehicleLicence(vehicleLicence);
         vehicle.setVehicleModel(vehicleModel);
         vehicle.seteFenceId(Long.parseLong(eFenceId));
-        vehicle.seteFence(eFence);
+        vehicle.seteFence(ef);
+        vehicle.setOBUId(OBUId);
         vehicle.setRemark(remark);
         vehicle.setEditTime(simpleDateFormat.format(new Date()));
         vehicleDao.update(vehicle);
@@ -155,18 +176,4 @@ public class VehicleController extends BaseController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "/list",method = RequestMethod.POST)
-    @ResponseBody
-    public String list(){
-        List<Vehicle>vehicleList=vehicleDao.getList();
-        return JSONArray.fromObject(vehicleList).toString();
-    }*/
-
-
-    /*@RequestMapping(value = "/get",method = RequestMethod.POST)
-    @ResponseBody
-    public String list(@RequestParam(value = "id")String id){
-        Vehicle vehicle=vehicleDao.getById(Long.parseLong(id));
-        return JSONObject.fromObject(vehicle).toString();
-    }*/
 }

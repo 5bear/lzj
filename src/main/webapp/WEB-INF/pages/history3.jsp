@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <div class="alert">
+        <div class="alert" style="display: none">
             <p class="alert-title text-center">异常提示</p>
             <p><input type="checkbox"/>1、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
             <p><input type="checkbox"/>2、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
@@ -120,9 +120,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    $(function(){
-        $("#history").dropdown('toggle');
-    });
+
 
     $('#date').datetimepicker({
         lang:'ch',

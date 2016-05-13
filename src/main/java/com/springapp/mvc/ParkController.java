@@ -4,6 +4,7 @@ package com.springapp.mvc;
  * Created by yanglin on 16/4/16.
  */
 
+
 import com.springapp.entity.Park;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +58,19 @@ public class ParkController extends BaseController {
                        @RequestParam(value = "addr") String addr,
                        @RequestParam(value = "serverIP") String serverIP)
     {
-        System.out.println("add1");
+        //System.out.println("add1");
+
+        List<Park> parkList=parkDao.getList();
+        for(int i=0;i<parkList.size();i++)
+        {
+
+            Park park=parkList.get(i);
+            if(parkName.equals(park.getParkName())) {
+                return "false";
+            }
+        }
+        if(parkName=="")
+            return "null";
         Park park = new Park();
         park.setCompany(company);
         park.setParkName(parkName);
@@ -89,7 +102,23 @@ public class ParkController extends BaseController {
                         @RequestParam(value = "addr") String addr,
                         @RequestParam(value = "serverIP") String serverIP)
     {
+        if(parkName=="")
+            return "null";
         Park park = parkDao.getById(Long.parseLong(id));
+        /*String parkNameEdit=park.getParkName();
+        List<Park> parkList=parkDao.getList();
+        for(int i=0;i<parkList.size();i++)
+        {
+
+
+            Park p=parkList.get(i);
+            if(parkName!=parkNameEdit)
+            {
+                if(parkName.equals(p.getParkName()))
+                return "false";
+            }
+        }*/
+
         park.setCompany(company);
         park.setParkName(parkName);
         park.setTel(tel);

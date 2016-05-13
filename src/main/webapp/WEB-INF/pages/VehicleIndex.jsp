@@ -89,7 +89,7 @@
                                     <td>${vehicle.remark}</td>
                                     <td>
                                         <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editVehicle('${vehicle.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deleteVehicle('${vehicle.id}')">删除</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId('${vehicle.id}')">删除</button>
                                         <!--<a href="#" class="operation"><img src="images/edit.png" alt="编辑" onclick="editVehicle('${vehicle.id}')"/>编辑</a>
                                         <a class="operation" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除" onclick="deleteVehicle(${vehicle.id})"/>删除</a>-->
                                     </td>
@@ -101,6 +101,19 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <div class="row text-right">
+            <ul class="page">
+                <li><a href="#"><</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">></a></li>
+            </ul>
         </div>
 
 
@@ -120,7 +133,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteVehicle()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -131,22 +144,26 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
-<script>
-    $(function(){
-        $("#base").dropdown('toggle');
-    });
-</script>
+
 <script type="text/javascript">
 
-    function editVehicle(id)
+    var id;
+
+    function getId(Id)
     {
-        location.href="VehicleEdit?id="+id;
+        id=Id;
+    }
+
+    function editVehicle(Id)
+    {
+        location.href="VehicleEdit?id="+Id;
 
 
     }
-    function deleteVehicle(id)
+    function deleteVehicle()
     {
-        alert("delete");
+
+        //alert("delete");
         $.ajax({
             url:"VehicleDelete",
             type:"post",
@@ -164,15 +181,6 @@
 
     function searchVehicle(search)
     {
-        /*$.ajax({
-            //url:"search?search="+search,
-            url:"search",
-            type:"post",
-            data:{search:search},
-            success:function(){
-            }
-
-        })*/
         location.href="VehicleSearch?search="+search;
     }
 
@@ -181,3 +189,6 @@
 </script>
 </body>
 </html>
+
+
+

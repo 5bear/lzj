@@ -54,7 +54,8 @@
         </select>
         <input type="text" id="date" placeholder="选择日期"/>
         <input type="text" id="hour1" placeholder="选择起始时间"/>
-        <input type="text" id="hour2" placeholder="选择结束时间"/>
+        <input type="text" id="hour2" placeholder="选择结束时间"/>、
+        <button class="btn btn-default">搜索</button>
       </div>
       <div class="col-lg-12 text-center table-title">
         养护车辆作用区域

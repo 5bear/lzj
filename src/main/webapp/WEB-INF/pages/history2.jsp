@@ -333,9 +333,6 @@
 
 
 <script>
-    $(function(){
-        $("#history").dropdown('toggle');
-    });
 
     $('#date').datetimepicker({
         lang:'ch',

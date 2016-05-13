@@ -40,6 +40,8 @@ public class BaseController{
     protected MaintainProgressDao progressDao;
     @Autowired
     protected PowerDao powerDao;
+    @Autowired
+    protected VehiclePosDao vehiclePosDao;
     public BaseController(){
        simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
     }

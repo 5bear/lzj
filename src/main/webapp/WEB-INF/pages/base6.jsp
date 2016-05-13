@@ -138,9 +138,7 @@
     yearEnd: 2050
   });
 
-  $(function(){
-    $("#base").dropdown('toggle');
-  });
+
   $(document).ready(function() {
     $.ajax({
       url: "Rules/list",

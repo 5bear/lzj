@@ -33,7 +33,7 @@
     <!-- Sidebar -->
     <jsp:include page="public.jsp" flush="true">
         <jsp:param name="pageName" value="Plan1"></jsp:param>
-        <jsp:param name="pageFather" value="Plan"></jsp:param>
+        <jsp:param name="pageFather" value="plan"></jsp:param>
     </jsp:include>
 
     <div id="page-wrapper">
@@ -105,9 +105,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    $(function(){
-        $("#plan").dropdown('toggle');
-    });
+
     var newYear;
     var yearArray = [];
     var row1='';
@@ -201,9 +199,9 @@
                     for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
                         for (var i = 1; i <= 12; i++) {       //月份
                             //alert("包件"+Bj+j);
-                            document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
+                            document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[Bj-1]) / Number(totaldays))) * Number(getTime(i)));  //取整数
                         }
-                        document.getElementById('Time'+Bj+'13').innerHTML = totaltime[BJ-1];
+                        document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
                     }
                 setTotalMileage();
                 setTotalTime();
@@ -332,9 +330,11 @@
                 BJcounts=data.length;
                 var BJ=1;
                 var totalmileage=[];
+                var totaltime=[];
                 $(data).each(function (index) {
                     totalmileage.push(data[index].distance);
-                    row1 = "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">"  + data[index].packageName + "</a></td>";
+                    totaltime.push(data[index].time);
+                    row1= "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">" + BJ+". " + data[index].packageName + "</a></td>";
                     row2 = "<td class='table-th'>里程数</td>";
                     for (var i = 1; i <= 13; i++) {
                         row2 += "<td id=" + "Mileage" + BJ + i + "></td>";
@@ -371,9 +371,9 @@
                 for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
                     for (var i = 1; i <= 12; i++) {       //月份
                         //alert("包件"+Bj+j);
-                        document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
+                        document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[Bj-1]) / Number(totaldays))) * Number(getTime(i)));  //取整数
                     }
-                    document.getElementById('Time'+Bj+'13').innerHTML = totaltime[BJ-1];
+                    document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
                 }
                 setTotalMileage();
                 setTotalTime();

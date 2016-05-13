@@ -318,9 +318,7 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery.datetimepicker.js"></script>
     <script>
-    $(function(){
-    $("#progress").dropdown('toggle');
-    });
+
 
     $('#date1').datetimepicker({
     lang:'ch',

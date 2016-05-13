@@ -31,192 +31,188 @@
 
 <div id="wrapper">
 
-    <!-- Sidebar -->
+<!-- Sidebar -->
     <jsp:include page="public.jsp" flush="true">
         <jsp:param name="pageName" value="progress1-year"></jsp:param>
         <jsp:param name="pageFather" value="progress"></jsp:param>
     </jsp:include>
 
-    <div id="page-wrapper">
+<div id="page-wrapper" class="panel-wrapper">
 
-        <div class="row">
-            <div class="col-lg-12">
-                <ol class="breadcrumb">
-                    <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
-                    <li class="active"><i class="icon-file-alt"></i> 养护进度监控</li>
-                </ol>
-            </div>
-        </div><!-- /.row -->
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
+            <li class="active"><i class="icon-file-alt"></i> 养护进度监控</li>
+        </ol>
+    </div>
+</div><!-- /.row -->
 
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading text-center">作业进度查看列表</div>
-                    <div class="panel-body">
-                        <li class="dropdown dropdown1">
-                            <a href="#" data-toggle="dropdown">上海市</a>
-                            <div class="arrow-section arrow-section1">
-                                <div class="arrow-down arrow-down1"></div>
-                            </div>
-                            <ul class="dropdown-menu panel-menu">
+<div class="row">
+<div class="col-sm-3">
+<div class="panel panel-primary">
+<div class="panel-heading text-center">作业进度查看列表</div>
+<div class="panel-body">
+    <li class="dropdown dropdown1">
+    <a href="#" data-toggle="droplist">上海市</a>
+    <div class="arrow-section arrow-section1">
+    <div class="arrow-down arrow-down1"></div>
+    </div>
+    <ul class="dropdown-menu panel-menu">
+    <li class="dropdown dropdown2">
+    <a href="#">所有公司</a>
+    </li>
+    <li class="dropdown dropdown2">
+    <a href="#" data-toggle="droplist">上海成基公司</a>
+    <div class="arrow-section arrow-section2">
+    <div class="arrow-down arrow-down2"></div>
+    </div>
+        <c:forEach items="${chengjiCompany}" var="item">
+    <ul class="dropdown-menu panel-menu">
+    <li class="dropdown dropdown3">
+        <a href="#" data-toggle="droplist">${item.packageName}</a>
+    <div class="arrow-section arrow-section3">
+    <div class="arrow-down arrow-down3"></div>
+    </div>
+    <ul class="dropdown-menu panel-menu">
+        <script>
+            var roads='${item.roads}';
+            var road = roads.split(',');
+            var a="AllRoads";
+            var packageName1='${item.packageName}';
+            document.write("<li onclick='CJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
+            for(var i=0;i<road.length;i++){
+                document.write("<li onclick='CJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
+            }
+        </script>
+    </ul>
+    </li>
+    </ul>
+    </c:forEach>
 
+    <li class="dropdown dropdown2">
+    <a href="#" data-toggle="droplist">上海高架公司</a>
+    <div class="arrow-section arrow-section2">
+    <div class="arrow-down arrow-down2"></div>
+    </div>
+        <c:forEach items="${gaojiaCompany}" var="item">
+    <ul class="dropdown-menu panel-menu">
+    <li class="dropdown dropdown3">
+        <a href="#" data-toggle="droplist">${item.packageName}</a>
+    <div class="arrow-section arrow-section3">
+    <div class="arrow-down arrow-down3"></div>
+    </div>
+        <li onclick="GJgetRoads()"></li>
+    <ul class="dropdown-menu panel-menu">
+        <script>
+            var roads='${item.roads}';
+            var road = roads.split(',');
+            var a="AllRoads";
+            var packageName1='${item.packageName}';
+            document.write("<li onclick='GJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
+            for(var i=0;i<road.length;i++){
+                document.write("<li onclick='GJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
+            }
+        </script>
+    </ul>
+    </li>
 
-                                <li class="dropdown dropdown2">
-                                    <a href="#" data-toggle="dropdown">上海成基公司</a>
-                                    <div class="arrow-section arrow-section2">
-                                        <div class="arrow-down arrow-down2"></div>
-                                    </div>
-                                    <c:forEach items="${chengjiCompany}" var="item">
-                                        <ul class="dropdown-menu panel-menu">
-                                            <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">${item.packageName}</a>
-                                                <div class="arrow-section arrow-section3">
-                                                    <div class="arrow-down arrow-down3"></div>
-                                                </div>
-                                                <ul class="dropdown-menu panel-menu">
-                                                    <script>
-                                                        var roads='${item.roads}';
-                                                        var road = roads.split(',');
-                                                        var a="AllRoads";
-                                                        var packageName1='${item.packageName}';
-                                                        document.write("<li onclick='CJgetRoad(packageName1,a)'>所有路段</li>");
-                                                        for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick='CJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
-                                                        }
-                                                    </script>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </c:forEach>
-                                </li>
-                                <li class="dropdown dropdown2">
-                                    <a href="#" data-toggle="dropdown">上海高架公司</a>
-                                    <div class="arrow-section arrow-section2">
-                                        <div class="arrow-down arrow-down2"></div>
-                                    </div>
-                                    <c:forEach items="${gaojiaCompany}" var="item">
-                                        <ul class="dropdown-menu panel-menu">
-                                            <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">${item.packageName}</a>
-                                                <div class="arrow-section arrow-section3">
-                                                    <div class="arrow-down arrow-down3"></div>
-                                                </div>
-                                                <ul class="dropdown-menu panel-menu">
-                                                    <script>
-                                                        var roads='${item.roads}';
-                                                        var road = roads.split(',');
-                                                        var a="AllRoads";
-                                                        var packageName1='${item.packageName}';
-                                                        document.write("<li onclick='GJgetRoad(packageName1,a)'>所有路段</li>");
-                                                        for(var i=0;i<road.length;i++){
-                                                            document.write("<li onclick='GJgetRoad(packageName1,roads[i])'>"+road[i]+"</li>");
-                                                        }
-                                                    </script>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </c:forEach>
-                                </li>
-                            </ul>
-                        </li>
-                    </div>
-                </div>
-            </div>
+    </ul>
+        </c:forEach>
+    </li>
+    </ul>
+    </li>
+    </div>
+    </div>
+    </div>
 
-            <div class="col-lg-9">
+    <div class="col-sm-9">
 
-                <div class="row">
-                    <div class="col-lg-12 text-right search-row">
-                        <select name="" id="select-time">
-                            <option value="day">本日</option>
-                            <option value="month">本月</option>
-                            <option value="year" selected="selected">本年</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-12 text-center table-title time-row">
-                        上海市全包件工作情况
-                    </div>
-                </div>
+    <div class="row">
+    <div class="col-sm-12 text-right search-row">
+    <select name="" id="select-time">
+    <option value="day">本日</option>
+    <option value="month" selected="selected">本月</option>
+    <option value="year">本年</option>
+    </select>
+    </div>
+    <div class="col-sm-12 text-center table-title time-row">
+    上海市全包件工作情况
+    </div>
+    </div>
 
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <table class="table vertical-table progress-table">
-                            <tbody>
-                            <tr>
-                                <td>月份</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>合计</td>
-                            </tr>
-                            <tbody id="work">
-                            <tr>
-                                <td>有效作业率<br/>(单位：%)</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>匝道覆盖率<br/>(单位：%)</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-lg-12">注：未清扫则为N，为白色；1-59之间为红色，60-79之间为黄色，80-100之间为绿色。点击跳转详情。</div>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+    <div class="col-sm-12 text-center">
+        <table class="table vertical-table progress-table">
+            <tbody>
+            <tr class="blue-tr">
+                <td>月份</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>合计</td>
+            </tr>
+            <tr>
+                <td>有效作业率<br/>(单位：%)</td>
+                <td class="green"><a href="Progress1">80</a></td>
+                <td class="green"><a href="Progress1">90</a></td>
+                <td class="green"><a href="Progress1">100</a></td>
+                <td class="green"><a href="Progress1">97</a></td>
+                <td class="green"><a href="Progress1">100</a></td>
+                <td class="green"><a href="Progress1">89</a></td>
+                <td class="green"><a href="Progress1">70</a></td>
+                <td class="green"><a href="Progress1">80</a></td>
+                <td class="green"><a href="Progress1">84</a></td>
+                <td class="green"><a href="Progress1">90</a></td>
+                <td class="green"><a href="Progress1">80</a></td>
+                <td class="green"><a href="Progress1">100</a></td>
+                <td class="green"><a href="Progress1">94</a></td>
+            </tr>
+            <tr>
+                <td>匝道覆盖率<br/>(单位：%)</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+                <td>80</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12">注：未清扫则为N，为白色；1-59之间为红色，60-79之间为黄色，80-100之间为绿色。点击跳转详情。</div>
+    </div>
+    </div>
+    </div>
 
     </div><!-- /#page-wrapper -->
 
-</div><!-- /#wrapper -->
+    </div><!-- /#wrapper -->
 
-<!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    $(function(){
-        $("#progress").dropdown('toggle');
-    });
-
-    $('a[data-toggle="dropdown"]').click(function() {
+    $('a[data-toggle="droplist"]').click(function() {
         $(this).nextAll().toggle();
     });
-
     $("#select-time").change(function(){
         var obj = $("#select-time").val();
         var myDate = new Date();
@@ -242,6 +238,9 @@
         company="上海成基公司";
         packagename=packageName;
         roads=Roads;
+        alert(company);
+        alert(packagename);
+        alert(roads);
         if(Roads=="AllRoads"){
             getYear();
             getTable();
@@ -255,13 +254,13 @@
         company="上海高架公司";
         packagename=packageName;
         roads=Roads;
-        if(Roads=="AllRoads"){
+        if(roads=="AllRoads"){
             getYear();
-            getTable1();
+            getTable();
         }
         else {
             getYear();
-            getTable();
+            getTable1();
         }
     }
     function getYear(){
@@ -269,6 +268,9 @@
         year = myDate.getFullYear();
     }
     function getTable(){
+        alert(year);
+        alert(company);
+        alert(packagename);
         $.ajax({
             url:"progress1-year/getMonthByYear",
             type:"post",
@@ -282,34 +284,47 @@
                 work1="<tr><td>有效作业率<br/>(单位：%)</td>";
                 zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
                 var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
                 $(data).each(function (index) {
                     if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        Distance[0]+=data[index].distance;               ///建立string数组存储匝道覆盖，未清扫为N的情况
+                        Distance[0]+=data[index].distance;
+                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
                     }else if(data[index].time.substr(5,2)=="02"){
                         Distance[1]+=data[index].distance;
+                        Coverage[1]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="03"){
                         Distance[2]+=data[index].distance;
+                        Coverage[2]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="04"){
                         Distance[3]+=data[index].distance;
+                        Coverage[3]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="05"){
                         Distance[4]+=data[index].distance;
+                        Coverage[4]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="06"){
                         Distance[5]+=data[index].distance;
+                        Coverage[5]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="07"){
                         Distance[6]+=data[index].distance;
+                        Coverage[6]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="08"){
                         Distance[7]+=data[index].distance;
+                        Coverage[7]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="09"){
                         Distance[8]+=data[index].distance;
+                        Coverage[8]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="10"){
                         Distance[9]+=data[index].distance;
+                        Coverage[9]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="11"){
                         Distance[10]+=data[index].distance;
+                        Coverage[10]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="12"){
                         Distance[11]+=data[index].distance;
+                        Coverage[11]+=data[index].coverage;
                     }
                 })
-                getdata(Distance,zadao);                                       //作业+匝道
+                getdata(Distance,Coverage);                                       //作业+匝道
                 work1+= "<td>total</td></tr>"
                 zadao1 += "<td>total</td></tr>"
                 $("#work").html(work1 + zadao1);
@@ -331,34 +346,48 @@
                 work1="<tr><td>有效作业率<br/>(单位：%)</td>";
                 zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
                 var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+
+                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
                 $(data).each(function (index) {
                     if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        Distance[0]+=data[index].distance;               ///建立string数组存储匝道覆盖，未清扫为N的情况
+                        Distance[0]+=data[index].distance;
+                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
                     }else if(data[index].time.substr(5,2)=="02"){
                         Distance[1]+=data[index].distance;
+                        Coverage[1]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="03"){
                         Distance[2]+=data[index].distance;
+                        Coverage[2]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="04"){
                         Distance[3]+=data[index].distance;
+                        Coverage[3]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="05"){
                         Distance[4]+=data[index].distance;
+                        Coverage[4]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="06"){
                         Distance[5]+=data[index].distance;
+                        Coverage[5]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="07"){
                         Distance[6]+=data[index].distance;
+                        Coverage[6]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="08"){
                         Distance[7]+=data[index].distance;
+                        Coverage[7]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="09"){
                         Distance[8]+=data[index].distance;
+                        Coverage[8]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="10"){
                         Distance[9]+=data[index].distance;
+                        Coverage[9]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="11"){
                         Distance[10]+=data[index].distance;
+                        Coverage[10]+=data[index].coverage;
                     }else if(data[index].time.substr(5,2)=="12"){
                         Distance[11]+=data[index].distance;
+                        Coverage[11]+=data[index].coverage;
                     }
                 })
-                getdata(Distance,zadao);                                       //作业+匝道
+                getdata(Distance,Coverage);                                       //作业+匝道                                       //作业+匝道
                 work1+= "<td>total</td></tr>"
                 zadao1 += "<td>total</td></tr>"
                 $("#work").html(work1 + zadao1);
@@ -368,30 +397,30 @@
     function getdata(distance,coverage){
         for(var a= 0;a<12;a++)
         {
-            EffectiveDistance = distance[a] / 2;
-            EffectiveCoverage = coverage;
+            EffectiveDistance = distance[a];
+            EffectiveCoverage = coverage[a];
             setTable(a+1);
         }
     }
     function setTable(month) {
-            if (EffectiveDistance >=1 && EffectiveDistance <= 59)
-                colour = "red";
-            else if (EffectiveDistance >=60 && EffectiveDistance <= 79)
-                colour = "yellow";
-            else if (EffectiveDistance >=80 && EffectiveDistance <= 100)
-                colour = "green";
-            if (EffectiveDistance == 0) {
-                work1 += "<td >N</td>";
+        if (EffectiveDistance >=1 && EffectiveDistance <= 59)
+            colour = "red";
+        else if (EffectiveDistance >=60 && EffectiveDistance <= 79)
+            colour = "yellow";
+        else if (EffectiveDistance >=80 && EffectiveDistance <= 100)
+            colour = "green";
+        if (EffectiveDistance == 0) {
+            work1 += "<td >N</td>";
 
-                zadao1 += " <td></td>";
-            }
-            else {
-                work1 += "<td class=" + colour + "><a href='Progress1?year=" + year +"&month=" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
+            zadao1 += " <td></td>";
+        }
+        else {
+            work1 += "<td class=" + colour + "><a href='Progress1?year=" + year +"&month=" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
 
-                zadao1 += " <td>" + EffectiveCoverage + "</td>";
-            }
+            zadao1 += " <td>" + EffectiveCoverage + "</td>";
+        }
     }
 
 </script>
-</body>
-</html>
+    </body>
+    </html>

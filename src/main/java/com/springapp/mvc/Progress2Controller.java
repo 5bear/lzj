@@ -24,4 +24,9 @@ public class Progress2Controller extends BaseController{
         modelAndView.setViewName("progress2-1");
         return modelAndView;
     }
+    @RequestMapping(value="/progress2-2",method = RequestMethod.GET)
+    public ModelAndView home2(ModelAndView modelAndView){
+        modelAndView.setViewName("progress2-2");
+        return modelAndView;
+    }
 }

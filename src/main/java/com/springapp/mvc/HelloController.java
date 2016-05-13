@@ -1,7 +1,11 @@
 package com.springapp.mvc;
 
+import com.springapp.classes.FileRead;
 import com.springapp.classes.pingTest;
-import com.springapp.entity.*;
+import com.springapp.entity.Account;
+import com.springapp.entity.Line;
+import com.springapp.entity.Vehicle;
+import com.springapp.entity.VehiclePos;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,6 +90,31 @@ public class HelloController extends BaseController{
 		modelAndView.addObject("gjyhList",gjyhList);
 		modelAndView.setViewName("index");
 		return modelAndView;
+	}
+/*	public String getDevGps(@RequestParam(value = "devIDNO")String devIDNO){
+		String filePath="D://"+devIDNO+"txt";
+		FileRead fileRead=new FileRead();
+		try{
+			String content= fileRead.readTxtFile(filePath);
+			JSONObject.toBean()
+		}catch (Exception e){
+			return "fail";
+		}
+	}*/
+	@RequestMapping(value = "/getGPS",method = RequestMethod.GET)
+	@ResponseBody
+	public String getGPs(@RequestParam(value = "devIDNO")String devIDNO){
+		String filePath="D://"+devIDNO+".txt";
+		VehiclePos vehiclePos=new VehiclePos();
+		FileRead fileRead=new FileRead();
+		try{
+			String content= fileRead.readTxtFile(filePath);
+			vehiclePos= (VehiclePos) JSONObject.toBean(JSONObject.fromObject(content), VehiclePos.class);
+			vehiclePosDao.save(vehiclePos);
+		}catch (Exception e){
+			return "fail";
+		}
+		return JSONObject.fromObject(vehiclePos).toString();
 	}
 	@RequestMapping(value = "/line",method = RequestMethod.GET)
 	public ModelAndView line(){

@@ -280,14 +280,14 @@
                     </div>
                     <ul class="dropdown-menu panel-menu">
                       <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">养护车</a>
+                        <a href="#" data-toggle="droplist">清扫车</a>
                         <div class="arrow-section arrow-section3">
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cyList}" var="item">
                             <li>
-                              <a href="#">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -300,20 +300,20 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cqList}" var="item">
                             <li>
-                              <a href="#">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
                       </li>
                       <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">巡查车</a>
+                        <a href="#" data-toggle="droplist">巡视车</a>
                         <div class="arrow-section arrow-section3">
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cxList}" var="item">
                             <li>
-                              <a href="#">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -329,14 +329,14 @@
                     </div>
                     <ul class="dropdown-menu panel-menu">
                       <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">养护车</a>
+                        <a href="#" data-toggle="droplist">清扫车</a>
                         <div class="arrow-section arrow-section3">
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gyList}" var="item">
                             <li>
-                              <a href="#">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -349,20 +349,20 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gqList}" var="item">
                             <li>
-                              <a href="#">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
                       </li>
                       <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">巡查车</a>
+                        <a href="#" data-toggle="droplist">巡视车</a>
                         <div class="arrow-section arrow-section3">
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gxList}" var="item">
                             <li>
-                              <a href="#">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -482,12 +482,17 @@
 </script>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 <script>
   var currentLng,currentLat;
   var polyline;//折线对象
   var linePoints=new Array();
-  var myCar;
-  var qian,sao,xun;
+  var myCar;//汽车图标
+  var label;
+  var vehicleLicence//牌照
+  var vehicle//车辆类型
+  var devIDNO//车载设备
+ /* var qian,sao,xun;//汽车图标*/
   var polylines=new Array();//多条折线
   var lineMap=new Map();
   var markers=new Array();
@@ -498,9 +503,34 @@
 
   map.enableScrollWheelZoom();//允许放大缩放
   map.addControl(top_left_control);
+/*车辆gps显示*/
 
+  function setVehicle(vl,v,d){
+    vehicleLicence=vl;
+    vehicle=v;
+    devIDNO=d;
+  }
+  function showVehiclePos(vehicleLicence,vehicle,devIDNO){
+    $.ajax({
+      url:"getGPS",
+      type:"get",
+      data:{devIDNO:devIDNO},
+      dataType:"json",
+      success:function(data){
+        if(data.isDriver==0)
+        map.removeOverlay(myCar);
+        var gpspoint=new BMap.Point(data.lng /1000000,data.lat /1000000)
+
+        addVehicle(vehicleLicence,vehicle,devIDNO,data.lng /1000000,data.lat /1000000,data.speed,data.isDriver,data.HDD,gpspoint)
+      }
+    })
+  }
+/*5s*/
+  setInterval(function(){
+    showVehiclePos(vehicleLicence,vehicle,devIDNO);
+  },"5000");
   //每两秒车辆位置变化
-  var z=1;
+/*  var z=1;
   setTimeout(function(){
     console.log(polylines)
     for(i=0;i<polylines.length;i++){
@@ -511,18 +541,17 @@
       }
     }
     setInterval(function(){
-      panTo(linePoints[1].lng,linePoints[1].lat)
       var ps=new Array()
       ps.push(linePoints[z-1])
       ps.push(linePoints[z])
-      var p = new BMap.Polyline(ps,{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+      var p = new BMap.Polyline(ps,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
       map.addOverlay(p);   //增加折线
       map.removeOverlay(xun)
       xun = new ComplexCustomOverlay(linePoints[z], "images/xun.png");
       map.addOverlay(xun);
       z+=1;
     },"1000");
-  },"2000")
+  },"2000")*/
 
 
  /* map.addEventListener('click',mapClick)*/
@@ -532,95 +561,69 @@
     console.log(point)
     addVehicle(1,point);
   }
-  function addVehicle(vehicle,Point){
-    switch(vehicle){
-      case 1:
-        myCar = new ComplexCustomOverlay(Point, "images/xun.png");
-        break
-      case 2:
-        myCar = new ComplexCustomOverlay(Point, "images/qian.png");
-        break
-      case 3:
-        myCar = new ComplexCustomOverlay(Point, "images/sao.png");
-        break
+  function addVehicle(vehicleLicence,vehicle,devIDNO,lng,lat,speed,isDriver,HDD,point){
+
+    //坐标转换完之后的回调函数
+    translateCallback = function (point){
+      linePoints.push(point)
+      if(linePoints.length>1){
+        var ps=new Array()
+        ps.push(linePoints[linePoints.length-1])
+        ps.push(linePoints[linePoints.length-2])
+        var p = new BMap.Polyline(ps,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+        map.addOverlay(p);   //增加折线
+      }
+
+      if(HDD=="00")
+        HDD="硬盘不存在"
+      else if(HDD=="01")
+        HDD="硬盘存在";
+      else
+        HDD="断电"
+      if(isDriver==0)
+        isDriver="正在作业"
+      else
+        isDriver="静止"
+      if(vehicle=="巡视车")
+        myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
+      else if(vehicle=="牵引车")
+        myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
+      else
+        myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
+      var opts = {
+        width : 100,     // 信息窗口宽度
+        height: 200,     // 信息窗口高度
+        title : "车辆信息" , // 信息窗口标题
+        enableMessage:true,//设置允许信息窗发送短息
+        message:""
+      }
+      label = new BMap.Label("", {offset: new BMap.Size(-100, -100)});
+
+      label.setContent("车辆牌照:" + vehicleLicence +"<br>车辆类型:" + vehicle +"<br>车载设备编号:" + devIDNO +"<br>经度:" + lng + "<br>纬度:" + lat+"<br>速度:" + speed+"km/h"+"<br>车辆状态:"+isDriver+"<br>硬盘状态:"+HDD);
+      /* var infoWindow = new BMap.InfoWindow("车辆牌照:"+vehicleLicence+"车辆类型:"+vehicle+"车载设备编号:"+devIDNO+"经度:"+lng+"纬度:"+lat+"速度(km/h):"+speed+"21322132", opts);  // 创建信息窗口对象*/
+      myCar.addEventListener('click',function(){
+        location.href="progress2-1"
+      });
+      myCar.addEventListener("mouseover",function(e){
+        myCar.setLabel(label)
+      });
+      myCar.addEventListener("mouseout",function(e){
+        mapCar.setLabel(null)
+      })
+      /* myCar.addEventListener("mouseover",function(e){
+       map.openInfoWindow(infoWindow,point);
+       });
+       myCar.addEventListener("mouseout",function(e){
+       map.closeInfoWindow(infoWindow,point);
+       });*/
+      map.addOverlay(myCar);
     }
-    map.addOverlay(myCar);
+
+    setTimeout(function(){
+      BMap.Convertor.translate(point,0,translateCallback);     //真实经纬度转成百度坐标
+    }, 2000);
 
   }
-  // 复杂的自定义覆盖物
-  function ComplexCustomOverlay(point, images){
-    this._point = point;
-    this._images = images;
-  }
-  ComplexCustomOverlay.prototype = new BMap.Overlay();
-  ComplexCustomOverlay.prototype.initialize = function(map){
-    this._map = map;
-    var div = this._div = document.createElement("div");
-    div.style.position = "absolute";
-    div.style.border="0px"
-    /*div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);*/
-    /* div.style.backgroundColor = "#EE5D5B";
-     div.style.border = "1px solid #BC3B3A";
-     div.style.color = "white";
-     div.style.height = "18px";
-     div.style.padding = "2px";
-     div.style.lineHeight = "18px";
-     div.style.whiteSpace = "nowrap";
-     div.style.MozUserSelect = "none";
-     div.style.fontSize = "12px"*/
-   /* var input = this._input = document.createElement("input");
-    input.type="button";
-    input.class="bt";
-    input.style.background="url("+this._images+")";
-    input.style.backgroundSize="100% 100%";
-    input.style.width="32px";
-    input.style.height="16px";
-    div.appendChild(input);*/
-    var that = this;
-
-    var arrow = this._arrow = document.createElement("div");
-    arrow.style.background = "url("+this._images+") no-repeat";
-    arrow.style.backgroundSize="100% 100%";
-    arrow.style.position = "absolute";
-    arrow.style.width = "32px";
-    arrow.style.height = "16px";
-    arrow.style.top = "22px";
-    arrow.style.left = "10px";
-    arrow.style.overflow = "hidden";
-    div.appendChild(arrow);
-    arrow.onclick=function(){
-      location.href="progress2-1"
-    }
-    /*   div.onmouseover = function(){
-     this.style.backgroundColor = "#6BADCA";
-     this.style.borderColor = "#0000ff";
-     this.getElementsByTagName("span")[0].innerHTML = that._overText;
-     arrow.style.backgroundPosition = "0px -20px";
-     }
-
-     div.onmouseout = function(){
-     this.style.backgroundColor = "#EE5D5B";
-     this.style.borderColor = "#BC3B3A";
-     this.getElementsByTagName("span")[0].innerHTML = that._text;
-     arrow.style.backgroundPosition = "0px 0px";
-     }*/
-
-    map.getPanes().labelPane.appendChild(div);
-
-    return div;
-  }
-  ComplexCustomOverlay.prototype.draw = function(){
-    var map = this._map;
-    var pixel = map.pointToOverlayPixel(this._point);
-    this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
-    this._div.style.top  = pixel.y - 30 + "px";
-  }
- /* xun = new ComplexCustomOverlay(new BMap.Point(121.503231,31.204382), "images/xun.png");
-  map.addOverlay(xun);
-  qian = new ComplexCustomOverlay(new BMap.Point(121.529964,39.917657), "images/qian.png");
-  map.addOverlay(qian);
-  sao = new ComplexCustomOverlay(new BMap.Point(121.478797,39.917657), "images/sao.png");
-  map.addOverlay(sao);*/
   function getLine(pos){
     console.log(pos)
     var driving = new BMap.DrivingRoute(map);    //创建驾车实例
@@ -647,6 +650,8 @@
       }
     });
 
+
+
     $.ajax({
       url:"line/get",
       type:"post",
@@ -664,7 +669,7 @@
         linePoints=new Array()
       }
     })
-
+    showVehiclePos("0100001");
     $.ajax({
       url:"getMap",
       type:"post",

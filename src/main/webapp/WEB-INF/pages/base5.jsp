@@ -489,9 +489,6 @@
       $("#inputMan").html("");
       $("#vehicles").html("");
     }
-    $('a[data-toggle="dropdown"]').click(function() {
-      $(this).nextAll().toggle();
-    });
   </script>
 
 </div></body>

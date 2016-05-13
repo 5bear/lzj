@@ -85,7 +85,7 @@
                                     <td>${park.serverIP}</td>
                                     <td>
                                         <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPark('${park.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deletePark('${park.id}')">删除</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getID('${park.id}')">删除</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -123,7 +123,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deletePark()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -133,13 +133,16 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
-<script>
-    $(function(){
-        $("#base").dropdown('toggle');
-    });
-</script>
+
 
 <script type="text/javascript">
+
+    var id;
+
+    function getID(Id) {
+        id=Id;
+
+    }
 
     function editPark(id)
     {
@@ -147,9 +150,9 @@
 
 
     }
-    function deletePark(id)
+    function deletePark()
     {
-        alert("delete");
+
         $.ajax({
             url:"ParkDelete",
             type:"post",

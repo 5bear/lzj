@@ -58,10 +58,10 @@
             <div class="col-lg-6 col-lg-offset-3">
                 <table class="table vertical-table">
                     <tbody>
-                    <tr>
+                    <!--<tr>
                         <td>编号</td>
                         <td>${MaintainLog_detail.id}</td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>车辆牌照</td>
                         <td>${MaintainLog_detail.vehicleLicence}</td>
@@ -82,10 +82,7 @@
                         <td>日期</td>
                         <td>${MaintainLog_detail.dayTime}</td>
                     </tr>
-                    <tr>
-                        <td>事件介绍</td>
-                        <td>${MaintainLog_detail.remark}</td>
-                    </tr>
+
                     <tr>
                         <td>发生时间</td>
                         <td>${MaintainLog_detail.time}</td>
@@ -94,6 +91,12 @@
                         <td>养护公司</td>
                         <td>${MaintainLog_detail.company}</td>
                     </tr>
+                    <tr>
+                        <td>事件介绍</td>
+                        <td>${MaintainLog_detail.remark}</td>
+                    </tr>
+
+
                     </tbody>
                 </table>
             </div>
@@ -102,7 +105,7 @@
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
                 <button class="btn btn-default" onclick="editMaintainLog('${MaintainLog_detail.id}')">编辑</button>
-                <button class="btn btn-default" onclick="deleteMaintainLog('${MaintainLog_detail.id}')">删除</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId('${MaintainLog_detail.id}')">删除</button>
             </div>
         </div>
 
@@ -111,18 +114,35 @@
 
 </div><!-- /#wrapper -->
 
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>你确定要删除吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteMaintainLog()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- JavaScript -->
 <script src="../js/jquery-1.10.2.js"></script>
 <script src="../js/bootstrap.js"></script>
 <script src="../js/jquery.datetimepicker.js"></script>
-<script>
-    $(function(){
-        $("#progress").dropdown('toggle');
-    });
-
-</script>
 
 <script type="text/javascript">
+
+    var id;
+
+    function getId(Id) {
+        id=Id;
+    }
 
     function editMaintainLog(id)
     {
@@ -130,17 +150,17 @@
 
 
     }
-    function deleteMaintainLog(id)
+    function deleteMaintainLog()
     {
-        alert("delete");
+
         $.ajax({
             url:"MaintainLogDelete",
             type:"post",
             data:{id:id},
-            success:function(){
+            success:function(data){
 
                 if(data=="success"){
-                    location.reload();
+                    location.href="MaintainLog";
                 }else {
                     alert("error");
                 }

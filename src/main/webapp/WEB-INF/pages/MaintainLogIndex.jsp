@@ -65,7 +65,7 @@
                                     </div>
                                     <ul class="dropdown-menu panel-menu">
                                         <li class="dropdown dropdown3">
-                                            <a href="#" data-toggle="dropdown">养护车</a>
+                                            <a href="#" data-toggle="dropdown">清扫车</a>
                                             <div class="arrow-section arrow-section3">
                                                 <div class="arrow-down arrow-down3"></div>
                                             </div>
@@ -95,7 +95,7 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown3">
-                                            <a href="#" data-toggle="dropdown">巡查车</a>
+                                            <a href="#" data-toggle="dropdown">巡视车</a>
                                             <div class="arrow-section arrow-section3">
                                                 <div class="arrow-down arrow-down3"></div>
                                             </div>
@@ -114,7 +114,7 @@
                                     </div>
                                     <ul class="dropdown-menu panel-menu">
                                         <li class="dropdown dropdown3">
-                                            <a href="#" data-toggle="dropdown">养护车</a>
+                                            <a href="#" data-toggle="dropdown">清扫车</a>
                                             <div class="arrow-section arrow-section3">
                                                 <div class="arrow-down arrow-down3"></div>
                                             </div>
@@ -144,7 +144,7 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown3">
-                                            <a href="#" data-toggle="dropdown">巡查车</a>
+                                            <a href="#" data-toggle="dropdown">巡视车</a>
                                             <div class="arrow-section arrow-section3">
                                                 <div class="arrow-down arrow-down3"></div>
                                             </div>
@@ -178,13 +178,13 @@
 
                 <div class="row">
                     <div class="col-lg-12 time-row">
-                        <a href="MaintainLog/add0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增养护纪录</a>
+                        <a href="MaintainLogAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增养护纪录</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>编号</th>
+                                <!--<th>编号</th>-->
                                 <th>车辆牌照</th>
                                 <th>负责人</th>
                                 <th>路段信息</th>
@@ -196,7 +196,7 @@
                             <tbody>
                             <c:forEach items="${MaintainLogList}" var="maintainLog">
                                 <tr>
-                                    <td>${maintainLog.id}</td>
+                                    <!--<td>${maintainLog.id}</td>-->
                                     <td>${maintainLog.vehicleLicence}</td>
                                     <td>${maintainLog.principal}</td>
                                     <td>${maintainLog.road}</td>
@@ -204,7 +204,7 @@
                                     <td>${maintainLog.dayTime}</td>
                                     <td>
                                         <button class="btn btn-default" onclick="MaintainLog_detail('${maintainLog.id}')">详细</button>
-                                        <button class="btn btn-default" onclick="deleteMaintainLog('${maintainLog.id}')">删除</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId('${maintainLog.id}')">删除</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -242,7 +242,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteMaintainLog()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -253,9 +253,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    $(function(){
-        $("#progress").dropdown('toggle');
-    });
+
 
     $('#date1').datetimepicker({
         lang:'ch',
@@ -272,13 +270,15 @@
         yearStart: 2016,
         yearEnd: 2050
     });
-
-    $('a[data-toggle="dropdown"]').click(function() {
-        $(this).nextAll().toggle();
-    });
 </script>
 
 <script type="text/javascript">
+
+    var id;
+
+    function getId(Id) {
+        id=Id;
+    }
 
     function MaintainLog_detail(id)
     {
@@ -286,14 +286,14 @@
 
 
     }
-    function deleteMaintainLog(id)
+    function deleteMaintainLog()
     {
-        alert("delete");
+
         $.ajax({
             url:"MaintainLogDelete",
             type:"post",
             data:{id:id},
-            success:function(){
+            success:function(data){
 
                 if(data=="success"){
                     location.reload();

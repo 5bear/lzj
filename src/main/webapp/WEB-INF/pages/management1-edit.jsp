@@ -171,9 +171,7 @@
       })
     }
   }
-  $(function(){
-    $("#management").dropdown('toggle');
-  });
+
 
 </script>
 </body>

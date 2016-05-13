@@ -73,32 +73,44 @@
                         <td><input type="text" class="table-input"  id="packageName" value="${Package_edit.packageName}"/></td>
                     </tr>
                     <tr>
-                        <td>总里程</td>
+                        <td>总里程(千米)</td>
                         <td><input type="text" class="table-input"  id="distance" value="${Package_edit.distance}"/></td>
                     </tr>
                     <!--<tr>
                         <td>实际里程</td>
                         <td><input type="text" class="table-input"/></td>
-                    </tr>
-                    <tr>
-                        <td>包含路段名称</td>
-                        <td><input type="text" class="table-input" readonly="readonly"/></td>
                     </tr>-->
                     <tr>
-                        <td>录入人</td>
-                        <td><input type="text" class="table-input"  id="inputMan" value="${Package_edit.inputMan}"/></td>
+                        <td>包含路段名称</td>
+                        <!--<td><input type="text" class="table-input" readonly="readonly" value="${Package_edit.roads}"/></td>-->
+                        <td>${Package_edit.roads}</td>
+
                     </tr>
+
                     <tr>
                         <td>次数</td>
                         <td><input type="text" class="table-input"  id="time" value="${Package_edit.time}"/></td>
                     </tr>
                     <tr>
-                        <td>执行时间</td>
-                        <td><input type="text" class="table-input"  id="runtime" value="${Package_edit.runtime}"/></td>
+                        <td>执行时间(年)</td>
+                        <td>
+                            <select id="happen-year">
+                                <c:forEach items="${yearList}" var="year">
+                                    <option <c:if test="${Package_edit.runtime=='${year}'}">selected="selected"</c:if>>${year}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+
                     </tr>
                     <tr>
                         <td>包件描述</td>
-                        <td><input type="text" class="table-input"  id="remark" value="${Package_edit.remark}"/></td>
+
+                        <td><textarea class="table-input" rows="3" id="remark" value="${Package_edit.remark}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>录入人</td>
+                        <!--<td><input type="text" class="table-input" readonly="readonly" value="${Package_edit.inputMan}"/></td>-->
+                        <td>${Package_edit.inputMan}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -107,7 +119,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPackage()">提交</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#success" >提交</button>
                 <button class="btn btn-default">取消</button>
             </div>
         </div>
@@ -127,7 +139,7 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="editPackage()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -135,13 +147,14 @@
 
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#base").dropdown('toggle');
     });
+
 
 </script>
 
@@ -149,13 +162,12 @@
 
     function editPackage(){
 
-        alert("edit");
         var company=$("#company option:selected").text();
         var packageName=$("#packageName").val();
         var distance=$("#distance").val();
-        var inputMan=$("#inputMan").val();
+        //var inputMan=$("#inputMan").val();
         var time=$("#time").val();
-        var runtime=$("#runtime").val();
+        var runtime=$("#happen-year").val();
         var remark=$("#remark").val();
         $.ajax({
             url:"PackageEdit1",
@@ -164,12 +176,14 @@
                 company:company,
                 packageName:packageName,
                 distance:distance,
-                inputMan:inputMan,
+                //inputMan:inputMan,
                 time:time,
                 runtime:runtime,
                 remark:remark},
             success:function(data){
 
+                if(data=="success")
+                        location.href="Package";
             }
         })
 

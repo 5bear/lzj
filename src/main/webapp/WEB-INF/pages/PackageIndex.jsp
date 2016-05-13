@@ -70,10 +70,10 @@
                                 <th>总里程</th>
                                 <th>实际里程</th>
                                 <th>包含路段名称</th>
-                                <th>录入人</th>
                                 <th>次数</th>
                                 <th>执行时间</th>
                                 <th>包件描述</th>
+                                <th>录入人</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -86,43 +86,18 @@
                                     <td>${item.distance}</td>
                                     <td>${item.realDistance}</td>
                                     <td>${item.roads}</td>
-                                    <td>${item.inputMan}</td>
                                     <td>${item.time}</td>
                                     <td>${item.runtime}</td>
                                     <td>${item.remark}</td>
+                                    <td>${item.inputMan}</td>
                                     <td>
                                         <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPackage('${item.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="deletePackage(${item.id})">删除</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId(${item.id})">删除</button>
                                     </td>
                                 </tr>
                             </c:forEach>
 
-                            <!--<tr>
-                                <td>上海高速养护公司</td>
-                                <td>包件1</td>
-                                <td>8700</td>
-                                <td>8700</td>
-                                <td><a href="plan2-add.html">中环路</a></td>
-                                <td>XXX</td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="base4-edit.html" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
-                                    <a class="operation" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除"/>删除</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>上海高速养护公司</td>
-                                <td>包件1</td>
-                                <td>8700</td>
-                                <td>8700</td>
-                                <td><a href="plan2-add.html">中环路</a></td>
-                                <td>XXX</td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="base2-edit.html" class="operation"><img src="images/edit.png" alt="编辑"/>编辑</a>
-                                    <a class="operation" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除"/>删除</a>
-                                </td>
-                            </tr>-->
+
                             </tbody>
                         </table>
                     </div>
@@ -145,6 +120,23 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deletePackage()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>包含路段不为空,此时不能删除该包件!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
             </div>
         </div><!-- /.modal-content -->
@@ -158,25 +150,32 @@
 
 <script type="text/javascript">
 
+    var id;
+
+    function getId(Id) {
+        id=Id;
+
+    }
+
     function editPackage(id)
     {
         location.href="PackageEdit?id="+id;
 
 
     }
-    function deletePackage(id)
+    function deletePackage()
     {
-        alert("delete");
         $.ajax({
             url:"PackageDelete",
             type:"post",
             data:{id:id},
-            success:function(){
+            success:function(data){
 
                 if(data=="success"){
                     location.reload();
                 }else {
-                    alert("error");
+                    //alert("包含路段不为空,此时不能删除该包件!");
+                    $('#false').modal('show');
                 }
             }
         })

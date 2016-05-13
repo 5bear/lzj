@@ -75,7 +75,7 @@
                 <tr>
                   <td>${account.account}</td>
                   <td>${account.username}</td>
-                  <td>${account.password}</td>
+                  <td>******</td>
                   <td>${account.power}</td>
                   <td>${account.company}</td>
                   <td>${account.phoneNum}</td>
@@ -145,9 +145,6 @@
       }
     })
   }
-  $(function(){
-    $("#management").dropdown('toggle');
-  });
 </script>
 </body>
 </html>

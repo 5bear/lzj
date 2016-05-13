@@ -7,12 +7,6 @@ import javax.persistence.*;
  */
 @Entity
 public class VehiclePos {
-    private Long id;
-    private Long OBUId;
-    private Double lng;
-    private Double lat;
-    private String direction;
-    private int speed;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -23,28 +17,55 @@ public class VehiclePos {
         this.id = id;
     }
 
-    @Column
-    public Long getOBUId() {
-        return OBUId;
+    private Long id;
+    private String devIDNO;
+    private Long lng;
+    private Long lat;
+    private String direction;
+    private int speed;
+    private String HDD;//00是不存在 01是存在 10是断电
+
+    @Column(length = 10)
+    public int getIsDrive() {
+        return isDrive;
     }
 
-    public void setOBUId(Long OBUId) {
-        this.OBUId = OBUId;
+    public void setIsDrive(int isDrive) {
+        this.isDrive = isDrive;
+    }
+
+    @Column
+    public String getHDD() {
+        return HDD;
+    }
+
+    public void setHDD(String HDD) {
+        this.HDD = HDD;
+    }
+
+    private int isDrive;//0表示正在作业，1表示静止
+    @Column
+    public String getDevIDNO() {
+        return devIDNO;
+    }
+
+    public void setDevIDNO(String devIDNO) {
+        this.devIDNO = devIDNO;
     }
     @Column
-    public Double getLng() {
+    public Long getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(Long lng) {
         this.lng = lng;
     }
     @Column
-    public Double getLat() {
+    public Long getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(Long lat) {
         this.lat = lat;
     }
     @Column

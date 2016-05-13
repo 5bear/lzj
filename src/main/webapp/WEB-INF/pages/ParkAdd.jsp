@@ -90,7 +90,8 @@
 
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="addPark()">提交</button>
+                <!--<button class="btn btn-default" data-toggle="modal" data-target="#success" >提交</button>-->
+                <button class="btn btn-default" onclick="addPark()" >提交</button>
                 <button class="btn btn-default">取消</button>
             </div>
         </div>
@@ -110,52 +111,96 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">重复提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>同一停车场不能重复存储</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="null" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>停车场名称不能为空</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
-<script>
-    $(function(){
-        $("#base").dropdown('toggle');
-    });
-
-</script>
 
 <script type="text/javascript">
 
-    function addPark(){
+    var judge="true";
 
-        var company=$("#company option:selected").text();
-        var parkName=$("#parkName").val();
-        var tel=$("#tel").val();
-        var addr=$("#addr").val();
-        var serverIP=$("#serverIP").val();
+    function index() {
+        location.href="Park";
+    }
 
-        //alert("dsdsd");
-        $.ajax({
-            url:"ParkAdd1",
-            type:"post",
-            data:{company:company,
-                parkName:parkName,
-                tel:tel,
-                addr:addr,
-                serverIP:serverIP},
-            success:function(data){
+    function addPark(judge){
 
-                if(data==0)
-                    alert("success");
+            var company=$("#company option:selected").text();
+            var parkName=$("#parkName").val();
+            var tel=$("#tel").val();
+            var addr=$("#addr").val();
+            var serverIP=$("#serverIP").val();
 
 
-            }
-        })
+            $.ajax({
+                url:"ParkAdd1",
+                type:"post",
+                data:{company:company,
+                    parkName:parkName,
+                    tel:tel,
+                    addr:addr,
+                    serverIP:serverIP},
+                success:function(data){
+
+                    if(data=="success")
+                    {
+                        //alert("已经成功提交");
+                        $('#success').modal('show');
+
+                    }
+                    else if(data=="false")
+                        $('#false').modal('show');
+                    //alert("同一公司同一停车场不能重复存储");
+                    else if(data=="null")
+                        $('#null').modal('show');
+
+
+                }
+            })
+
 
     }
+
+
 </script>
 
 </body>

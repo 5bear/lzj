@@ -63,7 +63,7 @@ public class MaintainLogController extends BaseController {
                        @RequestParam(value = "principal") String principal,
                        @RequestParam(value = "road") String road,
                        @RequestParam(value = "eventType") String eventType,
-                       //@RequestParam(value = "_date") String _date,
+                       @RequestParam(value = "_date") String _date,
                        @RequestParam(value = "remark") String remark,
                        @RequestParam(value = "time") String time)
     {
@@ -75,7 +75,7 @@ public class MaintainLogController extends BaseController {
         mtl.setPrincipal(principal);
         mtl.setRoad(road);
         mtl.setEventType(eventType);
-        mtl.setDayTime(simpleDateFormat.format(new Date()));
+        mtl.setDayTime(_date);
         mtl.setRemark(remark);
         mtl.setTime(time);
         mtl.setCompany(company);
@@ -105,7 +105,7 @@ public class MaintainLogController extends BaseController {
                         @RequestParam(value = "principal") String principal,
                         @RequestParam(value = "road") String road,
                         @RequestParam(value = "eventType") String eventType,
-                        //@RequestParam(value = "date") String date,
+                        @RequestParam(value = "dayTime") String dayTime,
                         @RequestParam(value = "time") String time,
                         @RequestParam(value = "remark") String remark)
     {
@@ -116,7 +116,7 @@ public class MaintainLogController extends BaseController {
         mtl.setPrincipal(principal);
         mtl.setRoad(road);
         mtl.setEventType(eventType);
-        //mtl.setDate(date);
+        mtl.setDayTime(dayTime);
         mtl.setTime(time);
         mtl.setRemark(remark);
         mtl.setCompany(company);

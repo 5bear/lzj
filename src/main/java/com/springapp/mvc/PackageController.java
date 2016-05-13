@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,9 +71,16 @@ public class PackageController extends BaseController {
     }
 
     @RequestMapping(value = "/PackageAdd0")
-    public String add0()
+    public ModelAndView add0()
     {
-        return "PackageAdd";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("PackageAdd");
+        List<Integer> yearList=new ArrayList<Integer>();
+        for(int i=2016;i<=2030;i++) {
+            yearList.add(i);
+        }
+        modelAndView.addObject("yearList", yearList);
+        return modelAndView;
     }
 
 
@@ -90,6 +98,20 @@ public class PackageController extends BaseController {
     {
 
         //HttpSession session=request.getSession();
+
+        if(packageName=="")
+            return "null";
+
+        List<Package> packageList=packageDao.getList();
+        for(int i=0;i<packageList.size();i++)
+        {
+
+            Package p=packageList.get(i);
+            if(packageName.equals(p.getPackageName())) {
+                return "false";
+            }
+        }
+
         String inputMan=(String)session.getAttribute("username");
         Package pac = new Package();
         pac.setCompany(company);
@@ -113,6 +135,11 @@ public class PackageController extends BaseController {
         Package pac = packageDao.getById(Long.parseLong(id));
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("PackageEdit");
+        List<Integer> yearList=new ArrayList<Integer>();
+        for(int i=2016;i<=2030;i++) {
+            yearList.add(i);
+        }
+        modelAndView.addObject("yearList", yearList);
         modelAndView.addObject("Package_edit", pac);
         return modelAndView;
     }
@@ -124,7 +151,7 @@ public class PackageController extends BaseController {
                         @RequestParam(value = "packageName") String packageName,
                         //@RequestParam(value = "roads") String roads,
                         @RequestParam(value = "distance") String distance,
-                        @RequestParam(value = "inputMan") String inputMan,
+                        //@RequestParam(value = "inputMan") String inputMan,
                         @RequestParam(value = "time") String time,
                         @RequestParam(value = "runtime") String runtime,
                         @RequestParam(value = "remark") String remark)
@@ -134,7 +161,7 @@ public class PackageController extends BaseController {
         pac.setPackageName(packageName);
         //pac.setRoads(roads);
         pac.setDistance(Long.parseLong(distance));
-        pac.setInputMan(inputMan);
+        //pac.setInputMan(inputMan);
         pac.setTime(Integer.parseInt(time));
         pac.setRuntime(runtime);
         pac.setRemark(remark);
@@ -147,16 +174,16 @@ public class PackageController extends BaseController {
 
     @RequestMapping(value = "/PackageDelete",method = RequestMethod.POST)
     @ResponseBody
-    public String delete(@RequestParam(value = "id")String id){
+    public String delete(@RequestParam(value = "id")String id) {
         Package pac = packageDao.getById(Long.parseLong(id));
-        String r=pac.getRoads();
-        if(r=="")
-            return "false";
-        pac.setIsDelete(1);
-        pac.setDeleteTime(simpleDateFormat.format(new Date()));
-
-        packageDao.update(pac);
-        return "success";
+        String r = pac.getRoads();
+        if (r.equals("")) {
+            pac.setIsDelete(1);
+            pac.setDeleteTime(simpleDateFormat.format(new Date()));
+            packageDao.update(pac);
+            return "success";
+        }
+        return "false";
     }
 
     //根据所属公司进行模糊查询
@@ -167,7 +194,7 @@ public class PackageController extends BaseController {
         System.out.println(search);
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("PackageIndex");
-        List<Package> packageList=packageDao.findAll("from Package where isDelete='0' and company like '%"+search+"%'",Package.class);
+        List<Package> packageList=packageDao.findAll("from Package where isDelete='0' and ((company like '%"+search+"%')or(packageName like '%"+search+"%'))",Package.class);
         modelAndView.addObject("PackageList", packageList);
         modelAndView.addObject("search", search);
         return modelAndView;

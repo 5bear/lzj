@@ -215,18 +215,13 @@
           </select>
 
           <select style="position: absolute; top: 356px;left: 70px; width: 100px;" id="direction">
-            <option value="北">北</option>
-            <option value="南">南</option>
-            <option value="东">东</option>
-            <option value="西">西</option>
-          </select>
-          <select style="position: absolute; top: 402px; left:90px; width: 80px;" id="directionType">
-            <option value="外圈">外圈</option>
             <option value="内圈">内圈</option>
-            <option value="南侧">南侧</option>
-            <option value="北侧">北侧</option>
-            <option value="东侧">东侧</option>
-            <option value="西侧">西侧</option>
+            <option value="外圈">外圈</option>
+          </select>
+          <select style="position: absolute; top: 402px; left:90px; width: 80px;" id="directionType" onchange="changeDirection()">
+            <option value="内外圈" >内外圈</option>
+            <option value="南北侧" >南北侧</option>
+            <option value="东西侧" >东西侧</option>
           </select>
           <p class="p1" style="top:442px;" id="startCoord"></p>
           <p class="p1" style="top:498px;" id="endCoord"></p>
@@ -493,6 +488,17 @@
     else if(type==1)
       $("#btn_type").click(deleteLine);
   }
+
+  /*方向*/
+  function changeDirection(){
+    var dType=$("#directionType").val();
+   if(dType=="内外圈")
+            $("#direction").html(" <option value='内圈'>内圈</option><option value='外圈'>外圈</option>");
+    else if(dType=="南北侧")
+        $("#direction").html(" <option value='南侧'>南侧</option><option value='北侧'>北侧</option>");
+    else
+        $("#direction").html(" <option value='东侧'>东侧</option><option value='西侧'>西侧</option>");
+  }
   /**/
   function panTo(lng,lat){
     var point=new BMap.Point(lng, lat);
@@ -533,9 +539,6 @@
     $("#endCoord").html("");
     $("#realDistance").html("");
   }
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
-  });
 /*
 map
  */

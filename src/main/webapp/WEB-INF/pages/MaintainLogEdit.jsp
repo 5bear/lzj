@@ -94,15 +94,15 @@
                     </tr>
                     <tr>
                         <td>日期</td>
-                        <td>${MaintainLog_edit.dayTime}</td>
-                    </tr>
-                    <tr>
-                        <td>事件介绍</td>
-                        <td><input type="text" class="table-input" id="remark" value="${MaintainLog_edit.remark}"/></td>
+                        <td><input type="text" class="table-input" id="happen-date" value="${MaintainLog_edit.dayTime}"/></td>
                     </tr>
                     <tr>
                         <td>发生时间</td>
-                        <td><input type="text" class="table-input" id="time" value="${MaintainLog_edit.time}"/></td>
+                        <td><input type="text" class="table-input" id="happen-hour" value="${MaintainLog_edit.time}"/></td>
+                    </tr>
+                    <tr>
+                        <td>事件介绍</td>
+                        <td><textarea class="table-input" rows="3" id="remark"></textarea></td>
                     </tr>
                     </tbody>
                 </table>
@@ -121,6 +121,27 @@
 
 </div><!-- /#wrapper -->
 
+<div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">成功提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>已经成功提交</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
+
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -130,9 +151,26 @@
         $("#progress").dropdown('toggle');
     });
 
-</script>
+    $('#happen-date').datetimepicker({
+        lang:'ch',
+        timepicker:false,
+        format:"Y-m-d",
+        yearStart: 2016,
+        yearEnd: 2050
+    });
 
+    $('#happen-hour').datetimepicker({
+        datepicker:false,
+        format:'H:i',
+        step:10
+    });
+
+</script>
 <script type="text/javascript">
+
+    function index() {
+        location.href="MaintainLog";
+    }
 
     function addMaintainLog(){
 
@@ -141,11 +179,10 @@
         var principal=$("#principal").val();
         var road=$("#road option:selected").text();
         var eventType=$("#eventType").val();
-        //var dayTime=$("#dayTime").val();
+        var dayTime=$("#happen-date").val();
         var remark=$("#remark").val();
-        var time=$("#time").val();
+        var time=$("#happen-hour").val();
 
-        alert("edit");
         $.ajax({
             url:"MaintainLogEdit1",
             type:"post",
@@ -154,14 +191,14 @@
                 principal:principal,
                 road:road,
                 eventType:eventType,
-                //dayTime:dayTime,
+                dayTime:dayTime,
                 remark:remark,
                 time:time
             },
             success:function(data){
 
-                if(data==0)
-                    alert("success");
+                if(data=="success")
+                    $('#success').modal('show');
             }
         })
 

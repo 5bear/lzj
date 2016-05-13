@@ -53,7 +53,8 @@
       <div class="col-lg-6 col-lg-offset-3 text-center time-row">
         权限管理
       </div>
-      <table class="table vertical-table">
+      <div class="col-lg-12">
+        <table class="table vertical-table authority-table" >
         <thead>
         <tr>
           <th rowspan="3" colspan="2" class="w200">用户权限</th>
@@ -321,6 +322,7 @@
         </tr>--%>
         </tbody>
       </table>
+      </div>
       <button type="button" class="btn btn-default float-right" id="save">编辑</button>
       <div class="col-lg-12 float-left">本表只有系统管理员能修改，点击编辑后出现下拉框可以更改yes与no，系统管理员不能改变自己的权限。</div>
     </div>
@@ -334,9 +336,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-  $(function(){
-    $("#management").dropdown('toggle');
-  });
+
 
   $(document).ready(function(){
     $.ajax({
@@ -356,65 +356,65 @@
               info += "<tr>" +
               "<td rowspan='6'>基础数据</td>" +
               "<td  class='table-th'>停车场管理</td>" +
-              "<td class='man-fixed man-green'>yes</td>" +
-              "<td class='man-fixed man-green'>yes</td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
+              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
-                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "养护作业计划") {
               info += "<tr>" +
               "<td rowspan='4'>计划管理</td>" +
               "<td  class='table-th'>养护作业计划</td>" +
-              "<td class='man-fixed man-green'>yes</td>" +
-              "<td class='man-fixed man-green'>yes</td>";
+               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
+              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
-                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "养护进度监控") {
               info += "<tr>" +
               "<td rowspan='3'>进度管理</td>" +
               "<td  class='table-th'>进度计划监控</td>" +
-              "<td class='man-fixed man-green'>yes</td>" +
-              "<td class='man-fixed man-green'>yes</td>";
+               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
+              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
-                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "历史线路查询") {
               info += "<tr>" +
               "<td rowspan='3'>历史数据</td>" +
               "<td  class='table-th'>历史线路查询</td>" +
-              "<td class='man-fixed man-green'>yes</td>" +
-              "<td class='man-fixed man-green'>yes</td>";
+               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
+              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
-                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "报表查询") {
               info += "<tr>" +
               "<td rowspan='2'>其他</td>" +
               "<td  class='table-th'>报表查询</td>" +
-              "<td class='man-fixed man-green'>yes</td>" +
-              "<td class='man-fixed man-green'>yes</td>";
+               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
+              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
-                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else {
               info += "<tr>" +
               "<td  class='table-th'>" + pageNames[index] + "</td>" +
-              "<td class='man-fixed man-green'>yes</td>" +
-              "<td class='man-fixed man-green'>yes</td>";
+               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
+              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man man-green'>" + data[index][pageNames[index]][i].management + "</td>" +
-                "<td class='man man-green'>" + data[index][pageNames[index]][i].visit + "</td>";
+                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             }
@@ -425,6 +425,13 @@
       }
     })
   })
+
+  function replace(choice){
+    if(choice=="yes")
+    return "<img src='images/yes.png' alt='有权'>";
+    else
+    return "<img src='images/no.png' alt='无权'>"
+  }
 
   $("#save").click(function() {
 

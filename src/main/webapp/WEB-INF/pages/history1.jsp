@@ -301,7 +301,7 @@
                 <p>(X, Y)</p>
               </div>
               <div class="row">
-                <label>精度：</label>
+                <label>经度：</label>
                 <p>112</p>
               </div>
               <div class="row">
@@ -365,9 +365,7 @@
 </script>
 
 <script>
-  $(function(){
-    $("#history").dropdown('toggle');
-  });
+
 
   $('.date').datetimepicker({
     lang:'ch',

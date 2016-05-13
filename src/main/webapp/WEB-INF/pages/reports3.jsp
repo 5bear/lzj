@@ -55,6 +55,7 @@
         <input type="text" id="date" placeholder="选择日期"/>
         <input type="text" id="hour1" placeholder="选择起始时间"/>
         <input type="text" id="hour2" placeholder="选择结束时间"/>
+        <button class="btn btn-default">搜索</button>
       </div>
       <div class="col-lg-12 text-center table-title">
         养护车辆作业情况
@@ -201,7 +202,7 @@
             <td>嘉闵路外侧</td>
             <td>0时30分</td>
             <td>4时30分</td>
-            <td></td>
+            <td>30</td>
             <td>248</td>
             <td>59671</td>
             <td>无</td>

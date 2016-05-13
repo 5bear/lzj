@@ -16,7 +16,7 @@ public class Vehicle {
     private String vehicleModel;//车辆型号
     private String eFence;//电子围栏
     private Long eFenceId;//
-    private Long OBUId;//车载设备编号
+    private String OBUId;//车载设备编号
     private String remark;//备注
     private int isDelete;
     private String createTime;//添加时间
@@ -46,11 +46,11 @@ public class Vehicle {
     }
 
     @Column(name = "OBUId")
-    public Long getOBUId() {
+    public String getOBUId() {
         return OBUId;
     }
 
-    public void setOBUId(Long OBUId) {
+    public void setOBUId(String OBUId) {
         this.OBUId = OBUId;
     }
 

@@ -378,17 +378,10 @@
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/jquery.datetimepicker.js"></script>
-  <script>
 
-    $('a[data-toggle="droplist"]').click(function() {
-      $(this).nextAll().toggle();
-    });
-  </script>
 
   <script>
-    $(function(){
-      $("#plan").dropdown('toggle');
-    });
+
 
     $('.date').datetimepicker({
       lang:'ch',

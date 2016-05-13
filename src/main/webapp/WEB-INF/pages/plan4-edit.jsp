@@ -142,9 +142,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    $(function(){
-        $("#plan").dropdown('toggle');
-    });
+
 
     $('#date3').datetimepicker({
         lang:'ch',
