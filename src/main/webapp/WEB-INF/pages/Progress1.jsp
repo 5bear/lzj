@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -60,13 +60,20 @@
                     </div>
                     <ul class="dropdown-menu panel-menu">
                         <li class="dropdown dropdown2">
-                            <a href="#">所有公司</a>
+                            <a href="#" onclick="AllCompany2()">所有公司</a>
                         </li>
                         <li class="dropdown dropdown2">
-                            <a href="#" data-toggle="droplist">上海成基公司</a>
+                            <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                             <div class="arrow-section arrow-section2">
                                 <div class="arrow-down arrow-down2"></div>
                             </div>
+                            <ul class="dropdown-menu panel-menu">
+                                <li class="dropdown dropdown3">
+                                    <a href="#" data-toggle="dropdown" onclick="CJgetRoad('AllPackage','xxx')">所有包件</a>
+                                    <div class="arrow-section arrow-section3">
+                                    </div>
+                                </li>
+                            </ul>
                             <c:forEach items="${chengjiCompany}" var="item">
                             <ul class="dropdown-menu panel-menu">
                                 <li class="dropdown dropdown3">
@@ -74,15 +81,16 @@
                                     <div class="arrow-section arrow-section3">
                                         <div class="arrow-down arrow-down3"></div>
                                     </div>
+
                                     <ul class="dropdown-menu panel-menu">
                                         <script>
                                             var roads='${item.roads}';
                                             var road = roads.split(',');
                                             var a="AllRoads";
                                             var packageName1='${item.packageName}';
-                                            document.write("<li onclick='CJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
+                                            document.write("<li ><a href='#'onclick='CJgetRoad("+packageName1+","+a+")'>所有路段</a></li>");
                                             for(var i=0;i<road.length;i++){
-                                                document.write("<li onclick='CJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
+                                                document.write("<li><a href='#' onclick='CJgetRoad("+packageName1+","+road[i]+")'>"+road[i]+"</a></li>");
                                             }
                                         </script>
                                     </ul>
@@ -91,10 +99,17 @@
                             </c:forEach>
 
                         <li class="dropdown dropdown2">
-                            <a href="#" data-toggle="droplist">上海高架公司</a>
+                            <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
                             <div class="arrow-section arrow-section2">
                                 <div class="arrow-down arrow-down2"></div>
                             </div>
+                        <ul class="dropdown-menu panel-menu">
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="dropdown" onclick="GJgetRoad('AllPackage','xxx')">所有包件</a>
+                                <div class="arrow-section arrow-section3">
+                                </div>
+                            </li>
+                        </ul>
                             <c:forEach items="${gaojiaCompany}" var="item">
                             <ul class="dropdown-menu panel-menu">
                                 <li class="dropdown dropdown3">
@@ -102,16 +117,15 @@
                                     <div class="arrow-section arrow-section3">
                                         <div class="arrow-down arrow-down3"></div>
                                     </div>
-                                <li onclick="GJgetRoads()"></li>
                                 <ul class="dropdown-menu panel-menu">
                                     <script>
                                         var roads='${item.roads}';
                                         var road = roads.split(',');
                                         var a="AllRoads";
                                         var packageName1='${item.packageName}';
-                                        document.write("<li onclick='GJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
+                                        document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+a+")'>所有路段</a></li>");
                                         for(var i=0;i<road.length;i++){
-                                            document.write("<li onclick='GJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
+                                            document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+road[i]+")'>"+road[i]+"</a></li>");
                                         }
                                     </script>
                                 </ul>
@@ -131,10 +145,9 @@
     <div class="row">
     <div class="col-lg-12 text-right search-row">
     <select name="" id="select-time">
+        <option value="day">本日</option>
+        <option value="year">本年</option>
         <option value="month" selected="selected">本月</option>
-    <option value="day"selected="selected">本日</option>
-
-    <option value="year"selected="selected">本年</option>
     </select>
     </div>
     <div class="col-lg-12 text-center table-title time-row">
@@ -318,11 +331,11 @@
     });
 
     var colour="";
-    var packagename= request.getParameter("packagename");
-    var roads =request.getParameter("roads");
-    var company=request.getParameter("company");
-    var year= request.getParameter("year");
-    var month = request.getParameter("month");
+    var packagename= '${packagename}';
+    var roads ='${roads}';
+    var company='${company}';
+    var year= '${year}';
+    var month = '${month}';
     var work1 = "";
     var zadao1 = "";
     var work2 = "";
@@ -332,27 +345,100 @@
     })
 
     function CJgetRoad(packageName,Roads){
-        company="上海高架公司";
+        company="上海高架养护管理有限公司";
         packagename=packageName;
         roads=Roads;
         if(Roads=="AllRoads"){
-            getTable();
+            getTable1();
+        }
+        else if(packagename=="AllPackage" && roads=="xxx"){
+            getyear();
+            getTableAllPackage();
         }
         else {
-            getTable1();
+            getTable();
         }
     }
     function GJgetRoad(packageName,Roads){
-        company="上海成基公司";
+        company="上海成基市政建设发展有限公司";
         packagename=packageName;
         roads=Roads;
         if(Roads=="AllRoads"){
             getTable1();
         }
+        else if(packagename=="AllPackage" && roads=="xxx"){
+            getTableAllPackage();
+        }
         else {
             getTable();
         }
     }
+        function AllCompany2(){
+            getTableAll();
+        }
+        function getTableAllPackage(){
+            $.ajax({
+                url:"Progress1/getDayByMonthAllPackage",
+                type:"post",
+                dataType: "json",
+                data:{
+                    year:year,
+                    month:month,
+                    company:company
+                },success:function(data) {
+                    work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                    zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                    work2="<tr><td>有效作业率<br/>(单位：%)</td>";
+                    zadao2="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                    var Distance=[];
+                    var Coverage=[];
+                    for(var i= 0;i<31;i++) {
+                        Distance[i] = 0;
+                        Coverage[i] = 0;
+                    }
+                    $(data).each(function (index) {
+                        Distance.push(data[index].distance);
+                        Coverage.push(data[index].coverage);
+                    })
+                    getdata(Distance,Coverage);                                       //作业+匝道
+                    work2+= "<td>total</td></tr>"
+                    zadao2 += "<td>total</td></tr>"
+                    $("#work1").html(work1 + zadao1);
+                    $("#work2").html(work2 + zadao2);
+                }
+            })
+        }
+        function getTableAll(){
+            $.ajax({
+                url:"Progress1/getDayByMonthAll",
+                type:"post",
+                dataType: "json",
+                data:{
+                    year:year,
+                    month:month
+                },success:function(data) {
+                    work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                    zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                    work2="<tr><td>有效作业率<br/>(单位：%)</td>";
+                    zadao2="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                    var Distance=[];
+                    var Coverage=[];
+                    for(var i= 0;i<31;i++) {
+                        Distance[i] = 0;
+                        Coverage[i] = 0;
+                    }
+                    $(data).each(function (index) {
+                        Distance.push(data[index].distance);
+                        Coverage.push(data[index].coverage);
+                    })
+                    getdata(Distance,Coverage);                                       //作业+匝道
+                    work2+= "<td>total</td></tr>"
+                    zadao2 += "<td>total</td></tr>"
+                    $("#work1").html(work1 + zadao1);
+                    $("#work2").html(work2 + zadao2);
+                }
+            })
+        }
     function getTable1(){
         $.ajax({
             url:"Progress1/getDayByMonth1",
@@ -386,9 +472,9 @@
             }
         })
     }
-    function getTable1(){
+    function getTable(){
         $.ajax({
-            url:"Progress1/getDayByMonth1",
+            url:"Progress1/getDayByMonth",
             type:"post",
             dataType: "json",
             data:{
@@ -455,8 +541,8 @@
             else if (EffectiveDistance >= 80 && EffectiveDistance <= 100)
                 colour = "green";
             if (EffectiveDistance == 0) {
-                work1 += "<td >N</td>";
-                zadao1 += " <td></td>";
+                work2 += "<td >N</td>";
+                zadao2 += " <td></td>";
             }
             else {
                 work2 += "<td class=" + colour + "><a href='progress1-day?year=" + year + "&month=" + month + "&day=" + day + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";

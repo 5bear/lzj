@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -54,7 +54,7 @@
                     <div class="col-lg-12 time-row text-right">
                         <div class="search-div">
                             <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" value="${search}"/>
+                            <input type="text" id="search" placeholder="请输入包件名称" value="${search}"/>
                         </div>
                         <button class="btn btn-default" onclick="searchPackage(document.getElementById('search').value)">搜索</button>
                     </div>

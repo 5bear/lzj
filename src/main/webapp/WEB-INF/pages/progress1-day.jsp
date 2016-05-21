@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -71,101 +73,10 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
-                <li class="text-right aside-li">
-                    <button type="button" class="navbar-aside" title="收起/展开菜单">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </li>
-                <li class="active"><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="base1.html">停车场管理</a></li>
-                        <li><a href="base2.html">车辆管理</a></li>
-                        <li><a href="base3.html">RFID监测点管理</a></li>
-                        <li><a href="base4.html">包件信息管理</a></li>
-                        <li><a href="base5.html">电子围栏管理</a></li>
-                        <li><a href="base6.html">监管规则管理</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="plan1.html">养护作业计划</a></li>
-                        <li><a href="plan2-add.html">作业线路管理</a></li>
-                        <li><a href="plan3.html">布点计划</a></li>
-                        <li><a href="plan4.html">驾驶员计划</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="progress1.html">养护进度监控</a></li>
-                        <li><a href="progress2.html">实时监控</a></li>
-                        <li><a href="progress3.html">养护日志管理</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="history1.html">历史轨迹查询</a></li>
-                        <li><a href="history2.html">历史视频查询</a></li>
-                        <li><a href="history3.html">异常查询</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                        <li><a href="reports2.html">养护车辆作业区域</a></li>
-                        <li><a href="reports3.html">养护车辆作业情况</a></li>
-                        <li><a href="reports4.html">养护车辆超速</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="management1.html">用户管理</a></li>
-                        <li><a href="management2.html">权限管理</a></li>
-                        <li><a href="management3.html">网络状态图</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right navbar-user">
-                <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
+    <jsp:include page="public.jsp" flush="true">
+        <jsp:param name="pageName" value="progress1"></jsp:param>
+        <jsp:param name="pageFather" value="progress"></jsp:param>
+    </jsp:include>
 
 
     <div id="page-wrapper">
@@ -190,90 +101,85 @@
                         <div class="panel-heading text-center">作业进度查看列表</div>
                         <div class="panel-body">
                             <li class="dropdown dropdown1">
-                                <a href="#" data-toggle="dropdown">上海市</a>
+                                <a href="#" data-toggle="droplist">上海市</a>
                                 <div class="arrow-section arrow-section1">
                                     <div class="arrow-down arrow-down1"></div>
                                 </div>
                                 <ul class="dropdown-menu panel-menu">
                                     <li class="dropdown dropdown2">
-                                        <a href="#" data-toggle="dropdown">上海成基公司</a>
-                                        <div class="arrow-section arrow-section2">
-                                            <div class="arrow-down arrow-down2"></div>
-                                        </div>
-                                        <ul class="dropdown-menu panel-menu">
-                                            <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">包件一</a>
-                                                <div class="arrow-section arrow-section3">
-                                                    <div class="arrow-down arrow-down3"></div>
-                                                </div>
-                                                <ul class="dropdown-menu panel-menu">
-
-                                                    <li><a href="#">中环路</a></li>
-                                                    <li><a href="#">中环路立交</a></li>
-                                                    <li><a href="#">上中路隧道</a></li>
-                                                    <li><a href="#">军工路隧道</a></li>
-                                                    <li><a href="#">外滩隧道</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">包件二</a>
-                                                <div class="arrow-section arrow-section3">
-                                                    <div class="arrow-down arrow-down3"></div>
-                                                </div>
-                                                <ul class="dropdown-menu panel-menu">
-                                                    <li><a href="#">中环路</a></li>
-                                                    <li><a href="#">中环路立交</a></li>
-                                                    <li><a href="#">上中路隧道</a></li>
-                                                    <li><a href="#">军工路隧道</a></li>
-                                                    <li><a href="#">外滩隧道</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">包件三</a>
-                                                <div class="arrow-section arrow-section3">
-                                                    <div class="arrow-down arrow-down3"></div>
-                                                </div>
-                                                <ul class="dropdown-menu panel-menu">
-                                                    <li><a href="#">中环路</a></li>
-                                                    <li><a href="#">中环路立交</a></li>
-                                                    <li><a href="#">上中路隧道</a></li>
-                                                    <li><a href="#">军工路隧道</a></li>
-                                                    <li><a href="#">外滩隧道</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        <a href="#" onclick="AllCompany2()">所有公司</a>
                                     </li>
                                     <li class="dropdown dropdown2">
-                                        <a href="#" data-toggle="dropdown">上海高架养护公司公司</a>
+                                        <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                                         <div class="arrow-section arrow-section2">
                                             <div class="arrow-down arrow-down2"></div>
                                         </div>
                                         <ul class="dropdown-menu panel-menu">
                                             <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">包件一</a>
+                                                <a href="#" data-toggle="dropdown" onclick="CJgetRoad('AllPackage','xxx')">所有包件</a>
                                                 <div class="arrow-section arrow-section3">
-                                                    <div class="arrow-down arrow-down3"></div>
                                                 </div>
-                                                <ul class="dropdown-menu panel-menu">
-                                                    <li>
-                                                        <a href="#">中环路</a>
-                                                    </li>
-                                                    <li><a href="#">中环路隧道</a></li>
-                                                </ul>
                                             </li>
+                                        </ul>
+                                        <c:forEach items="${chengjiCompany}" var="item">
+                                        <ul class="dropdown-menu panel-menu">
                                             <li class="dropdown dropdown3">
-                                                <a href="#" data-toggle="dropdown">包件二</a>
+                                                <a href="#" data-toggle="droplist">${item.packageName}</a>
                                                 <div class="arrow-section arrow-section3">
                                                     <div class="arrow-down arrow-down3"></div>
                                                 </div>
+
                                                 <ul class="dropdown-menu panel-menu">
-                                                    <li>
-                                                        <a href="#">中环路</a>
-                                                    </li>
-                                                    <li><a href="#">中环路隧道</a></li>
+                                                    <script>
+                                                        var roads='${item.roads}';
+                                                        var road = roads.split(',');
+                                                        var a="AllRoads";
+                                                        var packageName1='${item.packageName}';
+                                                        document.write("<li ><a href='#'onclick='CJgetRoad("+packageName1+","+a+")'>所有路段</a></li>");
+                                                        for(var i=0;i<road.length;i++){
+                                                            document.write("<li><a href='#' onclick='CJgetRoad("+packageName1+","+road[i]+")'>"+road[i]+"</a></li>");
+                                                        }
+                                                    </script>
                                                 </ul>
                                             </li>
                                         </ul>
+                                        </c:forEach>
+
+                                    <li class="dropdown dropdown2">
+                                        <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
+                                        <div class="arrow-section arrow-section2">
+                                            <div class="arrow-down arrow-down2"></div>
+                                        </div>
+                                        <ul class="dropdown-menu panel-menu">
+                                            <li class="dropdown dropdown3">
+                                                <a href="#" data-toggle="dropdown" onclick="GJgetRoad('AllPackage','xxx')">所有包件</a>
+                                                <div class="arrow-section arrow-section3">
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <c:forEach items="${gaojiaCompany}" var="item">
+                                            <ul class="dropdown-menu panel-menu">
+                                                <li class="dropdown dropdown3">
+                                                    <a href="#" data-toggle="droplist">${item.packageName}</a>
+                                                    <div class="arrow-section arrow-section3">
+                                                        <div class="arrow-down arrow-down3"></div>
+                                                    </div>
+                                                    <ul class="dropdown-menu panel-menu">
+                                                        <script>
+                                                            var roads='${item.roads}';
+                                                            var road = roads.split(',');
+                                                            var a="AllRoads";
+                                                            var packageName1='${item.packageName}';
+                                                            document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+a+")'>所有路段</a></li>");
+                                                            for(var i=0;i<road.length;i++){
+                                                                document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+road[i]+")'>"+road[i]+"</a></li>");
+                                                            }
+                                                        </script>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                        </c:forEach>
                                     </li>
                                 </ul>
                             </li>
@@ -292,18 +198,19 @@
                             <div class="text-center">
                                 上海市全包件工作情况
                                 <select class="table-input" id="select-time">
-                                    <option value="day" selected="selected">本日</option>
+
                                     <option value="month">本月</option>
                                     <option value="year">本年</option>
+                                    <option value="day" selected="selected">本日</option>
                                 </select>
                             </div>
                             <div class="panel-row-left text-center">
                                 <h5 style="margin-bottom: 40px;">作业进度与时间进度表</h5>
                                 <div class="progressbar_1" >
-                                    <div class="bar" style="width:80%;"></div>
+                                    <div class="bar" style="width: 50%;"></div>
                                 </div>
-                                <span style="margin-left: 80px;">80%</span>
-                                <span>2470km</span>
+                                <span style="margin-left: 20px;">50%</span>
+                                <span>247km</span>
                             </div>
                             <div class="panel-row-left">
                                 <div class="panel-section-left">
@@ -335,24 +242,25 @@
 <script src="js/bootstrap.js"></script>
 <script>
 
-    $('a[data-toggle="dropdown"]').click(function() {
+    $('a[data-toggle="droplist"]').click(function() {
         $(this).nextAll().toggle();
     });
+$("#select-time").change(function(){
 
-    $("#select-time").change(function(){
-        var obj = $("#select-time").value;
-        var myDate = new Date();
-        var year1 = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
-        var month1 = myDate.getMonth();       //获取当前月份(0-11,0代表1月)
-        var day1 = myDate.getDate();        //获取当前日(1-31)
-        if(obj == "day"){
-            window.location.href="progress1-day?year="+year1+"&month="+month1+"&day="+day1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;
-        }
-        else if(obj == "month"){
-            window.location.href="Progress1?year="+year1+"&month="+month1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
-        else {window.location.href="progress1-year?year="+year1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
-    });
-
+    var obj = $("#select-time").val();
+    var myDate = new Date();
+    var year1 = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+    var month1 = myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+    var day1 = myDate.getDate();        //获取当前日(1-31)
+    if(obj == "day"){
+        window.location.href="progress1-day?year="+year1+"&month="+month1+"&day="+day1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;
+    }
+    else if(obj == "month"){
+        window.location.href="Progress1?year="+year1+"&month="+month1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
+    else {window.location.href="progress1-year?year="+year1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
+});
+var packagename,roads;
+var company;
     $(function(){
         $("#progress").dropdown('toggle');
     });
@@ -405,8 +313,8 @@
                 type: 'pie',
                 name: ' ',
                 data: [
-                    ['有效作业率',   95.0],
-                    ['无效作业率',       5.0],
+                    ['有效作业率',   45.0],
+                    ['无效作业率',       55.0],
 
                 ]
             }]
@@ -456,8 +364,8 @@
                 type: 'pie',
                 name: ' ',
                 data: [
-                    ['覆盖 3个',   85.0],
-                    ['未覆盖 1个', 15.0],
+                    ['覆盖 3个',   75.0],
+                    ['未覆盖 1个', 25.0],
 
                 ]
             }]

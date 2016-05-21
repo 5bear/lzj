@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -13,296 +13,270 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-   <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
-    
+    <link rel="stylesheet" href="css/style.css">
+
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
-    
+
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
-  <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
+    <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
-<script language="javascript">
+    <script language="javascript">
 
-$(document).ready(function(){//页面加载完之后，自动执行该方法
-setTimeout(function(){$("#alert").show();},60000);//1分后执行该方法
-});
-</script>
+        $(document).ready(function(){//页面加载完之后，自动执行该方法
+            setTimeout(function(){$("#alert").modal('show');},60000);//1分后执行该方法
+        });
+    </script>
 
-    
+
     <style>
-   #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
-    #top {background-color:transparent;height:47%;width:44%;float:left; margin-top:30px;position:relative;}
-    #middle {background-color:transparent;height:47%;width:44%;float:left;margin-top:30px; margin-left:20px;position:relative;}
-  #bottom{ top: 10px;  width: 44%; height:47%;background-color:transparent;position:relative;}
-  #bottom1{ top: 55%; left:44%; width: 42%; height:47%;background-color:transparent; margin-left:20px;position:absolute;}
-  .bt{
-     height: 22px;
-       width: 50px;
-     position: absolute;
-     left:10px;
-     border:0;
-   }
-   
-    .button{
-    position:absolute;
-    border-radius:5px;
-    border:none;
-    background-color: #00608B;
-    color: white;
-    font-size: 12px;
-    padding: 0;}
-  
-   .alert
-   {
-     width: 400px;
-    background-color: #FF9335;
-    color: black;
-    position: fixed;
-    bottom: 0px;
-    right: 20px;
-   }
-    
-  </style>
+        #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+        #top {background-color:transparent;height:400px;width:44%;float:left; margin-top:30px;position:relative;}
+        #middle {background-color:transparent;height:400px;width:44%;float:left;margin-top:30px; margin-left:20px;position:relative;}
+        #bottom{ top: 10px;  width: 44%; height:47%;background-color:transparent;position:relative;}
+        #bottom1{ top: 55%; left:44%; width: 42%; height:47%;background-color:transparent; margin-left:20px;position:absolute;}
+        .bt{
+            height: 22px;
+            width: 50px;
+            position: absolute;
+            left:10px;
+            border:0;
+        }
+
+        .button{
+            position:absolute;
+            border-radius:5px;
+            border:none;
+            background-color: #00608B;
+            color: white;
+            font-size: 12px;
+            padding: 5px;}
+
+        .alert
+        {
+            width: 400px;
+            height: 200px;
+            border:1px solid rgb(2,96,142);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -100px;
+        }
+
+    </style>
     <script>
-    $(function(){ $(".xuanfu1").hide(); //默认隐藏
-    $("#qian").on("click",function(){ $(".xuanfu1").toggle();//显示隐藏切换
-     }) }) 
-     
-    $(function(){ $(".xuanfu2").hide(); //默认隐藏
-    $("#sao").on("click",function(){ $(".xuanfu2").toggle();//显示隐藏切换
-     }) }) 
-    
-     $(function(){ $("#alert").hide();}) //默认隐藏 
-  </script>
-  </head>
+        $(function(){ $(".xuanfu1").hide(); //默认隐藏
+            $("#qian").on("click",function(){ $(".xuanfu1").toggle();//显示隐藏切换
+            }) })
 
-  <body>
+        $(function(){ $(".xuanfu2").hide(); //默认隐藏
+            $("#sao").on("click",function(){ $(".xuanfu2").toggle();//显示隐藏切换
+            }) })
 
-    <div id="wrapper">
+        $(function(){ $("#alert").hide();}) //默认隐藏
+    </script>
+</head>
 
-      <!-- Sidebar -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
-        </div>
+<body  onLoad="init()">
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-              <li class="text-right aside-li">
-                  <button type="button" class="navbar-aside" title="收起/展开菜单">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-              </li>
-            <li><a href="Main.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-            <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="base1.html">停车场管理</a></li>
-                <li><a href="base2.html">车辆管理</a></li>
-                <li><a href="base3.html">RFID监测点管理</a></li>
-                <li><a href="base4.html">包件信息管理</a></li>
-                <li><a href="base5.html">电子围栏管理</a></li>
-                <li><a href="base6.html">监管规则管理</a></li>
-        </ul>
-       </li>
-       
-         <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="plan1.html">养护作业计划</a></li>
-                <li><a href="plan2-add.html">作业线路管理</a></li>
-                <li><a href="plan3.html">布点计划</a></li>
-                <li><a href="plan4.html">驾驶员计划</a></li>
-        </ul>
-       </li>
-       
-         <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="progress1.html">养护进度监控</a></li>
-                <li class="active"><a href="progress2.html">实时监控</a></li>
-                <li><a href="progress3.html">养护日志管理</a></li>
-        </ul>
-       </li>
-       
-           <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="history1.html">历史轨迹查询</a></li>
-                <li><a href="history2.html">历史视频查询</a></li>
-                <li><a href="history3.html">异常查询</a></li>
-        </ul>
-       </li>
-       
-               <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                <li><a href="reports2.html">养护车辆作业区域</a></li>
-                <li><a href="reports3.html">养护车辆作业情况</a></li>
-                <li><a href="reports4.html">养护车辆超速</a></li>
-        </ul>
-       </li>
-       
-                 <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                <li><a href="management1.html">用户管理</a></li>
-                <li><a href="management2.html">权限管理</a></li>
-                <li><a href="management3.html">网络状态图</a></li>
-        </ul>
-       </li>
-      
-          </ul>
+<div id="wrapper">
 
-          <ul class="nav navbar-nav navbar-right navbar-user">
-          <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-                <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </nav>
+    <!-- Sidebar -->
+    <jsp:include page="public.jsp" flush="true">
+        <jsp:param name="pageName" value="progress2-1"></jsp:param>
+        <jsp:param name="pageFather" value="progress"></jsp:param>
+    </jsp:include>
 
-      <div id="page-wrapper">
+    <div id="page-wrapper">
 
         <div class="row">
-          <div class="col-lg-12">
-            <ol class="breadcrumb">
-               <li><a href="progress2.html">进度管理</a></li>
-              <li><a href="progress2.html">实时监控</a></li>
-           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
-            </ol> 
-          </div>
-          
-          
-          
-          
-       
-          
-         
-     <div id="index">
-      <!--<img src="images/index.jpg" width="100%"/>-->
-             <div class="row"><a href="javascript:history.back();" class="operation"><< 返回</a></div>
-          <div id="top">           
-              <p>前置摄像头</p>
-                  <button class="button" style="width:15%;height:8%;top:0;left:45%">获取视频</button>
-                 <button class="button" style="width:15%;height :8%;top:0;left:62%">暂停</button>
-                 <button class="button" style="width:15%;height:8%;top:0;left:79%">全屏</button>
-                <!--<img src="images/videoo.png" width="95%"/>-->
-             <video id="video1" width="95%" style="margin-top:0px;">
-             <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-             <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-               Your browser does not support HTML5 video.
-         </video>
-            </div><!--top-->
-              
-            <div id="middle">
-                <p>后置摄像头</p>
-               
-                 <button class="button" style="width:15%;height:8%;top:0;left:45%">获取视频</button>
-                 <button class="button" style="width:15%;height :8%;top:0;left:62%">暂停</button>
-                 <button class="button" style="width:15%;height:8%;top:0;left:79%">全屏</button>
-                 
-                <video id="video1" width="95%" style="margin-top:0px;">
-             <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-             <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-               Your browser does not support HTML5 video.
-         </video>
-            </div><!--middle-->
-           
-            
-            <div id="bottom">
-                <p>云台摄像头</p>
-                <button class="button" style="width:15%;height:4%;top:53%;left:45%">获取视频</button>
-                 <button class="button" style="width:15%;height :4%;top:53%;left:62%">暂停</button>
-                 <button class="button" style="width:15%;height:4%;top:53%;left:79%">全屏</button>
-                 <video id="video1" width="95%" style="margin-top:0px;">
-             <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-             <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-               Your browser does not support HTML5 video.
-         </video>
-            </div><!--bottom-->
-            
-            <div id="bottom1">
-              <p>云台控制</p>
-                <!--<input type="button" class="bt" style="background:url(images/get.png); background-size: 100% 100%;width:15%;
-                       top:22%;left:15%; position:absolute"/>
-                <input type="button" class="bt" style="background:url(images/getc.png); background-size: 100% 100%;width:15%;
-                       top:22%;left:34%; position:absolute"/>
-                <input type="button" class="bt" style="background:url(images/stopc.png); background-size: 100% 100%;width:15%;
-                       top:22%;left:53%; position:absolute"/>
-                <input type="button" class="bt" style="background:url(images/pre.png); background-size: 100% 100%;width:15%;
-                       top:22%;left:72%; position:absolute"/>-->
-                 
-                <button class="button" style="width:15%;top:22%;left:15%;height:8%">获取视频</button>
-                <button class="button" style="width:15%;top:22%;left:34%;height:8%">获取控制</button>
-                <button class="button" style="width:15%;top:22%;left:53%;height:8%">停止控制</button>
-                <button class="button" style="width:15%;top:22%;left:72%;height:8%">预置点</button>
-                
-                <img src="images/yuntai.png" width="95%"/>
-            </div><!--bottom1-->
-                                 
-      </div><!--index-->
-   
-          
-        </div><!-- /.row -->
-        
-        
-       <div class="alert" id="alert" style="width:30%;height:30%; bottom:30%; right:30%; border:1px solid rgb(2,96,142); background-color:white">
-                    <p class="alert-title text-center" style="margin-top:10%">是否返回实时监控</p>
-                   
-                    <div class="row text-center" style="margin-top:15%;">
-                        <a href="progress2.html">
-                        <button style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</button>
-                        </a>
-                        <button style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">否</button>
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="progress2.html">进度管理</a></li>
+                    <li><a href="progress2.html">实时监控</a></li>
+                    <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
+                </ol>
+            </div>
+
+
+            <div id="index">
+                <!--<img src="images/index.jpg" width="100%"/>-->
+                <div class="col-lg-12">
+                    <a href="javascript:history.back();" class="operation"><< 返回</a>
+                </div>
+                <div id="top">
+                    <p>前置摄像头</p>
+                    <button class="button" style="width:15%;height:8%;top:0;left:45%" onClick="startVideoFront()">获取视频</button>
+                    <button class="button" style="width:15%;height :8%;top:0;left:62%" onClick="stopVideoFront()">暂停</button>
+                    <button class="button" style="width:15%;top:0;left:79%" data-toggle="modal" data-target="#front-full-screen" data-backdrop="static">全屏</button>
+                    <!--<img src="images/videoo.png" width="95%"/>-->
+                    <div style="width:95%;margin-top:0; height:95%; z-index:-1" >
+                        <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
+                                width="100%" height="100%" id = "gViewerFront" name="gViewerFront" >
+                        </OBJECT>
                     </div>
-        </div>
-        
+                </div><!--top-->
 
-      </div><!-- /#page-wrapper -->
+                <div id="middle">
+                    <p>后置摄像头</p>
 
-    </div><!-- /#wrapper -->
-   
-
-    <!-- JavaScript -->
-   <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
-    
-     <script>
-
-        $('a[data-toggle="dropdown"]').click(function() {
-            $(this).nextAll().toggle();
-        });
-    
-     $(function(){
-                $("#progress").dropdown('toggle');
-            });
-    </script>
-    
-    
+                    <button class="button" style="width:15%;height:8%;top:0;left:45%"onclick="startVideoBack()">获取视频</button>
+                    <button class="button" style="width:15%;height :8%;top:0;left:62%"onclick="stopVideoBack()">暂停</button>
+                    <button class="button" style="width:15%;top:0;left:79%" data-toggle="modal" data-target="#back-full-screen" data-backdrop="static">全屏</button>
+                    <div style="width:95%;margin-top:0; height:95%; z-index:-1" >
+                        <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
+                                width="100%" height="100%" id = "gViewerBack" name="gViewerFront" >
+                        </OBJECT>
+                    </div>
+                </div><!--middle-->
 
 
-  </body>
+            </div><!--index-->
+
+
+        </div><!-- /.row -->
+
+
+    </div><!-- /#page-wrapper -->
+
+</div><!-- /#wrapper -->
+
+<div class="modal fade" id="alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <p class="alert-title text-center" style="margin-top: 20px">是否返回实时监控</p>
+            <div class="row text-center" style="margin: 40px;">
+                <a href="progress2.html" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</a>
+                <a href="" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">否</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="front-full-screen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 100%; height: 100%;" >
+        <div class="modal-content" style="width: 100%; height: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div style="width:100%;margin-top:0; height:95%; z-index:-1" >
+                <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
+                        width="100%" height="100%" id = "gViewerFrontFull" name="gViewerFrontFull" >
+                </OBJECT>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="back-full-screen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 100%; height: 100%;">
+        <div class="modal-content" style="width: 100%; height: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div style="width:95%;margin-top:0; height:95%; z-index:-1" >
+                <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
+                        width="100%" height="100%" id = "gViewerBackFull" name="gViewerBackFull" >
+                </OBJECT>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script>
+
+    $('a[data-toggle="dropdown"]').click(function() {
+        $(this).nextAll().toggle();
+    });
+
+    $(function(){
+        $("#progress").dropdown('toggle');
+    });
+
+    var viewFront,viewBack,viewFrontFull,viewBackFull;
+    var id = "0200001";
+    var ServerIP="120.24.79.63";
+    var ServerPort="6603";
+    //window.setTimeout("init()", 500) ;
+    function init()
+    {
+        viewFront = document.getElementById("gViewerFront");
+        viewFront.Layout = 1;
+        viewFront.PaneType=0;
+        viewFront.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
+        viewFront.ServerPort = ServerPort;
+        viewBack = document.getElementById("gViewerBack");
+        viewBack.Layout = 1;
+        viewBack.PaneType=0;
+        viewBack.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
+        viewBack.ServerPort = ServerPort;
+    }
+    function startVideoFront()
+    {
+        viewFront.StartVideo(id, 0, 0);
+        viewFront.SetViewTitle(0,id+" 前置摄像头"); //1通道 1窗口
+    }
+    function stopVideoFront()
+    {
+        //alert(view);
+        viewFront.StopVideo(0);
+        viewFront.SetViewTitle(0,"");
+    }
+    function frontVideoFull(){
+        viewFront.FullScreen();
+    }
+
+    function startVideoBack()
+    {
+        viewBack.StartVideo(id, 1, 0);
+        viewBack.SetViewTitle(0,id+" 后置摄像头"); //2通道 1窗口
+    }
+    function stopVideoBack()
+    {
+        //alert(view);
+        viewBack.StopVideo(0);
+        viewBack.SetViewTitle(0,"");
+    }
+    $(function () { $('#front-full-screen').on('shown.bs.modal', function () {
+        viewFrontFull = document.getElementById("gViewerFrontFull");
+        viewFrontFull.Layout = 1;
+        viewFrontFull.PaneType=0;
+        viewFrontFull.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
+        viewFrontFull.ServerPort = ServerPort;
+        viewFrontFull.StartVideo(id, 0, 0);
+        viewFrontFull.SetViewTitle(0,id+" 前置摄像头"); //1通道 1窗口
+    })
+    });
+    $(function () { $('#back-full-screen').on('shown.bs.modal', function () {
+        viewBackFull = document.getElementById("gViewerBackFull");
+        viewBackFull.Layout = 1;
+        viewBackFull.PaneType=0;
+        viewBackFull.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
+        viewBackFull.ServerPort = ServerPort;
+        viewBackFull.StartVideo(id, 1, 0);
+        viewBackFull.SetViewTitle(0,id+" 后置摄像头"); //1通道 1窗口
+    })
+    });
+
+
+
+</script>
+
+
+
+
+</body>
 </html>

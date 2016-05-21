@@ -24,7 +24,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index">上海市快速路养护监管系统</a>
+    <a class="navbar-brand" href="index">上海市快速路养护作业监管设施完善工程</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->

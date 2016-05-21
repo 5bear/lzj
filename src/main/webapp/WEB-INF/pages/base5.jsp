@@ -35,39 +35,39 @@
 
 
   <style>
-    #index { width:100%; height:100%;min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
-    #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-right { height:600px; margin:0px; padding:0px; float:left; background-color:transparent;}
-    .bt1{
-      height: 23px;
-      width: 5%;
-      position: absolute;
-      border:0;
-      background-size:100% 100%;
-    }
-
-    .button{
-      position:absolute;
-      border-radius:5px;
-      border:none;
-      background-color: #00608B;
-      color: white;
-      font-size: 12px;
-      padding: 0;}
-
-    .bt{border:0;}
-    .p
-    {
-      position: absolute;
-      font-family:
-      font-size:15px;
-    }
-    #container{width: 56%;
-      height: 600px;
-      float: left;
-      margin-left: 5px;
-      margin-right: 5px;}
+   #index { width:100%; height:100%;min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative;}
+     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
+     #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
+     #in-right { height:600px; margin:0px; padding:0px; float:left; background-color:transparent;}
+   .bt1{
+     height: 23px;
+       width: 5%;
+     position: absolute;
+     border:0;
+     background-size:100% 100%;
+   }
+   
+   .button{
+    border-radius:5px;
+    border:none;
+    background-color: #00608B;
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+     margin-top: 10px;
+     margin-left: 7px;}
+  
+  .bt{border:0;}
+   .p
+   {
+     position: absolute;
+     font-size:15px;
+   }
+  #container{width: 56%;
+    height: 566px;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;}
   </style>
 
 </head>
@@ -156,13 +156,21 @@
 
           <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " />
           -->
-          <button class="button" style="top:2%;left:2%;width:70px;height:29px" onclick="newDraw()">新增</button>
-          <button class="button" style="top:2%;left:15%;width:70px;height:29px" onclick="choosePoint()">开始绘制</button>
-          <button class="button" style="top:2%;left:28%;width:70px;height:29px" onclick="undo()">撤销一次</button>
-          <button class="button" style="top:2%;left:41%;width:70px;height:29px" onclick="undoAll()">撤销全部</button>
-          <button class="button" style="top:2%;left:54%;width:70px;height:29px" onclick="drawLine()">完成</button>
 
-          <div id="container" style="width:99%;top:52px"></div>
+          <div>
+              <img src="images/search_icon.png" style="width: 32px; height: 20px;"/>
+              <input type="text" id="search" style="width: 200px;"/>
+              <button class="button" style="top:15px;left:30%;width:70px;">搜索</button>
+          </div>
+          <div>
+              <button class="button" style="width:70px;" onclick="newDraw()">开始</button>
+              <button class="button" style="width:70px;" onclick="choosePoint()">开始绘制</button>
+              <button class="button" style="width:70px;" onclick="undo()">撤销一次</button>
+              <button class="button" style="width:70px;" onclick="undoAll()">撤销全部</button>
+              <button class="button" style="width:70px;" onclick="drawLine()">完成</button>
+          </div>
+
+          <div id="container" style="width:99%;top:13px"></div>
 
         </div><!--in-mid-->
 

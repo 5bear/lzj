@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -60,14 +60,21 @@
     </div>
     <ul class="dropdown-menu panel-menu">
     <li class="dropdown dropdown2">
-    <a href="#">所有公司</a>
+    <a href="#" onclick="AllCompany1()">所有公司</a>
     </li>
     <li class="dropdown dropdown2">
-    <a href="#" data-toggle="droplist">上海成基公司</a>
+    <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
     <div class="arrow-section arrow-section2">
     <div class="arrow-down arrow-down2"></div>
     </div>
-        <c:forEach items="${chengjiCompany}" var="item">
+        <ul class="dropdown-menu panel-menu">
+            <li class="dropdown dropdown3">
+                <a href="#" data-toggle="dropdown" onclick="CJgetRoad('AllPackage','xxx')">所有包件</a>
+                <div class="arrow-section arrow-section3">
+                </div>
+            </li>
+        </ul>
+    <c:forEach items="${chengjiCompany}" var="item">
     <ul class="dropdown-menu panel-menu">
     <li class="dropdown dropdown3">
         <a href="#" data-toggle="droplist">${item.packageName}</a>
@@ -91,10 +98,17 @@
     </c:forEach>
 
     <li class="dropdown dropdown2">
-    <a href="#" data-toggle="droplist">上海高架公司</a>
+    <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
     <div class="arrow-section arrow-section2">
     <div class="arrow-down arrow-down2"></div>
     </div>
+        <ul class="dropdown-menu panel-menu">
+            <li class="dropdown dropdown3">
+                <a href="#" data-toggle="dropdown" onclick="GJgetRoad('AllPackage','xxx')">所有包件</a>
+                <div class="arrow-section arrow-section3">
+                </div>
+            </li>
+        </ul>
         <c:forEach items="${gaojiaCompany}" var="item">
     <ul class="dropdown-menu panel-menu">
     <li class="dropdown dropdown3">
@@ -102,16 +116,15 @@
     <div class="arrow-section arrow-section3">
     <div class="arrow-down arrow-down3"></div>
     </div>
-        <li onclick="GJgetRoads()"></li>
     <ul class="dropdown-menu panel-menu">
         <script>
             var roads='${item.roads}';
             var road = roads.split(',');
             var a="AllRoads";
             var packageName1='${item.packageName}';
-            document.write("<li onclick='GJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
+            document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+a+")'>所有路段</a></li>");
             for(var i=0;i<road.length;i++){
-                document.write("<li onclick='GJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
+                document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+road[i]+")'>"+road[i]+"</a></li>");
             }
         </script>
     </ul>
@@ -132,8 +145,8 @@
     <div class="col-sm-12 text-right search-row">
     <select name="" id="select-time">
     <option value="day">本日</option>
-    <option value="month" selected="selected">本月</option>
-    <option value="year">本年</option>
+    <option value="month" >本月</option>
+    <option value="year" selected="selected">本年</option>
     </select>
     </div>
     <div class="col-sm-12 text-center table-title time-row">
@@ -161,6 +174,7 @@
                 <td>12</td>
                 <td>合计</td>
             </tr>
+            <tbody id="work">
             <tr>
                 <td>有效作业率<br/>(单位：%)</td>
                 <td class="green"><a href="Progress1">80</a></td>
@@ -193,6 +207,7 @@
                 <td>80</td>
                 <td>80</td>
             </tr>
+        </tbody>
             </tbody>
         </table>
     </div>
@@ -213,6 +228,7 @@
     $('a[data-toggle="droplist"]').click(function() {
         $(this).nextAll().toggle();
     });
+
     $("#select-time").change(function(){
         var obj = $("#select-time").val();
         var myDate = new Date();
@@ -235,7 +251,7 @@
     var work1 = "";
     var zadao1 = "";
     function CJgetRoad(packageName,Roads){
-        company="上海成基公司";
+        company="上海成基市政建设发展有限公司";
         packagename=packageName;
         roads=Roads;
         alert(company);
@@ -243,36 +259,105 @@
         alert(roads);
         if(Roads=="AllRoads"){
             getYear();
-            getTable();
+            getTable1();
+        }
+        else if(packagename=="AllPackage" && roads=="xxx"){
+            getyear();
+            getTableAllPackage();
         }
         else {
             getYear();
-            getTable1();
+            getTable();
         }
     }
     function GJgetRoad(packageName,Roads){
-        company="上海高架公司";
+        company="上海高架养护管理有限公司";
         packagename=packageName;
         roads=Roads;
         if(roads=="AllRoads"){
             getYear();
-            getTable();
+            getTable1();
+        }
+        else if(packagename=="AllPackage" && roads=="xxx"){
+            getyear();
+            getTableAllPackage();
         }
         else {
             getYear();
-            getTable1();
+            getTable();
         }
+    }
+    function AllCompany1(){
+        getyear();
+        getTableAll();
     }
     function getYear(){
         var myDate = new Date();
         year = myDate.getFullYear();
     }
-    function getTable(){
-        alert(year);
-        alert(company);
-        alert(packagename);
+    function getTableAllPackage(){
         $.ajax({
-            url:"progress1-year/getMonthByYear",
+            url:"progress1-year/getMonthByYearAllPackage",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year,
+                company:company
+            },
+            success:function(data) {
+                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
+                $(data).each(function (index) {
+                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
+                        Distance[0]+=data[index].distance;
+                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
+                    }else if(data[index].time.substr(5,2)=="02"){
+                        Distance[1]+=data[index].distance;
+                        Coverage[1]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="03"){
+                        Distance[2]+=data[index].distance;
+                        Coverage[2]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="04"){
+                        Distance[3]+=data[index].distance;
+                        Coverage[3]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="05"){
+                        Distance[4]+=data[index].distance;
+                        Coverage[4]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="06"){
+                        Distance[5]+=data[index].distance;
+                        Coverage[5]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="07"){
+                        Distance[6]+=data[index].distance;
+                        Coverage[6]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="08"){
+                        Distance[7]+=data[index].distance;
+                        Coverage[7]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="09"){
+                        Distance[8]+=data[index].distance;
+                        Coverage[8]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="10"){
+                        Distance[9]+=data[index].distance;
+                        Coverage[9]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="11"){
+                        Distance[10]+=data[index].distance;
+                        Coverage[10]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="12"){
+                        Distance[11]+=data[index].distance;
+                        Coverage[11]+=data[index].coverage;
+                    }
+                })
+                getdata(Distance,Coverage);                                       //作业+匝道
+                work1+= "<td>total</td></tr>"
+                zadao1 += "<td>total</td></tr>"
+                $("#work").html(work1 + zadao1);
+            }
+        });
+    }
+    function getTable1(){
+        $.ajax({
+            url:"progress1-year/getMonthByYear1",
             type:"post",
             dataType: "json",
             data:{
@@ -331,9 +416,69 @@
             }
         });
     }
-    function getTable1(){
+    function getTableAll(){
         $.ajax({
-            url:"progress1-year/getMonthByYear1",
+            url:"progress1-year/getMonthByYearAll",
+            type:"post",
+            dataType: "json",
+            data:{
+                year:year
+            },
+            success:function(data) {
+                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+
+                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
+                $(data).each(function (index) {
+                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
+                        Distance[0]+=data[index].distance;
+                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
+                    }else if(data[index].time.substr(5,2)=="02"){
+                        Distance[1]+=data[index].distance;
+                        Coverage[1]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="03"){
+                        Distance[2]+=data[index].distance;
+                        Coverage[2]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="04"){
+                        Distance[3]+=data[index].distance;
+                        Coverage[3]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="05"){
+                        Distance[4]+=data[index].distance;
+                        Coverage[4]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="06"){
+                        Distance[5]+=data[index].distance;
+                        Coverage[5]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="07"){
+                        Distance[6]+=data[index].distance;
+                        Coverage[6]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="08"){
+                        Distance[7]+=data[index].distance;
+                        Coverage[7]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="09"){
+                        Distance[8]+=data[index].distance;
+                        Coverage[8]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="10"){
+                        Distance[9]+=data[index].distance;
+                        Coverage[9]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="11"){
+                        Distance[10]+=data[index].distance;
+                        Coverage[10]+=data[index].coverage;
+                    }else if(data[index].time.substr(5,2)=="12"){
+                        Distance[11]+=data[index].distance;
+                        Coverage[11]+=data[index].coverage;
+                    }
+                })
+                getdata(Distance,Coverage);                                       //作业+匝道                                       //作业+匝道
+                work1+= "<td>total</td></tr>"
+                zadao1 += "<td>total</td></tr>"
+                $("#work").html(work1 + zadao1);
+            }
+        });
+    }
+    function getTable(){
+        $.ajax({
+            url:"progress1-year/getMonthByYear",
             type:"post",
             dataType: "json",
             data:{

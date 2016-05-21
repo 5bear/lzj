@@ -12,10 +12,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>上海市快速路养护监管系统</title>
+  <title>上海市快速路养护作业监管设施完善工程</title>
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -506,22 +507,26 @@
 /*车辆gps显示*/
 
   function setVehicle(vl,v,d){
+    if(d!=devIDNO){
+      map.clearOverlays();
+      linePoints=new Array()
+    }
     vehicleLicence=vl;
     vehicle=v;
     devIDNO=d;
+    showVehiclePos(vl,v,d)
   }
-  function showVehiclePos(vehicleLicence,vehicle,devIDNO){
+  function showVehiclePos(vehicleLicence,vehicle,dev){
     $.ajax({
       url:"getGPS",
       type:"get",
-      data:{devIDNO:devIDNO},
+      data:{devIDNO:dev},
       dataType:"json",
       success:function(data){
-        if(data.isDriver==0)
+        if(data.isDriver==0||data.devIDNO==dev)
         map.removeOverlay(myCar);
         var gpspoint=new BMap.Point(data.lng /1000000,data.lat /1000000)
-
-        addVehicle(vehicleLicence,vehicle,devIDNO,data.lng /1000000,data.lat /1000000,data.speed,data.isDriver,data.HDD,gpspoint)
+        addVehicle(vehicleLicence,vehicle,dev,data.lng /1000000,data.lat /1000000,data.speed,data.isDriver,data.HDD,gpspoint,data.direction)
       }
     })
   }
@@ -529,30 +534,6 @@
   setInterval(function(){
     showVehiclePos(vehicleLicence,vehicle,devIDNO);
   },"5000");
-  //每两秒车辆位置变化
-/*  var z=1;
-  setTimeout(function(){
-    console.log(polylines)
-    for(i=0;i<polylines.length;i++){
-      console.log(polylines[i])
-      var v=polylines[i].ia;
-      for(var j=0;j< v.length;j++){
-        linePoints.push(v[j])
-      }
-    }
-    setInterval(function(){
-      var ps=new Array()
-      ps.push(linePoints[z-1])
-      ps.push(linePoints[z])
-      var p = new BMap.Polyline(ps,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
-      map.addOverlay(p);   //增加折线
-      map.removeOverlay(xun)
-      xun = new ComplexCustomOverlay(linePoints[z], "images/xun.png");
-      map.addOverlay(xun);
-      z+=1;
-    },"1000");
-  },"2000")*/
-
 
  /* map.addEventListener('click',mapClick)*/
 
@@ -561,7 +542,7 @@
     console.log(point)
     addVehicle(1,point);
   }
-  function addVehicle(vehicleLicence,vehicle,devIDNO,lng,lat,speed,isDriver,HDD,point){
+  function addVehicle(vehicleLicence,vehicle,devIDNO,lng,lat,speed,isDriver,HDD,point,direction){
 
     //坐标转换完之后的回调函数
     translateCallback = function (point){
@@ -597,25 +578,20 @@
         enableMessage:true,//设置允许信息窗发送短息
         message:""
       }
-      label = new BMap.Label("", {offset: new BMap.Size(-100, -100)});
 
-      label.setContent("车辆牌照:" + vehicleLicence +"<br>车辆类型:" + vehicle +"<br>车载设备编号:" + devIDNO +"<br>经度:" + lng + "<br>纬度:" + lat+"<br>速度:" + speed+"km/h"+"<br>车辆状态:"+isDriver+"<br>硬盘状态:"+HDD);
-      /* var infoWindow = new BMap.InfoWindow("车辆牌照:"+vehicleLicence+"车辆类型:"+vehicle+"车载设备编号:"+devIDNO+"经度:"+lng+"纬度:"+lat+"速度(km/h):"+speed+"21322132", opts);  // 创建信息窗口对象*/
+      var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br>车辆类型:" + vehicle +"<br>车载设备编号:" + devIDNO +"<br>经度:" + lng + "<br>纬度:" + lat+"<br>速度:" + speed+"km/h"+"<br>方向:" +direction+"<br>车辆状态:"+isDriver+"<br>硬盘状态:"+HDD, opts);  // 创建信息窗口对象
       myCar.addEventListener('click',function(){
-        location.href="progress2-1"
+        if(vehicle=="巡视车")
+        location.href="progress2-2?id="+devIDNO
+        else
+          location.href="progress2-1?id="+devIDNO
       });
       myCar.addEventListener("mouseover",function(e){
-        myCar.setLabel(label)
+        map.openInfoWindow(infoWindow,point);
       });
       myCar.addEventListener("mouseout",function(e){
-        mapCar.setLabel(null)
-      })
-      /* myCar.addEventListener("mouseover",function(e){
-       map.openInfoWindow(infoWindow,point);
-       });
-       myCar.addEventListener("mouseout",function(e){
-       map.closeInfoWindow(infoWindow,point);
-       });*/
+        map.closeInfoWindow(infoWindow,point);
+      });
       map.addOverlay(myCar);
     }
 
@@ -640,17 +616,6 @@
   }
   // 初始化地图，设置中心点坐标和地图级别 设置为上海
   $(document).ready(function(){
-    $("button.navbar-aside").click(function(){
-      if ($("#wrapper").is(".left-wrapper")== true) {
-        $(".side-nav").removeClass("left-nav");
-        $("#wrapper").removeClass("left-wrapper");
-      } else {
-        $(".side-nav").addClass("left-nav");
-        $("#wrapper").addClass("left-wrapper");
-      }
-    });
-
-
 
     $.ajax({
       url:"line/get",
@@ -669,7 +634,6 @@
         linePoints=new Array()
       }
     })
-    showVehiclePos("0100001");
     $.ajax({
       url:"getMap",
       type:"post",

@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -87,8 +87,8 @@
                             <td>车辆类型</td>
                             <td>
                                 <select name="vehicleType" id="vehicleType">
-                                    <option value="养护车" <c:if test="${Vehicle_edit.vehicleType=='养护车'}">selected="selected"</c:if>>养护车</option>
-                                    <option value="巡查车" <c:if test="${Vehicle_edit.vehicleType=='巡查车'}">selected="selected"</c:if>>巡查车</option>
+                                    <option value="养护车" <c:if test="${Vehicle_edit.vehicleType=='清扫车'}">selected="selected"</c:if>>清扫车</option>
+                                    <option value="巡查车" <c:if test="${Vehicle_edit.vehicleType=='巡视车'}">selected="selected"</c:if>>巡视车</option>
                                     <option value="牵引车" <c:if test="${Vehicle_edit.vehicleType=='牵引车'}">selected="selected"</c:if>>牵引车</option>
                                 </select>
                             </td>

@@ -217,7 +217,7 @@
 
 
 
-          <input type="text" id="search"/>
+          <input type="text" placeholder="请输入RFID序列号" id="search"/>
         </div>
 
 
@@ -418,6 +418,23 @@
     for(var m in markers){
       if(markers[m].getTitle()==searchCondition){
         map.panTo(markers[m].getPosition());
+        var id=markerMap.get(markers[m]);
+        if(id!=undefined) {
+          $.ajax({
+            url: "RFID/get",
+            type: "post",
+            data: {id: id},
+            dataType: "json",
+            success: function (data) {
+              $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
+              $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+              $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
+              $("#equipNum").val(data.equipNum);
+              $("#serialNumber").val(data.serialNumber);
+              $("#installPos").val(data.installPos);
+            }
+          })
+        }
         return false;
       }
     }

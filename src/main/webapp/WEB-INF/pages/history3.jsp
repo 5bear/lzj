@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -79,7 +79,7 @@
                         <td>13:00-14:00</td>
                         <td>中山北路外侧</td>
                         <td></td>
-                        <td><a href="history3-check.html" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
+                        <td><a href="history3-check" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
                         </td>
                     </tr>
                     <tr>
@@ -90,7 +90,7 @@
                         <td>13:00-14:00</td>
                         <td>中山北路外侧</td>
                         <td></td>
-                        <td><a href="history3-check.html" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
+                        <td><a href="history3-check" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
                         </td>
                     </tr>
                     </tbody>

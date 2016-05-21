@@ -6,13 +6,6 @@ package com.springapp.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
-import java.util.List;
 
 
 
@@ -27,5 +20,8 @@ public class History3Controller extends BaseController {
         return "history3";
     }
 
-    
+    @RequestMapping(value = "/history3-check")
+    public String history3check() {
+        return "history3-check";
+    }
 }

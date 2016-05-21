@@ -96,14 +96,17 @@ public class LineController extends BaseController{
     @RequestMapping(value = "/line/edit",method = RequestMethod.POST)
     @ResponseBody
     public String edit(HttpServletRequest request,@RequestParam(value = "id")String id,@RequestParam(value = "realDistance")String realDistance,@RequestParam(value = "company")String company,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "packageName")String packageName,@RequestParam(value = "packageId")Long packageId,@RequestParam(value = "startCoord")String startCoord,@RequestParam(value = "coords")String coords,@RequestParam(value = "endCoord")String endCoord,
-                      @RequestParam(value = "direction")String direction,@RequestParam(value = "directionType")String directionType/*@RequestParam(value = "inputId")String inputId,*//*@RequestParam(value = "remark")String remark*/){
+                      @RequestParam(value = "direction")String direction,@RequestParam(value = "lng")Double lng,@RequestParam(value = "lat")Double lat,@RequestParam(value = "directionType")String directionType/*@RequestParam(value = "inputId")String inputId,*//*@RequestParam(value = "remark")String remark*/){
 
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
         Line line=lineDao.getById(Long.parseLong(id));
            if(lineDao.isDuplicated(line,lineName))
             return "duplicated";
-        line.setRealDistance(realDistance);
+        if(realDistance.equals("")||realDistance!=null)
+            line.setRealDistance(realDistance);
+        line.setLng(lng);
+        line.setLat(lat);
         line.setCompany(company);
         line.setLine(lineName);
         line.setStartCoord(startCoord);
@@ -111,9 +114,9 @@ public class LineController extends BaseController{
         line.setEndCoord(endCoord);
         line.setDirection(direction);
         line.setDirectionType(directionType);
-        line.setInputMan(username);
-        line.setPackgeId(packageId);
         line.setPackgeName(packageName);
+        line.setPackgeId(packageId);
+        line.setInputMan(username);
        /* line.setInputId(Long.parseLong(inputId));
         Account account =userDao.getById(Long.parseLong(inputId));
         line.setInputMan(account.getUsername());*/

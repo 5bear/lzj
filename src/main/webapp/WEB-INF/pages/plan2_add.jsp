@@ -213,15 +213,14 @@
               <option value="${item.id}">${item.packageName}</option>
             </c:forEach>
           </select>
-
-          <select style="position: absolute; top: 356px;left: 70px; width: 100px;" id="direction">
-            <option value="内圈">内圈</option>
-            <option value="外圈">外圈</option>
-          </select>
           <select style="position: absolute; top: 402px; left:90px; width: 80px;" id="directionType" onchange="changeDirection()">
             <option value="内外圈" >内外圈</option>
             <option value="南北侧" >南北侧</option>
             <option value="东西侧" >东西侧</option>
+          </select>
+          <select style="position: absolute; top: 356px;left: 70px; width: 100px;" id="direction">
+            <option value="内圈">内圈</option>
+            <option value="外圈">外圈</option>
           </select>
           <p class="p1" style="top:442px;" id="startCoord"></p>
           <p class="p1" style="top:498px;" id="endCoord"></p>
@@ -353,7 +352,7 @@
         url:"line/edit",
         async :false,
         type:"post",
-        data:{packageId:packageId,packageName:packageName,id:id,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+        data: {id:id,packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success:function(data){
           if(data=="duplicated"){
             alert("作业线路名称重复");

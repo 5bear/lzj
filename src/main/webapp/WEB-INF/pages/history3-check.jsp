@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
+                    <li><a href="#"><i class="icon-dashboard"></i> 进度管理</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 养护日志管理</li>
                 </ol>
             </div>
@@ -52,7 +52,7 @@
                 <a href="javascript:history.back();" class="operation"><< 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
-                养护日志详细信息
+                异常查询信息
             </div>
             <div class="col-lg-6 col-lg-offset-3">
                 <table class="table vertical-table">

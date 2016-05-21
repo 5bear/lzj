@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>上海市快速路养护监管系统</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -53,8 +53,8 @@
 
                 </select>
                 <select name="" id="company" onchange="javascript:setYear()">
-                    <option value="上海成基公司"  selected="selected" >上海成基公司</option>
-                    <option value="上海高架公司"  >上海高架公司</option>
+                    <option value="上海成基市政建设发展有限公司"  selected="selected" >上海成基市政建设发展有限公司</option>
+                    <option value="上海高架养护管理有限公司"  >上海高架养护管理有限公司</option>
                 </select>
                 <!--<button class="btn btn-default"><input onclick = init()>确定</button>-->
                 <input type="button" value = 确定 class="btn btn-default" onclick ="select1()"/>

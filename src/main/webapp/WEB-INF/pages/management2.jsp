@@ -484,9 +484,9 @@
       $(this).text("编辑");
       $(".man").each(function(){
         if($(this).children("select").children(":selected").text()=="yes"){
-          $(this).html("yes").addClass("man-green").removeClass("man-yellow");
+          $(this).html("<img src='images/yes.png' alt='有权'>").addClass("man-green").removeClass("man-yellow");
         } else{
-          $(this).html("no").addClass("man-yellow").removeClass("man-green");
+          $(this).html("<img src='images/no.png' alt='无权'>").addClass("man-yellow").removeClass("man-green");
         }
       });
     }
