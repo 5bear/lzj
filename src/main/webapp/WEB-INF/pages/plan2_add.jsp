@@ -118,7 +118,7 @@
                 </div>
                 <ul class="dropdown-menu panel-menu">
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海成基公司</a>
+                    <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -133,7 +133,7 @@
                     </ul>
                   </li>
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
+                    <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -204,8 +204,8 @@
 
           <input type="text" style="position: absolute; top:232px; left: 70px; width:125px;" id="lineName">
           <select style="position: absolute; top: 272px;left:85px; width: 108px;" id="company">
-            <option value="上海成基公司">上海成基公司</option>
-            <option value="上海高架养护公司">上海高架养护公司</option>
+            <option value="上海成基市政建设发展有限公司">上海成基市政建设发展有限公司</option>
+            <option value="上海高架养护管理有限公司">上海高架养护管理有限公司</option>
           </select>
 
           <select style="position: absolute; top: 313px;left: 85px; width: 108px;" id="package">

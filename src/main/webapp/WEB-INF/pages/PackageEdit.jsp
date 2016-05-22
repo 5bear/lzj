@@ -63,8 +63,8 @@
                         <td>所属养护公司</td>
                         <td>
                             <select name="company" id="company">
-                                <option value="上海成基公司" <c:if test="${Package_edit.company=='上海成基公司'}">selected="selected"</c:if>>上海成基公司</option>
-                                <option value="上海高架公司" <c:if test="${Package_edit.company=='上海高架公司'}">selected="selected"</c:if>>上海高架公司</option>
+                                <option value="上海成基市政建设发展有限公司" <c:if test="${Package_edit.company=='上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                                <option value="上海高架养护管理有限公司" <c:if test="${Package_edit.company=='上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
                             </select>
                         </td>
                     </tr>

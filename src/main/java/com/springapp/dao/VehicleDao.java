@@ -24,7 +24,7 @@ public class VehicleDao extends BaseDao {
     }
 
     public List<Vehicle> getCList(){
-        return this.findAll(("from Vehicle where isDelete=0 and company='上海成基公司'"),Vehicle.class);
+        return this.findAll(("from Vehicle where isDelete=0 and company='上海成基市政建设发展有限公司'"),Vehicle.class);
     }
 
     public List<Vehicle> getGList(){
@@ -44,22 +44,22 @@ public class VehicleDao extends BaseDao {
     }
 
     public List<Vehicle> getCyList(){
-        return this.findAll("from Vehicle where isDelete=0 and company='上海成基公司' and vehicleType='清扫车'",Vehicle.class);
+        return this.findAll("from Vehicle where isDelete=0 and company='上海成基市政建设发展有限公司' and vehicleType='清扫车'",Vehicle.class);
     }
     public List<Vehicle> getCqList(){
-        return this.findAll("from Vehicle where isDelete=0 and company='上海成基公司' and vehicleType='牵引车'",Vehicle.class);
+        return this.findAll("from Vehicle where isDelete=0 and company='上海成基市政建设发展有限公司' and vehicleType='牵引车'",Vehicle.class);
     }
     public List<Vehicle> getCxList(){
-        return this.findAll("from Vehicle where isDelete=0 and company='上海成基公司' and vehicleType='巡视车'",Vehicle.class);
+        return this.findAll("from Vehicle where isDelete=0 and company='上海成基市政建设发展有限公司' and vehicleType='巡视车'",Vehicle.class);
     }
     public List<Vehicle> getGyList(){
-        return this.findAll("from Vehicle where isDelete=0 and company='上海高架公司' and vehicleType='清扫车'",Vehicle.class);
+        return this.findAll("from Vehicle where isDelete=0 and company='上海高架养护管理有限公司' and vehicleType='清扫车'",Vehicle.class);
     }
     public List<Vehicle> getGqList(){
-        return this.findAll("from Vehicle where isDelete=0 and company='上海高架公司' and vehicleType='牵引车'",Vehicle.class);
+        return this.findAll("from Vehicle where isDelete=0 and company='上海高架养护管理有限公司' and vehicleType='牵引车'",Vehicle.class);
     }
     public List<Vehicle> getGxList(){
-        return this.findAll("from Vehicle where isDelete=0 and company='上海高架公司' and vehicleType='巡视车'",Vehicle.class);
+        return this.findAll("from Vehicle where isDelete=0 and company='上海高架养护管理有限公司' and vehicleType='巡视车'",Vehicle.class);
     }
     public List<Vehicle>getByeFence(Long id){
         return this.findAll("from Vehicle where eFenceId=? and isDelete=0",Vehicle.class,new Object[]{id});

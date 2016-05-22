@@ -19,8 +19,8 @@ public class Progress2Controller extends BaseController{
     @RequestMapping(value="/progress2",method = RequestMethod.GET)
     public ModelAndView home(ModelAndView modelAndView,HttpServletRequest request){
         modelAndView.setViewName("progress2");
-        List<Line> cjList=lineDao.getListByCompany("上海成基公司");
-        List<Line>gjyhList=lineDao.getListByCompany("上海高架养护公司");
+        List<Line> cjList=lineDao.getListByCompany("上海成基市政建设发展有限公司");
+        List<Line>gjyhList=lineDao.getListByCompany("上海高架养护管理有限公司");
         List<Vehicle>cyList=vehicleDao.getCyList();
         List<Vehicle>cqList=vehicleDao.getCqList();
         List<Vehicle>cxList=vehicleDao.getCxList();

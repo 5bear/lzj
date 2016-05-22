@@ -26,8 +26,8 @@ public class RFIDController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("base3");
         List<Line>lineList=lineDao.getList();
-        List<Line>cjList= lineDao.getListByCompany("上海成基公司");
-        List<Line>gjyhList= lineDao.getListByCompany("上海高架养护公司");
+        List<Line>cjList= lineDao.getListByCompany("上海成基市政建设发展有限公司");
+        List<Line>gjyhList= lineDao.getListByCompany("上海高架养护管理有限公司");
         modelAndView.addObject("lineList",lineList);
         modelAndView.addObject("cjList",cjList);
         modelAndView.addObject("gjygList",gjyhList);

@@ -112,7 +112,7 @@
                 </div>
                 <ul class="dropdown-menu panel-menu">
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海成基公司</a>
+                    <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -127,7 +127,7 @@
                     </ul>
                   </li>
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
+                    <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -202,8 +202,8 @@
               <div class="row">
                 <label>所属公司：</label>
                 <select id="company">
-                  <option value="上海成基公司">上海成基公司</option>
-                  <option value="上海高架养护公司">上海高架养护公司</option>
+                  <option value="上海成基市政建设发展有限公司">上海成基市政建设发展有限公司</option>
+                  <option value="上海高架养护管理有限公司">上海高架养护管理有限公司</option>
                 </select>
               </div>
               <div class="row">
