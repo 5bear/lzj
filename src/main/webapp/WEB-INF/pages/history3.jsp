@@ -60,7 +60,6 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>编号</th>
                         <th>异常车辆类型</th>
                         <th>车辆牌照</th>
                         <th>异常类型</th>
@@ -72,7 +71,6 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>C01</td>
                         <td>养护车</td>
                         <td>沪A86574</td>
                         <td>超速</td>
@@ -83,7 +81,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>C01</td>
                         <td>养护车</td>
                         <td>沪A86574</td>
                         <td>超速</td>

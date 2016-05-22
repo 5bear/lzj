@@ -357,10 +357,10 @@
               "<td rowspan='6'>基础数据</td>" +
               "<td  class='table-th'>停车场管理</td>" +
               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
-              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
-                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
+                info +=replace1(data[index][pageNames[index]][i].management) + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                replace1(data[index][pageNames[index]][i].visit)+ replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "养护作业计划") {
@@ -368,10 +368,10 @@
               "<td rowspan='4'>计划管理</td>" +
               "<td  class='table-th'>养护作业计划</td>" +
                "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
-              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
-                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
+                info +=replace1(data[index][pageNames[index]][i].management) + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                replace1(data[index][pageNames[index]][i].visit)+ replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "养护进度监控") {
@@ -379,10 +379,10 @@
               "<td rowspan='3'>进度管理</td>" +
               "<td  class='table-th'>进度计划监控</td>" +
                "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
-              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
-                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
+                info +=replace1(data[index][pageNames[index]][i].management) + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                replace1(data[index][pageNames[index]][i].visit)+ replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "历史线路查询") {
@@ -390,10 +390,10 @@
               "<td rowspan='3'>历史数据</td>" +
               "<td  class='table-th'>历史线路查询</td>" +
                "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
-              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
-                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
+                info +=replace1(data[index][pageNames[index]][i].management) + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                replace1(data[index][pageNames[index]][i].visit)+ replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else if (pageNames[index] == "报表查询") {
@@ -401,20 +401,20 @@
               "<td rowspan='2'>其他</td>" +
               "<td  class='table-th'>报表查询</td>" +
                "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
-              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
-                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
+                info +=replace1(data[index][pageNames[index]][i].management) + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                replace1(data[index][pageNames[index]][i].visit) + replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             } else {
               info += "<tr>" +
               "<td  class='table-th'>" + pageNames[index] + "</td>" +
                "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
-              "<td class='man-fixed'><img src='images/no.png' alt='无权'></td>";
+              "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
-                info += "<td class='man'>" + replace(data[index][pageNames[index]][i].management) + "</td>" +
-                "<td class='man'>" + replace(data[index][pageNames[index]][i].visit) + "</td>";
+                info +=replace1(data[index][pageNames[index]][i].management) + replace(data[index][pageNames[index]][i].management) + "</td>" +
+                replace1(data[index][pageNames[index]][i].visit)+ replace(data[index][pageNames[index]][i].visit) + "</td>";
               })
               info += "</tr>";
             }
@@ -431,6 +431,12 @@
     return "<img src='images/yes.png' alt='有权'>";
     else
     return "<img src='images/no.png' alt='无权'>"
+  }
+  function replace1(choice){
+    if(choice=="yes")
+      return "<td class='man-green'>";
+    else
+      return "<td class='man-yellow'>"
   }
 
   $("#save").click(function() {
@@ -457,7 +463,7 @@
         $(tdList).each(function (index) {
           if(tdList[index].className=="pageName"||tdList[index].className=="table-th")
             pageName=tdList[index].innerHTML;
-          if(tdList[index].className=="man man-green"||tdList[index].className=="man man-yellow")
+          if(tdList[index].className=="man-green"||tdList[index].className=="man-yellow")
           {
             var tmp=tdList[index].childNodes[0].value==0?"no":"yes";
             if(count==0)
