@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -86,7 +86,7 @@
             var roads='${item.roads}';
             var road = roads.split(',');
             var a="AllRoads";
-            var packageName1='${item.packageName}';
+            var packageName1="${item.packageName}";
             document.write("<li onclick='CJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
             for(var i=0;i<road.length;i++){
                 document.write("<li onclick='CJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
