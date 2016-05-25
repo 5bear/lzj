@@ -804,8 +804,8 @@ pre code {
 }
 
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: -10px;
+  margin-left: -10px;
 }
 
 .row:before,
@@ -3510,7 +3510,6 @@ input[type="button"].btn-block {
   font-weight: normal;
   line-height: 1.428571429;
   color: #333333;
-  white-space: nowrap;
 }
 
 .dropdown-menu > li > a:hover,

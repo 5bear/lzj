@@ -1,6 +1,7 @@
 package com.springapp.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by ZhanShaoxiong on 2016/5/9.
@@ -24,6 +25,71 @@ public class VehiclePos {
     private String direction;
     private int speed;
     private String HDD;//00是不存在 01是存在 10是断电
+    private Timestamp ArmTime;//报警时间
+    private int ArmType;//报警类型
+    private int ArmInfo;//报警描述
+    private String ArmDesc;//报警描述
+    private int OilMass;//油量
+    private int ParkTime;//停车时间
+    private Timestamp GpsTime;//gps时间
+
+    @Column
+    public String getArmDesc() {
+        return ArmDesc;
+    }
+
+    public void setArmDesc(String armDesc) {
+        ArmDesc = armDesc;
+    }
+
+    @Column
+    public Timestamp getArmTime() {
+        return ArmTime;
+    }
+
+    public void setArmTime(Timestamp armTime) {
+        ArmTime = armTime;
+    }
+    @Column
+    public int getArmType() {
+        return ArmType;
+    }
+
+    public void setArmType(int armType) {
+        ArmType = armType;
+    }
+    @Column
+    public int getArmInfo() {
+        return ArmInfo;
+    }
+
+    public void setArmInfo(int armInfo) {
+        ArmInfo = armInfo;
+    }
+    @Column
+    public int getOilMass() {
+        return OilMass;
+    }
+
+    public void setOilMass(int oilMass) {
+        OilMass = oilMass;
+    }
+    @Column
+    public int getParkTime() {
+        return ParkTime;
+    }
+
+    public void setParkTime(int parkTime) {
+        ParkTime = parkTime;
+    }
+    @Column
+    public Timestamp getGpsTime() {
+        return GpsTime;
+    }
+
+    public void setGpsTime(Timestamp gpsTime) {
+        GpsTime = gpsTime;
+    }
 
     @Column(length = 10)
     public int getIsDrive() {

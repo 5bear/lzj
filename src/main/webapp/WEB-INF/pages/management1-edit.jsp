@@ -52,7 +52,7 @@
         <a href="UserManage" class="operation"><< 返回</a>
       </div>
       <div class="col-lg-6 col-lg-offset-3 text-center time-row">
-        用户管理信息录入
+        用户管理信息录入/修改
       </div>
       <div class="col-lg-6 col-lg-offset-3">
         <table class="table vertical-table">
@@ -65,7 +65,7 @@
             <td>用户名</td>
             <td><input type="text" class="table-input" id="username"/></td>
           </tr>
-          <tr>
+          <tr style="display: ${account==null?"":"none"}">
             <td>密码</td>
             <td><input type="text" class="table-input" id="password"/></td>
           </tr>
@@ -99,10 +99,39 @@
     <div class="row">
       <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
         <button class="btn btn-default" onclick="addUser()">提交</button>
-        <button class="btn btn-default">取消</button>
+        <button class="btn btn-default" style="display: ${account==null?"none":""}" data-toggle="modal" data-target="#passwordchange">更改密码</button>
       </div>
     </div>
-
+    <div class="modal fade" id="passwordchange" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">更改密码</h4>
+          </div>
+          <div class="modal-body text-center">
+            <div class="row password-row">
+              <table class="table vertical-table">
+                <tbody>
+                <tr>
+                  <td>新密码</td>
+                  <td><input type="text" class="table-input" id="newPwd"/></td>
+                </tr>
+                <tr>
+                  <td>请确认新密码</td>
+                  <td><input type="text" class="table-input" id="renewPwd"/></td>
+                </tr>
+                </tbody>
+              </table>
+              <p class="red-alert text-center" hidden="hidden" id="error">两次密码不正确！请重新输入。</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-default"  onclick="changePwd()">确定</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!
 
   </div><!-- /#page-wrapper -->
 
@@ -171,7 +200,22 @@
       })
     }
   }
-
+  function changePwd(){
+    var newPwd=$("#newPwd").val();
+    var renewPwd=$("#renewPwd").val();
+    if(newPwd!=renewPwd) {
+      $("#error").attr("hidden", false);
+      return false;
+    }
+    $.ajax({
+      url:"User/changePwd",
+      type:"post",
+      data:{id:'${account.id}',newPwd:newPwd},
+      success:function(data){
+        location.reload(true);
+      }
+    })
+  }
 
 </script>
 </body>

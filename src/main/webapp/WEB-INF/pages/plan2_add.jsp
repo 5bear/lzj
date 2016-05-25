@@ -213,12 +213,12 @@
               <option value="${item.id}">${item.packageName}</option>
             </c:forEach>
           </select>
-          <select style="position: absolute; top: 402px; left:90px; width: 80px;" id="directionType" onchange="changeDirection()">
+          <select style="position: absolute; top: 356px; left:90px; width: 80px;" id="directionType" onchange="changeDirection()">
             <option value="内外圈" >内外圈</option>
             <option value="南北侧" >南北侧</option>
             <option value="东西侧" >东西侧</option>
           </select>
-          <select style="position: absolute; top: 356px;left: 70px; width: 100px;" id="direction">
+          <select style="position: absolute; top: 402px;left: 70px; width: 100px;" id="direction">
             <option value="内圈">内圈</option>
             <option value="外圈">外圈</option>
           </select>
@@ -449,6 +449,8 @@
             $("#company").find("option[value="+data.company+"]").attr("selected",true);
             $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
             $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
+            $("#package").find("option[value="+data.packageId+"]").attr("selected",true);
+
             $("#startCoord").html(data.startCoord)
             $("#endCoord").html(data.endCoord);
             $("#realDistance").html(data.realDistance);
@@ -504,6 +506,7 @@
     map.panTo(point);
   }
   function showLine(id,lng,lat){
+    idForEdit=id
     map.clearOverlays();
     panTo(lng,lat)
     $.ajax({
@@ -523,6 +526,7 @@
         $("#company").find("option[value="+data.company+"]").attr("selected",true);
         $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
         $("#directionType").find("option[value="+data.directionType+"]").attr("selected",true);
+        $("#package").find("option[value="+data.packageId+"]").attr("selected",true);
         $("#startCoord").html(data.startCoord)
         $("#endCoord").html(data.endCoord);
         $("#realDistance").html(data.realDistance+"m");

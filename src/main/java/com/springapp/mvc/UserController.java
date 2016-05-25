@@ -70,12 +70,11 @@ public class UserController extends BaseController{
     }
     @RequestMapping(value = "/User/edit",method = RequestMethod.POST)
     @ResponseBody
-    public String edit(@RequestParam(value = "id")Long id,@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "password")String password,@RequestParam(value = "power")String power,
+    public String edit(@RequestParam(value = "id")Long id,@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "power")String power,
                        @RequestParam(value = "company")String company, @RequestParam(value = "phoneNum")String phoneNum,@RequestParam(value = "remark")String remark){
         Account a=userDao.getById(id);
         a.setAccount(account);
         a.setUsername(username);
-        a.setPassword(password);
         a.setPower(power);
         a.setCompany(company);
         a.setPhoneNum(phoneNum);

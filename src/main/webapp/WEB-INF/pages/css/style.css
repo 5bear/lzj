@@ -132,6 +132,7 @@ textarea::-webkit-input-placeholder {
     padding: 2px 25px;
     line-height: 22px;
     outline: none;
+    padding-left: 4px;
 }
 
 .btn-default:hover {
@@ -542,6 +543,30 @@ td.man-yellow {
 
 #alert .modal-header {
     border-bottom: none;
+}
+
+.map-search {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 10;
+}
+
+.map-search input {
+    padding-right: 30px;
+    outline: none;
+}
+
+.map-search button {
+    background: url(../images/search1.png);
+    background-size: cover;
+    border: none;
+    outline: none;
+    width: 18px;
+    height: 18px;
+    position: relative;
+    right: 30px;
+    top: 1px;
 }
 
 
