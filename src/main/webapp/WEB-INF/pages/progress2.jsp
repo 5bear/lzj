@@ -468,7 +468,7 @@
                     var map = new Map();
                     map.put("vehicle", element.vehicle)
                     map.put("vehiclePos", element.list);
-                    var point=new BMap.Point(element.list[element.list.length-1].lng/1000000,element.list[element.list.length-1].lat/1000000)
+                    var point=new BMap.Point(element.list[element.list.length-1].lng/100000,element.list[element.list.length-1].lat/100000)
                     console.log(point.lng)
                     map.put("currentPoint",transferPoint(point))
                     var car=setCar(element.vehicle.vehicleType,transferPoint(point),element.list[element.list.length-1].direction);
@@ -510,7 +510,7 @@
                 dataType:"json",
                 success:function(data){
                     if(data!=null) {
-                        var point = new BMap.Point(data.lng / 1000000, data.lat / 1000000);
+                        var point = new BMap.Point(data.lng / 100000, data.lat / 100000);
                         element.get("car").setPosition(transferPoint(point))
                         element.get("car").setRotation(data.direction)
                     }
@@ -525,7 +525,7 @@
         addVehicle(myCar,vehicle.vehicleLicence,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].direction)
         var points=new Array();
         $(vehiclePos).each(function(index,element){
-            var point=new BMap.Point(element.lng/1000000,element.lat/1000000)
+            var point=new BMap.Point(element.lng/100000,element.lat/100000)
             points.push(transferPoint(point))
         })
         var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});

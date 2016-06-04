@@ -1,8 +1,13 @@
 package com.springapp.mvc;
 
 import com.springapp.classes.FileRead;
+import com.springapp.classes.HttpUtil;
 import com.springapp.classes.pingTest;
-import com.springapp.entity.*;
+import com.springapp.entity.Account;
+import com.springapp.entity.DevGPS;
+import com.springapp.entity.Vehicle;
+import com.springapp.entity.VehiclePos;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +74,7 @@ public class HelloController extends BaseController{
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView modelAndView=new ModelAndView();
+		List<DevGPS>devGPSList=devGpsDao.findAll("from DevGPS");
 		List<Vehicle>cyList=vehicleDao.getCyList();
 		List<Vehicle>cqList=vehicleDao.getCqList();
 		List<Vehicle>cxList=vehicleDao.getCxList();
@@ -141,5 +147,13 @@ public class HelloController extends BaseController{
 		pingTest.isAddressAvailable(ip);
 		PrintWriter printWriter=response.getWriter();
 		printWriter.print("success");
+	}
+	private static String key = "90GSMXDskQhD5s7K8hUEyQHsHVUPp16E";
+	public JSONObject getBaiDuPoint(Double lng,Double lat){
+		String url = "http://api.map.baidu.com/geoconv/v1/?coords=" + lng + ","
+				+ lat + "&output=json&ak=" + key ;
+		JSONObject object= JSONObject.fromObject(HttpUtil.getRequest(url));
+		JSONArray array= JSONArray.fromObject(object.get("result"));
+		return JSONObject.fromObject(array.get(0));
 	}
 }

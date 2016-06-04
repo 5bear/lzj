@@ -30,7 +30,7 @@ public class DevGpsDao extends BaseDao{
         Timestamp from=new Timestamp(sdf.parse(fromDate).getTime());
         Timestamp to=new Timestamp(sdf.parse(toDate).getTime());
         List<DevGPS>devGPSList=new ArrayList<DevGPS>();
-        devGPSList=findAll("from DevGPS as d where d.devIDNO=? and d.GPSTime>=? and d.GPSTime<=?",DevGPS.class,new Object[]{param,from,to});
+        devGPSList=findAll("from DevGPS as d where d.devIDNO=? and d.GPSTime>=? and d.GPSTime<=? and d.speed>0",DevGPS.class,new Object[]{param,from,to});
         return devGPSList;
     }
 }

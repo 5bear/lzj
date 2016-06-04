@@ -281,7 +281,12 @@
                  background:url(images/xuanze.png); background-size:100% 100%" /> -->
           <!-- <button class="button" style="top:2%;left:57%; width:13%;height:4%">选择时间段</button>-->
           <input id="license" list="lista" style="position: absolute; top: 2%; left: 62%; width:13%">
-
+          <select id="playSpeed"  style="position: absolute; top: 2%; left: 78%; width:13%">
+            <option value="2">2x</option>
+            <option value="4">4x</option>
+            <option value="8">8x</option>
+            <option value="16">16x</option>
+            </select>
           <datalist id="lista">
             <c:forEach items="${cxList}" var="item">
               <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
@@ -404,7 +409,7 @@
   }
   /*转换为地图坐标*/
   function transferPoint(point){
-    return new BMap.Point(point.lng+(121.35053994012-121.339485),point.lat+(31.217964392252-31.213757));
+    return point
   }
   /*点数组转json*/
   function pointsTojson(points) {
@@ -449,6 +454,7 @@
     var endDate=$("#endDate").val()
     var endTime=$("#endTime").val()
     var param=$("#license").val()
+    var playSpeed=$("#playSpeed").val()
     $.ajax({
       url: "Track/getHistoryTrack",
       type: "post",
@@ -458,13 +464,13 @@
         var map = new Map();
         map.put("vehicle", data.vehicle)
         map.put("vehiclePos", data.list);
-        var point=new BMap.Point(data.list[data.list.length-1].lng/1000000,data.list[data.list.length-1].lat/1000000)
+        var point=new BMap.Point(data.list[data.list.length-1].lng/100000,data.list[data.list.length-1].lat/100000)
         console.log(point.lng)
         map.put("currentPoint",transferPoint(point))
         var car=setCar(data.vehicle.vehicleType,transferPoint(point),data.list[data.list.length-1].direction);
         map.put("car",car)
         vehicleList.push(map)
-        showTrack(car,data.vehicle,data.list)
+        showTrack(car,data.vehicle,data.list,playSpeed)
       }
     })}
   function addArea() {
@@ -492,7 +498,7 @@
    }, "5000");*/
 
   /* map.addEventListener('click',mapClick)*/
-  function showTrack(myCar,vehicle,vehiclePos){
+  function showTrack(myCar,vehicle,vehiclePos,playSpeed){
     $("#chepai").html(vehicle.vehicleLicence)
     var sumSpeed= 0,averSpeed= 0,excetion;
     var count=0;
@@ -503,14 +509,26 @@
           exception="超速"
       sumSpeed+=element.speed/10
       count=index+1
-      var point=new BMap.Point(element.lng/1000000,element.lat/1000000)
+      var point=new BMap.Point(element.lng/100000,element.lat/100000)
       points.push(transferPoint(point))
     })
     averSpeed=sumSpeed/count;
     $("#averSpeed").html(Math.round(averSpeed*100)/100+"km/h");
     $("#exception").html(exception)
-    var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
-    map.addOverlay(polyLine)
+    var index=0;
+    var int=setInterval(function(){
+      var polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+      myCar.setPosition(points[index+1])
+      index++;
+      console.log(index)
+      console.log(points.length)
+      if(index>=points.length){
+        console.log("end")
+        window.clearInterval(int)
+      }
+
+      map.addOverlay(polyLine)
+    }, 10/playSpeed);
   }
   function setCar(vehicle,point,direction){
     var myCar;
