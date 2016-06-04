@@ -507,7 +507,7 @@
       points.push(transferPoint(point))
     })
     averSpeed=sumSpeed/count;
-    $("#averSpeed").html(Math.round(averSpeed*100)/100);
+    $("#averSpeed").html(Math.round(averSpeed*100)/100+"km/h");
     $("#exception").html(exception)
     var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
     map.addOverlay(polyLine)

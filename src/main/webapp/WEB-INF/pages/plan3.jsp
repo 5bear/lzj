@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ZhanShaoxiong
@@ -199,65 +200,8 @@
         <!--<img src="images/index.jpg" width="100%"/>-->
         <div id="in-left">
           <div class="panel panel-primary">
-            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
+            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看</div>
             <div class="panel-body">
-              <li class="dropdown dropdown1">
-                <a href="#" data-toggle="droplist">按照区域查</a>
-                <div class="arrow-section arrow-section1">
-                  <div class="arrow-down arrow-down1"></div>
-                </div>
-                <ul class="dropdown-menu panel-menu">
-                  <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海成基公司</a>
-                    <div class="arrow-section arrow-section2">
-                      <div class="arrow-down arrow-down2"></div>
-                    </div>
-                    <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">中环路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">中环路立交</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">上中路隧道</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">军工路隧道交</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">外滩隧道</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
-                    <div class="arrow-section arrow-section2">
-                      <div class="arrow-down arrow-down2"></div>
-                    </div>
-                    <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">内环高架路路</a>
-                        <div class="arrow-section arrow-section3">
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li><!--dropdown1-->
-
-
-
               <li class="dropdown dropdown1">
                 <a href="#" data-toggle="droplist">按照车辆查看</a>
                 <div class="arrow-section arrow-section1">
@@ -265,7 +209,7 @@
                 </div>
                 <ul class="dropdown-menu panel-menu">
                   <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护公司</a>
+                    <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                     <div class="arrow-section arrow-section2">
                       <div class="arrow-down arrow-down2"></div>
                     </div>
@@ -276,10 +220,11 @@
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                          <li>
-                            <a href="#">沪BD4802</a>
-                          </li>
-                          <li><a href="#">沪BD4802</a></li>
+                          <c:forEach items="${cyList}" var="item">
+                            <li>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
                         </ul>
                       </li>
                       <li class="dropdown dropdown3">
@@ -288,20 +233,79 @@
                           <div class="arrow-down arrow-down3"></div>
                         </div>
                         <ul class="dropdown-menu panel-menu">
-                          <li>
-                            <a href="#">沪BD4802</a>
-                          </li>
-                          <li><a href="#">沪BD4802</a></li>
+                          <c:forEach items="${cqList}" var="item">
+                            <li>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">巡视车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${cxList}" var="item">
+                            <li>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
                         </ul>
                       </li>
                     </ul>
                   </li>
-
                 </ul>
-              </li><!--dropdown1-->
-
-
-
+                <ul class="dropdown-menu panel-menu">
+                  <li class="dropdown dropdown2">
+                    <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
+                    <div class="arrow-section arrow-section2">
+                      <div class="arrow-down arrow-down2"></div>
+                    </div>
+                    <ul class="dropdown-menu panel-menu">
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">清扫车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${gyList}" var="item">
+                            <li>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">牵引车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${gqList}" var="item">
+                            <li>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropdown3">
+                        <a href="#" data-toggle="droplist">巡视车</a>
+                        <div class="arrow-section arrow-section3">
+                          <div class="arrow-down arrow-down3"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                          <c:forEach items="${gxList}" var="item">
+                            <li>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                            </li>
+                          </c:forEach>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
             </div>
           </div>
         </div><!--in-left-->
@@ -309,12 +313,6 @@
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
           <!-- <input class="bt" type="button"  style=" position: absolute;top: 2%;left: 49%;
                  background:url(images/queren.png); background-size:100% 100%; width:10%" /> -->
-          <button class="button" style="top:2%;width:55px;height:23px;left:90.5%">确认</button>
-
-          <input type="text" class="date" placeholder="开始日期" style="position: absolute; top: 2%; left: 6%;"/>
-          <input type="text" class="hour" placeholder="开始时间" style="position: absolute; top: 2%; left: 27%; "/>
-          <input type="text" class="date" placeholder="结束日期" style="position: absolute; top: 2%; left: 49%;"/>
-          <input type="text" class="hour" placeholder="结束时间" style="position: absolute; top: 2%; left: 70%; "/>
 
 
           <div style="width: 4%;height: 4%; position: absolute; top:2%; left: 1%;">
@@ -328,41 +326,64 @@
 
         <div id="in-right">
           <div class="panel panel-primary panel-right">
-            <div class="panel-heading text-center" style="letter-spacing:3px;">电子围栏编辑区域</div>
+            <div class="panel-heading text-center" style="letter-spacing:3px;">布点计划</div>
             <div class="panel-body" style="height: 610px; overflow-y: auto;">
               <div class="row">
                 <label>选择点的地址：</label>
+                <p id="info"></p>
               </div>
               <div class="row">
-                <label>x：</label>
-                <p></p>
+                <label>经度：</label>
+                <p id="lng"></p>
               </div>
               <div class="row">
-                <label>y：</label>
-                <p></p>
+                <label>纬度：</label>
+                <p id="lat"></p>
               </div>
               <div class="row">
                 <label>已有布点车辆</label>
               </div>
-              <div class="edit-section">
-                <div class="edit-car">
-                  <div class="row text-right">
-                    <button class="close">&times;</button>
-                  </div>
-                  <div class="row">
-                    <label>车牌：</label>
-                    <p class="licence">A123559</p>
-                  </div>
-                  <div class="row">
-                    <label>布点时间：</label>
-                    <p>12:00-13:00</p>
+              <c:forEach items="${list}" var="position">
+                <div class="edit-section">
+                  <div class="edit-car">
+                    <div class="row text-right">
+                      <button class="close" id="${position.id}">&times;</button>
+                    </div>
+                    <div class="row">
+                      <label>车牌：</label>
+                      <p class="licence">${position.vehicle}</p>
+                    </div>
+                    <div class="row">
+                      <label>布点时间：</label>
+                      <p>${position.beginTime}-${position.stopTime}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </c:forEach>
               <div class="add-car">
                 <div class="row">
                   <label>车牌：</label>
-                  <input type="text" id="licence">
+                  <input type="text" id="licence" list="lista">
+                  <datalist id="lista">
+                    <c:forEach items="${cxList}" var="item">
+                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    </c:forEach>
+                    <c:forEach items="${cqList}" var="item">
+                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    </c:forEach>
+                    <c:forEach items="${cyList}" var="item">
+                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    </c:forEach>
+                    <c:forEach items="${gxList}" var="item">
+                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    </c:forEach>
+                    <c:forEach items="${gqList}" var="item">
+                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    </c:forEach>
+                    <c:forEach items="${gyList}" var="item">
+                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    </c:forEach>
+                  </datalist>
                 </div>
                 <div class="row">
                   <label>布点时间：</label>
@@ -374,7 +395,7 @@
               </div>
               <div class="row text-center">
                 <button class="btn btn-default" id="edit">编辑</button>
-                <button class="btn btn-default">删除</button>
+                <button class="btn btn-default" onclick="deleteRFID()">删除</button>
               </div>
             </div>
           </div>
@@ -408,6 +429,7 @@
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/jquery.datetimepicker.js"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
   <script>
 
     $('a[data-toggle="droplist"]').click(function() {
@@ -416,102 +438,6 @@
   </script>
 
   <script>
-    $(function(){
-      $("#plan").dropdown('toggle');
-    });
-
-    $('.date').datetimepicker({
-      lang:'ch',
-      timepicker:false,
-      format:"Y-m-d",
-      yearStart: 2016,
-      yearEnd: 2050
-    });
-
-    $('.hour').datetimepicker({
-      datepicker:false,
-      format:'H:i',
-      step:10
-    });
-
-    $('#startHour, #endHour').datetimepicker({
-      datepicker:false,
-      format:'H:i',
-      step:10
-    });
-
-    $("#edit").on("click", function(){
-      var text = $(this).text();
-      if (text == "编辑") {
-        $(".add-car").show();
-        $(this).text("保存");
-        $(".close").show();
-        $(".edit-car").css("border", "1px solid black");
-        $(".edit-car").find(".licence").each(function(){
-          var obj = $(this);
-          var val = obj.text();
-          obj.replaceWith("<input value=" + val + ">");
-        });
-      } else {
-        $(".add-car").hide();
-        $(".edit-car").css("border", "none");
-        $(this).text("编辑");
-        $(".close").hide();
-        $(".edit-car").find("input").each(function(){
-          var obj = $(this);
-          var val = obj.val();
-          obj.replaceWith("<p class='licence'>" + val + "</p>");
-        });
-        $(".add-car").hide();
-      }
-    });
-
-    $(".close").on("click", function(){
-      var obj = $(this)
-      deleteCar(obj);
-    });
-
-    function deleteCar(obj) {
-      obj.parent().parent().hide();
-    };
-
-    $("#add").on("click", function(){
-      var text1 = $("#licence").val(),
-              text2 = $("#startHour").val(),
-              text3 = $("#endHour").val(),
-              temp = "";
-      if ( text1 == "" || text2 == "" || text3 == "" || text2 >= text3) {
-        alert("请正确填入信息");
-      } else {
-        temp += "<div class='edit-car'>" +
-        "<div class='row text-right'>" +
-        "<button type='button' class='close' data-dismiss='modal' onclick='deleteCar($(this))'>&times;</button>" +
-        "</div>" +
-        "<div class='row'>" +
-        "<label>车牌：</label>" +
-        "<input value=" + text1 + ">" +
-        "</div>" +
-        "<div class='row'>" +
-        "<label>布点时间：</label>" +
-        "<p>" + text2 + "-" + text3 + "</p>" +
-        "</div>" +
-        "</div>";
-        $(".edit-section").append(temp);
-        $(".close").show();
-        $(".edit-car").css("border", "1px solid black");
-
-        $("#licence").val("");
-        $("#startHour").val("");
-        $("#endHour").val("");
-      }
-    });
-
-
-  </script>
-
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
-    <script>
-
     var currentLng=0,currentLat=0;
     var marker=null;
     var markerMap=new Map();
@@ -529,7 +455,6 @@
     }
     //地图点击事件 显示RFID添加div
     map.addEventListener("click", function(e){
-      removeAll()
       currentLng= e.point.lng;
       currentLat= e.point.lat;
       $("#lng").html(Math.round(e.point.lng*100)/100)
@@ -549,23 +474,6 @@
           marker.disableDragging();           // 不可拖拽
         }else{
           marker= e.overlay;
-          var id=markerMap.get(marker);
-          if(id!=undefined) {
-            $.ajax({
-              url: "RFID/get",
-              type: "post",
-              data: {id: id},
-              dataType: "json",
-              success: function (data) {
-                $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
-                $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
-                $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
-                $("#equipNum").val(data.equipNum);
-                $("#serialNumber").val(data.serialNumber);
-                $("#installPos").val(data.installPos);
-              }
-            })
-          }
         }
       });
     });
@@ -579,124 +487,41 @@
       map.addControl(top_left_control);
       map.addControl(top_left_navigation);
       $.ajax({
-        url:"plan/list",
+        url:"plan3/list",
         type:"post",
         data:{},
         dataType:"json",
         success:function(data){
           $(data).each(function(index){
             var point=new BMap.Point(data[index].lng, data[index].lat);
-            addMarker(point,data[index].serialNumber,data[index].road,data[index].company,data[index].id)
+            addMarker(point,data[index].id,data[index].vehicle,data[index].beginTime,data[index].stopTime)
           })
         }
       })
     })
     /*
-     * 通过序列号查询
-     * */
-    function query(){
-      removeAll()
-      var searchCondition=$("#search").val();
-      var markers=map.getOverlays();
-      for(var m in markers){
-        if(markers[m].getTitle()==searchCondition){
-          map.panTo(markers[m].getPosition());
-          var id=markerMap.get(markers[m]);
-          if(id!=undefined) {
-            $.ajax({
-              url: "RFID/get",
-              type: "post",
-              data: {id: id},
-              dataType: "json",
-              success: function (data) {
-                $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
-                $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
-                $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
-                $("#equipNum").val(data.equipNum);
-                $("#serialNumber").val(data.serialNumber);
-                $("#installPos").val(data.installPos);
-              }
-            })
-          }
-          return false;
-        }
-      }
-    }
-    /*
-     * 添加/修改RFID点
-     * */
-    function addRFID(){
-      console.log(markerMap)
-      var equipNum=$("#equipNum").val();
-      var lng=currentLng;
-      var lat=currentLat;
-      if(marker==null){
-        alert("请先在地图上选择");
-        return false;
-      }
-      var serialNumber=$("#serialNumber").val();
-      var roadId=$("#roadId").val();
-      var zhadao=$("#zhadao").val();
-      var direction=$("#direction").val();
-      var installPos=$("#installPos").val();
-      var id =markerMap.get(marker)
-      console.log(id)
-      if(serialNumber==""){
-        alert("序列号不能为空");
-        return true;
-      }
-      if(equipNum==""){
-        alert("设备编号不能为空");
-        return true;
-      }
-      if(installPos==""){
-        alert("设备安装位置不能为空");
-        return true;
-      }
-      if(id=="-1"){
-        $.ajax({
-          url:"RFID/add",
-          type:"post",
-          data:{equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos:installPos},
-          success:function(data){
-            if(data=="duplicated"){
-              alert("重复的序列号");
-              return false
-            }
-
-            location.reload(true);
-          }
-        })
-      }else{
-        $.ajax({
-          url:"RFID/edit",
-          type:"post",
-          data:{id:id,equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos:installPos},
-          success:function(data){
-            if(data=="duplicated"){
-              alert("重复的序列号");
-              return false
-            }
-            location.reload(true);
-          }
-        })
-      }
-
-    }
-    /*
-     * 删除RFID点
+     * 删除点
      * */
     function deleteRFID(){
       if(marker==null){
-        alert("请先在地图上选择");
+        alert("请先在地图上选择点");
         return false;
       }
       var id=markerMap.get(marker)
-      deletemarker()
       $.ajax({
-        url:"RFID/delete",
+        url:"plan3/delete",
         type:"post",
         data:{id:id},
+        success:function(data){
+          location.reload(true);
+        }
+      })
+    }
+    function deleteById(pid){
+      $.ajax({
+        url:"plan3/delete",
+        type:"post",
+        data:{id:pid},
         success:function(data){
           location.reload(true);
         }
@@ -705,42 +530,32 @@
     /*
      * 添加标记
      * */
-    function addMarker(point,serialNumber,road,company,id){
-      console.log(id)
+    function addMarker(point,id,vehicle,beginTime,stopTime){
+      var marker1 = new BMap.Marker(point);// 创建标注
+      marker1.setTitle(vehicle)
       var opts = {
         width : 100,     // 信息窗口宽度
         height: 100,     // 信息窗口高度
-        title : "RFID信息" , // 信息窗口标题
+        title : "布点信息" , // 信息窗口标题
         enableMessage:true,//设置允许信息窗发送短息
         message:""
       }
-      var infoWindow = new BMap.InfoWindow("<p>序列号:"+serialNumber+"<br/>路段:"+road+"<br/>所属公司:"+company+"</p>", opts);  // 创建信息窗口对象
-
-
-      /*var pt = new BMap.Point(116.417, 39.909);
-       var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
-       var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注*/
-
-      var marker1 = new BMap.Marker(point);// 创建标注
-      /*marker.setLabel(id);*/
-      marker1.setTitle(serialNumber)
-      marker1.addEventListener("mouseover",function(e){
+      var infoWindow = new BMap.InfoWindow("<p>车牌:"+vehicle+"<br/>布点时间:"+beginTime+"-"+stopTime+"</p>", opts);  // 创建信息窗口对象
+      marker1.addEventListener("click",function(e){
         map.openInfoWindow(infoWindow,point);
       });
-      marker1.addEventListener("mouseout",function(e){
-        map.closeInfoWindow(infoWindow,point);
-      });
+      /*marker.setLabel(id);*/
       markerMap.put(marker1,id);
       map.addOverlay(marker1);             // 将标注添加到地图中
       marker1.disableDragging();           // 不可拖拽
     }
     /*
-     显示某条路上的RFID*/
-    function getListByRoad(road){
+     显示某条路上的布点*/
+    function getListByVehicle(vehicle){
       $.ajax({
-        url:"RFID/getListByRoad",
+        url:"plan3/getListByVehicle",
         type:"post",
-        data:{road:road},
+        data:{vehicle:vehicle},
         dataType:"json",
         success:function(data){
           /* var markers=map.getOverlays();
@@ -753,34 +568,10 @@
           map.clearOverlays();
           $(data).each(function(index){
             var point=new BMap.Point(data[index].lng, data[index].lat);
-            addMarker(point,data[index].serialNumber,data[index].road,data[index].company,data[index].id)
+            addMarker(point,data[index].id,data[index].vehicle,data[index].beginTime,data[index].stopTime)
           })
         }
       })
-    }
-    /*
-     * 删除标记
-     * */
-    function deletemarker(){
-      console.log(marker)
-      map.removeOverlay(marker);
-    }
-    /*
-     * 添加点击事件
-     * */
-    function addClick(type){
-      if(type==0)
-        $("#btn_type").click(addRFID);
-      else if(type==1)
-        $("#btn_type").click(deleteRFID);
-    }
-    /*
-     * 清空输入
-     * */
-    function removeAll(){
-      $("#equipNum").val("");
-      $("#serialNumber").val("");
-      $("#installPos").val("");
     }
     /*
      * MAP对象，实现MAP功能
@@ -1005,7 +796,97 @@
         return arr;
       };
     }
+    $(function(){
+      $("#plan").dropdown('toggle');
+    });
+
+    $('.date').datetimepicker({
+      lang:'ch',
+      timepicker:false,
+      format:"Y-m-d",
+      yearStart: 2016,
+      yearEnd: 2050
+    });
+
+    $('.hour').datetimepicker({
+      datepicker:false,
+      format:'H:i',
+      step:10
+    });
+
+    $('#startHour, #endHour').datetimepicker({
+      datepicker:false,
+      format:'H:i',
+      step:10
+    });
+
+    $("#edit").on("click", function(){
+      var text = $(this).text();
+      if (text == "编辑") {
+        $(".add-car").show();
+        $(this).text("取消");
+        $(".close").show();
+       /* $(".edit-car").css("border", "1px solid black");
+        $(".edit-car").find(".licence").each(function(){
+          var obj = $(this);
+          var val = obj.text();
+          obj.replaceWith("<input value=" + val + ">");
+        });*/
+      } else {
+        $(".add-car").hide();
+        $(".edit-car").css("border", "none");
+        $(this).text("编辑");
+        $(".close").hide();
+      /*  $(".edit-car").find("input").each(function(){
+          var obj = $(this);
+          var val = obj.val();
+          obj.replaceWith("<p class='licence'>" + val + "</p>");
+        });*/
+      }
+    });
+
+    $(".close").on("click", function(){
+      var obj = $(this)
+      var pid=obj.attr("id")
+      deleteById(pid)
+      deleteCar(obj);
+    });
+
+    function deleteCar(obj) {
+      obj.parent().parent().hide();
+    };
+
+    $("#add").on("click", function(){
+      var text1 = $("#licence").val(),
+              text2 = $("#startHour").val(),
+              text3 = $("#endHour").val(),
+              temp = "";
+      if ( text1 == "" || text2 == "" || text3 == "" || text2 >= text3) {
+        alert("请正确填入信息");
+      } else {
+        var lng=currentLng;
+        var lat=currentLat;
+        if(marker==null){
+          alert("请先在地图上选择");
+          return false;
+        }
+        $.ajax({
+          url:"plan3/add",
+          type:"post",
+          data:{vehicle:text1,beginTime:text2,stopTime:text3,lng:lng,lat:lat},
+          success:function(data){
+            if(data=="fail"){
+              alert("不存在该车牌")
+              return false
+            }
+            location.reload(true)
+          }
+        })
+      }
+    });
+
+
   </script>
-  </script>
+
 </body>
 </html>

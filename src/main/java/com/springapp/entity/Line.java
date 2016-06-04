@@ -13,8 +13,20 @@ public class Line {
     private String company;//所属公司
     private String line;//线路名称
     private String startCoord;//开始坐标
-
     private String packgeName;//所属包件
+    private Long packgeId;//包件id
+    private String coords;//生成线路的点集合
+    private String endCoord;//结束坐标
+    private String direction;//方向
+    private String directionType;//方向类型
+    private String inputMan;//录入人
+    private Long inputId;//录入人id
+    private String remark;//备注
+    private int isDelete;
+    private String realDistance;//实际路程 精确到米
+    private String createTime;//添加时间
+    private String editTime;//修改时间
+    private String deleteTime;//删除时间
 
     @Column()
     public Long getPackgeId() {
@@ -34,28 +46,8 @@ public class Line {
         this.packgeName = packgeName;
     }
 
-    private Long packgeId;//包件id
-    private Double lng;//定位
 
-    @Column()
-    public Double getLat() {
-        return lat;
-    }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
-
-    @Column()
-    public Double getLng() {
-        return lng;
-    }
-
-    public void setLng(Double lng) {
-        this.lng = lng;
-    }
-
-    private Double lat;
     @Column()
     public String getCoords() {
         return coords;
@@ -65,9 +57,7 @@ public class Line {
         this.coords = coords;
     }
 
-    private String coords;//生成线路的点集合
-    private String endCoord;//结束坐标
-    private String direction;//方向
+
 
     @Column()
     public String getRealDistance() {
@@ -77,8 +67,6 @@ public class Line {
     public void setRealDistance(String realDistance) {
         this.realDistance = realDistance;
     }
-
-    private String realDistance;//实际路程 精确到米
     @Column()
     public String getDirectionType() {
         return directionType;
@@ -88,14 +76,7 @@ public class Line {
         this.directionType = directionType;
     }
 
-    private String directionType;//方向类型
-    private String inputMan;//录入人
-    private Long inputId;//录入人id
-    private String remark;//备注
-    private int isDelete;
-    private String createTime;//添加时间
-    private String editTime;//修改时间
-    private String deleteTime;//删除时间
+
 
     @Column()
     public int getIsDelete(){return isDelete;}

@@ -224,7 +224,7 @@
         <!--<img src="images/index.jpg" width="100%"/>-->
         <div id="in-left">
           <div class="panel panel-primary">
-            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
+            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看</div>
             <div class="panel-body">
               <li class="dropdown dropdown1">
                 <a href="#" data-toggle="droplist">按照车辆查看</a>
@@ -246,7 +246,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cyList}" var="item">
                             <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -259,7 +259,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cqList}" var="item">
                             <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -272,7 +272,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cxList}" var="item">
                             <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -295,7 +295,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gyList}" var="item">
                             <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -308,7 +308,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gqList}" var="item">
                             <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -321,7 +321,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gxList}" var="item">
                             <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                              <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -535,6 +535,17 @@
         })
       }
     })}
+
+  function setVehicle(devIDNO){
+    $(vehicleList).each(function(index,element){
+      var point=element.get("currentPoint")
+      var vehicle=element.get("vehicle")
+      if(vehicle.OBUId==devIDNO){
+        panTo(point)
+        return false
+      }
+    })
+  }
     function addArea() {
       var center = pointsTojson(map.getCenter());
       var zoom = map.getZoom();
@@ -689,8 +700,7 @@
 
 
   /**/
-  function panTo(lng,lat){
-    var point= new BMap.Point(lng, lat);
+  function panTo(point){
     map.panTo(point);
   }
 

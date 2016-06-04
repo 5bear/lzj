@@ -564,30 +564,35 @@
             isDriver="静止"
         var opts = {
             width : 100,     // 信息窗口宽度
-            height: 200,     // 信息窗口高度
+            height: 250,     // 信息窗口高度
             title :"车辆信息" ,// 信息窗口标题
             enableMessage:true,//设置允许信息窗发送短息
             message:""
         }
+        var vehicleType;
+        if(vehicle=="巡视车")
+            vehicleType=0
+        else
+            vehicleType=1
+        var infoWindow = new BMap.InfoWindow(" <button class='btn btn-default' onclick='viewVideo("+vehicleType+','+devIDNO+")' >视频</button>"+"<br>车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+        /* myCar.addEventListener('click',function(){
 
-        var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
-         myCar.addEventListener('click',function(){
-         if(vehicle =="巡视车")
-         location.
-         href = "progress2-2?id=" + devIDNO
-         else
-         location.href = "progress2-1?id=" + devIDNO
-         });
-        myCar.addEventListener("mouseover", function (e) {
+         });*/
+        myCar.addEventListener("click", function (e) {
             map.openInfoWindow(infoWindow, point);
         });
-        myCar.addEventListener("mouseout", function (e) {
+       /* myCar.addEventListener("mouseout", function (e) {
             map.closeInfoWindow(infoWindow, point);
-        });
+        });*/
         map.addOverlay(myCar);
     }
-
-
+    function viewVideo(vehicle,devIDNO){
+        if(vehicle ==0)
+            location.
+                    href = "progress2-2?id=" + devIDNO
+        else
+            location.href = "progress2-1?id=" + devIDNO
+    }
 
     /**/
     function panTo(lng,lat){

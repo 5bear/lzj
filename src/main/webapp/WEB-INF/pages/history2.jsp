@@ -193,8 +193,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="history2.html">历史数据</a></li>
-                    <li><a href="history2.html">历史视频查询</a></li>
+                    <li><a href="#">历史数据</a></li>
+                    <li><a href="#">历史视频查询</a></li>
                     <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
                 </ol>
             </div>
@@ -303,20 +303,16 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
-<script>
+<%--<script>
 
     $('a[data-toggle="droplist"]').click(function(e) {
         e.preventDefault();
         $(this).nextAll().toggle();
     });
-</script>
+</script>--%>
 
 
 <script>
-    $(function(){
-        $("#history").dropdown('toggle');
-    });
-
     $('#date').datetimepicker({
         lang:'ch',
         timepicker:false,

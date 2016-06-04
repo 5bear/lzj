@@ -355,7 +355,7 @@
         url: "line/add",
         async :false,
         type: "post",
-        data: {packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+        data: {packageId:packageId,packageName:packageName,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success: function (data) {
           if(data=="duplicated"){
             alert("作业线路名称重复");
@@ -369,7 +369,7 @@
         url:"line/edit",
         async :false,
         type:"post",
-        data: {id:id,packageId:packageId,packageName:packageName,lng:polyline.getPath()[0].lng,lat:polyline.getPath()[0].lat,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
+        data: {id:id,packageId:packageId,packageName:packageName,startCoord:startCoords,endCoord:endCoords,coords: coords, lineName: lineName, company: company, realDistance: realDistance,direction:direction,directionType:directionType},
         success:function(data){
           if(data=="duplicated"){
             alert("作业线路名称重复");

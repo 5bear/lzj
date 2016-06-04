@@ -157,11 +157,11 @@
           <input class="bt1" type="button" id="complete" style="top: 2%;left: 41%; width:9%;background:url(images/complete.png);  background-size: 100% 100% " />
           -->
 
-          <div>
+         <%-- <div>
               <img src="images/search_icon.png" style="width: 32px; height: 20px;"/>
               <input type="text" id="search" style="width: 200px;"/>
               <button class="button" style="top:15px;left:30%;width:70px;" onclick="">搜索</button>
-          </div>
+          </div>--%>
           <div>
               <button class="button" style="width:70px;" onclick="newDraw()">开始</button>
               <button class="button" style="width:70px;" onclick="choosePoint()">开始绘制</button>
