@@ -50,6 +50,13 @@
     </div><!-- /.row -->
 
     <div class="row">
+      <div class="col-sm-12 time-row text-right">
+        <div class="search-div">
+            <img src="images/search1.png" alt="搜索"/>
+            <input type="text" placeholder="请输入用户名" id="findName"/>
+        </div>
+        <button class="btn btn-default" onclick="query()">搜索</button>
+      </div>
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-12 time-row">
@@ -70,7 +77,7 @@
                 <th>操作</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody id="myBody">
               <c:forEach items="${List}" var="account">
                 <tr>
                   <td>${account.account}</td>
@@ -142,6 +149,33 @@
       data:{id:idForDelete},
       success:function(data){
         location.reload(true)
+      }
+    })
+  }
+  function query(){
+    var findName=$("#findName").val();
+    $.ajax({
+      url:"User/get",
+      type:"post",
+      data:{findName:findName},
+      dataType:"json",
+      success:function(data){
+        var info="";
+        $(data).each(function (index,account) {
+          info+=" <tr> " +
+          "<td>"+account.account+"</td> " +
+          "<td>"+account.username+"</td> " +
+          "<td>******</td> " +
+          "<td>"+account.power+"</td> " +
+          "<td>"+account.company+"</td> " +
+          "<td>"+account.phoneNum+"</td> " +
+          "<td>"+account.lastLogin+"</td> " +
+          "<td>"+account.remark+"</td> " +
+          "<td><a href='User?id="+account.id+"' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> " +
+          "<a class='operation' data-toggle='modal' data-target='#delete' onclick='getID('"+account.id+"')'><img src='images/delete1.png' alt='删除'/>删除</a> " +
+          "</td></tr>"
+        })
+        $("#myBody").html(info);
       }
     })
   }

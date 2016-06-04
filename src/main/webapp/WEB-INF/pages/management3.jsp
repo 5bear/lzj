@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yanglin
@@ -26,7 +27,7 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 
-<body>
+<body onload="init(${size})">
 
 <div id="wrapper">
 
@@ -64,19 +65,38 @@
                     <tr>
                         <td>养护中心主机</td>
                         <td>养护中心主机</td>
-                        <td>32.32.2.1</td>
+                        <td>120.24.79.63</td>
                         <td>123456789</td>
                         <td></td>
-                        <td class="await">断线</td>
+                        <td id="s0">正在测试连接...</td>
                     </tr>
                     <tr>
-                        <td>养护中心主机</td>
-                        <td>养护中心主机</td>
-                        <td>32.32.2.1</td>
+                        <td>分中心主机</td>
+                        <td>成基公司</td>
+                        <td>192.168.160.10</td>
                         <td>123456789</td>
                         <td></td>
-                        <td class="going">在线</td>
+                        <td id="s1">正在测试连接...</td>
                     </tr>
+                    <tr>
+                        <td>分中心主机</td>
+                        <td>高架公司</td>
+                        <td>192.168.160.20</td>
+                        <td>123456789</td>
+                        <td></td>
+                        <td id="s2">正在测试连接...</td>
+                    </tr>
+                    <c:forEach items="${parks}" var="park" varStatus="v">
+                        <tr>
+                            <td>停车场主机</td>
+                            <td>【${park.company}】${park.parkName}</td>
+                            <td id="ip${v.index}">${park.serverIP}</td>
+                            <td>${park.tel}</td>
+                            <td></td>
+                            <td  id="s${v.index+3}">正在测试连接...</td>
+                        </tr>
+                    </c:forEach>
+
                     </tbody>
                 </table>
             </div>
@@ -90,5 +110,42 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
+<script>
+    function init(size){
+        var ips = new Array();
+        ips.push("120.24.79.63"); //养护中心主机
+        ips.push("192.168.160.10");//成基公司主机
+        ips.push("192.168.160.20");//高架公司主机
+
+        for(var i=0;i<size;i++){
+            ips.push($("#ip"+i).text());
+        }
+
+
+        $.ajax({
+            url: "pingIps",
+            type: "post",
+            data: {
+                "ips[]":ips
+            },
+            success: function (data) {
+                var r = $.parseJSON(data);
+                if(r.result==0){
+                    var states = r.obj;
+                    $.each(states,function(index,state){
+
+                        if(state=="连通"){
+                            $("#s"+index).attr("class","going");
+                        }else if(state=="断线"){
+                            $("#s"+index).attr("class","await");
+                        }
+                        $("#s"+index).text(state);
+                    });
+                }
+            }
+        });
+
+    }
+</script>
 </body>
 </html>

@@ -132,7 +132,6 @@ textarea::-webkit-input-placeholder {
     padding: 2px 25px;
     line-height: 22px;
     outline: none;
-    padding-left: 4px;
 }
 
 .btn-default:hover {

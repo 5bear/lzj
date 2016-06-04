@@ -116,7 +116,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" >提交</button>
+                <button class="btn btn-default" onclick="addMaintainLog()" >提交</button>
                 <button class="btn btn-default">取消</button>
             </div>
         </div>
@@ -136,12 +136,26 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addMaintainLog()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">重复提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>同一车辆同一时间不能重复添加养护日志</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -168,6 +182,9 @@
 </script>
 
 <script type="text/javascript">
+    function go(){
+        location.href = "MaintainLog";
+    }
 
     function addMaintainLog(){
 
@@ -193,8 +210,12 @@
             },
             success:function(data){
 
-                if(data=="success")
-                    location.href="MaintainLog";
+                if(data=="success") {
+                    $('#success').modal('show');
+
+                }else if(data=="false"){
+                    $('#false').modal('show');
+                }
             }
         })
 

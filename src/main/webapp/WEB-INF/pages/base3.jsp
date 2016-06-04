@@ -74,7 +74,6 @@
     #search
     {
       position: absolute;
-      top: 13px;
       left: 7%;
       border: none;
       background-color: #F2F2F2;
@@ -207,18 +206,19 @@
         <div id="in-mid" style="float:left"><!--<img src="images/mid2.png" width="100%"/>-->
           <!--<input class="button" type="button"  value="搜索" style=" position: absolute;top: 15px;left: 30%; width:9%;"/>-->
 
-          <button class="button" style="top:15px;left:30%;width:9%;height:4%" onclick="query()">搜索</button>
 
-          <div style="width:4%;height: 20px; position: absolute; top: 15px; left: 2%;">
-            <img src="images/search_icon.png" style="width:100%" />
+          <div> 
+            <img src="images/search_icon.png" style="width: 32px; height: 20px;"/>
+            <input type="text" placeholder="请输入RFID序列号" id="search"/>
+            <button class="button" style="padding: 5px;left:30%;width:70px;" onclick="query()">搜索</button>
           </div>
-
-
-          <div id="container" style="width:99%;top:52px"></div>
-
-
-
-          <input type="text" placeholder="请输入RFID序列号" id="search"/>
+          <div style="width: 99%; top: 22px; overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left; background-color: rgb(243, 241, 236);">
+            <div id="container" style="height: 610px; width:99%;"></div>
+            <div class="map-search">
+              <input type="text" id="localSearch"/>
+              <button onclick="localSearch()"></button>
+            </div>
+          </div>
         </div>
 
 
@@ -317,7 +317,8 @@
 
 <script>
 
-  $('a[data-toggle="droplist"]').click(function() {
+  $('a[data-toggle="droplist"]').click(function(e) {
+    e.preventDefault();
     $(this).nextAll().toggle();
   });
 </script>
@@ -338,12 +339,20 @@
 <script>
 
   var currentLng=0,currentLat=0;
-  var marker;
+  var marker=null;
   var markerMap=new Map();
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   map.enableScrollWheelZoom();//允许放大缩放
 
   map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
+  var local = new BMap.LocalSearch(map, {
+    renderOptions:{map: map}
+  });//用于搜索
+  function localSearch(){
+    removeAll()
+    var localSearch=$("#localSearch").val();
+    local.search(localSearch);
+  }
   //地图点击事件 显示RFID添加div
   map.addEventListener("click", function(e){
     removeAll()
@@ -357,36 +366,34 @@
     geoc.getLocation(point1, function(rs){
       var addComp = rs.addressComponents;
       $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
-    });
-    /* var obj=document.getElementById("editArea");
-     obj.style.display="";*/
-    if(e.overlay==null) {
-      if(!confirm('是否增加定位?'))
-      return true;
-      var point = new BMap.Point(e.point.lng, e.point.lat);
-      marker = new BMap.Marker(point);// 创建标注
-      map.addOverlay(marker);             // 将标注添加到地图中
-      marker.disableDragging();           // 不可拖拽
-    }else{
-      marker= e.overlay;
-      var id=markerMap.get(marker);
-      if(id!=undefined) {
-        $.ajax({
-          url: "RFID/get",
-          type: "post",
-          data: {id: id},
-          dataType: "json",
-          success: function (data) {
-            $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
-            $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
-            $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
-            $("#equipNum").val(data.equipNum);
-            $("#serialNumber").val(data.serialNumber);
-            $("#installPos").val(data.installPos);
-          }
-        })
+      if(e.overlay==null) {
+        if(!confirm('是否增加定位?'))
+          return true;
+        var point = new BMap.Point(e.point.lng, e.point.lat);
+        marker = new BMap.Marker(point);// 创建标注
+        map.addOverlay(marker);             // 将标注添加到地图中
+        marker.disableDragging();           // 不可拖拽
+      }else{
+        marker= e.overlay;
+        var id=markerMap.get(marker);
+        if(id!=undefined) {
+          $.ajax({
+            url: "RFID/get",
+            type: "post",
+            data: {id: id},
+            dataType: "json",
+            success: function (data) {
+              $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
+              $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
+              $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
+              $("#equipNum").val(data.equipNum);
+              $("#serialNumber").val(data.serialNumber);
+              $("#installPos").val(data.installPos);
+            }
+          })
+        }
       }
-    }
+    });
   });
   /*
    * 显示已存在的RFID点
@@ -414,6 +421,7 @@
    * 通过序列号查询
    * */
   function query(){
+    removeAll()
     var searchCondition=$("#search").val();
     var markers=map.getOverlays();
     for(var m in markers){
@@ -448,8 +456,8 @@
     var equipNum=$("#equipNum").val();
     var lng=currentLng;
     var lat=currentLat;
-    if(currentLat==0||currentLng==0){
-      alert("清先在地图上选择");
+    if(marker==null){
+      alert("请先在地图上选择");
       return false;
     }
     var serialNumber=$("#serialNumber").val();
@@ -505,6 +513,10 @@
    * 删除RFID点
    * */
   function deleteRFID(){
+    if(marker==null){
+      alert("请先在地图上选择");
+      return false;
+    }
     var id=markerMap.get(marker)
     deletemarker()
     $.ajax({

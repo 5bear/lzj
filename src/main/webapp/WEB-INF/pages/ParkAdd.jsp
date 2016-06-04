@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -111,7 +111,7 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -158,7 +158,7 @@
 
     var judge="true";
 
-    function index() {
+    function go() {
         location.href="Park";
     }
 
@@ -187,13 +187,13 @@
                         $('#success').modal('show');
 
                     }
-                    else if(data=="false")
+                    else if(data=="false") {
                         $('#false').modal('show');
-                    //alert("同一公司同一停车场不能重复存储");
-                    else if(data=="null")
+                        //alert("同一公司同一停车场不能重复存储");
+                    }
+                    else if(data=="null") {
                         $('#null').modal('show');
-
-
+                    }
                 }
             })
 

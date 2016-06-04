@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by ZhanShaoxiong on 2016/5/5.
+ * 布点计划
  */
 @Controller
 @RequestMapping(value = "/plan3")
@@ -16,5 +17,6 @@ public class Plan3Controller extends BaseController {
         ModelAndView modelAndView=new ModelAndView("plan3");
         return modelAndView;
     }
+
 }
 

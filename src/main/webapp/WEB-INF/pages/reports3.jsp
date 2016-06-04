@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -29,7 +30,8 @@
 <body>
 
 <div id="wrapper">
-
+  <input type="hidden" id="curoffset" value="${report3Datas.offset}">
+  <input type="hidden" id="total" value="${report3Datas.total}">
   <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
     <jsp:param name="pageFather" value="report"></jsp:param>
@@ -49,13 +51,16 @@
 
     <div class="row">
       <div class="col-lg-12 text-right search-row">
-        <select name="" id="">
-          <option value="" selected="selected">上海成基市政建设发展有限公司</option>
+        <select  id="company">
+          <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+          <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
         </select>
-        <input type="text" id="date" placeholder="选择日期"/>
-        <input type="text" id="hour1" placeholder="选择起始时间"/>
-        <input type="text" id="hour2" placeholder="选择结束时间"/>
-        <button class="btn btn-default">搜索</button>
+        <input type="text" id="date" value="${date}" placeholder="选择日期"/>
+        <input type="text" id="startTime" value="${startTime}" placeholder="选择起始时间"/>
+        <input type="text" id="endTime" value="${endTime}" placeholder="选择结束时间"/>
+        <button class="btn btn-default" type="button" onclick="search()">搜索</button>
+        <button class="btn btn-default" type="button" onclick="download()">导出</button>
+
       </div>
       <div class="col-lg-12 text-center table-title">
         养护车辆作业情况
@@ -70,12 +75,12 @@
         <table class="table">
           <thead>
           <tr>
-            <th>公司</th>
             <th>序号</th>
             <th>车牌号</th>
+            <th>车辆类型</th>
             <th>实际作业区域</th>
             <th>起始时间</th>
-            <th>结束</th>
+            <th>结束时间</th>
             <th>累计停留时间（分钟）</th>
             <th>累计作业时间（分钟）</th>
             <th>里程（米）</th>
@@ -83,135 +88,32 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td rowspan="10">成基公司</td>
-            <td>1</td>
-            <td>沪A86574</td>
-            <td>中山北路外侧</td>
-            <td>0时30分</td>
-            <td>4时30分</td>
-            <td>30</td>
-            <td>210</td>
-            <td>85300</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>沪A32574</td>
-            <td>曹安公路外侧</td>
-            <td>2时30分</td>
-            <td>4时30分</td>
-            <td>60</td>
-            <td>60</td>
-            <td>20100</td>
-            <td>无</td>
-          </tr>
+          <c:forEach items="${report3Datas.datas}" var="rp" varStatus="v">
+            <tr>
+              <td>${v.index+1}</td>
+              <td>${rp.vehicleLicence}</td>
+              <td>${rp.vehicleType}</td>
+              <td>${rp.workArea}</td>
+              <td>${rp.startTime}</td>
+              <td>${rp.endTime}</td>
+              <td>${rp.remainTime}</td>
+              <td>${rp.workTime}</td>
+              <td>${rp.mile}</td>
+              <td>${rp.remark}</td>
+            </tr>
+          </c:forEach>
 
-          <tr>
-            <td>3</td>
-            <td>沪A3k576</td>
-            <td>中环路外侧</td>
-            <td>1时30分</td>
-            <td>4时30分</td>
-            <td>30</td>
-            <td>180</td>
-            <td>31047</td>
-            <td>无</td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>沪A74789</td>
-            <td>中山西路外侧</td>
-            <td>1时20分</td>
-            <td>5时00分</td>
-            <td>23</td>
-            <td>220</td>
-            <td>65408</td>
-            <td>无</td>
-          </tr>
-
-          <tr>
-            <td>5</td>
-            <td>沪A32US7</td>
-            <td>延安高架外侧</td>
-            <td>0时34分</td>
-            <td>4时54分</td>
-            <td>87</td>
-            <td>263</td>
-            <td>62214</td>
-            <td>无</td>
-          </tr>
-
-
-          <tr>
-            <td>6</td>
-            <td>沪A32KK1</td>
-            <td>杨高南路外侧</td>
-            <td>0时30分</td>
-            <td>4时30分</td>
-            <td>74</td>
-            <td>214</td>
-            <td>58336</td>
-            <td>无</td>
-          </tr>
-
-
-          <tr>
-            <td>7</td>
-            <td>沪A32749</td>
-            <td>内环高架外侧</td>
-            <td>0时20分</td>
-            <td>4时30分</td>
-            <td>25</td>
-            <td>260</td>
-            <td>62841</td>
-            <td>无</td>
-          </tr>
-
-
-          <tr>
-            <td>8</td>
-            <td>沪A1K574</td>
-            <td>南北高架路外侧</td>
-            <td>2时30分</td>
-            <td>4时30分</td>
-            <td>45</td>
-            <td>130</td>
-            <td>71749</td>
-            <td>无</td>
-          </tr>
-
-
-          <tr>
-            <td>9</td>
-            <td>沪A32532</td>
-            <td>沪闵高架外侧</td>
-            <td>2时30分</td>
-            <td>4时30分</td>
-            <td>60</td>
-            <td>60</td>
-            <td>61200</td>
-            <td>无</td>
-          </tr>
-
-
-          <tr>
-            <td>10</td>
-            <td>沪A67574</td>
-            <td>嘉闵路外侧</td>
-            <td>0时30分</td>
-            <td>4时30分</td>
-            <td>30</td>
-            <td>248</td>
-            <td>59671</td>
-            <td>无</td>
-          </tr>
           </tbody>
         </table>
       </div>
     </div>
-
+    <div class="row text-right">
+      <jsp:include page="pagerR3.jsp">
+        <jsp:param value="Reports3" name="url"/>
+        <jsp:param value="${report3Datas.total }" name="item"/>
+        <jsp:param value="method,company,date,startTime,endTime" name="param"/>
+      </jsp:include>
+    </div>
   </div><!-- /#page-wrapper -->
 
 </div><!-- /#wrapper -->
@@ -233,17 +135,68 @@
     yearEnd: 2050
   });
 
-  $('#hour1').datetimepicker({
-    datepicker:false,
-    format:'H:i',
-    step:10
+  $('#startTime').datetimepicker({
+    datepicker: false,
+    format: 'H:i',
+    step: 1
   });
 
-  $('#hour2').datetimepicker({
-    datepicker:false,
-    format:'H:i',
-    step:10
+  $('#endTime').datetimepicker({
+    datepicker: false,
+    format: 'H:i',
+    step: 10
   });
+
+  function search(){
+    //选中日期
+    var date = $("#date").val();
+    //选中公司
+    var selector = document.getElementById("company");
+    var index = selector.selectedIndex;
+    var company = selector.options[index].value;
+    //开始时间
+    var startTime = $("#startTime").val();
+    //结束时间
+    var endTime = $("#endTime").val();
+
+    if((startTime!=null && startTime!="")&&(endTime!=null && endTime!="")&&(startTime>endTime)){
+        alert("结束时间必须大于等于开始时间！")
+    }else{
+      var goPath = "?company="+company+"&date="+date;
+      if(typeof(startTime) != "undefined" && startTime!=null && startTime!=""){
+        goPath+="&startTime="+startTime;
+      }
+      if(typeof(endTime) != "undefined" && endTime!=null && endTime!=""){
+        goPath+="&endTime="+endTime;
+      }
+      location.href=goPath;
+    }
+  }
+
+  function download(){
+    var date = $("#date").val();
+    //选中公司
+    var selector = document.getElementById("company");
+    var index = selector.selectedIndex;
+    var company = selector.options[index].value;
+    //开始时间
+    var startTime = $("#startTime").val();
+    //结束时间
+    var endTime = $("#endTime").val();
+    if((startTime!=null && startTime!="")&&(endTime!=null && endTime!="")&&(startTime>endTime)){
+      alert("结束时间必须大于等于开始时间！")
+    }else {
+      var goPath = "<%=request.getContextPath()%>/download/reports3?company=" + company + "&date=" + date;
+      if (typeof(startTime) != "undefined" && startTime != null && startTime != "") {
+        goPath += "&startTime=" + startTime;
+      }
+      if (typeof(endTime) != "undefined" && endTime != null && endTime != "") {
+        goPath += "&endTime=" + endTime;
+      }
+      location.href = goPath;
+    }
+  }
+
 
 
 </script>

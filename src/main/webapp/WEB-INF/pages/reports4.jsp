@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -29,7 +30,8 @@
 <body>
 
 <div id="wrapper">
-
+  <input type="hidden" id="curoffset" value="${report4Datas.offset}">
+  <input type="hidden" id="total" value="${report4Datas.total}">
   <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
     <jsp:param name="pageFather" value="report"></jsp:param>
@@ -49,19 +51,22 @@
 
     <div class="row">
       <div class="col-lg-12 text-right search-row">
-        <select name="" id="">
-          <option value="" selected="selected">上海成基市政建设发展有限公司</option>
+        <select  id="company">
+          <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+          <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
         </select>
-        <input type="text" id="date" placeholder="选择日期"/>
-        <input type="text" id="hour1" placeholder="选择起始时间"/>
-        <input type="text" id="hour2" placeholder="选择结束时间"/>
-        <button class="btn btn-default">搜索</button>
+        <input type="text" id="date" value="${date}" placeholder="选择日期"/>
+        <input type="text" id="startTime" value="${startTime}" placeholder="选择起始时间"/>
+        <input type="text" id="endTime" value="${endTime}" placeholder="选择结束时间"/>
+        <button class="btn btn-default" type="button" onclick="search()">搜索</button>
+        <button class="btn btn-default" type="button" onclick="download()">导出</button>
       </div>
       <div class="col-lg-12 text-center table-title">
         养护车辆超速
       </div>
       <div class="col-lg-12 text-right time-row">
-        时间：2016年1月11日 7:00
+        时间：${date}&nbsp;<c:if test="${startTime ne ''}">从${startTime}</c:if><c:if
+              test="${endTime ne ''}">到${endTime}</c:if>
       </div>
     </div>
 
@@ -85,109 +90,34 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A47859</td>
-            <td>清扫车</td>
-            <td>张司机</td>
-            <td>7时20分</td>
-            <td>12时24分</td>
-            <td>20</td>
-            <td>15100</td>
-            <td>45</td>
-            <td>30</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A68721</td>
-            <td>清扫车</td>
-            <td>卫司机</td>
-            <td>8时20分</td>
-            <td>12时24分</td>
-            <td>50</td>
-            <td>25100</td>
-            <td>39</td>
-            <td>28</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A68721</td>
-            <td>巡视车</td>
-            <td>孙司机</td>
-            <td>8时20分</td>
-            <td>13时24分</td>
-            <td>10</td>
-            <td>17100</td>
-            <td>87</td>
-            <td>60</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A1K249</td>
-            <td>清扫车</td>
-            <td>胡司机</td>
-            <td>9时20分</td>
-            <td>12时24分</td>
-            <td>15</td>
-            <td>9568</td>
-            <td>35</td>
-            <td>30</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A68147</td>
-            <td>清扫车</td>
-            <td>何司机</td>
-            <td>8时20分</td>
-            <td>12时24分</td>
-            <td>50</td>
-            <td>25100</td>
-            <td>39</td>
-            <td>28</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A62478</td>
-            <td>巡视车</td>
-            <td>赵司机</td>
-            <td>8时20分</td>
-            <td>13时24分</td>
-            <td>10</td>
-            <td>17100</td>
-            <td>87</td>
-            <td>60</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
-          <tr>
-            <td>上海成基市政建设发展有限公司</td>
-            <td>沪A89653</td>
-            <td>清扫车</td>
-            <td>李司机</td>
-            <td>14时30分</td>
-            <td>17时54分</td>
-            <td>15</td>
-            <td>9568</td>
-            <td>35</td>
-            <td>30</td>
-            <td>超速</td>
-            <td>无</td>
-          </tr>
+          <c:forEach items="${report4Datas.datas}" var="rp" varStatus="v">
+            <tr>
+              <td>${v.index+1}</td>
+              <td>${rp.vehicleLicence}</td>
+              <td>${rp.vehicleType}</td>
+              <td>${rp.vehicleUser}</td>
+              <td>${rp.startTime}</td>
+              <td>${rp.endTime}</td>
+              <td>${rp.overspeedTime}</td>
+              <td>${rp.overspeedMile}</td>
+              <td>${rp.maxSpeed}</td>
+              <td>${rp.minSpeed}</td>
+              <td>${rp.reason}</td>
+              <td>${rp.feedback}</td>
+            </tr>
+          </c:forEach>
+
           </tbody>
         </table>
       </div>
     </div>
-
+    <div class="row text-right">
+      <jsp:include page="pagerR3.jsp">
+        <jsp:param value="Reports4" name="url"/>
+        <jsp:param value="${report4Datas.total }" name="item"/>
+        <jsp:param value="method,company,date,startTime,endTime" name="param"/>
+      </jsp:include>
+    </div>
   </div><!-- /#page-wrapper -->
 
 </div><!-- /#wrapper -->
@@ -209,17 +139,68 @@
     yearEnd: 2050
   });
 
-  $('#hour1').datetimepicker({
-    datepicker:false,
-    format:'H:i',
-    step:10
+  $('#startTime').datetimepicker({
+    datepicker: false,
+    format: 'H:i',
+    step: 10
   });
 
-  $('#hour2').datetimepicker({
-    datepicker:false,
-    format:'H:i',
-    step:10
+  $('#endTime').datetimepicker({
+    datepicker: false,
+    format: 'H:i',
+    step: 10
   });
+
+  function search(){
+    //选中日期
+    var date = $("#date").val();
+    //选中公司
+    var selector = document.getElementById("company");
+    var index = selector.selectedIndex;
+    var company = selector.options[index].value;
+    //开始时间
+    var startTime = $("#startTime").val();
+    //结束时间
+    var endTime = $("#endTime").val();
+
+    if((startTime!=null && startTime!="")&&(endTime!=null && endTime!="")&&(startTime>endTime)){
+      alert("结束时间必须大于等于开始时间！")
+    }else{
+      var goPath = "?company="+company+"&date="+date;
+      if(typeof(startTime) != "undefined" && startTime!=null && startTime!=""){
+        goPath+="&startTime="+startTime;
+      }
+      if(typeof(endTime) != "undefined" && endTime!=null && endTime!=""){
+        goPath+="&endTime="+endTime;
+      }
+      location.href=goPath;
+    }
+  }
+
+  function download(){
+    var date = $("#date").val();
+    //选中公司
+    var selector = document.getElementById("company");
+    var index = selector.selectedIndex;
+    var company = selector.options[index].value;
+    //开始时间
+    var startTime = $("#startTime").val();
+    //结束时间
+    var endTime = $("#endTime").val();
+    if((startTime!=null && startTime!="")&&(endTime!=null && endTime!="")&&(startTime>endTime)){
+      alert("结束时间必须大于等于开始时间！")
+    }else {
+
+      var goPath = "<%=request.getContextPath()%>/download/reports4?company=" + company + "&date=" + date;
+      if (typeof(startTime) != "undefined" && startTime != null && startTime != "") {
+        goPath += "&startTime=" + startTime;
+      }
+      if (typeof(endTime) != "undefined" && endTime != null && endTime != "") {
+        goPath += "&endTime=" + endTime;
+      }
+      location.href = goPath;
+    }
+  }
 
 
 </script>

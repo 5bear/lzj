@@ -1,6 +1,5 @@
 package com.springapp.mvc;
 
-import com.springapp.entity.Line;
 import com.springapp.entity.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +18,6 @@ public class Progress2Controller extends BaseController{
     @RequestMapping(value="/progress2",method = RequestMethod.GET)
     public ModelAndView home(ModelAndView modelAndView,HttpServletRequest request){
         modelAndView.setViewName("progress2");
-        List<Line> cjList=lineDao.getListByCompany("上海成基市政建设发展有限公司");
-        List<Line>gjyhList=lineDao.getListByCompany("上海高架养护管理有限公司");
         List<Vehicle>cyList=vehicleDao.getCyList();
         List<Vehicle>cqList=vehicleDao.getCqList();
         List<Vehicle>cxList=vehicleDao.getCxList();
@@ -33,8 +30,6 @@ public class Progress2Controller extends BaseController{
         modelAndView.addObject("gqList",gqList);
         modelAndView.addObject("gxList",gxList);
         modelAndView.addObject("gyList",gyList);
-        modelAndView.addObject("cjList",cjList);
-        modelAndView.addObject("gjyhList",gjyhList);
         return modelAndView;
     }
     @RequestMapping(value="/progress2-1",method = RequestMethod.GET)

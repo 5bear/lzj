@@ -71,6 +71,10 @@ public class eFenceController extends BaseController {
         eFence.setCoords(coords);
         eFence.setLng(lng);
         eFence.setLat(lat);
+        String oldName = eFence.geteFence();
+        if (!oldName.equals(eFenceName)){ //电子围栏名称改变 需要修改对应车辆的电子围栏名称
+            vehicleDao.updateEfence(oldName,eFenceName);
+        }
         eFence.seteFence(eFenceName);
         eFence.setCompany(company);
         eFence.setInputMan(username);
@@ -86,6 +90,7 @@ public class eFenceController extends BaseController {
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         eFence eFence= eFenceDao.getById(Long.parseLong(id));
+
         eFence.setIsDelete(1);
         eFence.setDeleteTime(simpleDateFormat.format(new Date()));
         eFenceDao.update(eFence);
@@ -95,6 +100,9 @@ public class eFenceController extends BaseController {
     @ResponseBody
     public String deleteByCoords(@RequestParam(value = "coords")String coords){
         eFence eFence= eFenceDao.getByCoords(coords);
+        List<Vehicle>vehicleList=vehicleDao.getByeFence(eFence.getId());
+        if(vehicleList!=null&&vehicleList.size()>0)
+            return "fail";
         eFence.setIsDelete(1);
         eFence.setDeleteTime(simpleDateFormat.format(new Date()));
         eFenceDao.update(eFence);

@@ -3,21 +3,17 @@ package com.springapp.mvc;
 /**
  * Created by yanglin on 16/4/19.
  */
-import com.springapp.dao.MaintainLogDao;
+
 import com.springapp.entity.MaintainLog;
-import com.springapp.dao.VehicleDao;
-import com.springapp.entity.Package;
 import com.springapp.entity.Vehicle;
-import com.springapp.entity.Line;
-import com.springapp.dao.LineDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.Date;
-import java.util.List;
 
 
 @Controller
@@ -25,11 +21,20 @@ import java.util.List;
 public class MaintainLogController extends BaseController {
 
     @RequestMapping(value="/MaintainLog", method=RequestMethod.GET)
-    public ModelAndView list()
+    public ModelAndView list(@RequestParam(required = false) String vehicleLicence,@RequestParam(required = false) String startDate,@RequestParam(required = false) String endDate)
     {
+        if(vehicleLicence==null){
+            vehicleLicence = "";
+        }
+        if (startDate==null){
+            startDate = "";
+        }
+        if (endDate==null){
+            endDate = "";
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("MaintainLogIndex");
-        modelAndView.addObject("MaintainLogList", maintainLogDao.getList());//获取表中所有的数据
+        modelAndView.addObject("MaintainLogList", maintainLogDao.getPager(vehicleLicence,startDate,endDate));//获取表中所有的数据
 
         modelAndView.addObject("CyList",vehicleDao.getCyList());
         modelAndView.addObject("CqList",vehicleDao.getCqList());
@@ -38,8 +43,18 @@ public class MaintainLogController extends BaseController {
         modelAndView.addObject("GqList",vehicleDao.getGqList());
         modelAndView.addObject("GxList",vehicleDao.getGxList());
 
-        modelAndView.addObject("date1","");
-        modelAndView.addObject("date2","");
+        if (!"".equals(vehicleLicence.trim())){
+            Vehicle v = vehicleDao.getByVehicleLicence(vehicleLicence);
+            modelAndView.addObject("type",v.getVehicleType());
+            modelAndView.addObject("company",v.getCompany());
+        }else {
+            modelAndView.addObject("type","");
+            modelAndView.addObject("company","");
+        }
+
+        modelAndView.addObject("vehicleLicence",vehicleLicence);
+        modelAndView.addObject("startDate",startDate);
+        modelAndView.addObject("endDate",endDate);
         return modelAndView;
 
 
@@ -67,23 +82,28 @@ public class MaintainLogController extends BaseController {
                        @RequestParam(value = "remark") String remark,
                        @RequestParam(value = "time") String time)
     {
-        System.out.println(vehicleLicence+"+"+principal);
-        MaintainLog mtl = new MaintainLog();
-        Vehicle vehicle=vehicleDao.getByVehicleLicence(vehicleLicence);
-        String company=vehicle.getCompany();
-        mtl.setVehicleLicence(vehicleLicence);
-        mtl.setPrincipal(principal);
-        mtl.setRoad(road);
-        mtl.setEventType(eventType);
-        mtl.setDayTime(_date);
-        mtl.setRemark(remark);
-        mtl.setTime(time);
-        mtl.setCompany(company);
-        System.out.println(company);
-        mtl.setIsDelete(0);
-        mtl.setCreateTime(simpleDateFormat.format(new Date()));
-        maintainLogDao.save(mtl);
-        return "success";
+
+        MaintainLog mtl = maintainLogDao.getByVDT(vehicleLicence,_date,time);
+        if (mtl!=null){
+            return "false";
+        }else {
+            mtl = new MaintainLog();
+            Vehicle vehicle = vehicleDao.getByVehicleLicence(vehicleLicence);
+            String company = vehicle.getCompany();
+            mtl.setVehicleLicence(vehicleLicence);
+            mtl.setPrincipal(principal);
+            mtl.setRoad(road);
+            mtl.setEventType(eventType);
+            mtl.setDayTime(_date);
+            mtl.setRemark(remark);
+            mtl.setTime(time);
+            mtl.setCompany(company);
+            System.out.println(company);
+            mtl.setIsDelete(0);
+            mtl.setCreateTime(simpleDateFormat.format(new Date()));
+            maintainLogDao.add(mtl);
+            return "success";
+        }
     }
 
     @RequestMapping(value = "/MaintainLogEdit", method = RequestMethod.GET)
@@ -109,20 +129,25 @@ public class MaintainLogController extends BaseController {
                         @RequestParam(value = "time") String time,
                         @RequestParam(value = "remark") String remark)
     {
-        MaintainLog mtl=maintainLogDao.getById(Long.parseLong(id));
-        Vehicle vehicle=vehicleDao.getByVehicleLicence(vehicleLicence);
-        String company=vehicle.getCompany();
-        mtl.setVehicleLicence(vehicleLicence);
-        mtl.setPrincipal(principal);
-        mtl.setRoad(road);
-        mtl.setEventType(eventType);
-        mtl.setDayTime(dayTime);
-        mtl.setTime(time);
-        mtl.setRemark(remark);
-        mtl.setCompany(company);
-        mtl.setEditTime(simpleDateFormat.format(new Date()));
-        maintainLogDao.update(mtl);
-        return "success";
+        MaintainLog m = maintainLogDao.getByVDT(vehicleLicence, dayTime, time);
+        if (m!=null){
+            return "false";
+        }else {
+            MaintainLog mtl = maintainLogDao.getById(Long.parseLong(id));
+            Vehicle vehicle = vehicleDao.getByVehicleLicence(vehicleLicence);
+            String company = vehicle.getCompany();
+            mtl.setVehicleLicence(vehicleLicence);
+            mtl.setPrincipal(principal);
+            mtl.setRoad(road);
+            mtl.setEventType(eventType);
+            mtl.setDayTime(dayTime);
+            mtl.setTime(time);
+            mtl.setRemark(remark);
+            mtl.setCompany(company);
+            mtl.setEditTime(simpleDateFormat.format(new Date()));
+            maintainLogDao.update(mtl);
+            return "success";
+        }
     }
 
     @RequestMapping(value = "/MaintainLogDelete",method = RequestMethod.POST)
@@ -136,7 +161,7 @@ public class MaintainLogController extends BaseController {
     }
 
 
-    @RequestMapping(value="/MaintainLogSearchByTime",method = RequestMethod.GET)
+    /*@RequestMapping(value="/MaintainLogSearchByTime",method = RequestMethod.GET)
     public ModelAndView searchByTime(@RequestParam(value = "date1") String date1,
                                @RequestParam(value = "date2") String date2)
     {
@@ -153,9 +178,9 @@ public class MaintainLogController extends BaseController {
         modelAndView.addObject("date1",date1);
         modelAndView.addObject("date2",date2);
         return modelAndView;
-    }
+    }*/
 
-    @RequestMapping(value="/MaintainLogSearch",method = RequestMethod.GET)
+  /*  @RequestMapping(value="/MaintainLogSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         ModelAndView modelAndView=new ModelAndView();
@@ -171,7 +196,7 @@ public class MaintainLogController extends BaseController {
         modelAndView.addObject("date1","");
         modelAndView.addObject("date2","");
         return modelAndView;
-    }
+    }*/
 
 
     @RequestMapping(value="/MaintainLogDetail",method = RequestMethod.GET)

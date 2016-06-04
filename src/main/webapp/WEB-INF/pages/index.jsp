@@ -227,48 +227,6 @@
             <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
             <div class="panel-body">
               <li class="dropdown dropdown1">
-                <a href="#" data-toggle="droplist">按照区域查</a>
-                <div class="arrow-section arrow-section1">
-                  <div class="arrow-down arrow-down1"></div>
-                </div>
-                <ul class="dropdown-menu panel-menu">
-                  <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
-                    <div class="arrow-section arrow-section2">
-                      <div class="arrow-down arrow-down2"></div>
-                    </div>
-                    <ul class="dropdown-menu panel-menu">
-
-                      <c:forEach items="${cjList}" var="item">
-                        <li class="dropdown dropdown3">
-                          <a href="#" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="droplist">${item.line}</a>
-                          <div class="arrow-section arrow-section3">
-                          </div>
-                        </li>
-                      </c:forEach>
-                    </ul>
-                  </li>
-                  <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
-                    <div class="arrow-section arrow-section2">
-                      <div class="arrow-down arrow-down2"></div>
-                    </div>
-                    <ul class="dropdown-menu panel-menu">
-                     <c:forEach items="${gjyhList}" var="item">
-                       <li class="dropdown dropdown3">
-                         <a href="#" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="droplist">${item.line}</a>
-                         <div class="arrow-section arrow-section3">
-                         </div>
-                       </li>
-                     </c:forEach>
-                    </ul>
-                  </li>
-                </ul>
-              </li><!--dropdown1-->
-
-
-
-              <li class="dropdown dropdown1">
                 <a href="#" data-toggle="droplist">按照车辆查看</a>
                 <div class="arrow-section arrow-section1">
                   <div class="arrow-down arrow-down1"></div>
@@ -372,9 +330,6 @@
                   </li>
               </ul>
               </li>
-
-
-
             </div>
           </div>
         </div><!--in-left-->
@@ -386,7 +341,13 @@
             <button class="btn btn-default" onclick="addArea()">设置常用区域</button>
           </div>
 
-          <div id="container" style=" height: 610px; width:99%"></div>
+          <div style="position: relative;">
+            <div id="container" style="height: 610px; width:99%;"></div>
+            <div class="map-search">
+              <input type="text" id="localSearch" onchange="localSearch()"/>
+              <button onclick="localSearch()"></button>
+            </div>
+          </div>
 
 
 
@@ -477,7 +438,8 @@
 
 <!-- JavaScript -->
 <script>
-  $('a[data-toggle="droplist"]').click(function() {
+  $('a[data-toggle="droplist"]').click(function(e) {
+    e.preventDefault();
     $(this).nextAll().toggle();
   });
 </script>
@@ -489,11 +451,27 @@
   var vehicleList=new Array()
   var vehicle//车辆
   var vehiclePos//车辆轨迹
+  /*信息窗口*/
+  var opts = {
+    width : 100,     // 信息窗口宽度
+    height: 200,     // 信息窗口高度
+    title :"车辆信息" ,// 信息窗口标题
+    enableMessage:true,//设置允许信息窗发送短息
+    message:""
+  }
+  var infoWindow
   var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
   map.enableScrollWheelZoom();//允许放大缩放
   map.addControl(top_left_control);
+  var local = new BMap.LocalSearch(map, {
+    renderOptions:{map: map}
+  });//用于搜索
+  function localSearch(){
+    var localSearch=$("#localSearch").val();
+    local.search(localSearch);
+  }
 /*转换为地图坐标*/
   function transferPoint(point){
     return new BMap.Point(point.lng+(121.35053994012-121.339485),point.lat+(31.217964392252-31.213757));
@@ -578,7 +556,7 @@
   }
   setInterval(function(){
     getLatestPos()
-  }, "5000");
+  }, "10000");
 
   function getLatestPos(){
     $(vehicleList).each(function(index,element){
@@ -590,6 +568,12 @@
         success:function(data){
           if(data!=null) {
             var point = new BMap.Point(data.lng / 1000000, data.lat / 1000000);
+            var currentPoint=element.get("currentPoint")
+            element.removeByKey("currentPoint")
+            element.put("currentPoint",transferPoint(point))
+            var polyLine=new BMap.Polyline([currentPoint,transferPoint(point)],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+            map.addOverlay(polyLine)
+            changeInfoWindow(element.get("car"),element.get("vehicle").vehicleLicence,element.get("vehicle").vehicleType, data.devIDNO, data.speed/10, data.isDriver,data.HDD, transferPoint(point), data.direction)
             element.get("car").setPosition(transferPoint(point))
             element.get("car").setRotation(data.direction)
           }
@@ -618,7 +602,43 @@
 
     /* map.addEventListener('click',mapClick)*/
 
+  function changeInfoWindow(myCar,vehicleLicence, vehicle, devIDNO, speed, isDriver,HDD, point, direction)
+  {
+    myCar.removeEventListener("mouseover");
+    myCar.removeEventListener("mouseout");
+    if(HDD== "00")
+      HDD= "硬盘不存在"
+    else if(HDD== "01")
+      HDD="硬盘存在";
+    else
+      HDD="断电"
+    if(isDriver==0)
+      isDriver="正在作业"
+    else
+      isDriver="静止"
+    var opts = {
+      width : 100,     // 信息窗口宽度
+      height: 200,     // 信息窗口高度
+      title :"车辆信息" ,// 信息窗口标题
+      enableMessage:true,//设置允许信息窗发送短息
+      message:""
+    }
 
+    infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+    /* myCar.addEventListener('click',function(){
+     if(vehicle =="巡视车")
+     location.
+     href = "progress2-2?id=" + devIDNO
+     else
+     location.href = "progress2-1?id=" + devIDNO
+     });*/
+    myCar.addEventListener("mouseover", function (e) {
+      map.openInfoWindow(infoWindow, point);
+    });
+    myCar.addEventListener("mouseout", function (e) {
+      map.closeInfoWindow(infoWindow, point);
+    });
+  }
   function setCar(vehicle,point,direction){
     var myCar;
     if(vehicle=="巡视车")
@@ -637,7 +657,7 @@
         HDD="硬盘存在";
       else
         HDD="断电"
-      if(speed>0)
+      if(isDriver==0)
         isDriver="正在作业"
       else
         isDriver="静止"
@@ -649,14 +669,14 @@
         message:""
       }
 
-      var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
-      myCar.addEventListener('click',function(){
+       infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+     /* myCar.addEventListener('click',function(){
         if(vehicle =="巡视车")
         location.
                 href = "progress2-2?id=" + devIDNO
         else
           location.href = "progress2-1?id=" + devIDNO
-      });
+      });*/
       myCar.addEventListener("mouseover", function (e) {
         map.openInfoWindow(infoWindow, point);
       });

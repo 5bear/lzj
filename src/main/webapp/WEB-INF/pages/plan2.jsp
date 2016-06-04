@@ -30,6 +30,7 @@
 <%
   int totalPage= (Integer) request.getAttribute("totalPage");
   int currentPage= (Integer) request.getAttribute("totalPage");
+  String url="line?p="+currentPage;
 %>
 <div id="wrapper">
 <jsp:include page="public.jsp" flush="true">
@@ -115,7 +116,7 @@
           <jsp:include page="page.jsp" flush="true">
             <jsp:param name="currentPage" value="<%=currentPage%>"></jsp:param>
             <jsp:param name="totalPage" value="<%=totalPage%>"></jsp:param>
-            <jsp:param name="url" value="line"></jsp:param>
+            <jsp:param name="url" value="<%=url%>"></jsp:param>
           </jsp:include>
         </div>
       </div>

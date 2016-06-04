@@ -417,34 +417,21 @@ new scale('btn','bar','title');
             });
 			var id="0200001";
 			var view = document.getElementById("gViewer");
-			var strFile="E:/gStorage/RECORD_FILE/0200001(0200001)/2016-05-23/H20160523-000000P1N1P0.avi";
-
+			var strFile="D:/H20160502-000000P1N2P0.avi";
 		function init1()
     {
-
         view.Layout = 1;
         view.PaneType=0;
         view.ServerIP = "120.24.79.63";
         view.ServerPort = "6603";
 
     }
-	function Start(){
-		SearchMDVR_Recording();
-		view.StartPlaybackRec(strFile,"2016-5-23 00:00:00","2016-5-23 00:15:00",id,1,"121329038",2,2,9,"2016-5-23 00:00:00","2016-5-23 00:15:00",0);
-	}
-			function SearchMDVR_Recording()
-			{
-				try
-				{
-					alert("1");
-					//must be one day
-					var nStartTime = "2016-05-14 00:00:00";
-					var nEndTime = "2016-05-14 23:59:59";
-					view.StopRecSearch();
-					view.StartRecSearch(id,1,-1,nStartTime,nEndTime,1,2);
-				}
-				catch(e){alert(e.message);}
+			function Search(){
+				view.StartRecSearch(id,2,-1,"2016-05-02 00:00:00","2016-05-02 00:15:00",2,);
 			}
+			function Start(){
+		view.StartPlaybackRec(strFile,"2016-05-02 00:00:00","2016-05-02 00:15:00",id,2,"0",2,2,6,"2016-05-02 00:00:00","2016-05-02 00:15:00",0);
+	}
         </script>
         
          <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>

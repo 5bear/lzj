@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -31,7 +31,8 @@
 <body>
 
 <div id="wrapper">
-
+    <input type="hidden" id="curoffset" value="${ParkList.offset}">
+    <input type="hidden" id="total" value="${ParkList.total}">
     <!-- Sidebar -->
     <jsp:include page="public.jsp" flush="true">
         <jsp:param name="pageName" value="base1"></jsp:param>
@@ -56,9 +57,9 @@
                     <div class="col-lg-12 time-row text-right">
                         <div class="search-div">
                             <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" value="${search}"/>
+                            <input type="text" id="search" value="${name}" onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
                         </div>
-                        <button class="btn btn-default" onclick="searchPark(document.getElementById('search').value)">搜索</button>
+                        <button id="subSearch" name="subSearch" type="button" class="btn btn-default" onclick="searchPark()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
                         <a href="ParkAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增停车场信息</a>
@@ -76,7 +77,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${ParkList}" var="park">
+                            <c:forEach items="${ParkList.datas}" var="park">
                                 <tr>
                                     <td>${park.company}</td>
                                     <td>${park.parkName}</td>
@@ -84,8 +85,9 @@
                                     <td>${park.addr}</td>
                                     <td>${park.serverIP}</td>
                                     <td>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editPark('${park.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getID('${park.id}')">删除</button>
+                                        <a  onclick="editPark('${park.id}')"  class="operation"><label><img src="images/edit.png" alt="编辑">编辑</label></a>
+                                        <a onclick="getID('${park.id}')"  class="operation"><label><img src="images/delete1.png" alt="删除">删除</label></a>
+
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -97,15 +99,11 @@
         </div>
 
         <div class="row text-right">
-            <ul class="page">
-                <li><a href="#"><</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">></a></li>
-            </ul>
+                <jsp:include page="pager.jsp">
+                    <jsp:param value="Park" name="url"/>
+                    <jsp:param value="${ParkList.total }" name="item"/>
+                    <jsp:param value="method,name" name="param"/>
+                </jsp:include>
         </div>
 
     </div><!-- /#page-wrapper -->
@@ -141,7 +139,7 @@
 
     function getID(Id) {
         id=Id;
-
+        $("#delete").modal("show");
     }
 
     function editPark(id)
@@ -168,9 +166,14 @@
         })
     }
 
-    function searchPark(search)
+    function searchPark()
     {
-        location.href="ParkSearch?search="+search;
+            var name = $("#search").val();
+
+            if (name == null) {
+                name = "";
+            }
+            window.location = "?name=" + name;
     }
 
 </script>

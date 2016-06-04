@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -63,8 +63,8 @@
                         <td>所属养护公司</td>
                         <td>
                             <select name="company" id="company">
-                                <option value="上海成基市政建设发展有限公司" <c:if test="${Package_edit.company=='上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
-                                <option value="上海高架养护管理有限公司" <c:if test="${Package_edit.company=='上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+                                <option value="上海成基市政建设发展有限公司" <c:if test="${Package_edit.company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                                <option value="上海高架养护管理有限公司" <c:if test="${Package_edit.company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
                             </select>
                         </td>
                     </tr>
@@ -96,7 +96,7 @@
                         <td>
                             <select id="happen-year">
                                 <c:forEach items="${yearList}" var="year">
-                                    <option <c:if test="${Package_edit.runtime=='${year}'}">selected="selected"</c:if>>${year}</option>
+                                    <option  <c:if test="${Package_edit.runtime eq year}">selected="selected"</c:if>>${year}</option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -105,7 +105,7 @@
                     <tr>
                         <td>包件描述</td>
 
-                        <td><textarea class="table-input" rows="3" id="remark" value="${Package_edit.remark}"></textarea></td>
+                        <td><textarea class="table-input" rows="3" id="remark" >${Package_edit.remark}</textarea></td>
                     </tr>
                     <tr>
                         <td>录入人</td>
@@ -119,7 +119,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" >提交</button>
+                <button class="btn btn-default" data-toggle="modal" onclick="editPackage()" >提交</button>
                 <button class="btn btn-default">取消</button>
             </div>
         </div>
@@ -139,7 +139,38 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="editPackage()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()"  >确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="null" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>包件名称不能为空!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>包件名称已存在,不能重复添加!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -159,6 +190,23 @@
 </script>
 
 <script type="text/javascript">
+    function setSelect(company,year) {
+        var obj = document.getElementById("company");
+        _Select(obj, company);
+        var obj = document.getElementById("year");
+        _Select(obj, year);
+    }
+
+    function _Select(o, s) {
+        for (var i = 0; i < o.options.length; i++)
+            if (o.options[i].value == s) {
+                o.options[i].selected = true;
+                break;
+            }
+    }
+    function go() {
+        location.href="Package";
+    }
 
     function editPackage(){
 
@@ -183,7 +231,11 @@
             success:function(data){
 
                 if(data=="success")
-                        location.href="Package";
+                    $('#success').modal('show');
+                else if(data=="null")
+                    $('#null').modal('show');
+                else if(data=="false")
+                    $('#false').modal('show');
             }
         })
 

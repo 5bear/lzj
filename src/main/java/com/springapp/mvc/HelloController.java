@@ -2,10 +2,7 @@ package com.springapp.mvc;
 
 import com.springapp.classes.FileRead;
 import com.springapp.classes.pingTest;
-import com.springapp.entity.Account;
-import com.springapp.entity.Line;
-import com.springapp.entity.Vehicle;
-import com.springapp.entity.VehiclePos;
+import com.springapp.entity.*;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,8 +69,6 @@ public class HelloController extends BaseController{
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView modelAndView=new ModelAndView();
-		List<Line> cjList=lineDao.getListByCompany("上海成基市政建设发展有限公司");
-		List<Line>gjyhList=lineDao.getListByCompany("上海高架养护管理有限公司");
 		List<Vehicle>cyList=vehicleDao.getCyList();
 		List<Vehicle>cqList=vehicleDao.getCqList();
 		List<Vehicle>cxList=vehicleDao.getCxList();
@@ -86,8 +81,6 @@ public class HelloController extends BaseController{
 		modelAndView.addObject("gqList",gqList);
 		modelAndView.addObject("gxList",gxList);
 		modelAndView.addObject("gyList",gyList);
-		modelAndView.addObject("cjList",cjList);
-		modelAndView.addObject("gjyhList",gjyhList);
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}

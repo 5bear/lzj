@@ -6,196 +6,182 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>上海市快速路养护作业监管设施完善工程</title>
+    <title>上海市快速路养护作业监管设施完善工程</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
 
-  <!-- Add custom CSS here -->
-  <link href="css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css"/>
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 
 <body>
 
 <div id="wrapper">
+    <input type="hidden" id="curoffset" value="${report2Datas.offset}">
+    <input type="hidden" id="total" value="${report2Datas.total}">
+    <!-- Sidebar -->
+    <jsp:include page="public.jsp" flush="true">
+        <jsp:param name="pageFather" value="report"></jsp:param>
+        <jsp:param name="pageName" value="report2"></jsp:param>
+    </jsp:include>
 
-  <!-- Sidebar -->
-  <jsp:include page="public.jsp" flush="true">
-    <jsp:param name="pageFather" value="report"></jsp:param>
-    <jsp:param name="pageName" value="report2"></jsp:param>
-  </jsp:include>
+    <div id="page-wrapper">
 
-  <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.html"><i class="icon-dashboard"></i> 报表查询</a></li>
+                    <li class="active"><i class="icon-file-alt"></i> 养护车辆作业区域</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
 
-    <div class="row">
-      <div class="col-lg-12">
-        <ol class="breadcrumb">
-          <li><a href="index.html"><i class="icon-dashboard"></i> 报表查询</a></li>
-          <li class="active"><i class="icon-file-alt"></i> 养护车辆作业区域</li>
-        </ol>
-      </div>
-    </div><!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12 text-right search-row">
+                <select  id="company">
+                    <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                    <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+                </select>
+                <input type="text" id="date" value="${date}" placeholder="选择日期"/>
+                <input type="text" id="time" value="${time}" placeholder="选择时间"/>
+                <button class="btn btn-default" type="button" onclick="search()">搜索</button>
+                <button class="btn btn-default" type="button" onclick="download()">导出</button>
 
-    <div class="row">
-      <div class="col-lg-12 text-right search-row">
-        <select name="" id="">
-          <option value="" selected="selected">上海成基市政建设发展有限公司</option>
-        </select>
-        <input type="text" id="date" placeholder="选择日期"/>
-        <input type="text" id="hour1" placeholder="选择起始时间"/>
-        <input type="text" id="hour2" placeholder="选择结束时间"/>、
-        <button class="btn btn-default">搜索</button>
-      </div>
-      <div class="col-lg-12 text-center table-title">
-        养护车辆作用区域
-      </div>
-      <div class="col-lg-12 text-right time-row">
-        时间：2016年1月11日 7:00
-      </div>
+            </div>
+            <div class="col-lg-12 text-center table-title">
+                养护车辆作用区域
+            </div>
+            <div class="col-lg-12 text-right time-row">
+                时间：${date}&nbsp;${time}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>作业车辆</th>
+                        <th>车辆类型</th>
+                        <th>路段名称</th>
+                        <th>作业时间</th>
+                       <%-- <th>备注</th>--%>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${report2Datas.datas}" var="rp" varStatus="v">
+                        <tr>
+                            <td>${v.index+1}</td>
+                            <td>${rp.vehicleLicence}</td>
+                            <td>${rp.vehicleType}</td>
+                            <td>${rp.rampName}</td>
+                            <td>${rp.workTime}</td>
+                          <%--  <td>${rp.remark}</td>--%>
+                        </tr>
+                    </c:forEach>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row text-right">
+            <jsp:include page="pagerR2.jsp">
+                <jsp:param value="Reports2" name="url"/>
+                <jsp:param value="${report2Datas.total }" name="item"/>
+                <jsp:param value="method,company,date,startTime,endTime" name="param"/>
+            </jsp:include>
+        </div>
     </div>
+    <!-- /#page-wrapper -->
 
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>序号</th>
-            <th>作业车辆</th>
-            <th>匝道名称</th>
-            <th>车辆类型</th>
-            <th>作业时间</th>
-            <th>备注</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1</td>
-            <td>沪A894k4</td>
-            <td>中山北路外侧</td>
-            <td>清扫车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>沪A8544d</td>
-            <td>万源路外侧</td>
-            <td>清扫车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>沪A14768</td>
-            <td>莲花南路外侧</td>
-            <td>清扫车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>沪A79574</td>
-            <td>七浦外侧</td>
-            <td>清扫车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>沪A98222</td>
-            <td>南京西路外侧</td>
-            <td>清扫车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>沪A72143</td>
-            <td>番禺路路外侧</td>
-            <td>巡视车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>沪A13179</td>
-            <td>金沙江路外侧</td>
-            <td>巡视车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>沪A86573</td>
-            <td>中山北路外侧</td>
-            <td>巡视车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>沪A98547</td>
-            <td>曹杨路外侧</td>
-            <td>牵引车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>沪A79US0</td>
-            <td>漕宝路路外侧</td>
-            <td>牵引车</td>
-            <td>7:00</td>
-            <td>备注</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div><!-- /#page-wrapper -->
-
-</div><!-- /#wrapper -->
+</div>
+<!-- /#wrapper -->
 
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-  $(function(){
-    $("#reports").dropdown('toggle');
-  });
+    $(function () {
+        $("#reports").dropdown('toggle');
+    });
 
-  $('#date').datetimepicker({
-    lang:'ch',
-    timepicker:false,
-    format:"Y-m-d",
-    yearStart: 2016,
-    yearEnd: 2050
-  });
+    $('#date').datetimepicker({
+        lang: 'ch',
+        timepicker: false,
+        format: "Y-m-d",
+        yearStart: 2016,
+        yearEnd: 2050
+    });
 
-  $('#hour1').datetimepicker({
-    datepicker:false,
-    format:'H:i',
-    step:10
-  });
+    $('#time').datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        step: 1
+    });
 
-  $('#hour2').datetimepicker({
-    datepicker:false,
-    format:'H:i',
-    step:10
-  });
+
+    function search(){
+        //选中日期
+        var date = $("#date").val();
+        //选中公司
+        var selector = document.getElementById("company");
+        var index = selector.selectedIndex;
+        var company = selector.options[index].value;
+        //开始时间
+        var time = $("#time").val();
+       /* //结束时间
+        var endTime = $("#endTime").val();*/
+
+
+        var goPath = "?company="+company+"&date="+date+"&time="+time;
+        /*if(typeof(startTime) != "undefined" && startTime!=null && startTime!=""){
+            goPath+="&startTime="+startTime;
+        }
+        if(typeof(endTime) != "undefined" && endTime!=null && endTime!=""){
+            goPath+="&endTime="+endTime;
+        }*/
+
+        location.href=goPath;
+    }
+
+    function download(){
+        var date = $("#date").val();
+        var time = $("#time").val();
+        //选中公司
+        var selector = document.getElementById("company");
+        var index = selector.selectedIndex;
+        var company = selector.options[index].value;
+
+      /*  //开始时间
+        var startTime = $("#startTime").val();
+        //结束时间
+        var endTime = $("#endTime").val();
+*/
+        var goPath = "<%=request.getContextPath()%>/download/reports2?company="+company+"&date="+date+"&time="+time;
+       /* if(typeof(startTime) != "undefined" && startTime!=null && startTime!=""){
+            goPath+="&startTime="+startTime;
+        }
+        if(typeof(endTime) != "undefined" && endTime!=null && endTime!=""){
+            goPath+="&endTime="+endTime;
+        }*/
+        location.href=goPath;
+    }
 
 
 </script>

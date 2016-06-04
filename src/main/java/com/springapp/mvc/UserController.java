@@ -1,6 +1,7 @@
 package com.springapp.mvc;
 
 import com.springapp.entity.Account;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +53,12 @@ public class UserController extends BaseController{
         }
         modelAndView.setViewName("personalManagement");
         return modelAndView;
+    }
+    @RequestMapping(value = "/User/get",method = RequestMethod.POST)
+    @ResponseBody
+    public String add(@RequestParam(value = "findName")String findName){
+
+        return JSONArray.fromObject(userDao.getAccount(findName)).toString();
     }
     @RequestMapping(value = "/User/add",method = RequestMethod.POST)
     @ResponseBody

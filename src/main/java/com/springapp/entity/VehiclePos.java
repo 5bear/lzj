@@ -5,20 +5,12 @@ import java.sql.Timestamp;
 
 /**
  * Created by ZhanShaoxiong on 2016/5/9.
+ * 报警信息
  */
 @Entity
 public class VehiclePos {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     private Long id;
+    private String serialNumber;
     private String devIDNO;
     private Long lng;
     private Long lat;
@@ -32,6 +24,24 @@ public class VehiclePos {
     private int OilMass;//油量
     private int ParkTime;//停车时间
     private Timestamp GpsTime;//gps时间
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column()
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     @Column
     public String getArmDesc() {

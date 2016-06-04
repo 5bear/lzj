@@ -294,9 +294,10 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery.datetimepicker.js"></script>
     <script>
-        $('a[data-toggle="droplist"]').click(function() {
-            $(this).nextAll().toggle();
-        });
+        $('a[data-toggle="droplist"]').click(function(e) {
+        e.preventDefault();
+        $(this).nextAll().toggle();
+    });
 
     $('#date1').datetimepicker({
     lang:'ch',

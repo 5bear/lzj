@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -38,7 +38,7 @@
 
 </head>
 
-<body>
+<body onload="init('${Vehicle_edit.vehicleType}')">
 
 <div id="wrapper">
 
@@ -76,8 +76,8 @@
                             <td>所属养护公司</td>
                             <td>
                                 <select name="company" id="company">
-                                    <option value="上海成基市政建设发展有限公司" <c:if test="${Vehicle_edit.company=='上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
-                                    <option value="上海高架养护管理有限公司" <c:if test="${Vehicle_edit.company=='上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+                                    <option value="上海成基市政建设发展有限公司" <c:if test="${Vehicle_edit.company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                                    <option value="上海高架养护管理有限公司" <c:if test="${Vehicle_edit.company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
                                 </select>
 
 
@@ -86,10 +86,11 @@
                         <tr>
                             <td>车辆类型</td>
                             <td>
-                                <select name="vehicleType" id="vehicleType">
-                                    <option value="养护车" <c:if test="${Vehicle_edit.vehicleType=='清扫车'}">selected="selected"</c:if>>清扫车</option>
-                                    <option value="巡查车" <c:if test="${Vehicle_edit.vehicleType=='巡视车'}">selected="selected"</c:if>>巡视车</option>
-                                    <option value="牵引车" <c:if test="${Vehicle_edit.vehicleType=='牵引车'}">selected="selected"</c:if>>牵引车</option>
+                                <select name="vehicleType" id="vehicleType" onchange="banSelect()" >
+                                    <option >请选择</option>
+                                    <option value="养护车" <c:if test="${Vehicle_edit.vehicleType eq '清扫车'}">selected="selected"</c:if>>清扫车</option>
+                                    <option value="巡视车" <c:if test="${Vehicle_edit.vehicleType eq '巡视车'}">selected="selected"</c:if>>巡视车</option>
+                                    <option value="牵引车" <c:if test="${Vehicle_edit.vehicleType eq '牵引车'}">selected="selected"</c:if>>牵引车</option>
                                 </select>
                             </td>
                         </tr>
@@ -105,14 +106,12 @@
                             <td>车载设备编号</td>
                             <td><input type="text" class="table-input" id="OBUId" value="${Vehicle_edit.OBUId}"/></td>
                         </tr>
-                        <tr>
+                        <tr id="dzwl">
                             <td>电子围栏</td>
                             <td>
-
-                                <select id="eFence">
-                                    <option value="0"></option>
+                                <select id="eFence" >
                                     <c:forEach items="${eFenceList}" var="eFence">
-                                        <option value="${eFence.id}">${eFence.eFence}</option>
+                                        <option value="${eFence.id}" <c:if test="${Vehicle_edit.eFenceId eq eFence.id}">selected="selected"</c:if>>${eFence.eFence}</option>
                                     </c:forEach>
                                 </select>
                             </td>
@@ -120,7 +119,7 @@
                         <tr>
                             <td>备注</td>
 
-                            <td><textarea class="table-input" rows="3" id="remark" value="${Vehicle_edit.remark}"></textarea></td>
+                            <td><textarea class="table-input" rows="3" id="remark" >${Vehicle_edit.remark}</textarea></td>
                         </tr>
                         </tbody>
                     </table>
@@ -150,7 +149,7 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -171,28 +170,49 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<div class="modal fade" id="null" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>车辆牌照不能为空</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
-<script>
+
+<script type="text/javascript">
     $(function(){
         $("#base").dropdown('toggle');
     });
-    $("#vehicleType").change(function(){
-        var obj = $(this).children(":selected").text();
-        if (obj!="巡视车")
-            $("#eFence").attr("disabled","disabled");
-        else
-            $("#eFence").removeAttr("disabled");
-    });
 
-</script>
+    function banSelect(){
+        var selector = document.getElementById("vehicleType");
+        index  = selector.selectedIndex;
+        var val = selector.options[index].value;
+        if(val == "巡视车"){
+            $("#dzwl").show();
+        }else{
+            $("#dzwl").hide();
+        }
+    }
 
-<script type="text/javascript">
+    function init(type){
+        if(type == "巡视车"){
+            $("#dzwl").show();
+        }
+    }
 
-    function index()
+    function go()
     {
         location.href="Vehicle";
     }
@@ -207,29 +227,47 @@
         var eFenceId=$("#eFence option:selected").val();
         var OBUId=$("#OBUId").val();
         var remark=$("#remark").val();
+        if(eFence==null){
+            eFence="";
+        }
+        if(eFenceId==null){
+            eFenceId="";
+        }
+        if(vehicleType=="巡视车" && (eFenceId==null || eFenceId=="")){
+            alert("巡视车必须选择电子围栏");
+        }else{
         $.ajax({
             url:"VehicleEdit1",
             type:"post",
-            data:{id:'${Vehicle_edit.id}',company:company,vehicleType:vehicleType,vehicleLicence:vehicleLicence,
-                vehicleModel:vehicleModel,eFenceId:eFenceId,eFence:eFence,OBUId:OBUId,
+            data:{
+                id:'${Vehicle_edit.id}',
+                company:company,
+                vehicleType:vehicleType,
+                vehicleLicence:vehicleLicence,
+                vehicleModel:vehicleModel,
+                eFenceId:eFenceId,
+                eFence:eFence,
+                OBUId:OBUId,
                 remark:remark},
-            success:function(data){
+            success:function(data) {
 
-                if(data=="success")
-                {
+                if (data == "success") {
                     //alert("已经成功提交");
                     $('#success').modal('show');
 
                 }
-                /*else if(data=="false")
-                    $('#false').modal('show');*/
-                //alert("同一车辆不能重复添加");
+                else if (data == "false"){
+                    $('#false').modal('show');
+                //alert("同一车辆不能重复添加"
+               } else if(data=="null") {
+                    $('#null').modal('show');
+                }
 
 
 
             }
-        })
-
+        });
+        }
 
     }
 </script>

@@ -113,5 +113,13 @@
     <orderEntry type="library" name="Maven: net.sourceforge.ezmorph:com.springsource.net.sf.ezmorph:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.8.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.5" level="project" />
+    <orderEntry type="library" name="Maven: commons-net:commons-net:3.1" level="project" />
   </component>
 </module>

@@ -160,7 +160,7 @@
           <div>
               <img src="images/search_icon.png" style="width: 32px; height: 20px;"/>
               <input type="text" id="search" style="width: 200px;"/>
-              <button class="button" style="top:15px;left:30%;width:70px;">搜索</button>
+              <button class="button" style="top:15px;left:30%;width:70px;" onclick="">搜索</button>
           </div>
           <div>
               <button class="button" style="width:70px;" onclick="newDraw()">开始</button>
@@ -170,7 +170,13 @@
               <button class="button" style="width:70px;" onclick="drawLine()">完成</button>
           </div>
 
-          <div id="container" style="width:99%;top:13px"></div>
+          <div style="position: relative;">
+            <div id="container" style="height: 610px; width:99%;"></div>
+            <div class="map-search">
+              <input type="text" id="localSearch"/>
+              <button onclick="localSearch()"></button>
+            </div>
+          </div>
 
         </div><!--in-mid-->
 
@@ -252,9 +258,10 @@
   <script src="js/bootstrap.js"></script>
   <script>
 
-    $('a[data-toggle="droplist"]').click(function() {
-      $(this).nextAll().toggle();
-    });
+    $('a[data-toggle="droplist"]').click(function(e) {
+    e.preventDefault();
+    $(this).nextAll().toggle();
+  });
 
   </script>
 
@@ -270,6 +277,13 @@
 
     map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
 
+    var local = new BMap.LocalSearch(map, {
+      renderOptions:{map: map}
+    });//用于搜索
+    function localSearch(){
+      var localSearch=$("#localSearch").val();
+      local.search(localSearch);
+    }
     /*   * 显示已存在的电子围栏
      **/
     $(document).ready(function(){
@@ -350,9 +364,13 @@
         type:"post",
         data:{coords:coords},
         success:function(data){
-          console.log(data)
           if(data=="success")
           location.reload(true);
+          else {
+            alert("无法删除!")
+            return true
+          }
+
         }
       })
     }
@@ -364,8 +382,6 @@
       map.addEventListener("click", addMarker);
     }
     function addMarker(e){
-      if(!confirm('是否增加定位?'))
-        return true;
       currentLng= e.point.lng;
       currentLat= e.point.lat;
       $("#lng").html(Math.round(e.point.lng*100)/100)
@@ -377,12 +393,13 @@
       geoc.getLocation(point, function(rs){
         var addComp = rs.addressComponents;
         $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
+        if(!confirm('是否增加定位?'))
+          return true;
+        var marker = new BMap.Marker(point);// 创建标注
+        markers.push(marker)
+        map.addOverlay(marker);             // 将标注添加到地图中
+        marker.disableDragging();           // 不可拖拽
       });
-
-      var marker = new BMap.Marker(point);// 创建标注
-      markers.push(marker)
-      map.addOverlay(marker);             // 将标注添加到地图中
-      marker.disableDragging();           // 不可拖拽
     }
     /*撤销一次*/
     function undo(){
@@ -401,7 +418,7 @@
     }
     /*划线*/
     function drawLine(){
-
+      map.removeEventListener("click",addMarker)
       polygon = new BMap.Polygon(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
       polygon.enableMassClear();
       polygon.addEventListener("click",function(e){

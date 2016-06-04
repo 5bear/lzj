@@ -30,4 +30,10 @@ public class UserDao extends BaseDao {
         }
         return false;
     }
+    public List<Account> getAccount(String findName){
+        String hql="from Account";
+        if(findName!=null&&!findName.equals(""))
+            hql+=" where username like "+"'%"+findName+"%'";
+        return findAll(hql,Account.class);
+    }
 }

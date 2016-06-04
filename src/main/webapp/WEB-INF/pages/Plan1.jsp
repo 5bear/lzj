@@ -68,7 +68,7 @@
                         <table class="table vertical-table plan1-table">
                             <thead>
                             <tr>
-                                <th colspan="2">包件</th>
+                                <th colspan="2" style="width: 15%;">包件</th>
                                 <th>一月</th>
                                 <th>二月</th>
                                 <th>三月</th>

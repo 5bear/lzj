@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 
-<body>
+<body onload="myTimer()">
 
 <div id="wrapper">
 
@@ -95,16 +95,18 @@
             </div>
         </div>
 
-        <div class="alert" style="display: none">
+        <div class="alert" id="exception" style="display: none">
             <p class="alert-title text-center">异常提示</p>
-            <p><input type="checkbox"/>1、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-            <p><input type="checkbox"/>2、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-            <p><input type="checkbox"/>3、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-            <p><input type="checkbox"/>4、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-            <p><input type="checkbox"/>5、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-            <p><input type="checkbox"/>6、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
+            <div id="excp_content" style="height:150px; overflow-y: auto">
+                <%-- <p><input type="checkbox"/>1、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
+                 <p><input type="checkbox"/>2、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
+                 <p><input type="checkbox"/>3、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
+                 <p><input type="checkbox"/>4、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
+                 <p><input type="checkbox"/>5、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
+                 <p><input type="checkbox"/>6、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>--%>
+            </div>
             <div class="row text-center">
-                <button class="btn btn-default">确认</button>
+                <button class="btn btn-default" type="button" onclick="confirmExcp()">确认</button>
             </div>
         </div>
 
@@ -116,6 +118,92 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
+<%--<script language="JavaScript">
+    window.attachEvent("onload", myTimer); //绑定到onload事件
+    function myTimer() {
+        start();
+        window.setTimeout("myTimer()",6000);//设置循环时间
+    }
+</script>--%>
+<script type="text/javascript">
+    var idd = 0;
+
+    function myTimer() {
+        /*if(idd==0){
+            $("#exception").css("display","none");
+        }*/
+        start(idd);
+        window.setTimeout("myTimer()", 6000);//设置循环时间
+    }
+
+    function start(id) {
+       // alert(id);
+        $.ajax({
+            url: "getException",
+            type: "post",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                var r = $.parseJSON(data);
+                if (r.result == 0) {
+                    var list = r.obj;
+                    if (list != null && list.length > 0) {
+
+                       $("#exception").css("display","block");
+                        $(list).each(function(index,element){
+                            var node = "<p><input type='checkbox' name='excp_checkBox' value='"+element.id+"'/><a onclick='toException(element.id)'>"+element.vehicleLicence+", "+element.vehicleType+"，"+element.eventTime+"，"+element.type+"</a></p>";
+                            $("#excp_content").append(node);
+                            if(index==list.length-1){
+                                idd =  element.id;
+                            }
+                        });
+
+                    }
+                }
+            }
+        })
+    }
+
+    function toException(id){
+        location.href="history3-check/"+id;
+    }
+
+    function confirmExcp(){
+        var ids = new Array();
+        $("input:checkbox[name='excp_checkBox']:checked").each(function(){
+            alert($(this).val());
+            ids.push($(this).val());
+            $(this).parent().remove();
+        });
+
+        var size = $("#excp_content").children("p").length;
+        if(size==0){
+            $("#exception").css("display","none");
+        }
+
+        if(ids==null || ids.length==0){
+            alert("请先勾选异常信息");
+        }else{
+            $.ajax({
+                url: "confirmException",
+                type: "post",
+                data: {
+                    "ids[]":ids
+                },
+                success: function (data) {
+                    var r = $.parseJSON(data);
+                    if(r.result!=0){
+                        alert(r.msg);
+                    }
+                }
+            });
+        }
+
+    }
+
+</script>
+
 <script>
 
 

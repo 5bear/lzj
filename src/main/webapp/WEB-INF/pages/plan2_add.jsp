@@ -25,6 +25,7 @@
   <link href="css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.js"></script>
   <script type="text/javascript" src="js/BMaplib.js"></script>
@@ -171,7 +172,13 @@
           <button class="button" style="top:2%;left:15%;width:12%;height:5%" onclick="undo()">撤销一次</button>
           <button class="button" style="top:2%;left:28%;width:12%;height:5%" onclick="drawLine()">完成</button>
           <button class="button" style="top:2%;left:41%;width:12%;height:5%" onclick="javascipt:location.href='line'">返回</button>
-          <div id="container" style="width:98%;top:52px"></div>
+          <div style="width: 98%; top: 52px; overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left;">
+            <div id="container" style="height: 600px; width:99%;"></div>
+            <div class="map-search">
+              <input type="text" id="localSearch"/>
+              <button onclick="localSearch()"></button>
+            </div>
+          </div>
 
         </div><!--in-mid-->
 
@@ -185,8 +192,8 @@
             <p style="position:absolute;top:182px;left:16px;font-weight:bold">名称：</p>
             <p style="position:absolute;top:223px;left:16px;font-weight:bold">养护公司：</p>
             <p style="position:absolute;top:262px;left:16px;font-weight:bold">所属包件：</p>
-            <p style="position:absolute;top:307px;left:16px;font-weight:bold">方向：</p>
-            <p style="position:absolute;top:352px;left:16px;font-weight:bold">方向类型：</p>
+            <p style="position:absolute;top:307px;left:16px;font-weight:bold">方向类型：</p>
+            <p style="position:absolute;top:352px;left:16px;font-weight:bold">方向：</p>
             <p style="position:absolute;top:397px;left:16px;font-weight:bold">开始坐标：</p>
             <p style="position:absolute;top:442px;left:16px;font-weight:bold">结束坐标：</p>
             <p style="position:absolute;top:487px;left:16px;font-weight:bold">里程数(m)：</p>
@@ -262,7 +269,8 @@
 <!-- JavaScript -->
 
 <script>
-  $('a[data-toggle="droplist"]').click(function() {
+  $('a[data-toggle="droplist"]').click(function(e) {
+    e.preventDefault();
     $(this).nextAll().toggle();
   });
 </script>
@@ -280,10 +288,16 @@
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   map.enableScrollWheelZoom();//允许放大缩放
   map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
+  var local = new BMap.LocalSearch(map, {
+    renderOptions:{map: map}
+  });//用于搜索
+  function localSearch(){
+    var localSearch=$("#localSearch").val();
+    local.search(localSearch);
+  }
   /*添加marker*/
   function addMarker(e){
-    if(!confirm('是否增加定位?'))
-      return true;
+
     currentLng= e.point.lng;
     currentLat= e.point.lat;
     $("#lng").html(Math.round(e.point.lng*100)/100)
@@ -295,11 +309,14 @@
     geoc.getLocation(point, function(rs){
       var addComp = rs.addressComponents;
       $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
+      if(!confirm('是否增加定位?'))
+        return true;
+      var marker = new BMap.Marker(point);// 创建标注
+      markers.push(marker)
+      map.addOverlay(marker);             // 将标注添加到地图中
+      marker.disableDragging();           // 不可拖拽
     });
-    var marker = new BMap.Marker(point);// 创建标注
-    markers.push(marker)
-    map.addOverlay(marker);             // 将标注添加到地图中
-    marker.disableDragging();           // 不可拖拽
+
   }
   /*
    * 显示已存在的线路

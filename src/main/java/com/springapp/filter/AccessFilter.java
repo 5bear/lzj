@@ -58,7 +58,7 @@ public class AccessFilter implements Filter {
                 response.sendRedirect("login");
             }else{
                 if(key.equals("UserManage")||key.equals("User")||key.equals("Power")){
-                    if(!power.equals("系统管理员"))
+                    if(power!=null&&!power.equals("系统管理员"))
                         response.sendRedirect("NoPower");
                 }
                 List<Auth> authList= (List<Auth>) session.getAttribute("list");

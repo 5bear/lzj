@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -67,9 +67,6 @@
             left:50px;
 
         }
-
-
-
 
         .txt
         {
@@ -131,7 +128,7 @@
         .scale span{width:16px;height:16px;position:absolute;left:1px;top:-3px;cursor:pointer;
             background:url(images/scroll.gif)   no-repeat;}
         .scale{ background-repeat: repeat-x; background-position: 0 100%; background-color: rgb(230,230,230); border-left: 1px
-        rgb(41,171,226);solid;  width: 460px; height: 7px; position: relative; font-size: 0px; border-radius: 5px; }
+        rgb(41,171,226);width: 460px; height: 7px; position: relative; font-size: 0px; border-radius: 5px; }
 
         .scale div{ background-repeat: repeat-x; background-color: #3BE3FF; width: 0px; position: absolute; height: 3px; width: 0; 		           left: 0; bottom: 0; }
 
@@ -181,7 +178,7 @@
     </script>
 </head>
 
-<body>
+<body onLoad="init1()">
 
 <div id="wrapper">
 
@@ -219,16 +216,22 @@
                     <!--  <input type="button" id="xuanze" value="选择时间段" style="position: absolute;left: 110px;width:94px;"/>-->
                     <input type="text" class="tt" placeholder="输入车牌" style="width: 80px;"/>
 
-                    <button class="btn btn-default" style="padding-top: 2px; padding-bottom: 2px;">确认</button>
+                    <button class="btn btn-default" style="padding-top: 2px; padding-bottom: 2px;" onclick="Start()">确认</button>
                     <button class="btn btn-default" style="width: 134px; padding: 2px 2px;">牵引车服务视频查询</button>
 
-                    <video id="video1" width="100%" style="margin-top:0px; position:relative; top:62px;">
-                        <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-                        <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML5 video.
-                    </video>
+                    <!--<video id="video1" width="100%" style="margin-top:0px; position:relative; top:62px;">-->
+                    <!--<source src="/example/html5/mov_bbb.mp4" type="video/mp4" />-->
+                    <!--<source src="/example/html5/mov_bbb.ogg" type="video/ogg" />-->
+                    <!--Your browser does not support HTML5 video.-->
+                    <!--</video>-->
 
-                    <div style=" position: relative; top: 75px; ">
+                    <div style="width:100%;margin-top:0; height:300px; z-index:-1" >
+                        <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
+                                width="100%" height="100%" id = "gViewer" name="gViewer" >
+                        </OBJECT>
+                    </div>
+
+                    <div style=" position: relative; top: 0; ">
                         <img src="images/bofang.png" style="width:100%" />
                         <input type="text" class="bofangtxt" style="left:79px"/>
                         <input type="text" class="bofangtxt" style="left:136px;width:26px"/>
@@ -259,7 +262,7 @@
 
 
 
-                    <ul class="lanren">
+                    <ul class="lanren" style="margin-left:100px; margin-top:20px">
                         <li><span id="title"></span>
                             <div class="scale_panel">
                                 <span class="r"></span>
@@ -275,31 +278,7 @@
 
                 <div id="in-mid" style="width:158px;">
                     <img src="images/bg.png" width="100%"/>
-                    <video id="video1" width="15%" style="margin-top:0px; top:10px">
-                        <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-                        <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML5 video.
-                    </video>
-                    <video id="video1" width="95%" style="margin-top:0px; top:100px">
-                        <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-                        <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML5 video.
-                    </video>
-                    <video id="video1" width="95%" style="margin-top:0px; top:190px">
-                        <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-                        <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML5 video.
-                    </video>
-                    <video id="video1" width="95%" style="margin-top:0px; top:280px">
-                        <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-                        <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML5 video.
-                    </video>
-                    <video id="video1" width="95%" style="margin-top:0px; top:370px">
-                        <source src="/example/html5/mov_bbb.mp4" type="video/mp4" />
-                        <source src="/example/html5/mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML5 video.
-                    </video>
+
                 </div><!--in-mid-->
 
                 <div id="in-right">
@@ -326,13 +305,17 @@
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
 
-    $('a[data-toggle="droplist"]').click(function() {
+    $('a[data-toggle="droplist"]').click(function(e) {
+        e.preventDefault();
         $(this).nextAll().toggle();
     });
 </script>
 
 
 <script>
+    $(function(){
+        $("#history").dropdown('toggle');
+    });
 
     $('#date').datetimepicker({
         lang:'ch',
@@ -347,8 +330,19 @@
         format:'H:i',
         step:10
     });
-
-
+    var id="0200001";
+    var view = document.getElementById("gViewer");
+    var strFile="D:/H20160502-000000P1N2P0.avi";
+    function init1()
+    {
+        view.Layout = 1;
+        view.PaneType=0;
+        view.ServerIP = "120.24.79.63";
+        view.ServerPort = "6603";
+    }
+    function Start(){
+        view.StartPlaybackRec(strFile,"2016-05-02 00:00:00","2016-05-02 00:15:00",id,2,"0",2,2,6,"2016-05-02 00:00:00","2016-05-02 00:15:00",0);
+    }
 </script>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>

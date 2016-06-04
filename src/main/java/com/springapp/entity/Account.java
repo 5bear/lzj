@@ -1,6 +1,7 @@
 package com.springapp.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by ZhanShaoxiong on 2016/4/3.
@@ -14,7 +15,7 @@ public class Account {
     private String power;//权限
     private String company;//所属部门
     private String phoneNum;//联系电话
-    private String lastLogin;//最后登录时间 yyyy/MM/dd
+    private Timestamp lastLogin;//最后登录时间 yyyy/MM/dd
     private String remark;
 
     @Column()
@@ -72,12 +73,12 @@ public class Account {
     public void setCompany(String company) {
         this.company = company;
     }
-    @Column(length = 45)
-    public String getLastLogin() {
+    @Column()
+    public Timestamp getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(String lastLogin) {
+    public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
     }
     @Column()

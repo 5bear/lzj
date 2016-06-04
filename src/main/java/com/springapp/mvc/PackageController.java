@@ -3,6 +3,7 @@ package com.springapp.mvc;
 /**
  * Created by yanglin on 16/4/17.
  */
+
 import com.springapp.entity.Line;
 import com.springapp.entity.Package;
 import net.sf.json.JSONArray;
@@ -22,38 +23,34 @@ import java.util.List;
 //import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
 
-
 @Controller
 @RequestMapping(value = "**")
 public class PackageController extends BaseController {
 
 
-    @RequestMapping(value="/Package",method =RequestMethod.GET)
-    public ModelAndView list()
-    {
+    @RequestMapping(value = "/Package", method = RequestMethod.GET)
+    public ModelAndView list(@RequestParam(required = false) String name) {
+        if (name == null) {
+            name = "";
+        }
         ModelAndView modelAndView = new ModelAndView();
-        List<Package> packageList=packageDao.getList();
-        if(packageList!=null){
-            for(int i=0;i<packageList.size();i++)
-            {
-                Package pac=packageList.get(i);
-                Long id=pac.getId();
-                List<Line> lineList=lineDao.getListByPackage(id);
-                String roads="";
-                Long realDistance=0L;
-                for(int j=0;j<lineList.size();j++)
-                {
-                    Line line=lineList.get(j);
-                    if(j<lineList.size()-1)
-                    {
-                        roads=roads+line.getLine()+",";
-                    }
-                    else
-                    {
-                        roads=roads+line.getLine();
+        List<Package> packageList = packageDao.getList();
+        if (packageList != null) {
+            for (int i = 0; i < packageList.size(); i++) {
+                Package pac = packageList.get(i);
+                Long id = pac.getId();
+                List<Line> lineList = lineDao.getListByPackage(id);
+                String roads = "";
+                Long realDistance = 0L;
+                for (int j = 0; j < lineList.size(); j++) {
+                    Line line = lineList.get(j);
+                    if (j < lineList.size() - 1) {
+                        roads = roads + line.getLine() + ",";
+                    } else {
+                        roads = roads + line.getLine();
                     }
 
-                    realDistance=realDistance+Integer.parseInt(line.getRealDistance());
+                    realDistance = realDistance + Integer.parseInt(line.getRealDistance());
                 }
                 pac.setRoads(roads);
                 pac.setRealDistance(realDistance);
@@ -63,20 +60,19 @@ public class PackageController extends BaseController {
         }
 
         modelAndView.setViewName("PackageIndex");
-        modelAndView.addObject("PackageList", packageDao.getList());
-        modelAndView.addObject("search", "");
+        modelAndView.addObject("PackageList", packageDao.getPager(name));
+        modelAndView.addObject("name", name);
         return modelAndView;
 
 
     }
 
     @RequestMapping(value = "/PackageAdd0")
-    public ModelAndView add0()
-    {
+    public ModelAndView add0() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("PackageAdd");
-        List<Integer> yearList=new ArrayList<Integer>();
-        for(int i=2016;i<=2030;i++) {
+        List<Integer> yearList = new ArrayList<Integer>();
+        for (int i = 2016; i <= 2030; i++) {
             yearList.add(i);
         }
         modelAndView.addObject("yearList", yearList);
@@ -99,44 +95,44 @@ public class PackageController extends BaseController {
 
         //HttpSession session=request.getSession();
 
-        if(packageName=="")
+        if ("".equals(packageName.trim())) {
             return "null";
-
-        List<Package> packageList=packageDao.getList();
-        for(int i=0;i<packageList.size();i++)
-        {
-
-            Package p=packageList.get(i);
-            if(packageName.equals(p.getPackageName())) {
-                return "false";
-            }
         }
 
-        String inputMan=(String)session.getAttribute("username");
+
+        Package p = packageDao.getByName(packageName);
+        if (p!=null) {
+            return "false";
+        }
+
+        String inputMan = (String) session.getAttribute("username");
         Package pac = new Package();
         pac.setCompany(company);
         pac.setPackageName(packageName);
-        pac.setDistance(Long.parseLong(distance));
+        if (distance!=null && !"".equals(distance.trim())){
+            pac.setDistance(Long.parseLong(distance));
+        }
         pac.setInputMan(inputMan);
-        pac.setTime(Integer.parseInt(time));
+        if (time!=null && !"".equals(time.trim())){
+            pac.setTime(Integer.parseInt(time));
+        }
+
         pac.setRuntime(runtime);
         pac.setRemark(remark);
         pac.setIsDelete(0);
         pac.setCreateTime(simpleDateFormat.format(new Date()));
 
-        System.out.println(company);
-        packageDao.save(pac);
+        packageDao.add(pac);
         return "success";
     }
 
     @RequestMapping(value = "/PackageEdit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id") String id)
-    {
+    public ModelAndView edit(@RequestParam(value = "id") String id) {
         Package pac = packageDao.getById(Long.parseLong(id));
-        ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("PackageEdit");
-        List<Integer> yearList=new ArrayList<Integer>();
-        for(int i=2016;i<=2030;i++) {
+        List<Integer> yearList = new ArrayList<Integer>();
+        for (int i = 2016; i <= 2030; i++) {
             yearList.add(i);
         }
         modelAndView.addObject("yearList", yearList);
@@ -154,15 +150,28 @@ public class PackageController extends BaseController {
                         //@RequestParam(value = "inputMan") String inputMan,
                         @RequestParam(value = "time") String time,
                         @RequestParam(value = "runtime") String runtime,
-                        @RequestParam(value = "remark") String remark)
-    {
+                        @RequestParam(value = "remark") String remark) {
+        if ("".equals(packageName.trim())) {
+            return "null";
+        }
         Package pac = packageDao.getById(Long.parseLong(id));
+
+        Package p = packageDao.getByName(packageName);
+
+        if (p!=null && p.getId()!=pac.getId()) {
+            return "false";
+        }
+
         pac.setCompany(company);
         pac.setPackageName(packageName);
         //pac.setRoads(roads);
-        pac.setDistance(Long.parseLong(distance));
+        if (distance!=null && !"".equals(distance.trim())){
+            pac.setDistance(Long.parseLong(distance));
+        }
         //pac.setInputMan(inputMan);
-        pac.setTime(Integer.parseInt(time));
+        if (time!=null && !"".equals(time.trim())){
+            pac.setTime(Integer.parseInt(time));
+        }
         pac.setRuntime(runtime);
         pac.setRemark(remark);
         pac.setEditTime(simpleDateFormat.format(new Date()));
@@ -171,10 +180,9 @@ public class PackageController extends BaseController {
     }
 
 
-
-    @RequestMapping(value = "/PackageDelete",method = RequestMethod.POST)
+    @RequestMapping(value = "/PackageDelete", method = RequestMethod.POST)
     @ResponseBody
-    public String delete(@RequestParam(value = "id")String id) {
+    public String delete(@RequestParam(value = "id") String id) {
         Package pac = packageDao.getById(Long.parseLong(id));
         String r = pac.getRoads();
         if (r.equals("")) {
@@ -186,7 +194,7 @@ public class PackageController extends BaseController {
         return "false";
     }
 
-    //根据所属公司进行模糊查询
+   /* //根据所属公司进行模糊查询
     @RequestMapping(value="/PackageSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
@@ -198,10 +206,11 @@ public class PackageController extends BaseController {
         modelAndView.addObject("PackageList", packageList);
         modelAndView.addObject("search", search);
         return modelAndView;
-    }
-    @RequestMapping(value = "/PackageGet",method = RequestMethod.POST)
+    }*/
+
+    @RequestMapping(value = "/PackageGet", method = RequestMethod.POST)
     @ResponseBody
-    public String get(){
+    public String get() {
         List<Package> pacList = packageDao.getList();
         return JSONArray.fromObject(pacList).toString();
     }

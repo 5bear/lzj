@@ -25,13 +25,13 @@ public class Plan1Controller extends BaseController{
     @RequestMapping(value="/search",method = RequestMethod.POST)
     @ResponseBody
     public String getMilliage(@RequestParam(value = "company") String company,@RequestParam(value = "year") String year){
-        List<Package> packageList=packageDao.findAll("from Package where isDelete='0' and company like '%"+company+"%'and runtime like '"+year+"%'",Package.class);
+        List<Package> packageList=packageDao.list("from Package where isDelete='0' and company like '%"+company+"%'and runtime like '"+year+"%'");
         return JSONArray.fromObject(packageList).toString();
     }
     @RequestMapping(value="/getYear",method = RequestMethod.POST)
     @ResponseBody
     public String getYear(@RequestParam(value = "company") String company){
-        List<Package> yearList=packageDao.findAll("from Package where isDelete='0' and company like '%"+company+"%'",Package.class);
+        List<Package> yearList=packageDao.list("from Package where isDelete='0' and company like '%"+company+"%'");
         return JSONArray.fromObject(yearList).toString();
     }
 }

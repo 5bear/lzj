@@ -227,48 +227,6 @@
                         <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
                         <div class="panel-body">
                             <li class="dropdown dropdown1">
-                                <a href="#" data-toggle="droplist">按照区域查</a>
-                                <div class="arrow-section arrow-section1">
-                                    <div class="arrow-down arrow-down1"></div>
-                                </div>
-                                <ul class="dropdown-menu panel-menu">
-                                    <li class="dropdown dropdown2">
-                                        <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
-                                        <div class="arrow-section arrow-section2">
-                                            <div class="arrow-down arrow-down2"></div>
-                                        </div>
-                                        <ul class="dropdown-menu panel-menu">
-
-                                            <c:forEach items="${cjList}" var="item">
-                                                <li class="dropdown dropdown3">
-                                                    <a href="#" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="droplist">${item.line}</a>
-                                                    <div class="arrow-section arrow-section3">
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown dropdown2">
-                                        <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
-                                        <div class="arrow-section arrow-section2">
-                                            <div class="arrow-down arrow-down2"></div>
-                                        </div>
-                                        <ul class="dropdown-menu panel-menu">
-                                            <c:forEach items="${gjyhList}" var="item">
-                                                <li class="dropdown dropdown3">
-                                                    <a href="#" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="droplist">${item.line}</a>
-                                                    <div class="arrow-section arrow-section3">
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li><!--dropdown1-->
-
-
-
-                            <li class="dropdown dropdown1">
                                 <a href="#" data-toggle="droplist">按照车辆查看</a>
                                 <div class="arrow-section arrow-section1">
                                     <div class="arrow-down arrow-down1"></div>
@@ -372,16 +330,13 @@
                                     </li>
                                 </ul>
                             </li>
-
-
-
                         </div>
                     </div>
                 </div><!--in-left-->
 
                 <!-- <div id="in-mid">--><!--<img src="images/map1.png" width="100%"/>-->
                 <!-- <div id="" style="height: 601px; width: 638px; top: 123px;left:447px; float:left">-->
-                <div id="mid" style="height:700px; width:55%; float:left;position:relative">
+                <div id="mid" style="height:700px; width:78%; float:left;position:relative">
                     <div class="mid-btn-row text-right">
                         <button class="btn btn-default" onclick="addArea()">设置常用区域</button>
                     </div>
@@ -435,7 +390,8 @@
 
 <!-- JavaScript -->
 <script>
-    $('a[data-toggle="droplist"]').click(function() {
+    $('a[data-toggle="droplist"]').click(function(e) {
+        e.preventDefault();
         $(this).nextAll().toggle();
     });
 </script>
@@ -443,155 +399,38 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 <script>
-    var currentLng,currentLat;
-    var polyline;//折线对象
-    var linePoints=new Array();
     var myCar;//汽车图标
-    var label;
-    var vehicleLicence//牌照
-    var vehicle//车辆类型
-    var devIDNO//车载设备
-    /* var qian,sao,xun;//汽车图标*/
-    var polylines=new Array();//多条折线
-    var lineMap=new Map();
-    var markers=new Array();
-    var idForEdit=0;
+    var vehicleList=new Array()
+    var vehicle//车辆
+    var vehiclePos//车辆轨迹
     var points=new Array();//创建点的数组
     var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
     var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-
     map.enableScrollWheelZoom();//允许放大缩放
     map.addControl(top_left_control);
-    /*车辆gps显示*/
-
-    function setVehicle(vl,v,d){
-        if(d!=devIDNO){
-            map.clearOverlays();
-            linePoints=new Array()
-        }
-
-        vehicleLicence=vl;
-        vehicle=v;
-        devIDNO=d;
-        showVehiclePos(vl,v,d)
+    var local = new BMap.LocalSearch(map, {
+        renderOptions:{map: map}
+    });//用于搜索
+    function localSearch(){
+        var localSearch=$("#localSearch").val();
+        local.search(localSearch);
     }
-    function showVehiclePos(vehicleLicence,vehicle,devIDNO){
-        $.ajax({
-            url:"getGPS",
-            type:"get",
-            data:{devIDNO:devIDNO},
-            dataType:"json",
-            success:function(data){
-                if(data.isDriver==0||data.devIDNO==dev)
-                    map.removeOverlay(myCar);
-                var gpspoint=new BMap.Point(data.lng /1000000,data.lat /1000000)
-                addVehicle(vehicleLicence,vehicle,devIDNO,data.lng /1000000,data.lat /1000000,data.speed/10,data.isDriver,data.HDD,gpspoint,data.direction)
-            }
-        })
+    /*转换为地图坐标*/
+    function transferPoint(point){
+        return new BMap.Point(point.lng+(121.35053994012-121.339485),point.lat+(31.217964392252-31.213757));
     }
-    /*5s*/
-    setInterval(function(){
-        showVehiclePos(vehicleLicence,vehicle,devIDNO);
-    },"5000");
-
-    /* map.addEventListener('click',mapClick)*/
-
-    function mapClick(e){
-        var point = new BMap.Point(e.point.lng, e.point.lat);
-        console.log(point)
-        addVehicle(1,point);
+    /*点数组转json*/
+    function pointsTojson(points) {
+        return JSON.stringify(points);
     }
-    function addVehicle(vehicleLicence,vehicle,devIDNO,lng,lat,speed,isDriver,HDD,point,direction){
 
-        //坐标转换完之后的回调函数
-        translateCallback = function (point){
-            linePoints.push(point)
-            if(linePoints.length>1){
-                var ps=new Array()
-                ps.push(linePoints[linePoints.length-1])
-                ps.push(linePoints[linePoints.length-2])
-                var p = new BMap.Polyline(ps,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
-                map.addOverlay(p);   //增加折线
-            }
-
-            if(HDD=="00")
-                HDD="硬盘不存在"
-            else if(HDD=="01")
-                HDD="硬盘存在";
-            else
-                HDD="断电"
-            if(isDriver==0)
-                isDriver="正在作业"
-            else
-                isDriver="静止"
-            if(vehicle=="巡视车")
-                myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
-            else if(vehicle=="牵引车")
-                myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
-            else
-                myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
-            var opts = {
-                width : 100,     // 信息窗口宽度
-                height: 200,     // 信息窗口高度
-                title : "车辆信息" , // 信息窗口标题
-                enableMessage:true,//设置允许信息窗发送短息
-                message:""
-            }
-
-            var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br>车辆类型:" + vehicle +"<br>车载设备编号:" + devIDNO +"<br>经度:" + lng + "<br>纬度:" + lat+"<br>速度:" + speed+"km/h"+"<br>方向:" +direction+"<br>车辆状态:"+isDriver+"<br>硬盘状态:"+HDD, opts);  // 创建信息窗口对象
-            myCar.addEventListener('click',function(){
-                if(vehicle=="巡视车")
-                    location.href="progress2-2?id="+devIDNO
-                else
-                    location.href="progress2-1?id="+devIDNO
-            });
-            myCar.addEventListener("mouseover",function(e){
-                map.openInfoWindow(infoWindow,point);
-            });
-            myCar.addEventListener("mouseout",function(e){
-                map.closeInfoWindow(infoWindow,point);
-            });
-            map.addOverlay(myCar);
-        }
-
-        setTimeout(function(){
-            BMap.Convertor.translate(point,0,translateCallback);     //真实经纬度转成百度坐标
-        }, 2000);
-
+    /*json数据转成点数组*/
+    function jsonToPoints(jsonData) {
+        return eval(jsonData);
     }
-    function getLine(pos){
-        console.log(pos)
-        var driving = new BMap.DrivingRoute(map);    //创建驾车实例
-        for (var i = 0; i < pos.length - 1; i++) {
-            driving.search(pos[i], pos[i + 1])
-            /* console.log(driving)*/
-        }
-        driving.setSearchCompleteCallback(function () {
-            /* console.log(driving.getResults())*/
-            var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
-            polyline = new BMap.Polyline(pts);
-            polylines.push(polyline);
-        })
-    }
+
     // 初始化地图，设置中心点坐标和地图级别 设置为上海
     $(document).ready(function(){
-        $.ajax({
-            url:"line/get",
-            type:"post",
-            data:{id:1},
-            dataType:"json",
-            success:function(data){
-                var ps=jsonToPoints(data.coords)
-                console.log(ps)
-                for(var i=0;i<ps.length;i++){
-                    var p=new BMap.Point(ps[i].lng,ps[i].lat);
-                    linePoints.push(p)
-                }
-                console.log(linePoints)
-                getLine(linePoints)
-                linePoints=new Array()
-            }
-        })
         $.ajax({
             url:"getMap",
             type:"post",
@@ -615,28 +454,41 @@
                  */
             }
         })
-
-        /*    $("button.navbar-aside").click(function( ){
-         if ($("#wrapper").is(".left-wrapper")== true) {
-         $(".side-nav").removeClass("left-nav");
-         $("#wrapper").removeClass("left-wrapper");
-         } else {
-         $(".side-nav").addClass("left-nav");
-         $("#wrapper").addClass("left-wrapper");
-         }
-         });*/
+        getTrack()
     });
-    function addArea(){
-        var center=pointsTojson(map.getCenter());
-        var zoom=map.getZoom();
+    function getTrack() {
         $.ajax({
-            url:"addArea",
-            type:"post",
-            data:{center:center,zoom:zoom},
-            success:function(data){
-                if(data=="fail")
+            url: "Track/getAllCurrentTrack",
+            type: "post",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                $(data).each(function (index, element) {
+                    var map = new Map();
+                    map.put("vehicle", element.vehicle)
+                    map.put("vehiclePos", element.list);
+                    var point=new BMap.Point(element.list[element.list.length-1].lng/1000000,element.list[element.list.length-1].lat/1000000)
+                    console.log(point.lng)
+                    map.put("currentPoint",transferPoint(point))
+                    var car=setCar(element.vehicle.vehicleType,transferPoint(point),element.list[element.list.length-1].direction);
+                    map.put("car",car)
+                    vehicleList.push(map)
+                    showTrack(car,element.vehicle,element.list,transferPoint(point))
+                })
+            }
+        })}
+    function addArea() {
+        var center = pointsTojson(map.getCenter());
+        var zoom = map.getZoom();
+        $.ajax({
+            url: "addArea",
+            type: "post",
+            data: {center: center, zoom: zoom},
+            success: function (data) {
+                if (data == "fail")
                     alert("请先登录")
-                else{
+                else {
                     $("#setBtn").click();
                 }
                 /*
@@ -645,95 +497,104 @@
             }
         })
     }
+    setInterval(function(){
+        getLatestPos()
+    }, "10000");
 
-
-    /*划线*/
-    function drawLine() {
-        /*
-         var startX=document.getElementById("startX").value;
-         var startY=document.getElementById("startY").value;
-         var endX=document.getElementById("endX").value;
-         var endY=document.getElementById("endY").value;
-
-         var polyline = new BMap.Polyline(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
-         polyline.addEventListener("click",function(e){
-         var target= e.target;
-         console.log(target.ia)//得到线的对象
-         })
-         map.addOverlay(polyline);   //增加折线
-         */
-        /* console.log(points)*/
-        var driving = new BMap.DrivingRoute(map);    //创建驾车实例
-        for (var i = 0; i < points.length - 1; i++) {
-            driving.search(points[i], points[i + 1])
-            /* console.log(driving)*/
-        }
-        driving.setSearchCompleteCallback(function () {
-            /* console.log(driving.getResults())*/
-            var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
-            polyline = new BMap.Polyline(pts);
-            polylines.push(polyline);
-            polyline.addEventListener("click", function (e) {
-                var target = e.currentTarget;
-                polyline = target;
-                points = target.getPath();
-                $.ajax({
-                    url: "line/get",
-                    type: "post",
-                    data: {id: idForEdit},
-                    dataType: "json",
-                    success: function (data) {
-                        map.removeEventListener("click", addMarker)
-                        map.addEventListener("click", addMarker);
-                        points = jsonToPoints(data.coords)
-                        for (var i = 0; i < points.length; i++) {
-                            var point = new BMap.Point(points[i].lng, points[i].lat);
-                            var marker = new BMap.Marker(point);// 创建标注
-                            markers.push(marker)
-                            map.addOverlay(marker);             // 将标注添加到地图中
-                            marker.disableDragging();           // 不可拖拽
-                        }
+    function getLatestPos(){
+        $(vehicleList).each(function(index,element){
+            $.ajax({
+                url:"Track/getLatestPos",
+                type:"post",
+                data:{DevIDNO:element.get("vehicle").OBUId},
+                dataType:"json",
+                success:function(data){
+                    if(data!=null) {
+                        var point = new BMap.Point(data.lng / 1000000, data.lat / 1000000);
+                        element.get("car").setPosition(transferPoint(point))
+                        element.get("car").setRotation(data.direction)
                     }
-                })
+                }
             })
-            map.addOverlay(polyline);
         })
     }
+
+
+    function showTrack(myCar,vehicle,vehiclePos,currentPoint){
+
+        addVehicle(myCar,vehicle.vehicleLicence,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].direction)
+        var points=new Array();
+        $(vehiclePos).each(function(index,element){
+            var point=new BMap.Point(element.lng/1000000,element.lat/1000000)
+            points.push(transferPoint(point))
+        })
+        var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+        map.addOverlay(polyLine)
+    }
+
+    /*5s*/
+    /* setInterval(function(){
+     showVehiclePos(vehicleLicence, vehicle, devIDNO);
+     }, "5000");*/
+
+    /* map.addEventListener('click',mapClick)*/
+
+
+    function setCar(vehicle,point,direction){
+        var myCar;
+        if(vehicle=="巡视车")
+            myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}), rotation:direction});
+        else if(vehicle=="牵引车")
+            myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),rotation:direction});
+        else
+            myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),rotation:direction});
+        return myCar;
+    }
+
+    function addVehicle(myCar,vehicleLicence, vehicle, devIDNO, speed, isDriver,HDD, point, direction){
+        if(HDD== "00")
+            HDD= "硬盘不存在"
+        else if(HDD== "01")
+            HDD="硬盘存在";
+        else
+            HDD="断电"
+        if(isDriver==0)
+            isDriver="正在作业"
+        else
+            isDriver="静止"
+        var opts = {
+            width : 100,     // 信息窗口宽度
+            height: 200,     // 信息窗口高度
+            title :"车辆信息" ,// 信息窗口标题
+            enableMessage:true,//设置允许信息窗发送短息
+            message:""
+        }
+
+        var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+         myCar.addEventListener('click',function(){
+         if(vehicle =="巡视车")
+         location.
+         href = "progress2-2?id=" + devIDNO
+         else
+         location.href = "progress2-1?id=" + devIDNO
+         });
+        myCar.addEventListener("mouseover", function (e) {
+            map.openInfoWindow(infoWindow, point);
+        });
+        myCar.addEventListener("mouseout", function (e) {
+            map.closeInfoWindow(infoWindow, point);
+        });
+        map.addOverlay(myCar);
+    }
+
+
+
     /**/
     function panTo(lng,lat){
-        var point=new BMap.Point(lng, lat);
+        var point= new BMap.Point(lng, lat);
         map.panTo(point);
     }
-    function showLine(id,lng,lat){
-        map.clearOverlays();
-        panTo(lng,lat)
-        $.ajax({
-            url:"line/get",
-            type:"post",
-            data:{id:id},
-            dataType:"json",
-            success:function(data){
-                idForEdit=data.id;
-                var point=jsonToPoints(data.coords)
-                for(var i=0;i<point.length;i++){
-                    var p=new BMap.Point(point[i].lng,point[i].lat);
-                    points.push(p);
-                }
-                drawLine()
-                /*$("#inputMan").val(data.inputMan);*/
-            }
-        })
-        points=new Array();
-    }
 
-    /*点数组转json*/
-    function pointsTojson(points){
-        return JSON.stringify(points);
-    }
-    /*json数据转成点数组*/
-    function jsonToPoints(jsonData){
-        return eval(jsonData);
-    }
     /*
      map
      */
@@ -758,9 +619,10 @@
         //向MAP中增加元素（key, value)
         this.put = function(_key, _value) {
             this.elements.push( {
-                key : _key,
-                value : _value
-            });
+                key :_key,
+                value :_value
+            })
+            ;
         };
 
         //删除指定KEY的元素，成功返回True，失败返回False
@@ -834,7 +696,7 @@
         };
 
         //判断MAP中是否含有指定KEY的元素
-        this.containsKey = function(_key) {
+        this.containsKey = function (_key) {
             var bln = false;
             try {
                 for (i = 0; i < this.elements.length; i++) {
@@ -849,7 +711,7 @@
         };
 
         //判断MAP中是否含有指定VALUE的元素
-        this.containsValue = function(_value) {
+        this.containsValue = function (_value) {
             var bln = false;
             try {
                 for (i = 0; i < this.elements.length; i++) {
@@ -864,7 +726,7 @@
         };
 
         //判断MAP中是否含有指定VALUE的元素
-        this.containsObj = function(_key,_value) {
+        this.containsObj = function (_key, _value) {
             var bln = false;
             try {
                 for (i = 0; i < this.elements.length; i++) {
@@ -879,7 +741,7 @@
         };
 
         //获取MAP中所有VALUE的数组（ARRAY）
-        this.values = function() {
+        this.values = function () {
             var arr = new Array();
             for (i = 0; i < this.elements.length; i++) {
                 arr.push(this.elements[i].value);
@@ -888,7 +750,7 @@
         };
 
         //获取MAP中所有VALUE的数组（ARRAY）
-        this.valuesByKey = function(_key) {
+        this.valuesByKey = function (_key) {
             var arr = new Array();
             for (i = 0; i < this.elements.length; i++) {
                 if (this.elements[i].key == _key) {
@@ -899,7 +761,7 @@
         };
 
         //获取MAP中所有KEY的数组（ARRAY）
-        this.keys = function() {
+        this.keys = function () {
             var arr = new Array();
             for (i = 0; i < this.elements.length; i++) {
                 arr.push(this.elements[i].key);
@@ -908,10 +770,10 @@
         };
 
         //获取key通过value
-        this.keysByValue = function(_value) {
+        this.keysByValue = function (_value) {
             var arr = new Array();
             for (i = 0; i < this.elements.length; i++) {
-                if(_value == this.elements[i].value){
+                if (_value == this.elements[i].value) {
                     arr.push(this.elements[i].key);
                 }
             }
@@ -919,17 +781,17 @@
         };
 
         //获取MAP中所有KEY的数组（ARRAY）
-        this.keysRemoveDuplicate = function() {
+        this.keysRemoveDuplicate = function () {
             var arr = new Array();
             for (i = 0; i < this.elements.length; i++) {
                 var flag = true;
-                for(var j=0;j<arr.length;j++){
-                    if(arr[j] == this.elements[i].key){
+                for (var j = 0; j < arr.length; j++) {
+                    if (arr[j] == this.elements[i].key) {
                         flag = false;
                         break;
                     }
                 }
-                if(flag){
+                if (flag) {
                     arr.push(this.elements[i].key);
                 }
             }

@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
-import java.util.List;
-
-
 
 
 @Controller
@@ -29,49 +26,45 @@ public class ParkController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(value="/Park",method =RequestMethod.GET)
-    public ModelAndView list()
-    {
+    @RequestMapping(value = "/Park", method = RequestMethod.GET)
+    public ModelAndView list(@RequestParam(required = false) String name) {
+        if (name == null) {
+            name = "";
+        }
         System.out.println("index");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("ParkIndex");
-        modelAndView.addObject("ParkList", parkDao.getList());//获取表中所有的数据
-        modelAndView.addObject("search", "");
+        modelAndView.addObject("ParkList", parkDao.getList(name));//获取表中所有的数据
+        modelAndView.addObject("name", name);
         return modelAndView;
 
 
     }
 
     @RequestMapping(value = "/ParkAdd0")
-    public String add0()
-    {
+    public String add0() {
         return "ParkAdd";
     }
 
 
-
-    @RequestMapping(value = "/ParkAdd1",method =RequestMethod.POST)
+    @RequestMapping(value = "/ParkAdd1", method = RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "parkName") String parkName,
                        @RequestParam(value = "tel") String tel,
                        @RequestParam(value = "addr") String addr,
-                       @RequestParam(value = "serverIP") String serverIP)
-    {
+                       @RequestParam(value = "serverIP") String serverIP) {
         //System.out.println("add1");
 
-        List<Park> parkList=parkDao.getList();
-        for(int i=0;i<parkList.size();i++)
-        {
-
-            Park park=parkList.get(i);
-            if(parkName.equals(park.getParkName())) {
-                return "false";
-            }
-        }
-        if(parkName=="")
+        if ("".equals(parkName.trim())){
             return "null";
-        Park park = new Park();
+        }
+        Park park = parkDao.getByName(parkName);
+        if (park != null) {
+            return "false";
+        }
+
+        park = new Park();
         park.setCompany(company);
         park.setParkName(parkName);
         park.setTel(tel);
@@ -79,15 +72,14 @@ public class ParkController extends BaseController {
         park.setServerIP(serverIP);
         park.setIsDelete(0);
         park.setCreateTime(simpleDateFormat.format(new Date()));
-        vehicleDao.save(park);
+        parkDao.add(park);
         return "success";
     }
 
     @RequestMapping(value = "/ParkEdit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id") String id)
-    {
+    public ModelAndView edit(@RequestParam(value = "id") String id) {
         Park park = parkDao.getById(Long.parseLong(id));
-        ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("ParkEdit");
         modelAndView.addObject("Park_edit", park);
         return modelAndView;
@@ -100,11 +92,15 @@ public class ParkController extends BaseController {
                         @RequestParam(value = "parkName") String parkName,
                         @RequestParam(value = "tel") String tel,
                         @RequestParam(value = "addr") String addr,
-                        @RequestParam(value = "serverIP") String serverIP)
-    {
-        if(parkName=="")
+                        @RequestParam(value = "serverIP") String serverIP) {
+        if ("".equals(parkName.trim()))
             return "null";
         Park park = parkDao.getById(Long.parseLong(id));
+
+        Park nPark = parkDao.getByName(parkName);
+        if (nPark!=null && !nPark.getId().equals(park.getId())){
+            return "false";
+        }
         /*String parkNameEdit=park.getParkName();
         List<Park> parkList=parkDao.getList();
         for(int i=0;i<parkList.size();i++)
@@ -125,24 +121,23 @@ public class ParkController extends BaseController {
         park.setAddr(addr);
         park.setServerIP(serverIP);
         park.setEditTime(simpleDateFormat.format(new Date()));
-        vehicleDao.update(park);
+        parkDao.update(park);
         return "success";
     }
 
 
-
-    @RequestMapping(value = "/ParkDelete",method = RequestMethod.POST)
+    @RequestMapping(value = "/ParkDelete", method = RequestMethod.POST)
     @ResponseBody
-    public String delete(@RequestParam(value = "id")String id){
+    public String delete(@RequestParam(value = "id") String id) {
         Park park = parkDao.getById(Long.parseLong(id));
         park.setIsDelete(1);
         park.setDeleteTime(simpleDateFormat.format(new Date()));
 
-        vehicleDao.update(park);
+        parkDao.update(park);
         return "success";
     }
 
-    @RequestMapping(value="/ParkSearch",method = RequestMethod.GET)
+   /* @RequestMapping(value="/ParkSearch",method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search") String search)
     {
         ModelAndView modelAndView=new ModelAndView();
@@ -151,7 +146,7 @@ public class ParkController extends BaseController {
         modelAndView.addObject("ParkList", parkList);
         modelAndView.addObject("search", search);
         return modelAndView;
-    }
+    }*/
 
     /*@RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody

@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
 </head>
 
-<body>
+<body >
 
 <div id="wrapper">
 
@@ -65,9 +65,9 @@
                     <tr>
                         <td>所属养护公司</td>
                         <td>
-                            <select name="company" id="company">
-                                <option value="上海成基市政建设发展有限公司" <c:if test="${Park_edit.company=='上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
-                                <option value="上海养护公司" <c:if test="${Park_edit.company=='上海养护公司'}">selected="selected"</c:if>>上海养护公司</option>
+                            <select name="company" id="company" class="table-input">
+                                <option value="上海成基市政建设发展有限公司" <c:if test="${Park_edit.company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                                <option value="上海高架养护管理有限公司" <c:if test="${Park_edit.company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
                             </select>
                         </td>
                     </tr>
@@ -116,7 +116,7 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -162,7 +162,20 @@
 
 <script type="text/javascript">
 
-    function index() {
+    function setSelect(company) {
+        var obj = document.getElementById("company");
+        _Select(obj, company);
+    }
+
+    function _Select(o, s) {
+        for (var i = 0; i < o.options.length; i++)
+            if (o.options[i].value == s) {
+                o.options[i].selected = true;
+                break;
+            }
+    }
+
+    function go() {
         location.href="Park";
     }
 

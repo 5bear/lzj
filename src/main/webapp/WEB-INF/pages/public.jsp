@@ -115,9 +115,10 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script>
 
-  $('a[data-toggle="dropdown"]').click(function() {
-    $(this).nextAll().toggle();
-  });
+  $('a[data-toggle="droplist"]').click(function(e) {
+        e.preventDefault();
+        $(this).nextAll().toggle();
+    });
 
 </script>
 <script>

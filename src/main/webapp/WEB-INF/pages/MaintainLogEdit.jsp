@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -69,7 +69,7 @@
                         <td>
                             <select id="vehicleLicence">
                                 <c:forEach items="${VehicleList}" var="vehicle">
-                                    <option>${vehicle.vehicleLicence}</option>
+                                    <option value="${vehicle.vehicleLicence}" <c:if test="${vehicle.vehicleLicence eq MaintainLog_edit.vehicleLicence}">selected="selected"</c:if>>${vehicle.vehicleLicence}</option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -83,7 +83,7 @@
                         <td>
                             <select id="road">
                                 <c:forEach items="${LineList}" var="line">
-                                    <option>${line.line}</option>
+                                    <option value="${line.line}" <c:if test="${line.line eq MaintainLog_edit.road}">selected="selected"</c:if> >${line.line}</option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -102,7 +102,7 @@
                     </tr>
                     <tr>
                         <td>事件介绍</td>
-                        <td><textarea class="table-input" rows="3" id="remark"></textarea></td>
+                        <td><textarea class="table-input" rows="3" id="remark">${MaintainLog_edit.remark}</textarea></td>
                     </tr>
                     </tbody>
                 </table>
@@ -131,12 +131,26 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">重复提示</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>同一车辆同一时间不能重复添加养护日志</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -167,8 +181,22 @@
 
 </script>
 <script type="text/javascript">
+    function setSelect(vehicleLicence,line) {
+        var obj = document.getElementById("vehicleLicence");
+        _Select(obj, vehicleLicence);
+        var obj = document.getElementById("road");
+        _Select(obj, line);
+    }
 
-    function index() {
+    function _Select(o, s) {
+        for (var i = 0; i < o.options.length; i++)
+            if (o.options[i].value == s) {
+                o.options[i].selected = true;
+                break;
+            }
+    }
+
+    function go() {
         location.href="MaintainLog";
     }
 
@@ -197,8 +225,11 @@
             },
             success:function(data){
 
-                if(data=="success")
+                if(data=="success") {
                     $('#success').modal('show');
+                }else if(data=="false"){
+                    $('#false').modal('show');
+                }
             }
         })
 

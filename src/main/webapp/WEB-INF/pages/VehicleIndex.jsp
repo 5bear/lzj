@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -31,7 +31,8 @@
 <body>
 
 <div id="wrapper">
-
+    <input type="hidden" id="curoffset" value="${VehicleList.offset}">
+    <input type="hidden" id="total" value="${VehicleList.total}">
     <!-- Sidebar -->
    <jsp:include page="public.jsp" flush="true">
        <jsp:param name="pageName" value="base2"></jsp:param>
@@ -53,11 +54,18 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12 time-row text-right">
+                        <select id="type" onchange="searchVehicle()">
+                            <option value="0" <c:if test="${type eq '0'}">selected="selected"</c:if>>选择车辆类型</option>
+                            <option value="清扫车" <c:if test="${type eq '清扫车'}">selected="selected"</c:if>>清扫车</option>
+                            <option value="巡视车" <c:if test="${type eq '巡视车'}">selected="selected"</c:if>>巡视车</option>
+                            <option value="牵引车" <c:if test="${type eq '牵引车'}">selected="selected"</c:if>>牵引车</option>
+
+                        </select>
                         <div class="search-div">
                             <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" value="${search}" placeholder="请输入公司/车牌/车辆类型"/>
+                            <input type="text" id="search" value="${name}" placeholder="请输入公司/车牌/车辆类型" onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
                         </div>
-                        <button class="btn btn-default" onclick="searchVehicle(document.getElementById('search').value)">搜索</button>
+                        <button id="subSearch" name="subSearch" type="button" class="btn btn-default" onclick="searchVehicle()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
                         <a href="VehicleAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
@@ -78,7 +86,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${VehicleList}" var="vehicle">
+                            <c:forEach items="${VehicleList.datas}" var="vehicle">
                                 <tr>
                                     <td>${vehicle.company}</td>
                                     <td>${vehicle.vehicleType}</td>
@@ -88,10 +96,10 @@
                                     <td>${vehicle.eFence}</td>
                                     <td>${vehicle.remark}</td>
                                     <td>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editVehicle('${vehicle.id}')">编辑</button>
-                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId('${vehicle.id}')">删除</button>
-                                        <!--<a href="#" class="operation"><img src="images/edit.png" alt="编辑" onclick="editVehicle('${vehicle.id}')"/>编辑</a>
-                                        <a class="operation" data-toggle="modal" data-target="#delete"><img src="images/delete1.png" alt="删除" onclick="deleteVehicle(${vehicle.id})"/>删除</a>-->
+                      <%--                  <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editVehicle('${vehicle.id}')">编辑</button>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId('${vehicle.id}')">删除</button>--%>
+                                        <a onclick="editVehicle('${vehicle.id}')" class="operation"><img src="images/edit.png" alt="编辑" />编辑</a>
+                                        <a onclick="getId('${vehicle.id}')" class="operation" ><img src="images/delete1.png" alt="删除" />删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -105,15 +113,11 @@
 
 
         <div class="row text-right">
-            <ul class="page">
-                <li><a href="#"><</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">></a></li>
-            </ul>
+            <jsp:include page="pagerV.jsp">
+                <jsp:param value="Vehicle" name="url"/>
+                <jsp:param value="${VehicleList.total }" name="item"/>
+                <jsp:param value="method,name" name="param"/>
+            </jsp:include>
         </div>
 
 
@@ -121,7 +125,6 @@
     </div><!-- /#page-wrapper -->
 
 </div><!-- /#wrapper -->
-
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -140,6 +143,7 @@
 </div><!-- /.modal -->
 
 
+
 <!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -152,12 +156,12 @@
     function getId(Id)
     {
         id=Id;
+        $("#delete").modal("show");
     }
 
     function editVehicle(Id)
     {
         location.href="VehicleEdit?id="+Id;
-
 
     }
     function deleteVehicle()
@@ -179,9 +183,31 @@
         })
     }
 
-    function searchVehicle(search)
+    function searchVehicle()
     {
-        location.href="VehicleSearch?search="+search;
+        var selector = document.getElementById("type");
+        var index = selector.selectedIndex;
+        var type = selector.options[index].value;
+        var name = $("#search").val();
+
+        if (name == null) {
+            name = "";
+        }
+        if(type==null){
+            type="0";
+        }
+        var goPath = "Vehicle";
+        if(type!="0"){
+            goPath+="?type="+type;
+            if(name!=""){
+                goPath+="&name="+name;
+            }
+        }else{
+            if(name!=""){
+                goPath += "?name="+name;
+            }
+        }
+        window.location = goPath;
     }
 
 

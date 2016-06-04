@@ -12,13 +12,52 @@ public class Position {
     private Long id;
     private String vehicle;//车牌
     private Long vehicleId;//车辆id
+    private Double lng;
+    private Double lat;
     private String driver;//驾驶员
     private String beginTime;//开始时间
+    private Long beginTS;//开始时间戳，方便比较
     private String stopTime;//结束时间
+    private Long stopTS;//结束时间戳
     private int isDelete;
     private String createTime;//添加时间
     private String editTime;//修改时间
     private String deleteTime;//删除时间
+
+    @Column
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+   @Column
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    @Column
+    public Long getBeginTS() {
+        return beginTS;
+    }
+
+    public void setBeginTS(Long beginTS) {
+        this.beginTS = beginTS;
+    }
+
+    @Column
+    public Long getStopTS() {
+        return stopTS;
+    }
+
+    public void setStopTS(Long stopTS) {
+        this.stopTS = stopTS;
+    }
 
     @Column()
     public int getIsDelete(){return isDelete;}

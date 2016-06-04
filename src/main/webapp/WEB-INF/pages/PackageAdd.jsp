@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -65,7 +65,7 @@
                     <tbody>
                     <tr>
                         <td>所属养护公司</td>
-                        <td><select name="company" id="company">
+                        <td><select name="company" id="company" class="table-input">
                             <option>上海成基市政建设发展有限公司</option>
                             <option>上海高架养护管理有限公司</option>
                         </select>
@@ -104,7 +104,7 @@
                         <td>执行时间(年)</td>
                         <!--<td><input type="text" class="table-input" id="happen-year" /></td>-->
                         <td>
-                            <select id="happen-year" style="max-height: 5s">
+                            <select id="happen-year" class="table-input" style="max-height: 5px">
                                 <c:forEach items="${yearList}" var="year">
                                     <option>${year}</option>
                                 </c:forEach>
@@ -143,7 +143,7 @@
                 <p>已经成功提交</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="index()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -195,7 +195,7 @@
 
 <script type="text/javascript">
 
-    function index() {
+    function go() {
         location.href="Package";
     }
 

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -45,7 +45,7 @@ public class LoginController extends BaseController{
         for(Account account : accountList){
             if(username.equals(account.getAccount())){
                 if (password.equals(account.getPassword())) {
-                    account.setLastLogin(simpleDateFormat.format(new Date()));
+                    account.setLastLogin(new Timestamp(System.currentTimeMillis()));
                     userDao.update(account);
                     List<Auth> authList=powerDao.getByRole(account.getPower());
                     session.setAttribute("list",authList);

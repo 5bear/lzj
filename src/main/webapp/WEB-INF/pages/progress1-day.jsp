@@ -242,7 +242,8 @@
 <script src="js/bootstrap.js"></script>
 <script>
 
-    $('a[data-toggle="droplist"]').click(function() {
+    $('a[data-toggle="droplist"]').click(function(e) {
+        e.preventDefault();
         $(this).nextAll().toggle();
     });
 $("#select-time").change(function(){

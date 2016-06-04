@@ -6,7 +6,7 @@ import java.net.InetAddress;
  * Created by ZhanShaoxiong on 2016/4/1.
  */
 public class pingTest {
-    public static void isAddressAvailable(String ip){
+    public static boolean isAddressAvailable(String ip){
         try{
             InetAddress address = InetAddress.getByName(ip);//ping this IP
 
@@ -21,8 +21,10 @@ public class pingTest {
 
             if(address.isReachable(5000)){
                 System.out.println("SUCCESS - ping " + ip + " with no interface specified");
+                return true;
             }else{
                 System.out.println("FAILURE - ping " + ip + " with no interface specified");
+                return false;
             }
 
             /*System.out.println("\n-------Trying different interfaces--------\n");
@@ -48,6 +50,11 @@ public class pingTest {
         }catch(Exception e){
             System.out.println("error occurs.");
             e.printStackTrace();
+            return false;
         }
+    }
+
+    public static void main(String[] args) {
+        isAddressAvailable("139.196.10.115");
     }
 }
