@@ -126,7 +126,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${cjList}" var="item">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="dropdown">${item.line}</a>
+                          <a href="" onclick="showLine('${item.id}')" data-toggle="dropdown">${item.line}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -141,7 +141,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${gjyhList}" var="item">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="showLine('${item.id}','${item.lng}',${item.lat})" data-toggle="dropdown">${item.line}</a>
+                          <a href="" onclick="showLine('${item.id}')" data-toggle="dropdown">${item.line}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -327,7 +327,7 @@
     var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
     map.addControl(top_left_control);
     map.addControl(top_left_navigation);
-    showLine('${line.id}','${line.lng}','${line.lat}')
+    showLine('${line.id}')
   })
   /*添加电子围栏*/
   function addeLine(){
@@ -518,14 +518,13 @@
         $("#direction").html(" <option value='东侧'>东侧</option><option value='西侧'>西侧</option>");
   }
   /**/
-  function panTo(lng,lat){
-    var point=new BMap.Point(lng, lat);
-    map.panTo(point);
+  function panTo(coords){
+    var points=jsonToPoints(coords)
+    map.panTo(coords[0]);
   }
-  function showLine(id,lng,lat){
+  function showLine(id){
     idForEdit=id
     map.clearOverlays();
-    panTo(lng,lat)
     $.ajax({
       url:"line/get",
       type:"post",
@@ -534,6 +533,7 @@
       success:function(data){
         idForEdit=data.id;
         var point=jsonToPoints(data.coords)
+        panTo(data.coords)
         for(var i=0;i<point.length;i++){
           var p=new BMap.Point(point[i].lng,point[i].lat);
           points.push(p);

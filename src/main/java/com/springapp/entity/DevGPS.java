@@ -18,6 +18,56 @@ public class DevGPS {
     private Timestamp GPSTime;
     private int isDrive;//0表示正在作业，1表示静止
     private int overSpeed;//超速 0 1
+    private int inEfence;//是否在电子围栏内,默认为0 在
+    private String lineName;//所属路段名称
+    private Long lineID;//所属路段id
+    private String eFence;//所属电子围栏
+    private Long eFenceID;//
+
+    @Column(length = 45)
+    public String geteFence() {
+        return eFence;
+    }
+
+    public void seteFence(String eFence) {
+        this.eFence = eFence;
+    }
+
+    @Column()
+    public Long geteFenceID() {
+        return eFenceID;
+    }
+
+    public void seteFenceID(Long eFenceID) {
+        this.eFenceID = eFenceID;
+    }
+
+    @Column
+    public int getInEfence() {
+        return inEfence;
+    }
+
+    public void setInEfence(int inEfence) {
+        this.inEfence = inEfence;
+    }
+
+    @Column(length = 45)
+    public String getLineName() {
+        return lineName;
+    }
+
+    public void setLineName(String lineName) {
+        this.lineName = lineName;
+    }
+
+    @Column
+    public Long getLineID() {
+        return lineID;
+    }
+
+    public void setLineID(Long lineID) {
+        this.lineID = lineID;
+    }
 
     @Column
     public int getOverSpeed() {

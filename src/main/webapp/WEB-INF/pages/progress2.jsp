@@ -246,7 +246,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${cyList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -259,7 +259,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${cqList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -272,7 +272,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${cxList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -295,7 +295,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${gyList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -308,7 +308,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${gqList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -321,7 +321,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${gxList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -400,6 +400,7 @@
 <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 <script>
     var myCar;//汽车图标
+    var temList=new Array();
     var vehicleList=new Array()
     var vehicle//车辆
     var vehiclePos//车辆轨迹
@@ -414,10 +415,6 @@
     function localSearch(){
         var localSearch=$("#localSearch").val();
         local.search(localSearch);
-    }
-    /*转换为地图坐标*/
-    function transferPoint(point){
-        return new BMap.Point(point.lng+(121.35053994012-121.339485),point.lat+(31.217964392252-31.213757));
     }
     /*点数组转json*/
     function pointsTojson(points) {
@@ -465,19 +462,41 @@
             success: function (data) {
                 console.log(data)
                 $(data).each(function (index, element) {
-                    var map = new Map();
-                    map.put("vehicle", element.vehicle)
-                    map.put("vehiclePos", element.list);
+                    var map1 = new Map();
+                    map1.put("vehicle", element.vehicle)
+                    map1.put("vehiclePos", element.list);
                     var point=new BMap.Point(element.list[element.list.length-1].lng/100000,element.list[element.list.length-1].lat/100000)
                     console.log(point.lng)
-                    map.put("currentPoint",transferPoint(point))
-                    var car=setCar(element.vehicle.vehicleType,transferPoint(point),element.list[element.list.length-1].direction);
-                    map.put("car",car)
-                    vehicleList.push(map)
-                    showTrack(car,element.vehicle,element.list,transferPoint(point))
+                    map1.put("currentPoint",point)
+                    var car=setCar(element.vehicle.vehicleType,point,element.list[element.list.length-1].direction);
+                    map1.put("car",car)
+                    vehicleList.push(map1)
+                    showTrack(car,element.vehicle,element.list,point)
                 })
+                temList=vehicleList;
             }
         })}
+
+    function setVehicle(devIDNO){
+        var newList=new Array();
+        $(temList).each(function(index,element){
+            var point=element.get("currentPoint")
+            var vehicle=element.get("vehicle")
+            if(vehicle.OBUId==devIDNO){
+                map.clearOverlays();
+                var map1 = new Map();
+                map1.put("vehicle", element.get("vehicle"))
+                map1.put("vehiclePos", element.get("vehiclePos"));
+                map1.put("currentPoint",element.get("currentPoint"))
+                map1.put("car",element.get("car"))
+                showTrack(element.get("car"),element.get("vehicle"),element.get("vehiclePos"),element.get("currentPoint"))
+                newList.push(map1)
+                vehicleList=newList;
+                panTo(point)
+                return false
+            }
+        })
+    }
     function addArea() {
         var center = pointsTojson(map.getCenter());
         var zoom = map.getZoom();
@@ -511,7 +530,13 @@
                 success:function(data){
                     if(data!=null) {
                         var point = new BMap.Point(data.lng / 100000, data.lat / 100000);
-                        element.get("car").setPosition(transferPoint(point))
+                        var currentPoint=element.get("currentPoint")
+                        element.removeByKey("currentPoint")
+                        element.put("currentPoint",point)
+                        var polyLine=new BMap.Polyline([currentPoint,point],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+                        map.addOverlay(polyLine)
+                        changeInfoWindow(element.get("car"),element.get("vehicle").vehicleLicence,element.get("vehicle").vehicleType, data.devIDNO, data.speed/10, data.isDriver,data.HDD, point, data.direction)
+                        element.get("car").setPosition(point)
                         element.get("car").setRotation(data.direction)
                     }
                 }
@@ -522,11 +547,11 @@
 
     function showTrack(myCar,vehicle,vehiclePos,currentPoint){
 
-        addVehicle(myCar,vehicle.vehicleLicence,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].direction)
+        addVehicle(myCar,vehicle.vehicleLicence,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed/10,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].direction)
         var points=new Array();
         $(vehiclePos).each(function(index,element){
             var point=new BMap.Point(element.lng/100000,element.lat/100000)
-            points.push(transferPoint(point))
+            points.push(point)
         })
         var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
         map.addOverlay(polyLine)
@@ -539,7 +564,44 @@
 
     /* map.addEventListener('click',mapClick)*/
 
+    function changeInfoWindow(myCar,vehicleLicence, vehicle, devIDNO, speed, isDriver,HDD, point, direction)
+    {
+        myCar.removeEventListener("click");
+        if(HDD== "00")
+            HDD= "硬盘不存在"
+        else if(HDD== "01")
+            HDD="硬盘存在";
+        else
+            HDD="断电"
+        if(isDriver==0)
+            isDriver="正在作业"
+        else
+            isDriver="静止"
+        var opts = {
+            width : 100,     // 信息窗口宽度
+            height: 250,     // 信息窗口高度
+            title :"车辆信息" ,// 信息窗口标题
+            enableMessage:true,//设置允许信息窗发送短息
+            message:""
+        }
+        var vehicleType;
+        if(vehicle=="巡视车")
+            vehicleType=0
+        else
+            vehicleType=1
+        var infoWindow = new BMap.InfoWindow(" <button class='btn btn-default' onclick='viewVideo("+vehicleType+','+devIDNO+")' >视频</button>"+"<br>车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+        myCar.addEventListener("click", function (e) {
+            map.openInfoWindow(infoWindow, point);
+        });
+    }
 
+    function viewVideo(vehicle,devIDNO){
+        if(vehicle ==0)
+            location.
+                    href = "progress2-2?id=" + devIDNO
+        else
+            location.href = "progress2-1?id=" + devIDNO
+    }
     function setCar(vehicle,point,direction){
         var myCar;
         if(vehicle=="巡视车")
@@ -569,34 +631,23 @@
             enableMessage:true,//设置允许信息窗发送短息
             message:""
         }
+
         var vehicleType;
         if(vehicle=="巡视车")
             vehicleType=0
         else
             vehicleType=1
         var infoWindow = new BMap.InfoWindow(" <button class='btn btn-default' onclick='viewVideo("+vehicleType+','+devIDNO+")' >视频</button>"+"<br>车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
-        /* myCar.addEventListener('click',function(){
-
-         });*/
         myCar.addEventListener("click", function (e) {
             map.openInfoWindow(infoWindow, point);
         });
-       /* myCar.addEventListener("mouseout", function (e) {
-            map.closeInfoWindow(infoWindow, point);
-        });*/
         map.addOverlay(myCar);
     }
-    function viewVideo(vehicle,devIDNO){
-        if(vehicle ==0)
-            location.
-                    href = "progress2-2?id=" + devIDNO
-        else
-            location.href = "progress2-1?id=" + devIDNO
-    }
+
+
 
     /**/
-    function panTo(lng,lat){
-        var point= new BMap.Point(lng, lat);
+    function panTo(point){
         map.panTo(point);
     }
 

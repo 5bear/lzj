@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yanglin
@@ -25,10 +26,11 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 
-<body onload="myTimer()">
+<body onload="init('${vType}')">
 
 <div id="wrapper">
-
+    <input type="hidden" id="curoffset" value="${excepDatas.offset}">
+    <input type="hidden" id="total" value="${excepDatas.total}">
     <!-- Sidebar -->
     <jsp:include page="public.jsp" flush="true">
         <jsp:param name="pageName" value="history3"></jsp:param>
@@ -48,10 +50,11 @@
 
         <div class="row">
             <div class="col-lg-12 text-left search-row">
-                <input type="text" id="date" placeholder="选择日期"/>
-                <label><input type="checkbox"/>养护车</label>
-                <label><input type="checkbox"/>巡视车</label>
-                <button class="btn btn-default">确认</button>
+                <input type="text" id="date" value="${date}" placeholder="选择日期"/>
+                <label><input name="vType" type="checkbox" value="清扫车"/>清扫车</label>
+                <label><input name="vType" type="checkbox" value="巡视车"/>巡视车</label>
+                <label><input name="vType" type="checkbox" value="牵引车"/>牵引车</label>
+                <button type="button" class="btn btn-default" onclick="searchExcep()">确认</button>
             </div>
         </div>
 
@@ -63,52 +66,46 @@
                         <th>异常车辆类型</th>
                         <th>车辆牌照</th>
                         <th>异常类型</th>
+                        <th>发生日期</th>
                         <th>发生时间段</th>
                         <th>发生路段</th>
-                        <th>备注</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>养护车</td>
-                        <td>沪A86574</td>
-                        <td>超速</td>
-                        <td>13:00-14:00</td>
-                        <td>中山北路外侧</td>
-                        <td></td>
-                        <td><a href="history3-check" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>养护车</td>
-                        <td>沪A86574</td>
-                        <td>超速</td>
-                        <td>13:00-14:00</td>
-                        <td>中山北路外侧</td>
-                        <td></td>
-                        <td><a href="history3-check" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
-                        </td>
-                    </tr>
+                    <c:forEach items="${excepDatas.datas}" var="excep">
+                        <tr>
+                            <td>${excep.vehicleType}</td>
+                            <td>${excep.vehicleLicence}</td>
+                            <td>${excep.type}</td>
+                            <td>${excep.eventDate}</td>
+                            <td>${excep.eventTime}</td>
+                            <td>${excep.eventRoad}</td>
+                            <td><a onclick="toException(${excep.id})" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="row text-right">
+            <jsp:include page="pagerH3.jsp">
+                <jsp:param value="History3" name="url"/>
+                <jsp:param value="${excepDatas.total }" name="item"/>
+                <jsp:param value="method,date,vType[]" name="param"/>
+            </jsp:include>
+        </div>
 
-        <div class="alert" id="exception" style="display: none">
+       <%-- <div class="alert" id="exception" style="display: none">
             <p class="alert-title text-center">异常提示</p>
             <div id="excp_content" style="height:150px; overflow-y: auto">
-                <%-- <p><input type="checkbox"/>1、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-                 <p><input type="checkbox"/>2、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-                 <p><input type="checkbox"/>3、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-                 <p><input type="checkbox"/>4、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-                 <p><input type="checkbox"/>5、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>
-                 <p><input type="checkbox"/>6、<a href="history3-check.html">沪A3213, 清扫车，12：00-14：00，超速</a></p>--%>
             </div>
             <div class="row text-center">
                 <button class="btn btn-default" type="button" onclick="confirmExcp()">确认</button>
             </div>
-        </div>
+        </div>--%>
 
     </div><!-- /#page-wrapper -->
 
@@ -118,6 +115,34 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
+<script>
+    function init(vType){
+        if(vType!=""){
+            var vTypes = new Array();
+            vTypes = vType.split(",");
+            $(vTypes).each(function (i,val){
+                $(":checkbox[value='"+val+"']").prop("checked",true);
+            });
+
+        }
+
+    }
+    function toException(id){
+        location.href="history3-check/"+id;
+    }
+
+    function searchExcep(){
+        var date = $("#date").val();
+        var ids = new Array();
+        var gopath="History3?date="+date;
+        $("input:checkbox[name='vType']:checked").each(function(){
+            gopath+="&vType="+$(this).val();
+        });
+
+        location.href=gopath;
+
+    }
+</script>
 <%--<script language="JavaScript">
     window.attachEvent("onload", myTimer); //绑定到onload事件
     function myTimer() {
@@ -125,7 +150,7 @@
         window.setTimeout("myTimer()",6000);//设置循环时间
     }
 </script>--%>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     var idd = 0;
 
     function myTimer() {
@@ -172,7 +197,6 @@
     function confirmExcp(){
         var ids = new Array();
         $("input:checkbox[name='excp_checkBox']:checked").each(function(){
-            alert($(this).val());
             ids.push($(this).val());
             $(this).parent().remove();
         });
@@ -202,7 +226,7 @@
 
     }
 
-</script>
+</script>--%>
 
 <script>
 

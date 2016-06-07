@@ -3,10 +3,7 @@ package com.springapp.mvc;
 import com.springapp.classes.FileRead;
 import com.springapp.classes.HttpUtil;
 import com.springapp.classes.pingTest;
-import com.springapp.entity.Account;
-import com.springapp.entity.DevGPS;
-import com.springapp.entity.Vehicle;
-import com.springapp.entity.VehiclePos;
+import com.springapp.entity.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -21,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -114,6 +112,20 @@ public class HelloController extends BaseController{
 			return "fail";
 		}
 		return JSONObject.fromObject(vehiclePos).toString();
+	}
+	@RequestMapping(value = "/setLine",method = RequestMethod.POST)
+	@ResponseBody
+	public String setLine(@RequestParam(value = "vehicle")Long vehicleID,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "lineID")Long lineID,@RequestParam(value = "gpsTime")Timestamp timestamp){
+		Vehicle vehicle=vehicleDao.get(vehicleID);
+		if(vehicle==null)
+			return "fail";
+		VehicleLine vehicleLine=new VehicleLine();
+		vehicleLine.setTimestamp(timestamp);
+		vehicleLine.setVehicle(vehicleID);
+		vehicleLine.setLineID(lineID);
+		vehicleLine.setLineName(lineName);
+		baseDao.save(vehicleLine);
+		return "success";
 	}
 	@RequestMapping(value = "/line",method = RequestMethod.GET)
 	public ModelAndView line(){

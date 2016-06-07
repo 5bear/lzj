@@ -286,7 +286,7 @@
             <option value="4">4x</option>
             <option value="8">8x</option>
             <option value="16">16x</option>
-            </select>
+          </select>
           <datalist id="lista">
             <c:forEach items="${cxList}" var="item">
               <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
@@ -407,10 +407,6 @@
     var localSearch=$("#localSearch").val();
     local.search(localSearch);
   }
-  /*转换为地图坐标*/
-  function transferPoint(point){
-    return point
-  }
   /*点数组转json*/
   function pointsTojson(points) {
     return JSON.stringify(points);
@@ -466,8 +462,8 @@
         map.put("vehiclePos", data.list);
         var point=new BMap.Point(data.list[data.list.length-1].lng/100000,data.list[data.list.length-1].lat/100000)
         console.log(point.lng)
-        map.put("currentPoint",transferPoint(point))
-        var car=setCar(data.vehicle.vehicleType,transferPoint(point),data.list[data.list.length-1].direction);
+        map.put("currentPoint",point)
+        var car=setCar(data.vehicle.vehicleType,point,data.list[data.list.length-1].direction);
         map.put("car",car)
         vehicleList.push(map)
         showTrack(car,data.vehicle,data.list,playSpeed)
@@ -506,29 +502,39 @@
     var points=new Array();
     $(vehiclePos).each(function(index,element){
       if(element.overSpeed==1)
-          exception="超速"
+        exception="超速"
       sumSpeed+=element.speed/10
       count=index+1
       var point=new BMap.Point(element.lng/100000,element.lat/100000)
-      points.push(transferPoint(point))
+      points.push(point)
     })
     averSpeed=sumSpeed/count;
     $("#averSpeed").html(Math.round(averSpeed*100)/100+"km/h");
     $("#exception").html(exception)
     var index=0;
-    var int=setInterval(function(){
+    var time1=setInterval(function(){
       var polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
       myCar.setPosition(points[index+1])
+      myCar.setRotation(vehiclePos[index+1].direction)
+      var label=new BMap.Label(getLocalTime(vehiclePos[index+1].GPSTime));
+      myCar.setLabel(label)
       index++;
-      console.log(index)
-      console.log(points.length)
       if(index>=points.length){
-        console.log("end")
-        window.clearInterval(int)
+        window.clearInterval(time1)
+        return
       }
 
       map.addOverlay(polyLine)
-    }, 10/playSpeed);
+    }, 10000/playSpeed);
+  }
+  function getLocalTime(now) {
+    var   year=now.year+1900;
+    var   month=now.month+1;
+    var   date=now.date;
+    var   hour=now.hours<10?"0"+now.hours:now.hours;
+    var   minute=now.minutes<10?"0"+now.minutes:now.minutes;
+    var   second=now.seconds<10?"0"+now.seconds:now.seconds;
+    return   year+"-"+month+"-"+date+"   "+hour+":"+minute+":"+second;
   }
   function setCar(vehicle,point,direction){
     var myCar;
@@ -541,8 +547,6 @@
     return myCar;
   }
 
-  function addVehicle(myCar,vehicleLicence, vehicle, devIDNO, speed, isDriver,HDD, point, direction){
-  }
 
 
 

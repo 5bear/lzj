@@ -2,7 +2,7 @@
   <artifact type="war" build-on-make="true" name="test:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="lzj.war">
-      <element id="artifact" artifact-name="test:war exploded" />
+      <element id="artifact" artifact-name="lzj:war exploded" />
     </root>
   </artifact>
 </component>

@@ -1,6 +1,7 @@
 package com.springapp.mvc;
 
 import com.springapp.entity.DevGPS;
+import com.springapp.entity.Line;
 import com.springapp.entity.Vehicle;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

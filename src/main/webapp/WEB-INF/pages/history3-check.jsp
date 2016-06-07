@@ -16,14 +16,14 @@
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="<%=request.getContextPath()%>/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -58,44 +58,40 @@
                 <table class="table vertical-table">
                     <tbody>
                     <tr>
-                        <td>编号</td>
-                        <td>C01</td>
-                    </tr>
-                    <tr>
                         <td>异常车辆类型</td>
-                        <td>养护车</td>
+                        <td>${me.vehicleType}</td>
                     </tr>
                     <tr>
                         <td>车辆牌照</td>
-                        <td>沪A86574</td>
+                        <td>${me.vehicleLicence}</td>
                     </tr>
                     <tr>
                         <td>异常类型</td>
-                        <td>超速</td>
+                        <td>${me.type}</td>
+                    </tr>
+                    <tr>
+                        <td>发生日期</td>
+                        <td>${me.eventDate}</td>
                     </tr>
                     <tr>
                         <td>发生时间段</td>
-                        <td>13:00-14:00</td>
+                        <td>${me.eventTime}</td>
                     </tr>
                     <tr>
                         <td>发生路段</td>
-                        <td>中山北路外侧</td>
-                    </tr>
-                    <tr>
-                        <td>备注</td>
-                        <td></td>
+                        <td>${me.eventRoad}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="row">
+       <%-- <div class="row">
             <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
                 <button class="btn btn-default">编辑</button>
                 <button class="btn btn-default">删除</button>
             </div>
-        </div>
+        </div>--%>
 
 
     </div><!-- /#page-wrapper -->
@@ -103,9 +99,9 @@
 </div><!-- /#wrapper -->
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.js"></script>
 <script>
     $(function(){
         $("#history").dropdown('toggle');

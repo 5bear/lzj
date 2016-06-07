@@ -29,13 +29,20 @@
 
         -->
     <defaultCache
+
             maxElementsInMemory="10000"
+
             eternal="false"
+
             timeToIdleSeconds="120"
+
             timeToLiveSeconds="120"
+
             overflowToDisk="true"
-            memoryStoreEvictionPolicy="LFU"
+
             />
+
+
     <!--Predefined caches.  Add your cache configuration settings here.
         If you do not have a configuration for your cache a WARNING will be issued when the
         CacheManager starts

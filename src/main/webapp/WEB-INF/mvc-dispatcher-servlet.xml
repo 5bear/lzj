@@ -136,7 +136,6 @@
         </tx:attributes>
     </tx:advice>
 
-    <bean id="baseDao" class="com.springapp.dao.BaseDao"></bean>
 
    <!-- <mvc:interceptors>
         &lt;!&ndash; 多个拦截器,顺序执行 &ndash;&gt;

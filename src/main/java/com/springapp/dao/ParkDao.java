@@ -23,6 +23,11 @@ public class ParkDao extends BaseDao1<Park> {
         }
         return this.find(hql);
     }
+    public List<Park> getList() {
+        String hql = "from Park where isDelete='0'";
+
+        return this.list(hql);
+    }
 
     public Park getByName(String name) {
         String hql = "from Park where parkName='"+name+"'";

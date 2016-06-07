@@ -15,6 +15,7 @@
 /*  System.out.print(pageName+pageFather);*/
 %>
 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+<body onload="myTimer()"></body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -25,6 +26,15 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="index">上海市快速路养护作业监管设施完善工程</a>
+  </div>
+  <!-- /.row -->
+  <div class="alert" id="exception" style="display: none">
+    <p class="alert-title text-center">异常提示</p>
+    <div id="excp_content" style="height:150px; overflow-y: auto">
+    </div>
+    <div class="row text-center">
+      <button class="btn btn-default" type="button" onclick="confirmExcp()">确认</button>
+    </div>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -115,10 +125,9 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script>
 
-  $('a[data-toggle="dropdown"]').click(function(e) {
-        e.preventDefault();
-        $(this).nextAll().toggle();
-    });
+  $('a[data-toggle="dropdown"]').click(function() {
+    $(this).nextAll().toggle();
+  });
 
 </script>
 <script>
@@ -136,3 +145,95 @@
   });
 </script>
 
+<script type="text/javascript">
+  var idd = 0;
+
+  function myTimer() {
+    /*if(idd==0){
+     $("#exception").css("display","none");
+     }*/
+    start(idd);
+    window.setTimeout("myTimer()", 6000);//设置循环时间
+  }
+
+  function start(id) {
+    // alert(id);
+    $.ajax({
+      url: "getException",
+      type: "post",
+      data: {
+        id: id
+      },
+      success: function (data) {
+        var r = $.parseJSON(data);
+        if (r.result == 0) {
+          var list = r.obj;
+          if (list != null && list.length > 0) {
+
+            $("#exception").css("display","block");
+            $(list).each(function(index,element){
+              var node = "<p><input type='checkbox' name='excp_checkBox' value='"+element.id+"'/><a onclick='toException("+element.id+")'   class='operation'>"+element.vehicleLicence+", "+element.vehicleType+"，"+element.eventTime+"，"+element.type+"</a></p>";
+              $("#excp_content").append(node);
+              if(index==list.length-1){
+                idd =  element.id;
+              }
+            });
+
+          }
+        }
+      }
+    })
+  }
+
+  function toException(id){
+    var ids = new Array();
+    ids.push(id);
+    $.ajax({
+      url: "confirmException",
+      type: "post",
+      data: {
+        "ids[]":ids
+      },
+      success: function (data) {
+        var r = $.parseJSON(data);
+        if(r.result!=0){
+          alert(r.msg);
+        }
+      }
+    });
+    location.href="history3-check/"+id;
+  }
+
+  function confirmExcp(){
+    var ids = new Array();
+    $("input:checkbox[name='excp_checkBox']:checked").each(function(){
+      ids.push($(this).val());
+      $(this).parent().remove();
+    });
+
+    var size = $("#excp_content").children("p").length;
+    if(size==0){
+      $("#exception").css("display","none");
+    }
+
+    if(ids==null || ids.length==0){
+      alert("请先勾选异常信息");
+    }else{
+      $.ajax({
+        url: "confirmException",
+        type: "post",
+        data: {
+          "ids[]":ids
+        },
+        success: function (data) {
+          var r = $.parseJSON(data);
+          if(r.result!=0){
+            alert(r.msg);
+          }
+        }
+      });
+    }
+
+  }
+
+</script>

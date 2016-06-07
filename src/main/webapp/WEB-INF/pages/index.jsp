@@ -445,9 +445,12 @@
 </script>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
+<script type="text/javascript" src="js/BMaplib.js"></script>
 <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 <script>
   var myCar;//汽车图标
+  var lineList=new Array();
+  var tempList=new Array()
   var vehicleList=new Array()
   var vehicle//车辆
   var vehiclePos//车辆轨迹
@@ -472,10 +475,6 @@
     var localSearch=$("#localSearch").val();
     local.search(localSearch);
   }
-/*转换为地图坐标*/
-  function transferPoint(point){
-    return new BMap.Point(point.lng+(121.35053994012-121.339485),point.lat+(31.217964392252-31.213757));
-  }
   /*点数组转json*/
   function pointsTojson(points) {
     return JSON.stringify(points);
@@ -483,7 +482,13 @@
 
   /*json数据转成点数组*/
   function jsonToPoints(jsonData) {
-    return eval(jsonData);
+    var points=eval(jsonData);
+    var retunPoints=new Array();
+    for(var i=0;i<points.length;i++ ){
+      var point=new BMap.Point(points[i].lng,points[i].lat)
+      retunPoints.push(point)
+    }
+    return retunPoints
   }
 
   // 初始化地图，设置中心点坐标和地图级别 设置为上海
@@ -512,7 +517,38 @@
       }
     })
     getTrack()
+    getLine()
   });
+  function getLine(){
+    $.ajax({
+      url:"line/list",
+      type:"post",
+      data:{},
+      dataType:"json",
+      success:function(data){
+        $(data).each(function(index,element){
+          var myMap=new Map();
+          myMap.put("lineName",element.line)
+          myMap.put("lineID",element.id)
+          var points=jsonToPoints(element.coords)
+          var polylines=new Array();
+          var driving = new BMap.DrivingRoute(map);    //创建驾车实例
+          for(var i=0;i<points.length-1;i++) {
+            driving.search(points[i], points[i + 1])
+            /* console.log(driving)*/
+          }
+          driving.setSearchCompleteCallback(function(){
+            /* console.log(driving.getResults())*/
+            var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+            var polyline = new BMap.Polyline(pts);
+            polylines.push(polyline)
+          })
+          myMap.put("polylines",polylines)
+          lineList.push(myMap)
+              })
+            }
+        })
+  }
   function getTrack() {
     $.ajax({
       url: "Track/getCurrentTrack",
@@ -527,20 +563,31 @@
           map.put("vehiclePos", element.list);
           var point=new BMap.Point(element.list[element.list.length-1].lng/100000,element.list[element.list.length-1].lat/100000)
           console.log(point.lng)
-          map.put("currentPoint",transferPoint(point))
-          var car=setCar(element.vehicle.vehicleType,transferPoint(point),element.list[element.list.length-1].direction);
+          map.put("currentPoint",point)
+          var car=setCar(element.vehicle.vehicleType,point,element.list[element.list.length-1].direction);
           map.put("car",car)
           vehicleList.push(map)
-          showTrack(car,element.vehicle,element.list,transferPoint(point))
+          showTrack(car,element.vehicle,element.list,point)
         })
+        tempList=vehicleList
       }
     })}
 
   function setVehicle(devIDNO){
-    $(vehicleList).each(function(index,element){
+    var newList=new Array();
+    $(tempList).each(function(index,element){
       var point=element.get("currentPoint")
       var vehicle=element.get("vehicle")
       if(vehicle.OBUId==devIDNO){
+        map.clearOverlays();
+        var map1 = new Map();
+        map1.put("vehicle", element.get("vehicle"))
+        map1.put("vehiclePos", element.get("vehiclePos"));
+        map1.put("currentPoint",element.get("currentPoint"))
+        map1.put("car",element.get("car"))
+        showTrack(element.get("car"),element.get("vehicle"),element.get("vehiclePos"),element.get("currentPoint"))
+        newList.push(map1)
+        vehicleList=newList;
         panTo(point)
         return false
       }
@@ -567,9 +614,32 @@
   }
   setInterval(function(){
     getLatestPos()
+    setLine()
   }, "10000");
 
-  function getLatestPos(){
+  function setLine(){
+    $(vehicleList).each(function(index,element){
+      var point=element.get("currentPoint")
+      var vehicle=element.get("vehicle")
+      $(lineList).each(function (index1,element1) {
+        var line=element1.get("polylines");
+        $(line).each(function (index2,element2) {
+          console.log("success")
+         if(!BMapLib.GeoUtils.isPointOnPolyline(point,element2)){
+           $.ajax({
+             url:"setLine",
+             type:"post",
+             data:{vehicleID:vehicle.id,lineName:element1.lineName,lineID:element1.lineID,gpsTime:element.get("GPSTime")},
+             success:function(data){
+               return false;
+             }
+           })
+         }
+        })
+      })
+    })
+  }
+   function getLatestPos(){
     $(vehicleList).each(function(index,element){
       $.ajax({
         url:"Track/getLatestPos",
@@ -581,11 +651,12 @@
             var point = new BMap.Point(data.lng / 100000, data.lat / 100000);
             var currentPoint=element.get("currentPoint")
             element.removeByKey("currentPoint")
-            element.put("currentPoint",transferPoint(point))
-            var polyLine=new BMap.Polyline([currentPoint,transferPoint(point)],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+            element.put("currentPoint",point)
+            element.put("gpsTime",data.GPSTime)
+            var polyLine=new BMap.Polyline([currentPoint,point],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
             map.addOverlay(polyLine)
-            changeInfoWindow(element.get("car"),element.get("vehicle").vehicleLicence,element.get("vehicle").vehicleType, data.devIDNO, data.speed/10, data.isDriver,data.HDD, transferPoint(point), data.direction)
-            element.get("car").setPosition(transferPoint(point))
+            changeInfoWindow(element.get("car"),element.get("vehicle").vehicleLicence,element.get("vehicle").vehicleType, data.devIDNO, data.speed/10, data.isDriver,data.HDD, point, data.direction)
+            element.get("car").setPosition(point)
             element.get("car").setRotation(data.direction)
           }
         }
@@ -600,7 +671,7 @@
     var points=new Array();
     $(vehiclePos).each(function(index,element){
       var point=new BMap.Point(element.lng/100000,element.lat/100000)
-      points.push(transferPoint(point))
+      points.push(point)
     })
     var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
     map.addOverlay(polyLine)

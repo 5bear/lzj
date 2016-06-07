@@ -68,7 +68,7 @@ select {
     text-align: center;
 }
 
-#date, #hour, #hour1, #hour2, #date1, #date2 {
+#date, #hour, #hour1, #hour2, #date1, #date2, #startTime, #endTime {
     border: none;
     background-color: #F2F2F2;
     border-radius: 5px;
@@ -484,7 +484,7 @@ td.man-yellow {
     position: relative;
     width: 250px;
     height: 250px;
-    margin-top: 40px;
+    margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
     background: url("../images/yuntai.png");
