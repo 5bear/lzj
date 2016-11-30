@@ -10,7 +10,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -18,14 +18,14 @@
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="<%=request.getContextPath()%>/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -56,13 +56,13 @@
                 <div class="row">
                     <div class="col-lg-12 time-row text-right">
                         <div class="search-div">
-                            <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" value="${name}" onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
+                            <img src="<%=request.getContextPath()%>/images/search1.png" alt="搜索"/>
+                            <input  placeholder="请输入停车场名称/公司"  type="text" id="search" value="${name}" onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
                         </div>
                         <button id="subSearch" name="subSearch" type="button" class="btn btn-default" onclick="searchPark()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="ParkAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增停车场信息</a>
+                        <a href="<%=request.getContextPath()%>/Park/add" class="add-operation"><img src="<%=request.getContextPath()%>/images/add1.png" alt="增加"/>新增停车场信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -85,8 +85,8 @@
                                     <td>${park.addr}</td>
                                     <td>${park.serverIP}</td>
                                     <td>
-                                        <a  onclick="editPark('${park.id}')"  class="operation"><label><img src="images/edit.png" alt="编辑">编辑</label></a>
-                                        <a onclick="getID('${park.id}')"  class="operation"><label><img src="images/delete1.png" alt="删除">删除</label></a>
+                                        <a  onclick="editPark('${park.id}')"  class="operation"><label><img src="<%=request.getContextPath()%>/images/edit.png" alt="编辑">编辑</label></a>
+                                        <a onclick="getID('${park.id}')"  class="operation"><label><img src="<%=request.getContextPath()%>/images/delete1.png" alt="删除">删除</label></a>
 
                                     </td>
                                 </tr>
@@ -121,16 +121,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deletePark()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deletePark(${ParkList.offset},${ParkList.total},${ParkList.size})">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.js"></script>
 
 
 <script type="text/javascript">
@@ -144,22 +144,32 @@
 
     function editPark(id)
     {
-        location.href="ParkEdit?id="+id;
+        location.href="<%=request.getContextPath()%>/Park/edit?id="+id;
 
 
     }
-    function deletePark()
+    function deletePark(offset,total,size)
     {
 
         $.ajax({
-            url:"ParkDelete",
+            url:"<%=request.getContextPath()%>/Park/delete",
             type:"post",
             data:{id:id},
             success:function(data){
 
                 if(data=="success"){
-                    location.reload();
-                }else {
+                    if(total%size==1){
+                        var name = $("#search").val();
+                        if (name == null) {
+                            name = "";
+                        }
+                        window.location = "?name=" + name + "&pager.offset=" + (offset-size);
+                    }else{
+                        location.reload();
+                    }
+                }else if(data=="NoPower")
+                    alert("无操作权限")
+                else {
                     alert("error");
                 }
             }

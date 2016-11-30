@@ -17,15 +17,16 @@ public class UserDao extends BaseDao {
     public Account getByUsername(String username){
         return this.find("from Account where username=?",Account.class,new Object[]{username});
     }
+    public Account getByAccount(String account){
+        return this.find("from Account where account=?",Account.class,new Object[]{account});
+    }
     public List<Account>getList(){
         return this.findAll("from Account",Account.class);
     }
     public boolean isDuplicated(Account account){
         List<Account>accounts=this.getList();
         for(Account account1:accounts){
-            if(account1.getUsername().equals(account.getUsername()))
-                return true;
-            if(account1.getAccount().equals(account.getAccount()))
+            if(account1.getAccount().equals(account.getAccount())&&!account1.getId().equals(account.getId()))
                 return true;
         }
         return false;

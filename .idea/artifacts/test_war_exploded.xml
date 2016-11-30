@@ -61,9 +61,13 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.0" />
-          <element id="library" level="project" name="Maven: com.oracle:ojdbc14:10.2.0.4.0" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.7.4" />
           <element id="library" level="project" name="Maven: net.sourceforge.json:com.springsource.net.sf.json:2.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.commons:com.springsource.org.apache.commons.beanutils:1.7.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:com.springsource.org.apache.commons.collections:3.2.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:com.springsource.org.apache.commons.lang:2.1.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1" />
+          <element id="library" level="project" name="Maven: net.sourceforge.ezmorph:com.springsource.net.sf.ezmorph:1.0.5" />
           <element id="library" level="project" name="Maven: org.apache.ant:ant:1.8.1" />
           <element id="library" level="project" name="Maven: org.apache.ant:ant-launcher:1.8.1" />
           <element id="library" level="project" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" />
@@ -77,7 +81,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="D:\学习生活\鲍老师工作室\上海市快速路养护作业监管设施完善工程\lzj\target/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/test/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="test/web/Web" />
     </root>

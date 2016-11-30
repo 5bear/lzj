@@ -58,7 +58,7 @@
     function go(num){
         var startDate=$("#date1").val();
         var endDate=$("#date2").val();
-        var vehicleLicence = "${vehicleLicence}";
+        var vehicleLicense = "${vehicleLicense}";
         var total = $("#total").val();
         var curoffset = $("#curoffset").val();
         var offset = (num-1)*<%=ps%>;
@@ -72,32 +72,32 @@
                 if(startDate>endDate){
                     alert("结束时间必须大于等于开始时间！")
                 }else{
-                    if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                    if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                         location.href="?startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
                     }else{
-                        location.href="?vehicleLicence="+vehicleLicence+"&startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
+                        location.href="?vehicleLicense="+vehicleLicense+"&startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
                     }
 
                 }
             }else if(startDate!=null && startDate!=""){
 
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?startDate="+startDate+"&pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&startDate="+startDate+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&startDate="+startDate+"&pager.offset="+offset;
                 }
             }else if(endDate!=null && endDate!=""){
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?endDate="+endDate+"&pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&endDate="+endDate+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&endDate="+endDate+"&pager.offset="+offset;
                 }
             }else{
 
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&pager.offset="+offset;
                 }
             }
         }else {
@@ -108,7 +108,7 @@
     function nextPage(){
         var startDate=$("#date1").val();
         var endDate=$("#date2").val();
-        var vehicleLicence = "${vehicleLicence}";
+        var vehicleLicense = "${vehicleLicense}";
         var total = $("#total").val();
         var curoffset = $("#curoffset").val();
         var offset = parseInt(curoffset)+parseInt(<%=ps%>);
@@ -122,32 +122,32 @@
                 if(startDate>endDate){
                     alert("结束时间必须大于等于开始时间！")
                 }else{
-                    if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                    if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                         location.href="?startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
                     }else{
-                        location.href="?vehicleLicence="+vehicleLicence+"&startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
+                        location.href="?vehicleLicense="+vehicleLicense+"&startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
                     }
 
                 }
             }else if(startDate!=null && startDate!=""){
 
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?startDate="+startDate+"&pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&startDate="+startDate+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&startDate="+startDate+"&pager.offset="+offset;
                 }
             }else if(endDate!=null && endDate!=""){
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?endDate="+endDate+"&pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&endDate="+endDate+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&endDate="+endDate+"&pager.offset="+offset;
                 }
             }else{
 
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&pager.offset="+offset;
                 }
             }
         }else {
@@ -158,7 +158,7 @@
     function prevpage(){
         var startDate=$("#date1").val();
         var endDate=$("#date2").val();
-        var vehicleLicence = "${vehicleLicence}";
+        var vehicleLicense = "${vehicleLicense}";
         var total = $("#total").val();
         var curoffset = $("#curoffset").val();
         var offset = parseInt(curoffset)-parseInt(<%=ps%>);
@@ -172,32 +172,32 @@
                 if(startDate>endDate){
                     alert("结束时间必须大于等于开始时间！")
                 }else{
-                    if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                    if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                         location.href="?startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
                     }else{
-                        location.href="?vehicleLicence="+vehicleLicence+"&startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
+                        location.href="?vehicleLicense="+vehicleLicense+"&startDate="+startDate+"&endDate="+endDate+"&pager.offset="+offset;
                     }
 
                 }
             }else if(startDate!=null && startDate!=""){
 
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?startDate="+startDate+"&pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&startDate="+startDate+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&startDate="+startDate+"&pager.offset="+offset;
                 }
             }else if(endDate!=null && endDate!=""){
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?endDate="+endDate+"&pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&endDate="+endDate+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&endDate="+endDate+"&pager.offset="+offset;
                 }
             }else{
 
-                if(typeof(vehicleLicence) == "undefined" || vehicleLicence==null || vehicleLicence==""){
+                if(typeof(vehicleLicense) == "undefined" || vehicleLicense==null || vehicleLicense==""){
                     location.href="?pager.offset="+offset;
                 }else{
-                    location.href="?vehicleLicence="+vehicleLicence+"&pager.offset="+offset;
+                    location.href="?vehicleLicense="+vehicleLicense+"&pager.offset="+offset;
                 }
             }
         }else {

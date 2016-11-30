@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 
@@ -20,11 +21,11 @@ import java.util.Date;
 @RequestMapping(value = "**")
 public class MaintainLogController extends BaseController {
 
-    @RequestMapping(value="/MaintainLog", method=RequestMethod.GET)
-    public ModelAndView list(@RequestParam(required = false) String vehicleLicence,@RequestParam(required = false) String startDate,@RequestParam(required = false) String endDate)
+    @RequestMapping(value="/MaintainLog/list", method=RequestMethod.GET)
+    public ModelAndView list(HttpSession session,@RequestParam(required = false) String vehicleLicense,@RequestParam(required = false) String startDate,@RequestParam(required = false) String endDate)
     {
-        if(vehicleLicence==null){
-            vehicleLicence = "";
+        if(vehicleLicense==null){
+            vehicleLicense = "";
         }
         if (startDate==null){
             startDate = "";
@@ -34,25 +35,41 @@ public class MaintainLogController extends BaseController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("MaintainLogIndex");
-        modelAndView.addObject("MaintainLogList", maintainLogDao.getPager(vehicleLicence,startDate,endDate));//获取表中所有的数据
+        modelAndView.addObject("MaintainLogList", maintainLogDao.getPager(vehicleLicense,startDate,endDate));//获取表中所有的数据
 
-        modelAndView.addObject("CyList",vehicleDao.getCyList());
-        modelAndView.addObject("CqList",vehicleDao.getCqList());
-        modelAndView.addObject("CxList",vehicleDao.getCxList());
-        modelAndView.addObject("GyList",vehicleDao.getGyList());
-        modelAndView.addObject("GqList",vehicleDao.getGqList());
-        modelAndView.addObject("GxList",vehicleDao.getGxList());
+        String company = String.valueOf(session.getAttribute("company"));
+        if ("养护中心".equals(company)){
+            modelAndView.addObject("CyList",vehicleDao.getCyList());
+            modelAndView.addObject("CqList",vehicleDao.getCqList());
+            modelAndView.addObject("CxList",vehicleDao.getCxList());
+            modelAndView.addObject("GyList",vehicleDao.getGyList());
+            modelAndView.addObject("GqList",vehicleDao.getGqList());
+            modelAndView.addObject("GxList",vehicleDao.getGxList());
+        }else if("上海成基市政建设发展有限公司".equals(company)){
+            modelAndView.addObject("CyList",vehicleDao.getCyList());
+            modelAndView.addObject("CqList",vehicleDao.getCqList());
+            modelAndView.addObject("CxList",vehicleDao.getCxList());
+        }else if("上海高架养护管理有限公司".equals(company)){
+            modelAndView.addObject("GyList",vehicleDao.getGyList());
+            modelAndView.addObject("GqList",vehicleDao.getGqList());
+            modelAndView.addObject("GxList",vehicleDao.getGxList());
 
-        if (!"".equals(vehicleLicence.trim())){
-            Vehicle v = vehicleDao.getByVehicleLicence(vehicleLicence);
-            modelAndView.addObject("type",v.getVehicleType());
-            modelAndView.addObject("company",v.getCompany());
+        }
+
+
+        if (!"".equals(vehicleLicense.trim())){
+            Vehicle v = vehicleDao.getByvehicleLicense(vehicleLicense);
+            if(v!=null){
+                modelAndView.addObject("type",v.getVehicleType());
+                modelAndView.addObject("company",v.getCompany());
+            }
+
         }else {
             modelAndView.addObject("type","");
             modelAndView.addObject("company","");
         }
 
-        modelAndView.addObject("vehicleLicence",vehicleLicence);
+        modelAndView.addObject("vehicleLicense",vehicleLicense);
         modelAndView.addObject("startDate",startDate);
         modelAndView.addObject("endDate",endDate);
         return modelAndView;
@@ -60,21 +77,23 @@ public class MaintainLogController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/MaintainLogAdd0")
-    public ModelAndView add0()
+    @RequestMapping(value = "/MaintainLog/add", method=RequestMethod.GET)
+    public ModelAndView add0(HttpSession session)
     {
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("MaintainLogAdd");
-        modelAndView.addObject("VehicleList",vehicleDao.getList());
-        modelAndView.addObject("LineList",lineDao.getList());
+        String company = (String)session.getAttribute("company");
+        modelAndView.addObject("VehicleList",vehicleDao.getList(company,""));
+        modelAndView.addObject("LineList",lineDao.getList(company));
+        modelAndView.addObject("company",company);
         return modelAndView;
     }
 
 
 
-    @RequestMapping(value = "/MaintainLogAdd1",method =RequestMethod.POST)
+    @RequestMapping(value = "/MaintainLog/add",method =RequestMethod.POST)
     @ResponseBody
-    public String add1(@RequestParam(value = "vehicleLicence") String vehicleLicence,
+    public String add1(@RequestParam(value = "vehicleLicense") String vehicleLicense,
                        @RequestParam(value = "principal") String principal,
                        @RequestParam(value = "road") String road,
                        @RequestParam(value = "eventType") String eventType,
@@ -83,14 +102,14 @@ public class MaintainLogController extends BaseController {
                        @RequestParam(value = "time") String time)
     {
 
-        MaintainLog mtl = maintainLogDao.getByVDT(vehicleLicence,_date,time);
+        MaintainLog mtl = maintainLogDao.getByVDT(vehicleLicense,_date,time);
         if (mtl!=null){
             return "false";
         }else {
             mtl = new MaintainLog();
-            Vehicle vehicle = vehicleDao.getByVehicleLicence(vehicleLicence);
+            Vehicle vehicle = vehicleDao.getByvehicleLicense(vehicleLicense);
             String company = vehicle.getCompany();
-            mtl.setVehicleLicence(vehicleLicence);
+            mtl.setvehicleLicense(vehicleLicense);
             mtl.setPrincipal(principal);
             mtl.setRoad(road);
             mtl.setEventType(eventType);
@@ -106,22 +125,30 @@ public class MaintainLogController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/MaintainLogEdit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id") String id)
+    @RequestMapping(value = "/MaintainLog/edit", method = RequestMethod.GET)
+    public ModelAndView edit(@RequestParam(value = "id") String id,HttpSession session)
     {
         MaintainLog mtl = maintainLogDao.getById(Long.parseLong(id));
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("MaintainLogEdit");
         modelAndView.addObject("MaintainLog_edit", mtl);
-        modelAndView.addObject("VehicleList",vehicleDao.getList());
-        modelAndView.addObject("LineList",lineDao.getList());
+        String company = (String)session.getAttribute("company");
+        Vehicle v = vehicleDao.getByvehicleLicense(mtl.getvehicleLicense());
+        String type="";
+        if(v!=null){
+            type = v.getVehicleType();
+        }
+        modelAndView.addObject("VehicleList",vehicleDao.getList(company,type));
+        modelAndView.addObject("LineList",lineDao.getList(company));
+        modelAndView.addObject("company",company);
+        modelAndView.addObject("type",type);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/MaintainLogEdit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/MaintainLog/edit", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
-                        @RequestParam(value = "vehicleLicence") String vehicleLicence,
+                        @RequestParam(value = "vehicleLicense") String vehicleLicense,
                         @RequestParam(value = "principal") String principal,
                         @RequestParam(value = "road") String road,
                         @RequestParam(value = "eventType") String eventType,
@@ -129,14 +156,17 @@ public class MaintainLogController extends BaseController {
                         @RequestParam(value = "time") String time,
                         @RequestParam(value = "remark") String remark)
     {
-        MaintainLog m = maintainLogDao.getByVDT(vehicleLicence, dayTime, time);
-        if (m!=null){
+        MaintainLog m = maintainLogDao.getByVDT(vehicleLicense, dayTime, time);
+       /* if (m!=null&&principal != null && road != null && eventType != null && remark != null && m.getPrincipal().equals(principal.trim()) && m.getRoad().equals(road.trim()) && m.getEventType().equals(eventType.trim()) && m.getRemark().equals(remark.trim())){
+                return "false";
+        }*/
+        if(m!=null && m.getId()!=Long.parseLong(id)){
             return "false";
-        }else {
+        } else {
             MaintainLog mtl = maintainLogDao.getById(Long.parseLong(id));
-            Vehicle vehicle = vehicleDao.getByVehicleLicence(vehicleLicence);
+            Vehicle vehicle = vehicleDao.getByvehicleLicense(vehicleLicense);
             String company = vehicle.getCompany();
-            mtl.setVehicleLicence(vehicleLicence);
+            mtl.setvehicleLicense(vehicleLicense);
             mtl.setPrincipal(principal);
             mtl.setRoad(road);
             mtl.setEventType(eventType);
@@ -150,7 +180,7 @@ public class MaintainLogController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/MaintainLogDelete",method = RequestMethod.POST)
+    @RequestMapping(value = "/MaintainLog/delete",method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id")String id){
         MaintainLog mtl=maintainLogDao.getById(Long.parseLong(id));
@@ -185,7 +215,7 @@ public class MaintainLogController extends BaseController {
     {
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("MaintainLogList");
-        List<MaintainLog> maintainLogList=maintainLogDao.findAll("from MaintainLog where isDelete='0' and vehicleLicence='"+search+"'",MaintainLog.class);
+        List<MaintainLog> maintainLogList=maintainLogDao.findAll("from MaintainLog where isDelete='0' and vehicleLicense='"+search+"'",MaintainLog.class);
         modelAndView.addObject("MaintainLogList", maintainLogList);
         modelAndView.addObject("CyList",vehicleDao.getCyList());
         modelAndView.addObject("CqList",vehicleDao.getCqList());
@@ -199,7 +229,7 @@ public class MaintainLogController extends BaseController {
     }*/
 
 
-    @RequestMapping(value="/MaintainLogDetail",method = RequestMethod.GET)
+    @RequestMapping(value="/MaintainLog/get",method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "id") String id)
     {
         ModelAndView modelAndView=new ModelAndView();

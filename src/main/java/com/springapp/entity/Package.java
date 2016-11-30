@@ -12,8 +12,8 @@ public class Package {
     private Long id;
     private String company;//所属公司
     private String packageName;//包件名称
-    private Long realDistance;  //实际总里程
-    private Long distance;//总里程
+    private double realDistance;  //实际总里程
+    private double distance;//总里程
     private String roads;//包含路段名称
     private String inputMan;//录入人
     private Long inputId;//录入人id
@@ -61,20 +61,20 @@ public class Package {
         this.packageName = packageName;
     }
     @Column(length = 45,name = "distance")
-    public Long getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(Long distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
     @Column(length = 45,name = "realDistance")
-    public Long getRealDistance() {
+    public double getRealDistance() {
         return realDistance;
     }
 
-    public void setRealDistance(Long realDistance) {
+    public void setRealDistance(double realDistance) {
         this.realDistance = realDistance;
     }
 

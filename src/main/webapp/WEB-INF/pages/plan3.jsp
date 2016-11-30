@@ -11,12 +11,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
 
   <title>布点计划</title>
+
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -28,20 +29,15 @@
   <link rel="stylesheet" href="css/panel-dropdown.css"/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-  <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="js/highcharts.js"></script>
-  <script type="text/javascript" src="js/jquery.js"></script>
-
-
   <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
 
 
 
   <style>
-    #index { width:100%; height:100%; margin-left:16px;min-width:960px; padding:0px; background-color:transparent; position:relative;}
+    #index { width:100%; height:100%; margin-left:16px;min-width:940px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-right { width:249px; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;min-width:249px;}
+    #in-mid { width:73%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
+    #in-right { width:250px; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;min-width:249px;}
 
     .button{
       position:absolute;
@@ -176,9 +172,9 @@
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <jsp:include page="public.jsp">
-  <jsp:param name="pageName" value="plan3"></jsp:param>
-  <jsp:param name="pageFather" value="plan"></jsp:param>
+  <jsp:include page="public.jsp" flush="true">
+    <jsp:param name="pageFather" value="plan"></jsp:param>
+    <jsp:param name="pageName" value="plan3"></jsp:param>
   </jsp:include>
 
   <div id="page-wrapper">
@@ -186,8 +182,8 @@
     <div class="row">
       <div class="col-lg-12">
         <ol class="breadcrumb">
-          <li><a href="plan2-add.html">计划管理</a></li>
-          <li><a href="plan2-add.html">布点计划</a></li>
+          <li><a href="#">计划管理</a></li>
+          <li><a href="#">布点计划</a></li>
           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
         </ol>
       </div>
@@ -198,7 +194,7 @@
 
       <div id="index">
         <!--<img src="images/index.jpg" width="100%"/>-->
-        <div id="in-left">
+        <%--<div id="in-left">
           <div class="panel panel-primary">
             <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看</div>
             <div class="panel-body">
@@ -222,7 +218,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cyList}" var="item">
                             <li>
-                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicense}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -235,7 +231,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cqList}" var="item">
                             <li>
-                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicense}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -248,7 +244,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${cxList}" var="item">
                             <li>
-                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicense}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -271,7 +267,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gyList}" var="item">
                             <li>
-                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicense}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -284,7 +280,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gqList}" var="item">
                             <li>
-                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicense}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -297,7 +293,7 @@
                         <ul class="dropdown-menu panel-menu">
                           <c:forEach items="${gxList}" var="item">
                             <li>
-                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicence}</a>
+                              <a href="#" onclick="getListByVehicle(${item.id})">${item.vehicleLicense}</a>
                             </li>
                           </c:forEach>
                         </ul>
@@ -308,19 +304,21 @@
               </li>
             </div>
           </div>
-        </div><!--in-left-->
+        </div>--%><!--in-left-->
 
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
           <!-- <input class="bt" type="button"  style=" position: absolute;top: 2%;left: 49%;
                  background:url(images/queren.png); background-size:100% 100%; width:10%" /> -->
 
 
-          <div style="width: 4%;height: 4%; position: absolute; top:2%; left: 1%;">
-            <img src="images/search_icon.png" style="width:100%" />
+
+          <div style="position: relative;">
+            <div id="container" style="height: 610px; width:99%;"></div>
+            <div class="map-search">
+              <input type="text" id="localSearch" onchange="localSearch()"/>
+              <button onclick="localSearch()"></button>
+            </div>
           </div>
-
-
-          <div id="container" style="width:98%;top:52px"></div>
 
         </div><!--in-mid-->
 
@@ -343,45 +341,15 @@
               <div class="row">
                 <label>已有布点车辆</label>
               </div>
-              <c:forEach items="${list}" var="position">
-                <div class="edit-section">
-                  <div class="edit-car">
-                    <div class="row text-right">
-                      <button class="close" id="${position.id}">&times;</button>
-                    </div>
-                    <div class="row">
-                      <label>车牌：</label>
-                      <p class="licence">${position.vehicle}</p>
-                    </div>
-                    <div class="row">
-                      <label>布点时间：</label>
-                      <p>${position.beginTime}-${position.stopTime}</p>
-                    </div>
-                  </div>
+              <div id="positions">
                 </div>
-              </c:forEach>
               <div class="add-car">
                 <div class="row">
                   <label>车牌：</label>
                   <input type="text" id="licence" list="lista">
                   <datalist id="lista">
-                    <c:forEach items="${cxList}" var="item">
-                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-                    </c:forEach>
-                    <c:forEach items="${cqList}" var="item">
-                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-                    </c:forEach>
-                    <c:forEach items="${cyList}" var="item">
-                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-                    </c:forEach>
-                    <c:forEach items="${gxList}" var="item">
-                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-                    </c:forEach>
-                    <c:forEach items="${gqList}" var="item">
-                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-                    </c:forEach>
-                    <c:forEach items="${gyList}" var="item">
-                      <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+                    <c:forEach items="${list}" var="item">
+                      <option value="${item.vehicleLicense}">${item.vehicleLicense}</option>
                     </c:forEach>
                   </datalist>
                 </div>
@@ -431,13 +399,6 @@
   <script src="js/jquery.datetimepicker.js"></script>
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
   <script>
-
-    $('a[data-toggle="droplist"]').click(function() {
-      $(this).nextAll().toggle();
-    });
-  </script>
-
-  <script>
     var currentLng=0,currentLat=0;
     var marker=null;
     var markerMap=new Map();
@@ -466,6 +427,7 @@
         var addComp = rs.addressComponents;
         $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
         if(e.overlay==null) {
+          $("#positions").html("")
           if(!confirm('是否增加定位?'))
             return true;
           var point = new BMap.Point(e.point.lng, e.point.lat);
@@ -474,6 +436,32 @@
           marker.disableDragging();           // 不可拖拽
         }else{
           marker= e.overlay;
+          var coords=markerMap.get(marker);
+          currentLng= JSON.parse(coords).lng
+          currentLat= JSON.parse(coords).lat
+          if(coords!=undefined) {
+            $.ajax({
+              url: "plan3/get",
+              type: "get",
+              data: {coords: coords},
+              dataType: "json",
+              success: function (data) {
+                var positions="";
+                $(data).each(function(index,element){
+                  positions+="<div class='edit-section' id='"+element.id+"'> " +
+                  "<div class='edit-car'> " +
+                  "<div class='row text-right'> " +
+                  "<button class='close' onclick=deleteById("+'\''+element.id+"')"+">&times;</button> </div> <div class='row'> " +
+                  "<label>车牌：</label> " +
+                  "<p class='licence'>"+element.vehicle+"</p></div> " +
+                  "<div class='row'> " +
+                  "<label>布点时间：</label> " +
+                  "<p>"+element.beginTime+"-"+element.stopTime+"</p> </div> </div> </div>"
+                })
+                $("#positions").html(positions)
+              }
+            })
+          }
         }
       });
     });
@@ -488,13 +476,13 @@
       map.addControl(top_left_navigation);
       $.ajax({
         url:"plan3/list",
-        type:"post",
+        type:"get",
         data:{},
         dataType:"json",
         success:function(data){
           $(data).each(function(index){
             var point=new BMap.Point(data[index].lng, data[index].lat);
-            addMarker(point,data[index].id,data[index].vehicle,data[index].beginTime,data[index].stopTime)
+            addMarker(point,data[index].coords)
           })
         }
       })
@@ -507,33 +495,40 @@
         alert("请先在地图上选择点");
         return false;
       }
-      var id=markerMap.get(marker)
+      var coords=markerMap.get(marker)
       $.ajax({
         url:"plan3/delete",
         type:"post",
-        data:{id:id},
+        data:{coords:coords},
         success:function(data){
+          if(data=="NoPower"){
+            alert("没有操作权限")
+            return false
+          }
           location.reload(true);
         }
       })
     }
     function deleteById(pid){
+      $("#"+pid).hide()
       $.ajax({
-        url:"plan3/delete",
+        url:"plan3/deleteByID",
         type:"post",
         data:{id:pid},
         success:function(data){
-          location.reload(true);
+          if(data=="NoPower"){
+            alert("没有操作权限")
+            return false
+          }
         }
       })
     }
     /*
      * 添加标记
      * */
-    function addMarker(point,id,vehicle,beginTime,stopTime){
+    function addMarker(point,coords){
       var marker1 = new BMap.Marker(point);// 创建标注
-      marker1.setTitle(vehicle)
-      var opts = {
+      /*var opts = {
         width : 100,     // 信息窗口宽度
         height: 100,     // 信息窗口高度
         title : "布点信息" , // 信息窗口标题
@@ -543,9 +538,8 @@
       var infoWindow = new BMap.InfoWindow("<p>车牌:"+vehicle+"<br/>布点时间:"+beginTime+"-"+stopTime+"</p>", opts);  // 创建信息窗口对象
       marker1.addEventListener("click",function(e){
         map.openInfoWindow(infoWindow,point);
-      });
-      /*marker.setLabel(id);*/
-      markerMap.put(marker1,id);
+      });*/
+      markerMap.put(marker1,coords);
       map.addOverlay(marker1);             // 将标注添加到地图中
       marker1.disableDragging();           // 不可拖拽
     }
@@ -554,7 +548,7 @@
     function getListByVehicle(vehicle){
       $.ajax({
         url:"plan3/getListByVehicle",
-        type:"post",
+        type:"get",
         data:{vehicle:vehicle},
         dataType:"json",
         success:function(data){
@@ -572,6 +566,21 @@
           })
         }
       })
+    }
+    /*点数组转json*/
+    function pointsTojson(points) {
+      return JSON.stringify(points);
+    }
+
+    /*json数据转成点数组*/
+    function jsonToPoints(jsonData) {
+      var points=eval(jsonData);
+      var retunPoints=new Array();
+      for(var i=0;i<points.length;i++ ){
+        var point=new BMap.Point(points[i].lng,points[i].lat)
+        retunPoints.push(point)
+      }
+      return retunPoints
     }
     /*
      * MAP对象，实现MAP功能
@@ -796,9 +805,6 @@
         return arr;
       };
     }
-    $(function(){
-      $("#plan").dropdown('toggle');
-    });
 
     $('.date').datetimepicker({
       lang:'ch',
@@ -845,14 +851,14 @@
       }
     });
 
-    $(".close").on("click", function(){
+    $(".close").click(function(){
       var obj = $(this)
       var pid=obj.attr("id")
       deleteById(pid)
-      deleteCar(obj);
-    });
+    })
 
     function deleteCar(obj) {
+      console.log(obj)
       obj.parent().parent().hide();
     };
 
@@ -877,6 +883,15 @@
           success:function(data){
             if(data=="fail"){
               alert("不存在该车牌")
+              return false
+            }else if(data=="duplicated"){
+              alert("布点时间有冲突")
+              return false
+            }else if(data=="success"){
+              alert("非牵引车不能添加")
+              return false
+            }else if(data=="NoPower"){
+              alert("没有操作权限")
               return false
             }
             location.reload(true)

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -142,6 +142,10 @@ $(function () {
  
     
     <style>
+    .table.infoWindow{
+        font-size: 10px;
+        margin-bottom: -10px;
+    }
 	#container{
     height: 600px;
     float: left;
@@ -527,18 +531,6 @@ $(function () {
     map.enableScrollWheelZoom();//允许放大缩放
     map.addControl(top_left_control);
     map.centerAndZoom("上海");
-    //每两秒车辆位置变化
-    setInterval(function(){
-        map.removeOverlay(xun)
-        var point=xun._point;
-        var lng=point.lng;
-        var lat=point.lat;
-        lng+=0.0001;
-        lat+=0.0001;
-        xun = new ComplexCustomOverlay(new BMap.Point(lng,lat), "images/xun.png");
-        map.addOverlay(xun);
-    },"1000");
-
 map.addEventListener('click',mapClick)
 
     function mapClick(e){
@@ -549,89 +541,42 @@ map.addEventListener('click',mapClick)
     function addVehicle(vehicle,Point){
         switch(vehicle){
             case 1:
-                myCar = new ComplexCustomOverlay(Point, "images/xun.png");
+                myCar =  new BMap.Marker(Point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
                 break
             case 2:
-                myCar = new ComplexCustomOverlay(Point, "images/qian.png");
+                myCar =  new BMap.Marker(Point, {icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
                 break
             case 3:
-                myCar = new ComplexCustomOverlay(Point, "images/sao.png");
+                myCar =  new BMap.Marker(Point, {icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
                 break
         }
+        var opts = {
+            width : 0,     // 信息窗口宽度
+            height: 0,     // 信息窗口高度
+            title :"<h4>车辆信息</h4>" ,// 信息窗口标题
+            enableMessage:true,//设置允许信息窗发送短息
+            message:""
+        }
+
+        var infoWindow = new BMap.InfoWindow("<table class='table infoWindow'><tbody><tr><td>车辆牌照</td><td colspan='3'>" + "沪B4801" +"</td></tr><tr><td>车辆类型</td><td colspan='3'>" + "清扫车" +"</td></tr><tr><td>车载设备编号</td><td colspan='3'>" + "0122201" +"</td></tr><tr><td>经度</td><td colspan='3'>" + Point.lng + "</td></tr><tr><td>纬度</td><td colspan='3'>" + Point.lat+ "</td></tr><tr><td>速度</td><td colspan='3'>" + "121"+ "km/h"+"</td></tr><tr><td>方向</td><td colspan='3'>" + "南"+"</td></tr><tr><td>车辆状态</td><td colspan='3'>"+ "静止"+"</td></tr><tr><td>硬盘状态</td><td colspan='3'>"+"存在"+"</td></tr></tbody></table>", opts);  // 创建信息窗口对象
+
+
+        /* myCar.addEventListener('click',function(){
+         if(vehicle =="巡视车")
+         location.
+         href = "progress2-2?id=" + devIDNO
+         else
+         location.href = "progress2-1?id=" + devIDNO
+         });*/
+        myCar.addEventListener("mouseover", function (e) {
+            map.openInfoWindow(infoWindow, Point);
+        });
+        myCar.addEventListener("mouseout", function (e) {
+            map.closeInfoWindow(infoWindow, Point);
+        });
         map.addOverlay(myCar);
 
     }
-    // 复杂的自定义覆盖物
-    function ComplexCustomOverlay(point, images){
-        this._point = point;
-        this._images = images;
-    }
-    ComplexCustomOverlay.prototype = new BMap.Overlay();
-    ComplexCustomOverlay.prototype.initialize = function(map){
-        this._map = map;
-        var div = this._div = document.createElement("div");
-        div.style.position = "absolute";
-        /*div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);*/
-        /* div.style.backgroundColor = "#EE5D5B";
-         div.style.border = "1px solid #BC3B3A";
-         div.style.color = "white";
-         div.style.height = "18px";
-         div.style.padding = "2px";
-         div.style.lineHeight = "18px";
-         div.style.whiteSpace = "nowrap";
-         div.style.MozUserSelect = "none";
-         div.style.fontSize = "12px"*/
-        var input = this._input = document.createElement("input");
-        /*<input type="button" class="bt" style="background:url(images/xun.png); background-size: 100% 100%;top: 68%;left: 51%;width: 5%;height: 5%;z-index: 1;">*/
-        input.type="button";
-        input.class="bt";
-        input.style.background="url("+this._images+")";
-        input.style.backgroundSize="100% 100%";
-        input.style.width="64px";
-        input.style.height="32px";
-        div.appendChild(input);
-        var that = this;
-
-        var arrow = this._arrow = document.createElement("div");
-        arrow.style.background = "url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
-        arrow.style.position = "absolute";
-        arrow.style.width = "0px";
-        arrow.style.height = "0px";
-        arrow.style.top = "22px";
-        arrow.style.left = "10px";
-        arrow.style.overflow = "hidden";
-        div.appendChild(arrow);
-
-        /*   div.onmouseover = function(){
-         this.style.backgroundColor = "#6BADCA";
-         this.style.borderColor = "#0000ff";
-         this.getElementsByTagName("span")[0].innerHTML = that._overText;
-         arrow.style.backgroundPosition = "0px -20px";
-         }
-
-         div.onmouseout = function(){
-         this.style.backgroundColor = "#EE5D5B";
-         this.style.borderColor = "#BC3B3A";
-         this.getElementsByTagName("span")[0].innerHTML = that._text;
-         arrow.style.backgroundPosition = "0px 0px";
-         }*/
-
-        map.getPanes().labelPane.appendChild(div);
-
-        return div;
-    }
-    ComplexCustomOverlay.prototype.draw = function(){
-        var map = this._map;
-        var pixel = map.pointToOverlayPixel(this._point);
-        this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
-        this._div.style.top  = pixel.y - 30 + "px";
-    }
-    xun = new ComplexCustomOverlay(new BMap.Point(121.503231,31.204382), "images/xun.png");
-    map.addOverlay(xun);
-    qian = new ComplexCustomOverlay(new BMap.Point(121.529964,39.917657), "images/qian.png");
-    map.addOverlay(qian);
-    sao = new ComplexCustomOverlay(new BMap.Point(121.478797,39.917657), "images/sao.png");
-    map.addOverlay(sao);
     $(document).ready(function(){
         $("button.navbar-aside").click(function(){
             if ($("#wrapper").is(".left-wrapper")== true) {

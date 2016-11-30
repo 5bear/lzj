@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -104,8 +104,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="progress2.html">进度管理</a></li>
-                    <li><a href="progress2.html">实时监控</a></li>
+                    <li><a href="progress2">进度管理</a></li>
+                    <li><a href="progress2">实时监控</a></li>
                     <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
                 </ol>
             </div>
@@ -115,12 +115,13 @@
                 <!--<img src="images/index.jpg" width="100%"/>-->
                 <div class="col-lg-12">
                     <a href="javascript:history.back();" class="operation"><< 返回</a>
+                    <a href="<%=request.getContextPath()%>/download/Setup.rar">点击下载控件</a>
                 </div>
                 <div id="top">
                     <p>前置摄像头</p>
                     <button class="button" style="width:15%;height:8%;top:0;left:45%" onClick="startVideoFront()">获取视频</button>
                     <button class="button" style="width:15%;height :8%;top:0;left:62%" onClick="stopVideoFront()">暂停</button>
-                    <button class="button" style="width:15%;top:0;left:79%" data-toggle="modal" data-target="#front-full-screen" data-backdrop="static">全屏</button>
+                    <button class="button" style="width:15%;height :8%;top:0;left:79%" data-toggle="modal" data-target="#front-full-screen" data-backdrop="static">全屏</button>
                     <!--<img src="images/videoo.png" width="95%"/>-->
                     <div style="width:95%;margin-top:0; height:95%; z-index:-1" >
                         <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
@@ -134,7 +135,7 @@
 
                     <button class="button" style="width:15%;height:8%;top:0;left:45%"onclick="startVideoBack()">获取视频</button>
                     <button class="button" style="width:15%;height :8%;top:0;left:62%"onclick="stopVideoBack()">暂停</button>
-                    <button class="button" style="width:15%;top:0;left:79%" data-toggle="modal" data-target="#back-full-screen" data-backdrop="static">全屏</button>
+                    <button class="button" style="width:15%;height :8%;top:0;left:79%" data-toggle="modal" data-target="#back-full-screen" data-backdrop="static">全屏</button>
                     <div style="width:95%;margin-top:0; height:95%; z-index:-1" >
                         <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
                                 width="100%" height="100%" id = "gViewerBack" name="gViewerFront" >
@@ -161,8 +162,8 @@
             </div>
             <p class="alert-title text-center" style="margin-top: 20px">是否返回实时监控</p>
             <div class="row text-center" style="margin: 40px;">
-                <a href="progress2.html" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</a>
-                <a href="" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">否</a>
+                <a href="progress2" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</a>
+                <a class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;" onclick="offModel()">否</a>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -211,10 +212,12 @@
     $(function(){
         $("#progress").dropdown('toggle');
     });
-
+   function offModel(){
+       $("#alert").modal('hide');
+   }
     var viewFront,viewBack,viewFrontFull,viewBackFull;
     var id ='${id}';
-    var ServerIP="120.24.79.63";
+    var ServerIP="180.168.194.3";
     var ServerPort="6603";
     //window.setTimeout("init()", 500) ;
     function init()
@@ -232,7 +235,7 @@
     }
     function startVideoFront()
     {
-        viewFront.StartVideo(id, 0, 0);
+        viewFront.StartVideo(id, 0, 0,1);
         viewFront.SetViewTitle(0,id+" 前置摄像头"); //1通道 1窗口
     }
     function stopVideoFront()
@@ -247,7 +250,7 @@
 
     function startVideoBack()
     {
-        viewBack.StartVideo(id, 1, 0);
+        viewBack.StartVideo(id, 1, 0,1);
         viewBack.SetViewTitle(0,id+" 后置摄像头"); //2通道 1窗口
     }
     function stopVideoBack()
@@ -262,7 +265,7 @@
         viewFrontFull.PaneType=0;
         viewFrontFull.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
         viewFrontFull.ServerPort = ServerPort;
-        viewFrontFull.StartVideo(id, 0, 0);
+        viewFrontFull.StartVideo(id, 0, 0,1);
         viewFrontFull.SetViewTitle(0,id+" 前置摄像头"); //1通道 1窗口
     })
     });
@@ -272,7 +275,7 @@
         viewBackFull.PaneType=0;
         viewBackFull.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
         viewBackFull.ServerPort = ServerPort;
-        viewBackFull.StartVideo(id, 1, 0);
+        viewBackFull.StartVideo(id, 1, 0,1);
         viewBackFull.SetViewTitle(0,id+" 后置摄像头"); //1通道 1窗口
     })
     });

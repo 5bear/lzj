@@ -54,6 +54,12 @@ public class BaseController{
     protected Report3Dao report3Dao;
     @Autowired
     protected Report4Dao report4Dao;
+    @Autowired
+    protected ExceptionDao exceptionDao;
+    @Autowired
+    protected MileageDao mileageDao;
+    @Autowired
+    protected RemarkDao remarkDao;
     public BaseController(){
        simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
     }
@@ -63,5 +69,4 @@ public class BaseController{
         //对于需要转换为Date类型的属性，使用DateEditor进行处理
        // binder.registerCustomEditor(Date.class, new DateEditor());
     }*/
-
 }

@@ -1,5 +1,6 @@
 package com.springapp.mvc;
 
+import com.springapp.classes.MD5;
 import com.springapp.entity.Account;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,12 @@ public class UserController extends BaseController{
         List<Account>accounts=userDao.getList();
         modelAndView.addObject("List",accounts);
         modelAndView.setViewName("management1");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/UserAdd",method = RequestMethod.GET)
+    public ModelAndView UserAdd(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("UserAdd");
         return modelAndView;
     }
     @RequestMapping(value = "/User",method = RequestMethod.GET)
@@ -54,20 +61,23 @@ public class UserController extends BaseController{
         modelAndView.setViewName("personalManagement");
         return modelAndView;
     }
-    @RequestMapping(value = "/User/get",method = RequestMethod.POST)
+    @RequestMapping(value = "/User/get",method = RequestMethod.GET)
     @ResponseBody
     public String add(@RequestParam(value = "findName")String findName){
-
         return JSONArray.fromObject(userDao.getAccount(findName)).toString();
     }
     @RequestMapping(value = "/User/add",method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestParam(value = "account")String account,@RequestParam(value = "username")String username,@RequestParam(value = "password")String password,@RequestParam(value = "power")String power,@RequestParam(value = "company")String company,
                       @RequestParam(value = "phoneNum")String phoneNum,@RequestParam(value = "remark")String remark){
+        Account inAccout=userDao.getByAccount(account);
+        Account inUsername=userDao.getByUsername(username);
+        if(inAccout!=null||inUsername!=null)
+            return "duplicated";
         Account a=new Account();
         a.setAccount(account);
         a.setUsername(username);
-        a.setPassword(password);
+        a.setPassword(MD5.MD5Encode(password));
         a.setPower(power);
         a.setCompany(company);
         a.setPhoneNum(phoneNum);
@@ -82,6 +92,8 @@ public class UserController extends BaseController{
         Account a=userDao.getById(id);
         a.setAccount(account);
         a.setUsername(username);
+        if(userDao.isDuplicated(a))
+            return "duplicated";
         a.setPower(power);
         a.setCompany(company);
         a.setPhoneNum(phoneNum);
@@ -99,18 +111,15 @@ public class UserController extends BaseController{
     @ResponseBody
     public String changePwd(@RequestParam(value = "id")Long id,@RequestParam(value = "newPwd")String newPwd){
         Account account=userDao.getById(id);
-        account.setPassword(newPwd);
+        account.setPassword(MD5.MD5Encode(newPwd));
         userDao.update(account);
         return "success";
     }
     @RequestMapping(value = "/User/myEdit",method = RequestMethod.POST)
     @ResponseBody
-    public String myEdit(@RequestParam(value = "id")Long id,@RequestParam(value = "username")String username,@RequestParam(value = "power")String power,
-                       @RequestParam(value = "company")String company, @RequestParam(value = "phoneNum")String phoneNum){
+    public String myEdit(@RequestParam(value = "id")Long id,@RequestParam(value = "username")String username, @RequestParam(value = "phoneNum")String phoneNum){
         Account a=userDao.getById(id);
         a.setUsername(username);
-        a.setPower(power);
-        a.setCompany(company);
         a.setPhoneNum(phoneNum);
         userDao.update(a);
         return "success";

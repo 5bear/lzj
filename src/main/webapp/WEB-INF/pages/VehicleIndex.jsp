@@ -10,7 +10,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -18,14 +18,14 @@
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="<%=request.getContextPath()%>/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -54,7 +54,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12 time-row text-right">
-                        <select id="type" onchange="searchVehicle()">
+                        <select  id="type" onchange="searchVehicle()">
                             <option value="0" <c:if test="${type eq '0'}">selected="selected"</c:if>>选择车辆类型</option>
                             <option value="清扫车" <c:if test="${type eq '清扫车'}">selected="selected"</c:if>>清扫车</option>
                             <option value="巡视车" <c:if test="${type eq '巡视车'}">selected="selected"</c:if>>巡视车</option>
@@ -62,13 +62,13 @@
 
                         </select>
                         <div class="search-div">
-                            <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" value="${name}" placeholder="请输入公司/车牌/车辆类型" onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
+                            <img src="<%=request.getContextPath()%>/images/search1.png" alt="搜索"/>
+                            <input width="166px" type="text" id="search" value="${name}" placeholder="请输入公司/车牌" onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
                         </div>
                         <button id="subSearch" name="subSearch" type="button" class="btn btn-default" onclick="searchVehicle()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="VehicleAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增车辆信息</a>
+                        <a href="<%=request.getContextPath()%>/Vehicle/add" class="add-operation"><img src="<%=request.getContextPath()%>/images/add1.png" alt="增加"/>新增车辆信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -90,7 +90,7 @@
                                 <tr>
                                     <td>${vehicle.company}</td>
                                     <td>${vehicle.vehicleType}</td>
-                                    <td>${vehicle.vehicleLicence}</td>
+                                    <td>${vehicle.vehicleLicense}</td>
                                     <td>${vehicle.vehicleModel}</td>
                                     <td>${vehicle.OBUId}</td>
                                     <td>${vehicle.eFence}</td>
@@ -98,8 +98,8 @@
                                     <td>
                       <%--                  <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="editVehicle('${vehicle.id}')">编辑</button>
                                         <button class="btn btn-default" data-toggle="modal" data-target="#delete" onclick="getId('${vehicle.id}')">删除</button>--%>
-                                        <a onclick="editVehicle('${vehicle.id}')" class="operation"><img src="images/edit.png" alt="编辑" />编辑</a>
-                                        <a onclick="getId('${vehicle.id}')" class="operation" ><img src="images/delete1.png" alt="删除" />删除</a>
+                                        <a onclick="editVehicle('${vehicle.id}')" class="operation"><img src="<%=request.getContextPath()%>/images/edit.png" alt="编辑" />编辑</a>
+                                        <a onclick="getId('${vehicle.id}')" class="operation" ><img src="<%=request.getContextPath()%>/images/delete1.png" alt="删除" />删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -136,7 +136,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteVehicle()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteVehicle(${VehicleList.offset},${VehicleList.total},${VehicleList.size})">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -145,9 +145,9 @@
 
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.js"></script>
 
 <script type="text/javascript">
 
@@ -161,21 +161,39 @@
 
     function editVehicle(Id)
     {
-        location.href="VehicleEdit?id="+Id;
+        location.href="<%=request.getContextPath()%>/Vehicle/edit?id="+Id;
 
     }
-    function deleteVehicle()
+    function deleteVehicle(offset,total,size)
     {
 
         //alert("delete");
         $.ajax({
-            url:"VehicleDelete",
+            url:"<%=request.getContextPath()%>/Vehicle/delete",
             type:"post",
             data:{id:id},
             success:function(data){
 
                 if(data=="success"){
-                    location.reload();
+                    if(total%size==1){
+                        var selector = document.getElementById("type");
+                        var index = selector.selectedIndex;
+                        var type = selector.options[index].value;
+                        var name = $("#search").val();
+
+                        var goPath = "<%=request.getContextPath()%>/Vehicle/list?pager.offset="+(offset-size);
+                        if(typeof(type) != "undefined" && type!=null && type!="0"){
+                            goPath+="&type="+type;
+                        }
+                        if(typeof(name) != "undefined" && name!=null && name!=""){
+                            goPath+="&name="+name;
+                        }
+                        window.location=goPath;
+                    }else{
+                        location.reload();
+                    }
+                }else if(data=="NoPower"){
+                    alert("无操作权限")
                 }else {
                     alert("error");
                 }
@@ -196,7 +214,7 @@
         if(type==null){
             type="0";
         }
-        var goPath = "Vehicle";
+        var goPath = "<%=request.getContextPath()%>/Vehicle/list";
         if(type!="0"){
             goPath+="?type="+type;
             if(name!=""){

@@ -7,9 +7,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  String company= (String) session.getAttribute("company");
+%>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -28,9 +31,12 @@
 </head>
 <body>
 <%
+  request.setCharacterEncoding("utf-8");
   int totalPage= (Integer) request.getAttribute("totalPage");
-  int currentPage= (Integer) request.getAttribute("totalPage");
-  String url="line?p="+currentPage;
+  int currentPage= (Integer) request.getAttribute("currentPage");
+  String searchCompany=  request.getAttribute("company")==null?"":(String) request.getAttribute("company");
+  String searchLinename= request.getAttribute("lineName")==null?"":(String) request.getAttribute("lineName");
+  String url="line?company="+searchCompany+"&lineName="+searchLinename+"&";
 %>
 <div id="wrapper">
 <jsp:include page="public.jsp" flush="true">
@@ -42,7 +48,7 @@
     <div class="row">
       <div class="col-lg-12">
         <ol class="breadcrumb">
-          <li><a href="index.html"><i class="icon-dashboard"></i> 计划管理</a></li>
+          <li><a href=""><i class="icon-dashboard"></i> 计划管理</a></li>
           <li class="active"><i class="icon-file-alt"></i> 作业线路管理</li>
         </ol>
       </div>
@@ -53,13 +59,24 @@
         <div class="row">
           <div class="col-lg-12 time-row text-right">
             <select name="" id="company">
+              <%
+                if(company.equals("养护中心")){
+              %>
               <option value="" ></option>
               <option value="上海成基市政建设发展有限公司" >上海成基市政建设发展有限公司</option>
               <option value="上海高架养护管理有限公司">上海高架养护管理有限公司</option>
+              <%
+              }
+                else{
+              %>
+              <option value="<%=company%>" ><%=company%></option>
+              <%
+                }
+              %>
             </select>
             <div class="search-div">
               <img src="images/search1.png" alt="搜索"/>
-              <input type="text" id="query"/>
+              <input type="text" id="query" placeholder="请输入线路名称"/>
             </div>
             <button class="btn btn-default" onclick="query()">搜索</button>
           </div>
@@ -71,6 +88,7 @@
               <thead>
               <tr>
                 <th>所属养护公司</th>
+                <th>所属包件</th>
                 <th>线路名称</th>
                 <th>开始坐标</th>
                 <th>结束坐标</th>
@@ -85,6 +103,7 @@
               <c:forEach items="${lineList}" var="line">
                 <tr>
                   <td>${line.company}</td>
+                  <td>${line.packgeName}</td>
                   <td>${line.line}</td>
                   <td>${line.startCoord}</td>
                   <td>${line.endCoord}</td>
@@ -113,7 +132,7 @@
               </tbody>
             </table>
           </div>
-          <jsp:include page="page.jsp" flush="true">
+          <jsp:include page="page.jsp" flush="true" >
             <jsp:param name="currentPage" value="<%=currentPage%>"></jsp:param>
             <jsp:param name="totalPage" value="<%=totalPage%>"></jsp:param>
             <jsp:param name="url" value="<%=url%>"></jsp:param>
@@ -149,6 +168,9 @@
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
   var id;
+  $(document).ready(function () {
+    $("#company").find("option[value='<%=searchCompany%>']").attr("selected",true);
+  })
   function setId(i){
    id=i;
   }
@@ -158,30 +180,36 @@
       type:"post",
       data:{id:id},
       success:function(data){
-        console.log(data)
-        location.reload(true);
+        if(data=="fail"){
+          alert("路线存在RFID点，无法删除")
+          return false
+        }else if(data=="NoPower"){
+          alert("没有操作权限")
+          return false
+        }
+          location.reload(true);
       }
     })
   }
   function query(){
     var name=$("#query").val();
     var company=$("#company").val();
-    showLine(name,company);
+    location.href="line?company="+company+"&lineName="+name;
   }
   function showLine(lineName,company){
     $.ajax({
       url:"line/getByName",
-      type:"post",
+      type:"get",
       data:{lineName:lineName},
       dataType:"json",
       success:function(data){
         var info="";
         $(data).each(function (index) {
           if(company=="")
-              info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
+              info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].packgeName+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine?id="+data[index].id+"' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
           else{
             if(data[index].company==company)
-              info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
+              info+=" <tr><td>"+data[index].company+"</td><td>"+data[index].packgeName+"</td><td>"+data[index].line+"</td><td>"+data[index].startCoord+"</td><td>"+data[index].endCoord+"</td><td>"+data[index].directionType+"</td><td>"+data[index].direction+"</td> <td>"+data[index].inputMan+"</td> <td>"+data[index].remark+"</td> <td><a href='drawLine?id="+data[index].id+"' class='operation'><img src='images/edit.png' alt='编辑'/>编辑</a> <a class='operation' onclick='setId('"+data[index].id+"')' data-toggle='modal' data-target='#delete'><img src='images/delete1.png' alt='删除'/>删除</a> </td> </tr>"
           }
         })
         $("#lineList").html(info);

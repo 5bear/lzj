@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -341,7 +341,7 @@
   $(document).ready(function(){
     $.ajax({
       url:"Power/get",
-      type:"post",
+      type:"get",
       data:{},
       dataType:"json",
       success:function(data) {
@@ -377,7 +377,7 @@
             } else if (pageNames[index] == "养护进度监控") {
               info += "<tr>" +
               "<td rowspan='3'>进度管理</td>" +
-              "<td  class='table-th'>进度计划监控</td>" +
+              "<td  class='table-th'>养护进度监控</td>" +
                "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>" +
               "<td class='man-fixed'><img src='images/yes.png' alt='有权'></td>";
               $(data[index][pageNames[index]]).each(function (i) {
@@ -484,6 +484,10 @@
         type:"post",
         data:{chooses:chooses},
         success:function(data){
+          if(data=="NoPower"){
+            alert("没有操作权限")
+            return false
+          }
           location.reload(true)
         }
       })

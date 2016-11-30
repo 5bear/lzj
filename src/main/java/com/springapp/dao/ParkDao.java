@@ -8,7 +8,9 @@ import java.util.List;
 
 @Repository
 public class ParkDao extends BaseDao1<Park> {
-    public Park getById(Long id) {
+
+    
+    public Park getById( Long id) {
         return this.get(id);
     }
 
@@ -16,21 +18,28 @@ public class ParkDao extends BaseDao1<Park> {
         return this.findAll("from Park where isDelete='0'", Park.class);
     }*/
 
-    public Pager<Park> getList(String name) {
+    public Pager<Park> getList(String name,String company) {
         String hql = "from Park where isDelete='0'";
         if (!"".equals(name.trim())){
-            hql+=" and parkName like '%"+name+"%'";
+            hql+=" and (parkName like '%"+name+"%' or company like '%"+name+"%')";
+        }
+        if(!"养护中心".equals(company)){
+            hql+=" and company='"+company+"'";
         }
         return this.find(hql);
     }
-    public List<Park> getList() {
+    public List<Park> getList(String company) {
+
         String hql = "from Park where isDelete='0'";
+        if (!"养护中心".equals(company)){
+            hql+="  and company='"+company+"'";
+        }
 
         return this.list(hql);
     }
 
     public Park getByName(String name) {
-        String hql = "from Park where parkName='"+name+"'";
+        String hql = "from Park where parkName='"+name+"' and isDelete='0'";
         return (Park)this.queryObject(hql);
     }
 }

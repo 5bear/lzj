@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yanglin
@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 
-<body onload="init(${size})">
+<body>
 
 <div id="wrapper">
 
@@ -49,103 +49,144 @@
         </div><!-- /.row -->
 
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>设备类型</th>
-                        <th>设备名称</th>
-                        <th>服务器IP</th>
-                        <th>联系电话</th>
-                        <th>备注</th>
-                        <th>联通状态</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>养护中心主机</td>
-                        <td>养护中心主机</td>
-                        <td>120.24.79.63</td>
-                        <td>123456789</td>
-                        <td></td>
-                        <td id="s0">正在测试连接...</td>
-                    </tr>
-                    <tr>
-                        <td>分中心主机</td>
-                        <td>成基公司</td>
-                        <td>192.168.160.10</td>
-                        <td>123456789</td>
-                        <td></td>
-                        <td id="s1">正在测试连接...</td>
-                    </tr>
-                    <tr>
-                        <td>分中心主机</td>
-                        <td>高架公司</td>
-                        <td>192.168.160.20</td>
-                        <td>123456789</td>
-                        <td></td>
-                        <td id="s2">正在测试连接...</td>
-                    </tr>
-                    <c:forEach items="${parks}" var="park" varStatus="v">
-                        <tr>
-                            <td>停车场主机</td>
-                            <td>【${park.company}】${park.parkName}</td>
-                            <td id="ip${v.index}">${park.serverIP}</td>
-                            <td>${park.tel}</td>
-                            <td></td>
-                            <td  id="s${v.index+3}">正在测试连接...</td>
-                        </tr>
-                    </c:forEach>
+            <div class="col-lg-12 text-center" id="main2" style="width: 2500px;height:600px;overflow-x: auto;">
 
-                    </tbody>
-                </table>
             </div>
         </div>
-
     </div><!-- /#page-wrapper -->
 
 </div><!-- /#wrapper -->
 
 <!-- JavaScript -->
+<script src="echarts/echarts.js"></script>
+<script type="text/javascript">
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './echarts'
+            }
+        });
+        require(
+                [
+                    'echarts',
+                    'echarts/theme/roma',
+                    'echarts/chart/tree' // 使用柱状图就加载bar模块，按需加载
+                ],
+                function (ec, theme) {
+
+
+
+                    // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main2'), theme);
+                    myChart.showLoading({
+                        text : "正在进行网络连接测试..."
+                    });
+                    $.ajax({
+                        url: "getTreeDatas",
+                        type: "get",
+                        data: {
+
+                        },
+                        success: function (data) {
+
+                            var r = $.parseJSON(data);
+                            if(r.result==0){
+                                var option = {
+                                    title: {
+                                        text: '网络状态图',
+                                        subtext: ''
+                                    },
+                                    tooltip: {
+                                        trigger: 'item',
+                                        formatter: function (params, ticket, callback) {
+
+                                            var res = '<span class="tooltip-content"><span class="tips"><strong>设备名称: </strong>' + params.name + '<br/>';
+                                            res += '<strong>服务器IP: </strong>' + params.value + '<br/>';
+                                            res += '<strong>联系电话: </strong><a href="">' + params.data.rank + '</a></span></span>'
+                                            setTimeout(function () {
+                                                // 仅为了模拟异步回调
+                                                callback(ticket, res);//回调函数，这里可以做异步请求加载的一些代码
+                                            }, 1000)
+                                            return 'loading';
+                                        }
+                                    },
+                                    toolbox: {
+                                        show: false,
+                                        feature: {
+                                            mark: {show: true},
+                                            dataView: {show: true, readOnly: false},
+                                            restore: {show: true},
+                                            saveAsImage: {show: true}
+                                        }
+                                    },
+                                    calculable: false,
+
+                                    series: [
+                                        {
+                                            name: '树图',
+                                            type: 'tree',
+                                            orient: 'vertical',  // vertical horizontal
+                                            rootLocation: {x: 'center', y: 100}, // 根节点位置  {x: 100, y: 'center'}
+                                            nodePadding: 50,
+                                            itemStyle: {
+                                                normal: {
+                                                    label: {
+                                                        show: true,
+                                                        position: 'bottom',
+                                                        textStyle: {
+                                                            color: '#000'
+                                                        }
+                                                    },
+                                                    lineStyle: {
+                                                        color: '#005c95',
+                                                        shadowColor: '#ccc',
+                                                        shadowBlur: 3,
+                                                        shadowOffsetX: 3,
+                                                        shadowOffsetY: 5,
+                                                        type: 'broken' // 'curve'|'broken'|'solid'|'dotted'|'dashed'
+
+                                                    }
+                                                },
+                                                emphasis: {
+                                                    label: {
+                                                        show: true
+
+                                                    },
+
+                                                    borderColor: 'rgba(23,144,207,0.5)',
+                                                    borderWidth: 10
+                                                }
+                                            },
+
+                                            data: [r.obj]
+                                        }
+                                    ]
+                                };
+
+                                // 为echarts对象加载数据
+                                myChart.setOption(option);
+                                myChart.hideLoading();
+                            }else{
+                                alert("11");
+                            }
+
+                        }
+                    });
+
+                }
+        );
+
+
+</script>
+<!-- JavaScript -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    function init(size){
-        var ips = new Array();
-        ips.push("120.24.79.63"); //养护中心主机
-        ips.push("192.168.160.10");//成基公司主机
-        ips.push("192.168.160.20");//高架公司主机
-
-        for(var i=0;i<size;i++){
-            ips.push($("#ip"+i).text());
-        }
-
-
-        $.ajax({
-            url: "pingIps",
-            type: "post",
-            data: {
-                "ips[]":ips
-            },
-            success: function (data) {
-                var r = $.parseJSON(data);
-                if(r.result==0){
-                    var states = r.obj;
-                    $.each(states,function(index,state){
-
-                        if(state=="连通"){
-                            $("#s"+index).attr("class","going");
-                        }else if(state=="断线"){
-                            $("#s"+index).attr("class","await");
-                        }
-                        $("#s"+index).text(state);
-                    });
-                }
-            }
-        });
-
-    }
+    $(function () {
+        $("#management").dropdown('toggle');
+    });
 </script>
 </body>
 </html>

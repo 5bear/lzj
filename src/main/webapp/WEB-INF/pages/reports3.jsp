@@ -7,10 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -35,7 +36,7 @@
   <!-- Sidebar -->
   <jsp:include page="public.jsp" flush="true">
     <jsp:param name="pageFather" value="report"></jsp:param>
-    <jsp:param name="pageName" value="report3"></jsp:param>
+    <jsp:param name="pageName" value="reports3"></jsp:param>
   </jsp:include>
 
   <div id="page-wrapper">
@@ -51,22 +52,32 @@
 
     <div class="row">
       <div class="col-lg-12 text-right search-row">
-        <select  id="company">
-          <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
-          <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
-        </select>
+        <c:choose>
+          <c:when test="${sessionScope.company eq '养护中心'}">
+            <select  id="company" style="width:235px;">
+              <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+              <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+            </select>
+          </c:when>
+          <c:when test="${sessionScope.company ne '养护中心'}" >
+            <select  id="company" disabled="disabled" style="width:235px;">
+              <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+              <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+            </select>
+          </c:when>
+        </c:choose>
         <input type="text" id="date" value="${date}" placeholder="选择日期"/>
         <input type="text" id="startTime" value="${startTime}" placeholder="选择起始时间"/>
         <input type="text" id="endTime" value="${endTime}" placeholder="选择结束时间"/>
-        <button class="btn btn-default" type="button" onclick="search()">搜索</button>
-        <button class="btn btn-default" type="button" onclick="download()">导出</button>
+        <button class="btn btn-default" type="button" onclick="search('${sessionScope.company}')">搜索</button>
+        <button class="btn btn-default" type="button" onclick="download('${sessionScope.company}')">导出</button>
 
       </div>
       <div class="col-lg-12 text-center table-title">
         养护车辆作业情况
       </div>
       <div class="col-lg-12 text-right time-row">
-        夜间计划清扫时间：2016年1月11日0时0分至5时0分
+        夜间计划清扫时间：0时0分至5时0分
       </div>
     </div>
 
@@ -83,7 +94,7 @@
             <th>结束时间</th>
             <th>累计停留时间（分钟）</th>
             <th>累计作业时间（分钟）</th>
-            <th>里程（米）</th>
+            <th>里程（千米）</th>
             <th>备注</th>
           </tr>
           </thead>
@@ -91,14 +102,14 @@
           <c:forEach items="${report3Datas.datas}" var="rp" varStatus="v">
             <tr>
               <td>${v.index+1}</td>
-              <td>${rp.vehicleLicence}</td>
+              <td>${rp.vehicleLicense}</td>
               <td>${rp.vehicleType}</td>
               <td>${rp.workArea}</td>
               <td>${rp.startTime}</td>
               <td>${rp.endTime}</td>
               <td>${rp.remainTime}</td>
               <td>${rp.workTime}</td>
-              <td>${rp.mile}</td>
+              <td><fmt:formatNumber type="number" value="${rp.mile/1000.00} " maxFractionDigits="2"/></td>
               <td>${rp.remark}</td>
             </tr>
           </c:forEach>
@@ -147,13 +158,15 @@
     step: 10
   });
 
-  function search(){
+  function search(company){
     //选中日期
     var date = $("#date").val();
     //选中公司
-    var selector = document.getElementById("company");
-    var index = selector.selectedIndex;
-    var company = selector.options[index].value;
+    if(company == "养护中心"){
+      var selector = document.getElementById("company");
+      var index = selector.selectedIndex;
+      company = selector.options[index].value;
+    }
     //开始时间
     var startTime = $("#startTime").val();
     //结束时间
@@ -173,12 +186,14 @@
     }
   }
 
-  function download(){
+  function download(company){
     var date = $("#date").val();
     //选中公司
-    var selector = document.getElementById("company");
-    var index = selector.selectedIndex;
-    var company = selector.options[index].value;
+    if(company == "养护中心"){
+      var selector = document.getElementById("company");
+      var index = selector.selectedIndex;
+      company = selector.options[index].value;
+    }
     //开始时间
     var startTime = $("#startTime").val();
     //结束时间

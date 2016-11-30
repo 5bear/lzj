@@ -8,16 +8,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%
+  String company= (String) session.getAttribute("company");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible"content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title>RFID监测点管理</title>
 
   <!-- Bootstrap core CSS -->
@@ -165,6 +167,9 @@
                   <div class="arrow-down arrow-down1"></div>
                 </div>
                 <ul class="dropdown-menu panel-menu">
+                  <%
+                    if(company.equals("养护中心")||company.equals("上海成基市政建设发展有限公司")){
+                  %>
                   <li class="dropdown dropdown2">
                     <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                     <div class="arrow-section arrow-section2">
@@ -173,13 +178,16 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${cjList}" var="line">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
+                          <a href="" onclick="getListByRoad('${line.id}','${line.line}')" data-toggle="dropdown">${line.line}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
                       </c:forEach>
                     </ul>
                   </li>
+                  <%
+                    } if(company.equals("养护中心")||company.equals("上海高架养护管理有限公司")){
+                  %>
                   <li class="dropdown dropdown2">
                     <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
                     <div class="arrow-section arrow-section2">
@@ -188,7 +196,7 @@
                     <ul class="dropdown-menu panel-menu">
                       <c:forEach items="${gjygList}" var="line">
                         <li class="dropdown dropdown3">
-                          <a href="" onclick="getListByRoad('${line.line}')" data-toggle="dropdown">${line.line}</a>
+                          <a href="" onclick="getListByRoad('${line.id}','${line.line}')" data-toggle="dropdown">${line.line}</a>
                           <div class="arrow-section arrow-section3">
                           </div>
                         </li>
@@ -196,6 +204,9 @@
 
                     </ul>
                   </li>
+                  <%
+                    }
+                  %>
                 </ul>
               </li><!--dropdown1-->
             </div>
@@ -209,14 +220,14 @@
 
           <div> 
             <img src="images/search_icon.png" style="width: 32px; height: 20px;"/>
-            <input type="text" placeholder="请输入RFID序列号" id="search"/>
+            <input type="text" style="width: auto;" placeholder="请输入RFID序列号" id="search"/>
             <button class="button" style="padding: 5px;left:30%;width:70px;" onclick="query()">搜索</button>
           </div>
           <div style="width: 99%; top: 22px; overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left; background-color: rgb(243, 241, 236);">
             <div id="container" style="height: 610px; width:99%;"></div>
             <div class="map-search">
-              <input type="text" id="localSearch"/>
-              <button onclick="localSearch()"></button>
+              <input type="text" id="localSearch" onchange="localSearch()"/>
+              <button onchange="localSearch()"></button>
             </div>
           </div>
         </div>
@@ -280,7 +291,7 @@
                 <input type="text" id="installPos"/>
               </div>
               <div class="row text-center">
-                <button class="btn btn-default" onclick="addClick(0)" data-toggle="modal" data-target="#success">增加/修改</button>
+                <button class="btn btn-default" onclick="addClick(0)" data-toggle="modal" data-target="#success">保存</button>
                 <button class="btn btn-default" onclick="addClick(1)" data-toggle="modal" data-target="#success">删除</button>
               </div>
             </div>
@@ -379,13 +390,13 @@
         if(id!=undefined) {
           $.ajax({
             url: "RFID/get",
-            type: "post",
+            type: "get",
             data: {id: id},
             dataType: "json",
             success: function (data) {
-              $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
-              $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
-              $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
+              $("#roadId").val(data.roadId)
+              $("#direction").val(data.direction)
+              $("#zhadao").val(data.zhadao)
               $("#equipNum").val(data.equipNum);
               $("#serialNumber").val(data.serialNumber);
               $("#installPos").val(data.installPos);
@@ -399,6 +410,8 @@
    * 显示已存在的RFID点
    * */
   $(document).ready(function(){
+    marker = new BMap.Marker(point);// 创建标注
+    map.addOverlay(marker);             // 将标注添加到地图中
     /*添加比例尺*/
     var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
     var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
@@ -406,7 +419,7 @@
     map.addControl(top_left_navigation);
     $.ajax({
       url:"RFID/list",
-      type:"post",
+      type:"get",
       data:{},
       dataType:"json",
       success:function(data){
@@ -431,13 +444,13 @@
         if(id!=undefined) {
           $.ajax({
             url: "RFID/get",
-            type: "post",
+            type: "get",
             data: {id: id},
             dataType: "json",
             success: function (data) {
-              $("#roadId").find("option[value="+data.roadId+"]").attr("selected",true);
-              $("#direction").find("option[value="+data.direction+"]").attr("selected",true);
-              $("#zhadao").find("option[value="+data.zhadao+"]").attr("selected",true);
+              $("#roadId").val(data.roadId)
+              $("#direction").val(data.direction)
+              $("#zhadao").val(data.zhadao)
               $("#equipNum").val(data.equipNum);
               $("#serialNumber").val(data.serialNumber);
               $("#installPos").val(data.installPos);
@@ -447,12 +460,49 @@
         return false;
       }
     }
+    $.ajax({
+      url: "RFID/getByNumber",
+      type: "get",
+      data: {number: searchCondition},
+      dataType: "json",
+      success: function (data) {
+        var point = new BMap.Point(data.lng, data.lat);
+        map.panTo(point)
+        marker = new BMap.Marker(point);// 创建标注
+        var opts = {
+          width : 100,     // 信息窗口宽度
+          height: 100,     // 信息窗口高度
+          title : "RFID信息" , // 信息窗口标题
+          enableMessage:true,//设置允许信息窗发送短息
+          message:""
+        }
+        var infoWindow = new BMap.InfoWindow("<p>序列号:"+data.serialNumber+"<br/>路段:"+data.road+"<br/>所属公司:"+data.company+"</p>", opts);  // 创建信息窗口对象
+        /*marker.setLabel(id);*/
+        marker.setTitle(data.serialNumber)
+        marker.removeEventListener("mouseover");
+        marker.removeEventListener("mouseout");
+        marker.addEventListener("mouseover",function(e){
+          map.openInfoWindow(infoWindow,marker.getPosition());
+        });
+        marker.addEventListener("mouseout",function(e){
+          map.closeInfoWindow(infoWindow,marker.getPosition());
+        });
+        map.addOverlay(marker);             // 将标注添加到地图中
+        marker.disableDragging();           // 不可
+        markerMap.put(marker,data.id)
+        $("#roadId").val(data.roadId)
+        $("#direction").val(data.direction)
+        $("#zhadao").val(data.zhadao)
+        $("#equipNum").val(data.equipNum);
+        $("#serialNumber").val(data.serialNumber);
+        $("#installPos").val(data.installPos);
+      }
+    })
   }
   /*
    * 添加/修改RFID点
    * */
   function addRFID(){
-    console.log(markerMap)
     var equipNum=$("#equipNum").val();
     var lng=currentLng;
     var lat=currentLat;
@@ -466,7 +516,6 @@
     var direction=$("#direction").val();
     var installPos=$("#installPos").val();
     var id =markerMap.get(marker)
-    console.log(id)
     if(serialNumber==""){
       alert("序列号不能为空");
       return true;
@@ -489,7 +538,10 @@
             alert("重复的序列号");
             return false
           }
-
+          if(data=="NoPower"){
+            alert("没有操作权限");
+            return false
+          }
           location.reload(true);
         }
       })
@@ -498,12 +550,34 @@
         url:"RFID/edit",
         type:"post",
         data:{id:id,equipNum:equipNum,lng:lng,lat:lat,serialNumber:serialNumber,roadId:roadId,zhadao:zhadao,direction:direction,installPos:installPos},
+        dataType:"json",
         success:function(data){
           if(data=="duplicated"){
             alert("重复的序列号");
             return false
+          } else if(data=="NoPower"){
+            alert("没有操作权限");
+            return false
+          }else{
+            var opts = {
+              width : 100,     // 信息窗口宽度
+              height: 100,     // 信息窗口高度
+              title : "RFID信息" , // 信息窗口标题
+              enableMessage:true,//设置允许信息窗发送短息
+              message:""
+            }
+            var infoWindow = new BMap.InfoWindow("<p>序列号:"+data.serialNumber+"<br/>路段:"+data.road+"<br/>所属公司:"+data.company+"</p>", opts);  // 创建信息窗口对象
+            /*marker.setLabel(id);*/
+            marker.setTitle(data.serialNumber)
+            marker.removeEventListener("mouseover");
+            marker.removeEventListener("mouseout");
+            marker.addEventListener("mouseover",function(e){
+              map.openInfoWindow(infoWindow,marker.getPosition());
+            });
+            marker.addEventListener("mouseout",function(e){
+              map.closeInfoWindow(infoWindow,marker.getPosition());
+            });
           }
-          location.reload(true);
         }
       })
     }
@@ -518,12 +592,16 @@
       return false;
     }
     var id=markerMap.get(marker)
-    deletemarker()
     $.ajax({
       url:"RFID/delete",
       type:"post",
       data:{id:id},
       success:function(data){
+        if(data=="NoPower"){
+          alert("没有操作权限");
+          return false
+        }
+        deletemarker()
         location.reload(true);
       }
     })
@@ -556,10 +634,12 @@
   }
   /*
    显示某条路上的RFID*/
-  function getListByRoad(road){
+  function getListByRoad(roadId,road){
+    $("#roadId").val(roadId)
+    removeAll()
     $.ajax({
       url:"RFID/getListByRoad",
-      type:"post",
+      type:"get",
       data:{road:road},
       dataType:"json",
       success:function(data){
@@ -573,6 +653,8 @@
         map.clearOverlays();
         $(data).each(function(index){
           var point=new BMap.Point(data[index].lng, data[index].lat);
+          if(index==0)
+            map.panTo(point)
           addMarker(point,data[index].serialNumber,data[index].road,data[index].company,data[index].id)
         })
       }
@@ -589,10 +671,16 @@
    * 添加点击事件
    * */
   function addClick(type){
-    if(type==0)
-      $("#btn_type").click(addRFID);
-    else if(type==1)
-      $("#btn_type").click(deleteRFID);
+    if(type==0){
+      $("#btn_type").unbind("click");
+      $("#btn_type").bind("click",addRFID);
+    }
+
+    else if(type==1){
+      $("#btn_type").unbind("click");
+      $("#btn_type").bind("click",deleteRFID);
+    }
+
   }
   /*
    * 清空输入

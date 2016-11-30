@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -35,7 +35,7 @@
     <!-- Sidebar -->
     <jsp:include page="public.jsp" flush="true">
         <jsp:param name="pageFather" value="report"></jsp:param>
-        <jsp:param name="pageName" value="report1"></jsp:param>
+        <jsp:param name="pageName" value="reports1"></jsp:param>
     </jsp:include>
 
     <div id="page-wrapper">
@@ -52,10 +52,21 @@
 
         <div class="row">
             <div class="col-lg-12 text-right search-row">
-                <select  id="company">
-                    <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
-                    <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
-                </select>
+                <c:choose>
+                    <c:when test="${sessionScope.company eq '养护中心'}">
+                        <select id="company" style="width:235px;">
+                            <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                            <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+                        </select>
+                    </c:when>
+                    <c:when test="${sessionScope.company ne '养护中心'}" >
+                        <select  id="company" disabled="disabled" style="width:235px;">
+                            <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                            <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+                        </select>
+                    </c:when>
+                </c:choose>
+
                 <input type="text" id="date" placeholder="选择日期" value="${date}"/>
                 <input type="text" id="time" value="${time}" placeholder="选择时间"/>
                 <%--<select id="time">
@@ -63,8 +74,8 @@
                     <option value="上午" <c:if test="${time eq '上午'}">selected="selected"</c:if> >上午</option>
                     <option value="下午" <c:if test="${time eq '下午'}">selected="selected"</c:if> >下午</option>
                 </select>--%>
-                <button class="btn btn-default" type="button" onclick="search()">搜索</button>
-                <button class="btn btn-default" type="button" onclick="download()">导出</button>
+                <button class="btn btn-default" type="button" onclick="search('${sessionScope.company}')">搜索</button>
+                <button class="btn btn-default" type="button" onclick="download('${sessionScope.company}')">导出</button>
 
             </div>
             <div class="col-lg-12 text-center table-title">
@@ -92,7 +103,7 @@
                     <c:forEach items="${report1Datas.datas}" var="rp" varStatus="v">
                         <tr>
                             <td>${v.index+1}</td>
-                            <td>${rp.vehicleLicence}</td>
+                            <td>${rp.vehicleLicense}</td>
                             <td>${rp.planPosition}</td>
                             <td>${rp.realPosition}</td>
                             <td>${rp.arriveTime}</td>
@@ -140,14 +151,17 @@
         step: 1
     });
 
-    function search(){
+    function search(company){
         //选中日期
         var date = $("#date").val();
         var time = $("#time").val();
         //选中公司
-        var selector = document.getElementById("company");
-        var index = selector.selectedIndex;
-        var company = selector.options[index].value;
+        if(company == "养护中心"){
+            var selector = document.getElementById("company");
+            var index = selector.selectedIndex;
+            company = selector.options[index].value;
+        }
+
         //选中时间
        /* var selector1 = document.getElementById("time");
         var index1 = selector1.selectedIndex;
@@ -160,13 +174,15 @@
         location.href=goPath;
     }
 
-    function download(){
+    function download(company){
         var date = $("#date").val();
         var time = $("#time").val();
         //选中公司
-        var selector = document.getElementById("company");
-        var index = selector.selectedIndex;
-        var company = selector.options[index].value;
+        if(company == "养护中心"){
+            var selector = document.getElementById("company");
+            var index = selector.selectedIndex;
+            company = selector.options[index].value;
+        }
       /*  //选中时间
         var selector1 = document.getElementById("time");
         var index1 = selector1.selectedIndex;

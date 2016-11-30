@@ -4,7 +4,12 @@ package com.springapp.mvc;
  * Created by yanglin on 16/4/13.
  */
 
+import com.springapp.classes.FileUtil;
+import com.springapp.classes.JsonUtil;
+import com.springapp.classes.model.AjaxObj;
+import com.springapp.entity.Line;
 import com.springapp.entity.Vehicle;
+import com.springapp.entity.eFence;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -25,8 +32,35 @@ public class VehicleController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(value = "/Vehicle", method = RequestMethod.GET)
-    public ModelAndView home(@RequestParam(required = false) String name,@RequestParam(required = false) String type) {
+    @RequestMapping(value = "/getEFence",method = RequestMethod.POST)
+    @ResponseBody
+    public String getLine(@RequestParam(value = "company") String company) {
+
+        AjaxObj ao = new AjaxObj();
+        List<eFence> vs = eFenceDao.getListByCompany(company);
+        ao.setResult(0);
+        ao.setObj(vs);
+
+        return JsonUtil.getInstance().obj2json(ao);
+    }
+
+    @RequestMapping(value = "/getVehicleByType")
+    @ResponseBody
+    public String getVehicleByType(@RequestParam(value = "company") String company, @RequestParam(required = false) String type) {
+        if (type == null) {
+            type = "";
+        }
+
+        AjaxObj ao = new AjaxObj();
+        List<Vehicle> vs = vehicleDao.getList(company, type);
+        ao.setResult(0);
+        ao.setObj(vs);
+
+        return JsonUtil.getInstance().obj2json(ao);
+    }
+
+    @RequestMapping(value = "/Vehicle/list", method = RequestMethod.GET)
+    public ModelAndView home(HttpSession session,@RequestParam(required = false) String name, @RequestParam(required = false) String type) {
         if (name == null) {
             name = "";
         }
@@ -35,28 +69,33 @@ public class VehicleController extends BaseController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("VehicleIndex");
-        modelAndView.addObject("VehicleList", vehicleDao.getPager(type,name));//获取表中所有的数据
+        String company = String.valueOf(session.getAttribute("company"));
+        modelAndView.addObject("VehicleList", vehicleDao.getPager(type, name,company));//获取表中所有的数据
         modelAndView.addObject("name", name);
         modelAndView.addObject("type", type);
         return modelAndView;
 
     }
 
-    @RequestMapping(value = "/VehicleAdd0")
+    @RequestMapping(value = "/Vehicle/add", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView add0() {
+    public ModelAndView add0(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("VehicleAdd");
-        modelAndView.addObject("eFenceList", eFenceDao.getList());
+        String company = String.valueOf(session.getAttribute("company"));
+        if("养护中心".equals(company)){
+            company = "上海成基市政建设发展有限公司";
+        }
+        modelAndView.addObject("eFenceList", eFenceDao.getListByCompany(company));
         return modelAndView;
     }
 
 
-    @RequestMapping(value = "/VehicleAdd1", method=RequestMethod.POST)
+    @RequestMapping(value = "/Vehicle/add", method = RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "vehicleType") String vehicleType,
-                       @RequestParam(value = "vehicleLicence") String vehicleLicence,
+                       @RequestParam(value = "vehicleLicense") String vehicleLicense,
                        @RequestParam(value = "vehicleModel") String vehicleModel,
                        @RequestParam(value = "OBUId") String OBUId,
                        @RequestParam(value = "eFence") String ef,
@@ -64,20 +103,22 @@ public class VehicleController extends BaseController {
                        @RequestParam(value = "remark") String remark/*,
                       @RequestParam(value="isDelete") String isDelete*/) {
 
-        if ("".equals(vehicleLicence.trim()))
+        if ("".equals(vehicleLicense.trim()))
             return "null";
 
-        Vehicle vehicle = vehicleDao.getByName(vehicleLicence);
-        if (vehicle!=null) {
+        Vehicle vehicle = vehicleDao.getByName(vehicleLicense);
+        if (vehicle != null) {
             return "false";
         }
 
         vehicle = new Vehicle();
         vehicle.setCompany(company);
         vehicle.setVehicleType(vehicleType);
-        vehicle.setVehicleLicence(vehicleLicence);
+        vehicle.setvehicleLicense(vehicleLicense);
         vehicle.setVehicleModel(vehicleModel);
-        if (eFenceId!=null && !"".equals(eFenceId.trim())){
+        if (eFenceId == null || "".equals(eFenceId.trim())) {
+            vehicle.seteFenceId(0L);
+        }else{
             vehicle.seteFenceId(Long.parseLong(eFenceId));
         }
 
@@ -88,25 +129,34 @@ public class VehicleController extends BaseController {
         vehicle.setCreateTime(simpleDateFormat.format(new Date()));
 
         vehicleDao.add(vehicle);
+        List<Vehicle>vehicleList=vehicleDao.getList();
+        /*
+		导出车载设备
+		* */
+		FileUtil.OutToTxt(vehicleList);
         return "success";
     }
 
-    @RequestMapping(value = "/VehicleEdit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id") String id) {
+    @RequestMapping(value = "/Vehicle/edit", method = RequestMethod.GET)
+    public ModelAndView edit(HttpSession session,@RequestParam(value = "id") String id) {
         Vehicle vehicle = vehicleDao.getById(Long.parseLong(id));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("VehicleEdit");
         modelAndView.addObject("Vehicle_edit", vehicle);
-        modelAndView.addObject("eFenceList", eFenceDao.getList());
+        String company = String.valueOf(session.getAttribute("company"));
+        if("养护中心".equals(company)){
+            company =vehicle.getCompany();
+        }
+        modelAndView.addObject("eFenceList", eFenceDao.getListByCompany(company));
         return modelAndView;
     }
 
-    @RequestMapping(value = "/VehicleEdit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Vehicle/edit", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
                         @RequestParam(value = "vehicleType") String vehicleType,
-                        @RequestParam(value = "vehicleLicence") String vehicleLicence,
+                        @RequestParam(value = "vehicleLicense") String vehicleLicense,
                         @RequestParam(value = "vehicleModel") String vehicleModel,
                         @RequestParam(value = "eFenceId") String eFenceId,
                         @RequestParam(value = "eFence") String ef,
@@ -117,26 +167,28 @@ public class VehicleController extends BaseController {
         {
 
             Vehicle vehicle=vehicleList.get(i);
-            if(vehicleLicence.equals(vehicle.getVehicleLicence())) {
+            if(vehicleLicense.equals(vehicle.getvehicleLicense())) {
                 return "false";
             }
         }*/
-        if ("".equals(vehicleLicence.trim()))
+        if ("".equals(vehicleLicense.trim()))
             return "null";
 
         Vehicle vehicle = vehicleDao.getById(Long.parseLong(id));
 
-        Vehicle nvehicle = vehicleDao.getByVehicleLicence(vehicleLicence);
-        if (nvehicle!=null && !nvehicle.getId().equals(vehicle.getId())){
+        Vehicle nvehicle = vehicleDao.getByvehicleLicense(vehicleLicense);
+        if (nvehicle != null && !nvehicle.getId().equals(vehicle.getId())) {
             return "false";
         }
 
 
         vehicle.setCompany(company);
         vehicle.setVehicleType(vehicleType);
-        vehicle.setVehicleLicence(vehicleLicence);
+        vehicle.setvehicleLicense(vehicleLicense);
         vehicle.setVehicleModel(vehicleModel);
-        if (eFenceId!=null && !"".equals(eFenceId.trim())){
+        if (eFenceId == null || "".equals(eFenceId.trim())) {
+            vehicle.seteFenceId(0L);
+        }else{
             vehicle.seteFenceId(Long.parseLong(eFenceId));
         }
 
@@ -145,11 +197,16 @@ public class VehicleController extends BaseController {
         vehicle.setRemark(remark);
         vehicle.setEditTime(simpleDateFormat.format(new Date()));
         vehicleDao.update(vehicle);
+        List<Vehicle>vehicleList=vehicleDao.getList();
+        /*
+		导出车载设备
+		* */
+        FileUtil.OutToTxt(vehicleList);
         return "success";
     }
 
 
-    @RequestMapping(value = "/VehicleDelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/Vehicle/delete", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id") String id) {
         Vehicle vehicle = vehicleDao.getById(Long.parseLong(id));
@@ -157,6 +214,13 @@ public class VehicleController extends BaseController {
         vehicle.setDeleteTime(simpleDateFormat.format(new Date()));
 
         vehicleDao.update(vehicle);
+        List<Vehicle>vehicleList=vehicleDao.getList();
+        //删除布点计划
+        vehicleDao.deletePosition(Long.parseLong(id));
+        /*
+		导出车载设备
+		* */
+        FileUtil.OutToTxt(vehicleList);
         return "success";
     }
 

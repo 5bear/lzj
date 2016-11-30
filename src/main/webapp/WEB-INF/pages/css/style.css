@@ -1,7 +1,15 @@
 html {
     font-family: Microsoft YaHei, STHeiti;
 }
-
+body{
+    font-size: 12px !important;
+}
+.row.text-right{
+    margin-right: 12px;
+}
+.dropdown-menu{
+    font-size: 12px !important;
+}
 
 a:hover, a:focus {
     text-decoration: none;
@@ -9,7 +17,7 @@ a:hover, a:focus {
 
 .table {
     border: 1px solid #cccccc;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 th {
@@ -128,7 +136,7 @@ textarea::-webkit-input-placeholder {
 .btn-default, .btn-default:focus {
     background-color: #00608B;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     padding: 2px 25px;
     line-height: 22px;
     outline: none;
@@ -206,7 +214,7 @@ select.table-input {
 
 .alert button {
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     padding: 2px 25px;
     line-height: 22px;
     outline: none;
@@ -239,6 +247,8 @@ select.table-input {
 .progress-table a {
     color: black;
 }
+
+
 
 .page {
     list-style: none;
@@ -289,7 +299,12 @@ select.table-input {
     color: white;
     text-decoration: underline;
 }
-
+.plan1-table > tbody >tr >td.green{
+    background-color: #A6CE94;
+}
+.plan1-table > tbody >tr >td.yellow{
+    background-color: #FFD971;
+}
 .plan1-table a:hover, .plan1-table a:focus{
     color: white;
     text-decoration: underline;

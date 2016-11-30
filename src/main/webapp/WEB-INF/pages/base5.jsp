@@ -7,10 +7,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  String company=(String)session.getAttribute("company");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -111,6 +114,9 @@
                   <div class="arrow-down arrow-down1"></div>
                 </div>
                 <ul class="dropdown-menu panel-menu">
+                  <%
+                    if(company.equals("养护中心")||company.equals("上海成基市政建设发展有限公司")){
+                  %>
                   <li class="dropdown dropdown2">
                     <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
                     <div class="arrow-section arrow-section2">
@@ -126,6 +132,9 @@
                       </c:forEach>
                     </ul>
                   </li>
+                  <%
+                    } if(company.equals("养护中心")||company.equals("上海高架养护管理有限公司")){
+                  %>
                   <li class="dropdown dropdown2">
                     <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
                     <div class="arrow-section arrow-section2">
@@ -141,6 +150,9 @@
                       </c:forEach>
                     </ul>
                   </li>
+                  <%
+                    }
+                  %>
                 </ul>
               </li><!--dropdown1-->
             </div>
@@ -163,7 +175,9 @@
               <button class="button" style="top:15px;left:30%;width:70px;" onclick="">搜索</button>
           </div>--%>
           <div>
+<%--
               <button class="button" style="width:70px;" onclick="newDraw()">开始</button>
+--%>
               <button class="button" style="width:70px;" onclick="choosePoint()">开始绘制</button>
               <button class="button" style="width:70px;" onclick="undo()">撤销一次</button>
               <button class="button" style="width:70px;" onclick="undoAll()">撤销全部</button>
@@ -173,7 +187,7 @@
           <div style="position: relative;">
             <div id="container" style="height: 610px; width:99%;"></div>
             <div class="map-search">
-              <input type="text" id="localSearch"/>
+              <input type="text" id="localSearch" onchange="localSearch()"/>
               <button onclick="localSearch()"></button>
             </div>
           </div>
@@ -208,8 +222,18 @@
               <div class="row">
                 <label>所属公司：</label>
                 <select id="company">
+                  <%
+                    if(company.equals("养护中心")){
+                  %>
                   <option value="上海成基市政建设发展有限公司">上海成基市政建设发展有限公司</option>
                   <option value="上海高架养护管理有限公司">上海高架养护管理有限公司</option>
+                  <%
+                    }else{
+                  %>
+                  <option value="<%=company%>"><%=company%></option>
+                  <%
+                    }
+                  %>
                 </select>
               </div>
               <div class="row">
@@ -221,7 +245,7 @@
                 <p id="vehicles"></p>
               </div>
               <div class="row text-center">
-                <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="addClick(0)">增加/修改</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#success"  onclick="addClick(0)">保存</button>
                 <button class="btn btn-default" data-toggle="modal" data-target="#success" onclick="addClick(1)">删除</button>
               </div>
             </div>
@@ -267,6 +291,7 @@
 
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
   <script type="text/javascript">
+    var flag=0;
     var currentLng,currentLat;
     var polygon=null;//多边形
     var markers=new Array();
@@ -294,7 +319,7 @@
       map.addControl(top_left_navigation);
       $.ajax({
         url:"eFence/list",
-        type:"post",
+        type:"get",
         data:{},
         dataType:"json",
         success:function(data){
@@ -336,6 +361,9 @@
             if(data=="duplicated"){
               alert("电子围栏名称重复");
               return false;
+            }if(data=="NoPower"){
+              alert("没有操作权限");
+              return false
             }
             location.reload(true);
           }
@@ -349,6 +377,14 @@
           success:function(data){
             if(data=="duplicated") {
               alert("电子围栏名称重复");
+              return true;
+            }
+            if(data=="NoPower"){
+              alert("没有操作权限");
+              return false
+            }
+            if(data=="fail"){
+              alert("该围栏下有车辆，请先接触车辆联系");
               return true;
             }
             location.reload(true);
@@ -365,9 +401,12 @@
         data:{coords:coords},
         success:function(data){
           if(data=="success")
-          location.reload(true);
-          else {
-            alert("无法删除!")
+              location.reload(true);
+          else if(data=="NoPower"){
+            alert("没有操作权限");
+            return false
+          } else {
+            alert("该围栏下有车辆，请先接触车辆联系")
             return true
           }
 
@@ -376,6 +415,8 @@
     }
     /*选点*/
     function choosePoint(){
+      if(polygon==null)
+          removeAll()
       map.removeEventListener("click",addMarker)
       /*map.clearOverlays();*/
       //地图点击事件
@@ -393,9 +434,9 @@
       geoc.getLocation(point, function(rs){
         var addComp = rs.addressComponents;
         $("#info").html(addComp.district + addComp.street +addComp.streetNumber);
-        if(!confirm('是否增加定位?'))
-          return true;
-        var marker = new BMap.Marker(point);// 创建标注
+       /* if(!confirm('是否增加定位?'))
+          return true;*/
+        var marker = new BMap.Marker(point,{icon: new BMap.Icon("images/fancy-marker.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});// 创建标注
         markers.push(marker)
         map.addOverlay(marker);             // 将标注添加到地图中
         marker.disableDragging();           // 不可拖拽
@@ -411,6 +452,7 @@
     /*撤销全部*/
     function undoAll(){
       map.removeOverlay(polygon);
+      polygon=null;
       for(var index in markers){
         map.removeOverlay(markers[index]);
       }
@@ -437,7 +479,7 @@
         var coords=pointsTojson(target.ro);
         $.ajax({
           url:"eFence/getByCoords",
-          type:"post",
+          type:"get",
           data:{coords:coords},
           dataType:"json",
           success:function(data){
@@ -447,7 +489,7 @@
             points=jsonToPoints(data.coords)
             for(var i=0;i<points.length;i++){
               var point = new BMap.Point(points[i].lng, points[i].lat);
-              var marker = new BMap.Marker(point);// 创建标注
+              var marker = new BMap.Marker(point,{icon: new BMap.Icon("images/fancy-marker.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});// 创建标注
               markers.push(marker)
               map.addOverlay(marker);             // 将标注添加到地图中
               marker.disableDragging();           // 不可拖拽
@@ -482,17 +524,23 @@
      * 添加点击事件
      * */
     function addClick(type){
-      if(type==0)
-        $("#btn_type").click(addeFence);
-      else if(type==1)
-        $("#btn_type").click(deleteFence);
+      if(type==1)
+          flag=1
+      else
+          flag=0
     }
+    $("#btn_type").click(function () {
+      if(flag==0)
+          addeFence()
+      else
+          deleteFence()
+    })
     /**/
     function showeFence(id,lng,lat){
       idForEdit=id;
       $.ajax({
         url:"eFence/get",
-        type:"post",
+        type:"get",
         data:{id:id},
         dataType:"json",
         success:function(data){

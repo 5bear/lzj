@@ -7,10 +7,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  String company= (String) session.getAttribute("company");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -38,7 +41,7 @@
   <style>
     #index { width:100%; height:100%; min-width:980px;margin-left:16px; padding:0px; background-color:transparent; position:relative;}
     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
-    #in-mid { width:57%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
+    #in-mid { width:73%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
     #in-right {width:246px; height:90%; margin:0px; padding:0px; float:left; background-color:transparent; margin-left:5px;position:relative; }
 
     .button{
@@ -144,8 +147,8 @@
     <div class="row">
       <div class="col-lg-12">
         <ol class="breadcrumb">
-          <li><a href="history1.html">历史数据</a></li>
-          <li><a href="history1.html">历史轨迹查询</a></li>
+          <li><a href="#">历史数据</a></li>
+          <li><a href="#">历史轨迹查询</a></li>
           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
         </ol>
       </div>
@@ -156,120 +159,7 @@
 
       <div id="index">
         <!--<img src="images/index.jpg" width="100%"/>-->
-        <div id="in-left">
-          <div class="panel panel-primary">
-            <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
-            <div class="panel-body">
-              <li class="dropdown dropdown1">
-                <a href="#" data-toggle="droplist">按照车辆查看</a>
-                <div class="arrow-section arrow-section1">
-                  <div class="arrow-down arrow-down1"></div>
-                </div>
-                <ul class="dropdown-menu panel-menu">
-                  <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
-                    <div class="arrow-section arrow-section2">
-                      <div class="arrow-down arrow-down2"></div>
-                    </div>
-                    <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">清扫车</a>
-                        <div class="arrow-section arrow-section3">
-                          <div class="arrow-down arrow-down3"></div>
-                        </div>
-                        <ul class="dropdown-menu panel-menu">
-                          <c:forEach items="${cyList}" var="item">
-                            <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
-                            </li>
-                          </c:forEach>
-                        </ul>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">牵引车</a>
-                        <div class="arrow-section arrow-section3">
-                          <div class="arrow-down arrow-down3"></div>
-                        </div>
-                        <ul class="dropdown-menu panel-menu">
-                          <c:forEach items="${cqList}" var="item">
-                            <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
-                            </li>
-                          </c:forEach>
-                        </ul>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">巡视车</a>
-                        <div class="arrow-section arrow-section3">
-                          <div class="arrow-down arrow-down3"></div>
-                        </div>
-                        <ul class="dropdown-menu panel-menu">
-                          <c:forEach items="${cxList}" var="item">
-                            <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
-                            </li>
-                          </c:forEach>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul class="dropdown-menu panel-menu">
-                  <li class="dropdown dropdown2">
-                    <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
-                    <div class="arrow-section arrow-section2">
-                      <div class="arrow-down arrow-down2"></div>
-                    </div>
-                    <ul class="dropdown-menu panel-menu">
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">清扫车</a>
-                        <div class="arrow-section arrow-section3">
-                          <div class="arrow-down arrow-down3"></div>
-                        </div>
-                        <ul class="dropdown-menu panel-menu">
-                          <c:forEach items="${gyList}" var="item">
-                            <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
-                            </li>
-                          </c:forEach>
-                        </ul>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">牵引车</a>
-                        <div class="arrow-section arrow-section3">
-                          <div class="arrow-down arrow-down3"></div>
-                        </div>
-                        <ul class="dropdown-menu panel-menu">
-                          <c:forEach items="${gqList}" var="item">
-                            <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
-                            </li>
-                          </c:forEach>
-                        </ul>
-                      </li>
-                      <li class="dropdown dropdown3">
-                        <a href="#" data-toggle="droplist">巡视车</a>
-                        <div class="arrow-section arrow-section3">
-                          <div class="arrow-down arrow-down3"></div>
-                        </div>
-                        <ul class="dropdown-menu panel-menu">
-                          <c:forEach items="${gxList}" var="item">
-                            <li>
-                              <a href="#" onclick="setVehicle('${item.vehicleLicence}','${item.vehicleType}','${item.OBUId}')">${item.vehicleLicence}</a>
-                            </li>
-                          </c:forEach>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
 
-
-
-            </div>
-          </div>
-        </div><!--in-left-->
 
         <div id="in-mid"><!--<img src="images/mid2.png" width="100%"/>-->
 
@@ -288,23 +178,8 @@
             <option value="16">16x</option>
           </select>
           <datalist id="lista">
-            <c:forEach items="${cxList}" var="item">
-              <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-            </c:forEach>
-            <c:forEach items="${cqList}" var="item">
-              <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-            </c:forEach>
-            <c:forEach items="${cyList}" var="item">
-              <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-            </c:forEach>
-            <c:forEach items="${gxList}" var="item">
-              <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-            </c:forEach>
-            <c:forEach items="${gqList}" var="item">
-              <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
-            </c:forEach>
-            <c:forEach items="${gyList}" var="item">
-              <option value="${item.vehicleLicence}">${item.vehicleLicence}</option>
+            <c:forEach items="${list}" var="item">
+              <option value="${item.vehicleLicense}">${item.vehicleLicense}</option>
             </c:forEach>
           </datalist>
 
@@ -312,11 +187,13 @@
                background:url(images/queren.png); background-size:100% 100%" /> -->
           <button class="button" onclick="getTrack()" style="top:2%;left:91%; width:9%;height:4%">确认</button>
 
-          <div style="width: 4%;height: 4%; position: absolute; top: 2%;">
-            <img src="images/search_icon.png" style="width:100%" />
+          <div style="position: relative;top:43px">
+            <div id="container" style="height: 610px; width: 99%; overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left; background-color: rgb(243, 241, 236);"></div>
+            <div class="map-search">
+              <input type="text" id="localSearch" onchange="localSearch()"/>
+              <button onclick="localSearch()"></button>
+            </div>
           </div>
-
-          <div id="container" style="width:99%;top:52px"></div>
         </div><!--in-mid-->
 
         <div id="in-right" style="249px">
@@ -334,10 +211,10 @@
                 <label>平均行驶速度：</label>
                 <p id="averSpeed"></p>
               </div>
-              <div class="row">
+              <%--<div class="row">
                 <label>异常：</label>
                 <p id="exception"></p>
-              </div>
+              </div>--%>
             </div>
           </div>
 
@@ -393,13 +270,16 @@
 <script>
   var myCar;//汽车图标
   var vehicleList=new Array()
+  var time1;
   var vehicle//车辆
   var vehiclePos//车辆轨迹
   var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
-  var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
   map.enableScrollWheelZoom();//允许放大缩放
+  var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+  var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
   map.addControl(top_left_control);
+  map.addControl(top_left_navigation);
   var local = new BMap.LocalSearch(map, {
     renderOptions:{map: map}
   });//用于搜索
@@ -421,7 +301,7 @@
   $(document).ready(function(){
     $.ajax({
       url:"getMap",
-      type:"post",
+      type:"get",
       data:{},
       dataType:"json",
       success:function(data){
@@ -444,29 +324,44 @@
     })
   });
   function getTrack() {
+    window.clearInterval(time1)
     map.clearOverlays();
     var startDate=$("#startDate").val();
     var startTime=$("#startTime").val()
     var endDate=$("#endDate").val()
     var endTime=$("#endTime").val()
+    if(startDate>endDate){
+      alert("开始时间小于结束时间！")
+      return false
+    }
+    if(startDate==endDate&&startTime>endTime){
+      alert("开始时间小于结束时间！")
+      return false
+    }
     var param=$("#license").val()
     var playSpeed=$("#playSpeed").val()
     $.ajax({
       url: "Track/getHistoryTrack",
-      type: "post",
+      type: "get",
       data: {fromDate:startDate+" "+startTime,toDate:endDate+" "+endTime,param:param},
-      dataType: "json",
       success: function (data) {
-        var map = new Map();
-        map.put("vehicle", data.vehicle)
-        map.put("vehiclePos", data.list);
-        var point=new BMap.Point(data.list[data.list.length-1].lng/100000,data.list[data.list.length-1].lat/100000)
-        console.log(point.lng)
-        map.put("currentPoint",point)
-        var car=setCar(data.vehicle.vehicleType,point,data.list[data.list.length-1].direction);
-        map.put("car",car)
-        vehicleList.push(map)
-        showTrack(car,data.vehicle,data.list,playSpeed)
+       if(data=="fail"){
+         alert(param+"在"+startDate+" "+startTime+"-"+endDate+" "+endTime+"间无行驶轨迹")
+         return false;
+       }else{
+         data=JSON.parse(data)
+         var map = new Map();
+         map.put("vehicle", data.vehicle)
+         map.put("vehiclePos", data.list);
+         var point=new BMap.Point(data.list[data.list.length-1].lng/100000,data.list[data.list.length-1].lat/100000)
+         console.log(point.lng)
+         map.put("currentPoint",point)
+         var constructP=new BMap.Point(data.list[0].lng/100000,data.list[0].lat/100000)
+         var car=setCar(data.vehicle.vehicleType,constructP,data.list[0].direction);
+         map.put("car",car)
+         vehicleList.push(map)
+         showTrack(car,data.vehicle,data.list,playSpeed)
+       }
       }
     })}
   function addArea() {
@@ -479,6 +374,10 @@
       success: function (data) {
         if (data == "fail")
           alert("请先登录")
+         else if(data=="NoPower"){
+          alert("没有操作权限");
+          return false
+        }
         else {
           $("#setBtn").click();
         }
@@ -490,41 +389,65 @@
   }
   /*5s*/
   /* setInterval(function(){
-   showVehiclePos(vehicleLicence, vehicle, devIDNO);
+   showVehiclePos(vehicleLicense, vehicle, devIDNO);
    }, "5000");*/
 
   /* map.addEventListener('click',mapClick)*/
   function showTrack(myCar,vehicle,vehiclePos,playSpeed){
-    $("#chepai").html(vehicle.vehicleLicence)
-    var sumSpeed= 0,averSpeed= 0,excetion;
+    $("#chepai").html(vehicle.vehicleLicense)
+    var sumSpeed= 0
+    var averSpeed= 0
+/*
+    var exception="";
+*/
     var count=0;
     map.addOverlay(myCar);
     var points=new Array();
+/*
+    var flag1=false,flag2=false;
+*/
     $(vehiclePos).each(function(index,element){
-      if(element.overSpeed==1)
-        exception="超速"
-      sumSpeed+=element.speed/10
+      /*if(!flag1) {
+        if (element.overSpeed == 1) {
+          exception += "超速 "
+          flag1 = true
+        }
+      }
+      if(!flag2) {
+        if (element.inefence == 1) {
+          exception += "越界"
+          flag2=true
+        }
+      }*/
+      sumSpeed+=element.speed
       count=index+1
       var point=new BMap.Point(element.lng/100000,element.lat/100000)
       points.push(point)
     })
     averSpeed=sumSpeed/count;
     $("#averSpeed").html(Math.round(averSpeed*100)/100+"km/h");
+/*
     $("#exception").html(exception)
+*/
     var index=0;
-    var time1=setInterval(function(){
-      var polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
-      myCar.setPosition(points[index+1])
-      myCar.setRotation(vehiclePos[index+1].direction)
-      var label=new BMap.Label(getLocalTime(vehiclePos[index+1].GPSTime));
-      myCar.setLabel(label)
-      index++;
+    time1=setInterval(function(){
       if(index>=points.length){
         window.clearInterval(time1)
         return
       }
-
-      map.addOverlay(polyLine)
+      if(vehiclePos[index+1]!=undefined) {
+        var polyLine;
+        if(vehiclePos[index].overSpeed==1&&vehiclePos[index+1].overSpeed==1)
+          polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
+        else
+          polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+        myCar.setPosition(points[index + 1])
+        myCar.setRotation(vehiclePos[index + 1].direction)
+        var label = new BMap.Label(getLocalTime(vehiclePos[index + 1].GPSTime));
+        myCar.setLabel(label)
+        map.addOverlay(polyLine)
+      }
+      index++;
     }, 10000/playSpeed);
   }
   function getLocalTime(now) {

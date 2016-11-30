@@ -11,26 +11,27 @@
   int currentPage=(Integer) request.getAttribute("currentPage");
   int lastPage=1;
   int nextPage=currentPage+1;
-  String url=request.getParameter("url");
-  System.out.print(url);
+  request.setCharacterEncoding("utf-8");
+  String url= request.getParameter("url");
 %>
 <div class="row text-right">
-  <ul class="page">
+  <nav>
+  <ul class="pagination">
     <%
       if(currentPage>1)
         lastPage=currentPage-1;
     %>
-    <li><a href="<%=url%>?pn=<%=lastPage%>"><</a></li>
+    <li><a href="<%=url%>pn=<%=lastPage%>"><span><</span></a></li>
     <%
       for(int i=1;i<=totalPage;i++){
         if(i==currentPage){
     %>
-    <li class="active"><a href="<%=url%>?pn=<%=currentPage%>"><%=currentPage%></a></li>
+    <li class="active"><a href="<%=url%>pn=<%=currentPage%>"><%=currentPage%></a></li>
     <%
     }
       else{
     %>
-    <li><a href="<%=url%>?pn=<%=i%>"><%=i%></a></li>
+    <li><a href="<%=url%>pn=<%=i%>"><%=i%></a></li>
     <%
         }
       }
@@ -39,6 +40,7 @@
       if(nextPage>totalPage)
         nextPage=totalPage;
     %>
-    <li><a href="<%=url%>?pn=<%=nextPage%>">></a></li>
+    <li><a href="<%=url%>pn=<%=nextPage%>"><span>></span></a></li>
   </ul>
+    </nav>
 </div>

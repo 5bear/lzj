@@ -6,13 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String Company= (String) session.getAttribute("company");
+%>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
@@ -24,6 +26,14 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <%--<style>--%>
+        <%--td.green {--%>
+            <%--background-color: #A6CE94;--%>
+        <%--}--%>
+        <%--td.yellow{--%>
+            <%--background-color: #FFD971;--%>
+        <%--}--%>
+    <%--</style>--%>
 </head>
 
 <body>
@@ -52,9 +62,19 @@
                 <select name="" id="year">
 
                 </select>
-                <select name="" id="company" onchange="javascript:setYear()">
+                <select name="" style="width:250px" id="company" onchange="javascript:setYear()">
+                    <%
+                        if(Company.equals("养护中心")||Company.equals("上海成基市政建设发展有限公司")){
+                    %>
                     <option value="上海成基市政建设发展有限公司"  selected="selected" >上海成基市政建设发展有限公司</option>
+                    <%
+                        }
+                        if(Company.equals("养护中心")||Company.equals("上海高架养护管理有限公司")){
+                    %>
                     <option value="上海高架养护管理有限公司"  >上海高架养护管理有限公司</option>
+                    <%
+                        }
+                    %>
                 </select>
                 <!--<button class="btn btn-default"><input onclick = init()>确定</button>-->
                 <input type="button" value = 确定 class="btn btn-default" onclick ="select1()"/>
@@ -124,8 +144,10 @@
         getCompany();
         $.ajax({
             url: "plan1/getYear",
-            type: "post",
+            type: "get",
+            async : false,
             dataType: "json",
+            async : false,                   //设置同步
             data: {
                 company:company
             },
@@ -136,18 +158,19 @@
                         yearArray.push(newYear);
                 })
                 uniqueArray(yearArray);
-                yearArray.sort(des);          //升序排列
+                yearArray.sort(des);
                 for(var i=0;i<yearArray.length;i++){
                     row6+="<option value='"+yearArray[i]+"' selected='selected'>"+yearArray[i]+"年</option>"
                 }
+                year=yearArray[yearArray.length-1];
                 $("#year").html(row6);
             }
         })
-        getYear();
         $.ajax({
             url: "plan1/search",
-            type: "post",
+            type: "get",
             dataType: "json",
+            async : false,
             data: {
                 company:company,
                 year:year
@@ -162,14 +185,16 @@
                         totaltime.push(data[index].time);
                         row1 = "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">" + BJ+". " + data[index].packageName + "</a></td>";
                         row2 = "<td class='table-th'>里程数</td>";
-                        for (var i = 1; i <= 13; i++) {
+                        for (var i = 1; i <= 12; i++) {
                             row2 += "<td id=" + "Mileage" + BJ + i + "></td>";
                         }
+                        row2 += "<td class='green' id=" + "Mileage" + BJ + 13 + "></td>";
                         row2 += "</tr>";
                         row3 = "<tr> <td>次数</td> ";
-                        for (var i = 1; i <= 13; i++) {
+                        for (var i = 1; i <= 12; i++) {
                             row3 += "<td id=" + "Time" + BJ + i + "></td> ";
                         }
+                        row3 += "<td class='yellow' id=" + "Time" + BJ + 13 + "></td> ";
                         row3 += "</tr>";
                         row += row1 + row2 + row3;
                         $("#context").html(row);
@@ -178,31 +203,57 @@
                 })
                 getTime(1);  //赋值totaldays
                 var a=0;
-                for(var BJ=1;BJ<=totalmileage.length;BJ++) {
+                for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
+                    var x=Number(totaltime[Bj-1]) % Number(totaldays);
+                    var y=0;
                     for (var i = 1; i <= 12; i++) {       //月份
-                       document.getElementById('Mileage' + BJ + i).innerHTML =Number( Math.round((Number(totalmileage[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
+                        //alert("包件"+Bj+j);
+                        y=0;
+                        if(x>=Number(getTime(i))){
+                            x=x-Number(getTime(i));
+                            y=Number(getTime(i));
+                        }
+                        else {
+                            y = x;
+                            x=0;
+                        }
+                        document.getElementById('Time'+Bj+i).innerHTML = parseInt(Number(totaltime[Bj-1]) / Number(totaldays)) * Number(getTime(i))+y;
                     }
-                    document.getElementById('Mileage' + BJ + '13').innerHTML = totalmileage[BJ-1];
+                    document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
+                }
+                for(var BJ=1;BJ<=totalmileage.length;BJ++) {
+                    var x=Number(totaltime[BJ-1]) % Number(totaldays);
+                    var y=0;
+                    for (var i = 1; i <= 12; i++) {       //月份
+                        y=0;
+                        if(x>=Number(getTime(i))){
+                            x=x-Number(getTime(i));
+                            y=Number(getTime(i));
+                        }
+                        else {
+                            y = x;
+                            x=0;
+                        }
+                        var m=parseInt(Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))+y;
+
+                       document.getElementById('Mileage' + BJ + i).innerHTML =(Math.round((Number(totalmileage[BJ-1]))*m)/1000);  //取整数
+                    }
+                    document.getElementById('Mileage' + BJ + '13').style.backgroundColor = "#A6CE94";
+                    document.getElementById('Mileage' + BJ + '13').innerHTML = (totalmileage[BJ-1] * totaltime[BJ-1]/1000);
                 }
                 row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数</td>";
                 for(var i=1;i<=12;i++) {
-                    row4 += "<td id="+"totalMileage"+ i +"></td>";
+                    row4 += "<td class='green' id="+"totalMileage"+ i +"></td>";
                 }
                 row4 +="<td rowspan='2' id='total'></td> </tr>";
                 row5 ="<tr><td>次数</td>"
                 for(var i=1;i<=12;i++) {
-                    row5 += "<td id="+"totalTime"+i+"></td>";
+                    row5 += "<td class='yellow' id="+"totalTime"+i+"></td>";
                 }
                 row5+="</tr>";
                 $("#total").html(row4+row5);
 
-                    for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
-                        for (var i = 1; i <= 12; i++) {       //月份
-                            //alert("包件"+Bj+j);
-                            document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[Bj-1]) / Number(totaldays))) * Number(getTime(i)));  //取整数
-                        }
-                        document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
-                    }
+
                 setTotalMileage();
                 setTotalTime();
             }
@@ -236,7 +287,7 @@
 
         $.ajax({
             url: "plan1/getYear",
-            type: "post",
+            type: "get",
             dataType: "json",
             data: {
                 company:company
@@ -296,6 +347,7 @@
             for (var Bj = 1; Bj <= BJcounts; Bj++) {    //包件
                 tolMileage += Number(document.getElementById("Mileage"+Bj+i).innerHTML);
             }
+
             document.getElementById('totalMileage'+ i).innerHTML = tolMileage;
         }
     }
@@ -320,7 +372,8 @@
         getYear();
         $.ajax({
             url: "plan1/search",
-            type: "post",
+            type: "get",
+            async : false,
             dataType: "json",
             data: {
                 company:company,
@@ -336,45 +389,74 @@
                     totaltime.push(data[index].time);
                     row1= "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">" + BJ+". " + data[index].packageName + "</a></td>";
                     row2 = "<td class='table-th'>里程数</td>";
-                    for (var i = 1; i <= 13; i++) {
-                        row2 += "<td id=" + "Mileage" + BJ + i + "></td>";
+                    for (var i = 1; i <= 12; i++) {
+                        row2 += "<td  id=" + "Mileage" + BJ + i + "></td>";
                     }
+                    row2 += "<td class='green' id=" + "Mileage" + BJ + 13 + "></td>";
                     row2 += "</tr>";
                     row3 = "<tr> <td>次数</td> ";
-                    for (var i = 1; i <= 13; i++) {
+                    for (var i = 1; i <= 12; i++) {
                         row3 += "<td id=" + "Time" + BJ + i + "></td> ";
                     }
+                    row3 += "<td class='yellow' id=" + "Time" + BJ + 13 + "></td>";
                     row3 += "</tr>";
                     row += row1 + row2 + row3;
                     $("#context").html(row);
 
                     BJ++;
                 })
-                for(var BJ=1;BJ<=totalmileage.length;BJ++) {
+                $("#Mileage"  + "113").css("background", "blue");
+                var a=0;
+                for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
+                    var x=Number(totaltime[Bj-1]) % Number(totaldays);
+                    var y=0;
                     for (var i = 1; i <= 12; i++) {       //月份
-                        document.getElementById('Mileage' + BJ + i).innerHTML =Number( Math.round((Number(totalmileage[BJ-1]) / Number(totaldays)) * Number(getTime(i))));  //取整数
+                        //alert("包件"+Bj+j);
+                        y=0;
+                        if(x>=Number(getTime(i))){
+                            x=x-Number(getTime(i));
+                            y=Number(getTime(i));
+                        }
+                        else {
+                            y = x;
+                            x=0;
+                        }
+                        document.getElementById('Time'+Bj+i).innerHTML = parseInt(Number(totaltime[Bj-1]) / Number(totaldays)) * Number(getTime(i))+y;
                     }
-                    document.getElementById('Mileage' + BJ + '13').innerHTML = totalmileage[BJ-1];
+                    document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
+                }
+                for(var BJ=1;BJ<=totalmileage.length;BJ++) {
+                    var x=Number(totaltime[BJ-1]) % Number(totaldays);
+                    var y=0;
+                    for (var i = 1; i <= 12; i++) {       //月份
+                        y=0;
+                        if(x>=Number(getTime(i))){
+                            x=x-Number(getTime(i));
+                            y=Number(getTime(i));
+                        }
+                        else {
+                            y = x;
+                            x=0;
+                        }
+                        var m=parseInt(Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))+y;
+
+                        document.getElementById('Mileage' + BJ + i).innerHTML =(Math.round((Number(totalmileage[BJ-1]))*m)/1000);  //取整数
+                    }
+                    document.getElementById('Mileage' + BJ + '13').style.backgroundColor = "#A6CE94";
+
+                    document.getElementById('Mileage' + BJ + '13').innerHTML = (totalmileage[BJ-1] * totaltime[BJ-1]/1000);
                 }
                 row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数</td>";
                 for(var i=1;i<=12;i++) {
-                    row4 += "<td id="+"totalMileage"+ i +"></td>";
+                    row4 += "<td class='green'  id="+"totalMileage"+ i +"></td>";
                 }
                 row4 +="<td rowspan='2' id='total'></td> </tr>";
                 row5 ="<tr><td>次数</td>"
                 for(var i=1;i<=12;i++) {
-                    row5 += "<td id="+"totalTime"+i+"></td>";
+                    row5 += "<td class='yellow' id="+"totalTime"+i+"></td>";
                 }
                 row5+="</tr>";
                 $("#total").html(row4+row5);
-
-                for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
-                    for (var i = 1; i <= 12; i++) {       //月份
-                        //alert("包件"+Bj+j);
-                        document.getElementById('Time'+Bj+i).innerHTML = Number( Math.round((Number(totaltime[Bj-1]) / Number(totaldays))) * Number(getTime(i)));  //取整数
-                    }
-                    document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
-                }
                 setTotalMileage();
                 setTotalTime();
             }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class MaintainLog {
     private Long id;
     private String company;//所属公司
-    private String vehicleLicence;//车辆牌照
+    private String vehicleLicense;//车辆牌照
     private String principal;//负责人
     private String road;//路段信息
     private String eventType;//事件类型
@@ -40,9 +40,9 @@ public class MaintainLog {
         this.company = company;
     }
 
-    @Column(length = 45,name = "vehicleLicence")
-    public String getVehicleLicence() { return vehicleLicence; }
-    public void setVehicleLicence(String vehicleLicence) { this.vehicleLicence = vehicleLicence; }
+    @Column(length = 45,name = "vehicleLicense")
+    public String getvehicleLicense() { return vehicleLicense; }
+    public void setvehicleLicense(String vehicleLicense) { this.vehicleLicense = vehicleLicense; }
 
     @Column(length = 45,name = "principal")
     public String getPrincipal() { return principal; }

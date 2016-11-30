@@ -22,13 +22,13 @@ public class Plan1Controller extends BaseController{
         modelAndView.setViewName("Plan1");
         return modelAndView;
     }
-    @RequestMapping(value="/search",method = RequestMethod.POST)
+    @RequestMapping(value="/search",method = RequestMethod.GET)
     @ResponseBody
     public String getMilliage(@RequestParam(value = "company") String company,@RequestParam(value = "year") String year){
         List<Package> packageList=packageDao.list("from Package where isDelete='0' and company like '%"+company+"%'and runtime like '"+year+"%'");
         return JSONArray.fromObject(packageList).toString();
     }
-    @RequestMapping(value="/getYear",method = RequestMethod.POST)
+    @RequestMapping(value="/getYear",method = RequestMethod.GET)
     @ResponseBody
     public String getYear(@RequestParam(value = "company") String company){
         List<Package> yearList=packageDao.list("from Package where isDelete='0' and company like '%"+company+"%'");

@@ -1,7 +1,4 @@
 package com.springapp.entity;
-
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -11,19 +8,9 @@ import java.sql.Timestamp;
 @Entity
 public class VehicleLine {
     private Long id;
-    private Long vehicle;
-    private String lineName;
-    private Long lineID;
-    private Timestamp timestamp;
-
-    @Column
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
+    private Line line;
+    private Long lng;
+    private Long lat;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,30 +22,31 @@ public class VehicleLine {
         this.id = id;
     }
 
-    @Column
-    public Long getVehicle() {
-        return vehicle;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "line")
+    public Line getLine() {
+        return line;
     }
 
-    public void setVehicle(Long vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    @Column(length = 45)
-    public String getLineName() {
-        return lineName;
-    }
-
-    public void setLineName(String lineName) {
-        this.lineName = lineName;
+    public void setLine(Line line) {
+        this.line = line;
     }
 
     @Column
-    public Long getLineID() {
-        return lineID;
+    public Long getLng() {
+        return lng;
     }
 
-    public void setLineID(Long lineID) {
-        this.lineID = lineID;
+    public void setLng(Long lng) {
+        this.lng = lng;
+    }
+
+    @Column
+    public Long getLat() {
+        return lat;
+    }
+
+    public void setLat(Long lat) {
+        this.lat = lat;
     }
 }

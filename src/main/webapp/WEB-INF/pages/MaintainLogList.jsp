@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -77,7 +77,7 @@
                             <c:forEach items="${MaintainLogList}" var="maintainLog">
                                 <tr>
                                     <td>${maintainLog.id}</td>
-                                    <td>${maintainLog.vehicleLicence}</td>
+                                    <td>${maintainLog.vehicleLicense}</td>
                                     <td>${maintainLog.principal}</td>
                                     <td>${maintainLog.road}</td>
                                     <td>${maintainLog.eventType}</td>
@@ -140,7 +140,7 @@
 
     function MaintainLog_detail(id)
     {
-        location.href="MaintainLogDetail?id="+id;
+        location.href="MaintainLog/get?id="+id;
 
 
     }
@@ -148,7 +148,7 @@
     {
         alert("delete");
         $.ajax({
-            url:"MaintainLogDelete",
+            url:"MaintainLog/delete",
             type:"post",
             data:{id:id},
             success:function(){

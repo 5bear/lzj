@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -17,14 +17,14 @@
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="<%=request.getContextPath()%>/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -54,13 +54,13 @@
                 <div class="row">
                     <div class="col-lg-12 time-row text-right">
                         <div class="search-div">
-                            <img src="images/search1.png" alt="搜索"/>
-                            <input type="text" id="search" placeholder="请输入包件名称" value="${name}"  onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
+                            <img src="<%=request.getContextPath()%>/images/search1.png" alt="搜索"/>
+                            <input  type="text" id="search" placeholder="请输入包件名称/公司" value="${name}"  onkeypress="if(event.keyCode==13) {subSearch.click();return false;}"/>
                         </div>
                         <button id="subSearch" name="subSearch" type="button" class="btn btn-default" onclick="searchPackage()">搜索</button>
                     </div>
                     <div class="col-lg-12 time-row">
-                        <a href="PackageAdd0" class="add-operation"><img src="images/add1.png" alt="增加"/>新增包件信息</a>
+                        <a href="<%=request.getContextPath()%>/Package/add" class="add-operation"><img src="<%=request.getContextPath()%>/images/add1.png" alt="增加"/>新增包件信息</a>
                     </div>
                     <div class="col-lg-12 text-center">
                         <table class="table">
@@ -70,7 +70,7 @@
                                 <th>包件名称</th>
                                 <th>总里程</th>
                                 <th>实际里程</th>
-                                <th>包含路段名称</th>
+                              <%--  <th>包含路段名称</th>--%>
                                 <th>次数</th>
                                 <th>执行时间</th>
                                 <th>包件描述</th>
@@ -86,14 +86,14 @@
                                     <td>${item.packageName}</td>
                                     <td>${item.distance}</td>
                                     <td>${item.realDistance}</td>
-                                    <td>${item.roads}</td>
+                                  <%--  <td>${item.roads}</td>--%>
                                     <td>${item.time}</td>
                                     <td>${item.runtime}</td>
                                     <td>${item.remark}</td>
                                     <td>${item.inputMan}</td>
                                     <td>
-                                        <a onclick="editPackage('${item.id}')" class="operation"><label><img src="images/edit.png" alt="编辑">编辑</label></a>
-                                        <a data-toggle="modal" data-target="#delete" onclick="getId(${item.id})"  class="operation"><label><img src="images/delete1.png" alt="删除">删除</label></a>
+                                        <a onclick="editPackage('${item.id}')" class="operation"><label><img src="<%=request.getContextPath()%>/images/edit.png" alt="编辑">编辑</label></a>
+                                        <a data-toggle="modal" data-target="#delete" onclick="getId(${item.id})"  class="operation"><label><img src="<%=request.getContextPath()%>/images/delete1.png" alt="删除">删除</label></a>
 
                                     </td>
                                 </tr>
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deletePackage()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deletePackage(${PackageList.offset},${PackageList.total},${PackageList.size})">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -150,9 +150,9 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.js"></script>
 
 <script type="text/javascript">
 
@@ -165,21 +165,32 @@
 
     function editPackage(id)
     {
-        location.href="PackageEdit?id="+id;
+        location.href="<%=request.getContextPath()%>/Package/edit?id="+id;
 
 
     }
-    function deletePackage()
+    function deletePackage(offset,total,size)
     {
         $.ajax({
-            url:"PackageDelete",
+            url:"<%=request.getContextPath()%>/Package/delete",
             type:"post",
             data:{id:id},
             success:function(data){
 
                 if(data=="success"){
-                    location.reload();
-                }else {
+
+                    if(total%size==1){
+                        var name = $("#search").val();
+                        if (name == null) {
+                            name = "";
+                        }
+                        window.location = "?name=" + name + "&pager.offset=" + (offset-size);
+                    }else{
+                        location.reload();
+                    }
+                }else if(data=="NoPower")
+                    alert("无操作权限")
+                else {
                     //alert("包含路段不为空,此时不能删除该包件!");
                     $('#false').modal('show');
                 }

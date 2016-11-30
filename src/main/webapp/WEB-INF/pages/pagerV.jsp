@@ -70,7 +70,7 @@
         if(offset<0){
             return;
         } else if(offset<total){
-            var goPath = "Vehicle?pager.offset="+offset;
+            var goPath = "<%=request.getContextPath()%>/Vehicle/list?pager.offset="+offset;
             if(typeof(type) != "undefined" && type!=null && type!="0"){
                 goPath+="&type="+type;
             }
@@ -98,7 +98,7 @@
         if(offset<0){
             return;
         } else if(offset<total){
-            var goPath = "Vehicle?pager.offset="+offset;
+            var goPath = "<%=request.getContextPath()%>/Vehicle/list?pager.offset="+offset;
             if(typeof(type) != "undefined" && type!=null && type!="0"){
                 goPath+="&type="+type;
             }
@@ -125,7 +125,7 @@
         if(offset<0){
             return;
         } else if(offset<total){
-            var goPath = "Vehicle?pager.offset="+offset;
+            var goPath = "<%=request.getContextPath()%>/Vehicle/list?pager.offset="+offset;
             if(typeof(type) != "undefined" && type!=null && type!="0"){
                 goPath+="&type="+type;
             }

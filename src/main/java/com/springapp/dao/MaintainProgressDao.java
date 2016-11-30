@@ -1,9 +1,11 @@
 package com.springapp.dao;
 
+
 import com.springapp.entity.MaintainProgress;
 import com.springapp.entity.Package;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  */
 @Repository
 public class MaintainProgressDao extends BaseDao {
+
     public MaintainProgress getById(Long id){
         return this.get(MaintainProgress.class,id);
     }

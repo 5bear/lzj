@@ -1,5 +1,7 @@
 package com.springapp.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -8,10 +10,12 @@ import java.sql.Timestamp;
  * 报警信息
  */
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class VehiclePos {
     private Long id;
     private String serialNumber;
     private String devIDNO;
+    private int status;//1表示取过
     private Long lng;
     private Long lat;
     private String direction;
@@ -24,6 +28,16 @@ public class VehiclePos {
     private int OilMass;//油量
     private int ParkTime;//停车时间
     private Timestamp GpsTime;//gps时间
+
+    @Column
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {

@@ -12,14 +12,34 @@ public class Position {
     private Long id;
     private String vehicle;//车牌
     private Long vehicleId;//车辆id
+    private String company;
     private Double lng;
     private Double lat;
+    private String coords;
     private String driver;//驾驶员
     private String beginTime;//开始时间
     private String stopTime;//结束时间
     private String createTime;//添加时间
     private String editTime;//修改时间
     private String deleteTime;//删除时间
+    private String road;
+    @Column
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    @Column
+    public String getCoords() {
+        return coords;
+    }
+
+    public void setCoords(String coords) {
+        this.coords = coords;
+    }
 
     @Column
     public Double getLng() {
@@ -110,5 +130,14 @@ public class Position {
 
     public void setDeleteTime(String deleteTime) {
         this.deleteTime = deleteTime;
+    }
+
+    @Column
+    public String getRoad() {
+        return road;
+    }
+
+    public void setRoad(String road) {
+        this.road = road;
     }
 }

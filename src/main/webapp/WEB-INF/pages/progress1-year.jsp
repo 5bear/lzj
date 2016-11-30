@@ -7,9 +7,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String Company= (String) session.getAttribute("company");
+%>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -59,10 +62,24 @@
     <div class="arrow-down arrow-down1"></div>
     </div>
     <ul class="dropdown-menu panel-menu">
-    <li class="dropdown dropdown2">
-    <a href="#" onclick="AllCompany1()">所有公司</a>
-    </li>
-    <li class="dropdown dropdown2">
+
+
+        <%
+            if(Company.equals("养护中心")){
+        %>
+        <li class="dropdown dropdown2">
+    <a href="#" onclick="AllCompany()">所有公司</a>
+        </li>
+        <%
+            }
+        %>
+
+
+
+        <%
+            if(Company.equals("养护中心")||Company.equals("上海成基市政建设发展有限公司")){
+        %>
+        <li class="dropdown dropdown2">
     <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
     <div class="arrow-section arrow-section2">
     <div class="arrow-down arrow-down2"></div>
@@ -74,7 +91,7 @@
                 </div>
             </li>
         </ul>
-    <c:forEach items="${chengjiCompany}" var="item">
+    <c:forEach items="${chengjiCompany}" var="item" varStatus="status">
     <ul class="dropdown-menu panel-menu">
     <li class="dropdown dropdown3">
         <a href="#" data-toggle="droplist">${item.packageName}</a>
@@ -85,18 +102,25 @@
         <script>
             var roads='${item.roads}';
             var road = roads.split(',');
-            var a="AllRoads";
-            var packageName1="${item.packageName}";
-            document.write("<li onclick='CJgetRoad("+packageName1+","+a+")'><a href='#'>所有路段</a></li>");
-            for(var i=0;i<road.length;i++){
-                document.write("<li onclick='CJgetRoad("+packageName1+","+road[i]+")'><a href='#'>"+road[i]+"</a></li>");
+            var a="AllRoads1"+'${status.index}';
+            var packageName1='${item.packageName}';
+            if(roads=="")
+                roads = "NoRoads";
+            document.write("<li><a href='#' id='AllRoads1"+'${status.index}'+"' value="+roads+" onclick='CJgetRoad("+"\""+packageName1+"\""+","+"\""+a+"\""+")'>所有路段</a></li>");
+            if(roads != "NoRoads") {
+                for (var i = 0; i < road.length; i++) {
+                    document.write("<li><a href='#'onclick='CJgetRoad(" + "\"" + packageName1 + "\"" + "," + "\"" + road[i] + "\"" + ")'>" + road[i] + "</a></li>");
+                }
             }
         </script>
     </ul>
     </li>
     </ul>
     </c:forEach>
-
+            <%
+                        }
+                        if(Company.equals("养护中心")||Company.equals("上海高架养护管理有限公司")){
+                    %>
     <li class="dropdown dropdown2">
     <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
     <div class="arrow-section arrow-section2">
@@ -109,7 +133,7 @@
                 </div>
             </li>
         </ul>
-        <c:forEach items="${gaojiaCompany}" var="item">
+        <c:forEach items="${gaojiaCompany}" var="item" varStatus="status">
     <ul class="dropdown-menu panel-menu">
     <li class="dropdown dropdown3">
         <a href="#" data-toggle="droplist">${item.packageName}</a>
@@ -120,11 +144,15 @@
         <script>
             var roads='${item.roads}';
             var road = roads.split(',');
-            var a="AllRoads";
+            var a="AllRoads2"+'${status.index}';
             var packageName1='${item.packageName}';
-            document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+a+")'>所有路段</a></li>");
-            for(var i=0;i<road.length;i++){
-                document.write("<li><a href='#' onclick='GJgetRoad("+packageName1+","+road[i]+")'>"+road[i]+"</a></li>");
+            if(roads=="")
+                roads = "NoRoads";
+            document.write("<li><a href='#' id='AllRoads2"+'${status.index}'+"' value="+roads+" onclick='GJgetRoad("+"\""+packageName1+"\""+","+"\""+a+"\""+")'>所有路段</a></li>");
+            if(roads != "NoRoads") {
+                for (var i = 0; i < road.length; i++) {
+                    document.write("<li><a href='#'onclick='GJgetRoad(" + "\"" + packageName1 + "\"" + "," + "\"" + road[i] + "\"" + ")'>" + road[i] + "</a></li>");
+                }
             }
         </script>
     </ul>
@@ -132,7 +160,11 @@
 
     </ul>
         </c:forEach>
+
     </li>
+        <%
+            }
+        %>
     </ul>
     </li>
     </div>
@@ -149,8 +181,8 @@
     <option value="year" selected="selected">本年</option>
     </select>
     </div>
-    <div class="col-sm-12 text-center table-title time-row">
-    上海市全包件工作情况
+    <div class="col-sm-12 text-center table-title time-row" id="title">
+    工作情况
     </div>
     </div>
 
@@ -177,35 +209,36 @@
             <tbody id="work">
             <tr>
                 <td>有效作业率<br/>(单位：%)</td>
-                <td class="green"><a href="Progress1">80</a></td>
-                <td class="green"><a href="Progress1">90</a></td>
-                <td class="green"><a href="Progress1">100</a></td>
-                <td class="green"><a href="Progress1">97</a></td>
-                <td class="green"><a href="Progress1">100</a></td>
-                <td class="green"><a href="Progress1">89</a></td>
-                <td class="green"><a href="Progress1">70</a></td>
-                <td class="green"><a href="Progress1">80</a></td>
-                <td class="green"><a href="Progress1">84</a></td>
-                <td class="green"><a href="Progress1">90</a></td>
-                <td class="green"><a href="Progress1">80</a></td>
-                <td class="green"><a href="Progress1">100</a></td>
-                <td class="green"><a href="Progress1">94</a></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
             </tr>
             <tr>
                 <td>匝道覆盖率<br/>(单位：%)</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
-                <td>80</td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+
             </tr>
         </tbody>
             </tbody>
@@ -234,326 +267,244 @@
         var obj = $("#select-time").val();
         var myDate = new Date();
         var year1 = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
-        var month1 = myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+        var month1 = myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
         var day1 = myDate.getDate();        //获取当前日(1-31)
+        var month2="";
+        var day2="";
+        if(month1<10)
+            month2="0"+month1;
+        else
+            month2=month1;
+        if(day1<10)
+            day2="0"+day1;
+        else
+            day2=day1;
         if(obj == "day"){
-            window.location.href="progress1-day?year="+year1+"&month="+month1+"&day="+day1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;
+            window.location.href="progress1-day?year="+year1+"&month="+month2+"&day="+day2+ "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;
         }
         else if(obj == "month"){
-            window.location.href="Progress1?year="+year1+"&month="+month1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
-        else {window.location.href="progress1-year?year="+year1+"&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
+            window.location.href="Progress1?year="+year1+"&month="+month2+ "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
+        else {window.location.href="progress1-year1?company=" + company + "&packageName=" + packagename + "&Roads=" + roads;}
     });
     var colour="";
-    var packagename,roads;
-    var company;
+    var packagename;
+
     var EffectiveDistance;
     var EffectiveCoverage;
     var year;
     var work1 = "";
     var zadao1 = "";
+    var company= '${company}';
+    var packageName= '${packageName}';
+    var Roads='${Roads}';
+    $(document).ready(function () {
+        roads.length=0;
+        if(Roads==0){
+            AllCompany(company);
+        }
+        else if(company != 0 && packageName!=0 &&Roads!=0) {
+            packagename=packageName;
+            if(packagename.substr(packagename.length-4,4)=="所有路段")
+                document.getElementById("title").innerHTML=company+" "+packagename+"工作情况";
+            else if(packagename=="AllPackage")
+                document.getElementById("title").innerHTML=company+" "+"所有包件工作情况";
+            else if(packagename=="Allcompany") {
+                document.getElementById("title").innerHTML = "上海市全公司全包件工作情况";
+                AllCompany(company);
+            }
+            else
+                document.getElementById("title").innerHTML=company+" "+packagename+" "+Roads+"工作情况";
+            roads = Roads.split(',');
+            getYear();
+            work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+            zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+            getTable(roads);
+            getdata();
+        }
+    });
+    function AllCompany(company){
+        roads.length=0;
+        packagename="Allcompany";
+        if(company == '养护中心')
+            document.getElementById("title").innerHTML="上海市全公司全包件工作情况";
+        else if(company == '上海成基市政建设发展有限公司')
+            document.getElementById("title").innerHTML="上海成基市政建设发展有限公司全包件工作情况";
+        else if(company == '上海高架养护管理有限公司')
+            document.getElementById("title").innerHTML="上海高架养护管理有限公司全包件工作情况";
+        $.ajax({
+            url:"progress1/AllCompany",
+            type:"get",
+            dataType: "json",
+            async : false,                   //设置同步
+            data:{
+                company:company,
+            },
+            success: function (data) {
+                var lineName="";
+                $(data).each(function (index) {
+                    lineName=data[index].line;
+                    roads.push(lineName);
+                })
+            }
+        });
+        getYear();
+        work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+        zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+        getTable(roads);
+        getdata();
+    }
     function CJgetRoad(packageName,Roads){
+        roads.length=0;
         company="上海成基市政建设发展有限公司";
         packagename=packageName;
-        roads=Roads;
-        alert(company);
-        alert(packagename);
-        alert(roads);
-        if(Roads=="AllRoads"){
-            getYear();
-            getTable1();
+        if(Roads.substr(0,9)=="AllRoads1") {
+            packagename=packagename+" "+"所有路段";
+            var b = document.getElementById(Roads).getAttribute("value");
+            roads = b.split(',');
+            document.getElementById("title").innerHTML=company+" "+packagename+"工作情况";
         }
-        else if(packagename=="AllPackage" && roads=="xxx"){
-            getyear();
+        else if(packagename=="AllPackage" && Roads=="xxx"){
             getTableAllPackage();
+            document.getElementById("title").innerHTML=company+" "+"所有包件工作情况";
         }
         else {
-            getYear();
-            getTable();
+            roads.push(Roads);
+            document.getElementById("title").innerHTML=company+" "+packagename+" "+roads[0]+"工作情况";
         }
+        getYear();
+        work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+        zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+
+        getTable(roads);
+        getdata();
     }
     function GJgetRoad(packageName,Roads){
+        roads.length=0;
         company="上海高架养护管理有限公司";
         packagename=packageName;
-        roads=Roads;
-        if(roads=="AllRoads"){
-            getYear();
-            getTable1();
+        if(Roads.substr(0,9)=="AllRoads2"){
+            packagename=packagename+" "+"所有路段";
+            var b = document.getElementById(Roads).getAttribute("value");
+            roads = b.split(',');
+            document.getElementById("title").innerHTML=company+" "+packagename+"工作情况";
         }
-        else if(packagename=="AllPackage" && roads=="xxx"){
-            getyear();
+        else if(packagename=="AllPackage" && Roads=="xxx"){
             getTableAllPackage();
+            document.getElementById("title").innerHTML=company+" "+"所有包件工作情况";
         }
         else {
-            getYear();
-            getTable();
+            roads.push(Roads);
+            document.getElementById("title").innerHTML=company+" "+packagename+" "+roads[0]+"工作情况";
         }
+        getYear();
+        work1="<tr><td>有效作业率<br/>(单位：%)</td>";
+        zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
+
+        getTable(roads);
+
+        getdata();
     }
-    function AllCompany1(){
-        getyear();
-        getTableAll();
-    }
+
     function getYear(){
         var myDate = new Date();
         year = myDate.getFullYear();
     }
+    var roads=new Array();
     function getTableAllPackage(){
+        roads.length=0;
         $.ajax({
-            url:"progress1-year/getMonthByYearAllPackage",
-            type:"post",
+            url: "progress1/AllPackage",
+            type: "get",
             dataType: "json",
-            data:{
-                year:year,
-                company:company
+            async : false,                   //设置同步
+            data: {
+                company: company
             },
-            success:function(data) {
-                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
-                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
-                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
+            success: function (data) {
+                var lineName="";
                 $(data).each(function (index) {
-                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        Distance[0]+=data[index].distance;
-                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
-                    }else if(data[index].time.substr(5,2)=="02"){
-                        Distance[1]+=data[index].distance;
-                        Coverage[1]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="03"){
-                        Distance[2]+=data[index].distance;
-                        Coverage[2]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="04"){
-                        Distance[3]+=data[index].distance;
-                        Coverage[3]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="05"){
-                        Distance[4]+=data[index].distance;
-                        Coverage[4]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="06"){
-                        Distance[5]+=data[index].distance;
-                        Coverage[5]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="07"){
-                        Distance[6]+=data[index].distance;
-                        Coverage[6]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="08"){
-                        Distance[7]+=data[index].distance;
-                        Coverage[7]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="09"){
-                        Distance[8]+=data[index].distance;
-                        Coverage[8]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="10"){
-                        Distance[9]+=data[index].distance;
-                        Coverage[9]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="11"){
-                        Distance[10]+=data[index].distance;
-                        Coverage[10]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="12"){
-                        Distance[11]+=data[index].distance;
-                        Coverage[11]+=data[index].coverage;
-                    }
+                    lineName=data[index].line;
+                    roads.push(lineName);
                 })
-                getdata(Distance,Coverage);                                       //作业+匝道
-                work1+= "<td>total</td></tr>"
-                zadao1 += "<td>total</td></tr>"
-                $("#work").html(work1 + zadao1);
-            }
-        });
-    }
-    function getTable1(){
-        $.ajax({
-            url:"progress1-year/getMonthByYear1",
-            type:"post",
-            dataType: "json",
-            data:{
-                year:year,
-                company:company,
-                packageName:packagename
-            },
-            success:function(data) {
-                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
-                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
-                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
-                $(data).each(function (index) {
-                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        Distance[0]+=data[index].distance;
-                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
-                    }else if(data[index].time.substr(5,2)=="02"){
-                        Distance[1]+=data[index].distance;
-                        Coverage[1]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="03"){
-                        Distance[2]+=data[index].distance;
-                        Coverage[2]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="04"){
-                        Distance[3]+=data[index].distance;
-                        Coverage[3]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="05"){
-                        Distance[4]+=data[index].distance;
-                        Coverage[4]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="06"){
-                        Distance[5]+=data[index].distance;
-                        Coverage[5]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="07"){
-                        Distance[6]+=data[index].distance;
-                        Coverage[6]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="08"){
-                        Distance[7]+=data[index].distance;
-                        Coverage[7]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="09"){
-                        Distance[8]+=data[index].distance;
-                        Coverage[8]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="10"){
-                        Distance[9]+=data[index].distance;
-                        Coverage[9]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="11"){
-                        Distance[10]+=data[index].distance;
-                        Coverage[10]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="12"){
-                        Distance[11]+=data[index].distance;
-                        Coverage[11]+=data[index].coverage;
-                    }
-                })
-                getdata(Distance,Coverage);                                       //作业+匝道
-                work1+= "<td>total</td></tr>"
-                zadao1 += "<td>total</td></tr>"
-                $("#work").html(work1 + zadao1);
-            }
-        });
-    }
-    function getTableAll(){
-        $.ajax({
-            url:"progress1-year/getMonthByYearAll",
-            type:"post",
-            dataType: "json",
-            data:{
-                year:year
-            },
-            success:function(data) {
-                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
-                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
 
-                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
-                $(data).each(function (index) {
-                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        Distance[0]+=data[index].distance;
-                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
-                    }else if(data[index].time.substr(5,2)=="02"){
-                        Distance[1]+=data[index].distance;
-                        Coverage[1]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="03"){
-                        Distance[2]+=data[index].distance;
-                        Coverage[2]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="04"){
-                        Distance[3]+=data[index].distance;
-                        Coverage[3]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="05"){
-                        Distance[4]+=data[index].distance;
-                        Coverage[4]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="06"){
-                        Distance[5]+=data[index].distance;
-                        Coverage[5]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="07"){
-                        Distance[6]+=data[index].distance;
-                        Coverage[6]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="08"){
-                        Distance[7]+=data[index].distance;
-                        Coverage[7]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="09"){
-                        Distance[8]+=data[index].distance;
-                        Coverage[8]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="10"){
-                        Distance[9]+=data[index].distance;
-                        Coverage[9]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="11"){
-                        Distance[10]+=data[index].distance;
-                        Coverage[10]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="12"){
-                        Distance[11]+=data[index].distance;
-                        Coverage[11]+=data[index].coverage;
-                    }
-                })
-                getdata(Distance,Coverage);                                       //作业+匝道                                       //作业+匝道
-                work1+= "<td>total</td></tr>"
-                zadao1 += "<td>total</td></tr>"
-                $("#work").html(work1 + zadao1);
             }
-        });
+        })
     }
-    function getTable(){
+
+    function getTable(roads){
         $.ajax({
             url:"progress1-year/getMonthByYear",
-            type:"post",
-            dataType: "json",
+            type:"get",
             data:{
                 year:year,
-                company:company,
-                packageName:packagename,
                 Roads:roads
             },
+            traditional: true,
+            dataType: "json",
+            async : false,                   //设置同步
             success:function(data) {
-                work1="<tr><td>有效作业率<br/>(单位：%)</td>";
-                zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-                var Distance=[0,0,0,0,0,0,0,0,0,0,0,0];
+                getTotal(data);                                       //作业+匝道                                       //作业+匝道
 
-                var Coverage=[0,0,0,0,0,0,0,0,0,0,0,0];
-                $(data).each(function (index) {
-                    if(data[index].time.substr(5,2)=="01"){                  //////////在某年所有时间里找相同月份
-                        Distance[0]+=data[index].distance;
-                        Coverage[0]+=data[index].coverage;                    ///建立string数组存储匝道覆盖，未清扫为N的情况
-                    }else if(data[index].time.substr(5,2)=="02"){
-                        Distance[1]+=data[index].distance;
-                        Coverage[1]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="03"){
-                        Distance[2]+=data[index].distance;
-                        Coverage[2]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="04"){
-                        Distance[3]+=data[index].distance;
-                        Coverage[3]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="05"){
-                        Distance[4]+=data[index].distance;
-                        Coverage[4]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="06"){
-                        Distance[5]+=data[index].distance;
-                        Coverage[5]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="07"){
-                        Distance[6]+=data[index].distance;
-                        Coverage[6]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="08"){
-                        Distance[7]+=data[index].distance;
-                        Coverage[7]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="09"){
-                        Distance[8]+=data[index].distance;
-                        Coverage[8]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="10"){
-                        Distance[9]+=data[index].distance;
-                        Coverage[9]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="11"){
-                        Distance[10]+=data[index].distance;
-                        Coverage[10]+=data[index].coverage;
-                    }else if(data[index].time.substr(5,2)=="12"){
-                        Distance[11]+=data[index].distance;
-                        Coverage[11]+=data[index].coverage;
-                    }
-                })
-                getdata(Distance,Coverage);                                       //作业+匝道                                       //作业+匝道
-                work1+= "<td>total</td></tr>"
-                zadao1 += "<td>total</td></tr>"
-                $("#work").html(work1 + zadao1);
             }
         });
     }
-    function getdata(distance,coverage){
+    var totalDistance=[0,0,0,0,0,0,0,0,0,0,0,0];
+    var totalCoverage=[0,0,0,0,0,0,0,0,0,0,0,0];
+    function getTotal(distance){
+
         for(var a= 0;a<12;a++)
         {
-            EffectiveDistance = distance[a];
-            EffectiveCoverage = coverage[a];
-            setTable(a+1);
+            totalDistance[a]+=distance[a];
         }
+        for(var b= 12;b<24;b++)
+        {
+            totalCoverage[b-12]+=distance[b];
+        }
+        toDistance=distance[24];
+        toCoverage=distance[25];
+        if(toDistance>100)
+            toDistance=100;
+        if(toCoverage>100)
+            toCoverage=100;
     }
+
+
+    var toDistance = 0;  //合计
+    var toCoverage = 0;  //合计
+    function getdata(){
+        for(var a= 0;a<12;a++) {
+            EffectiveDistance = (totalDistance[a]).toFixed(2);
+            EffectiveCoverage=(totalCoverage[a]).toFixed(2);
+            if(EffectiveDistance>100) {
+                EffectiveDistance = "100.00";
+            }
+
+            if(EffectiveCoverage>100) {
+                EffectiveCoverage = "100.00";
+            }
+            setTable(a + 1);
+        }
+
+        work1+= "<td>"+(toDistance).toFixed(2)+"%</td></tr>"
+        zadao1 += "<td>"+(toCoverage).toFixed(2)+"%</td></tr>"
+        $("#work").html(work1 + zadao1);
+        toDistance=0;
+        toCoverage=0;
+        totalDistance=[0,0,0,0,0,0,0,0,0,0,0,0];
+        totalCoverage=[0,0,0,0,0,0,0,0,0,0,0,0];
+    }
+
     function setTable(month) {
-        if (EffectiveDistance >=1 && EffectiveDistance <= 59)
+        var Month="";
+        if(month<10)
+            Month="0"+month;
+        else
+            Month=month;
+        if (EffectiveDistance >=0 && EffectiveDistance <= 59)
             colour = "red";
         else if (EffectiveDistance >=60 && EffectiveDistance <= 79)
             colour = "yellow";
-        else if (EffectiveDistance >=80 && EffectiveDistance <= 100)
+        else if (EffectiveDistance >=80 )
             colour = "green";
         if (EffectiveDistance == 0) {
             work1 += "<td >N</td>";
@@ -561,9 +512,9 @@
             zadao1 += " <td></td>";
         }
         else {
-            work1 += "<td class=" + colour + "><a href='Progress1?year=" + year +"&month=" + month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance + "</a></td>";
+            work1 += "<td class=" + colour + "><a href='Progress1?year=" + year +"&month=" + Month + "&company=" + company + "&packageName=" + packagename + "&Roads=" + roads + "'>" + EffectiveDistance +"%"+ "</a></td>";
 
-            zadao1 += " <td>" + EffectiveCoverage + "</td>";
+            zadao1 += " <td>" + EffectiveCoverage +"%"+ "</td>";
         }
     }
 

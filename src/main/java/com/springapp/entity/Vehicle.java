@@ -12,7 +12,7 @@ public class Vehicle {
     private Long id;
     private String company;//所属公司
     private String vehicleType;//车辆类型
-    private String vehicleLicence;//车辆牌照
+    private String vehicleLicense;//车辆牌照
     private String vehicleModel;//车辆型号
     private String eFence;//电子围栏
     private Long eFenceId;//
@@ -27,13 +27,13 @@ public class Vehicle {
     public int getIsDelete(){return isDelete;}
     public void setIsDelete(int isDelete){this.isDelete=isDelete;}
 
-    @Column(length = 45,name = "vehicleLicence")
-    public String getVehicleLicence() {
-        return vehicleLicence;
+    @Column(length = 45,name = "vehicleLicense")
+    public String getvehicleLicense() {
+        return vehicleLicense;
     }
 
-    public void setVehicleLicence(String vehicleLicence) {
-        this.vehicleLicence = vehicleLicence;
+    public void setvehicleLicense(String vehicleLicense) {
+        this.vehicleLicense = vehicleLicense;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

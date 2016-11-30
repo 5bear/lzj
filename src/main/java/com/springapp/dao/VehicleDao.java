@@ -2,6 +2,7 @@ package com.springapp.dao;
 
 
 import com.springapp.classes.model.Pager;
+import com.springapp.classes.model.SystemContext;
 import com.springapp.entity.Vehicle;
 import org.springframework.stereotype.Repository;
 
@@ -9,24 +10,54 @@ import java.util.List;
 
 @Repository
 public class VehicleDao extends BaseDao1<Vehicle> {
+
+    public void deletePosition(Long vid){
+        String hql = "delete from Position where vehicleId=?";
+        this.updateByHql(hql,vid);
+    }
+
+
     public Vehicle getById(Long id){
         return this.get(id);
     }
-    public Pager<Vehicle> getPager(String type,String con){
+    public Pager<Vehicle> getPager(String type,String con,String company){
 
         String hql = "from Vehicle where isDelete=0";
         if (!"0".equals(type.trim())){
             hql+=" and vehicleType='"+type+"'";
         }
+        if(!"养护中心".equals(company)){
+            hql+=" and company='"+company+"'";
+        }
         if (!"".equals(con.trim())){
-            hql += " and (company like '%"+con+"%' or vehicleLicence like '%"+con+"%' or vehicleModel like '%"+con+"%')";
+            hql += " and (company like '%"+con+"%' or vehicleLicense like '%"+con+"%' or vehicleModel like '%"+con+"%')";
         }
         return this.find(hql);
+
+    }
+
+    public List<Vehicle> getList(String company,String type){
+
+        String hql = "from Vehicle where isDelete=0" ;
+        if(!"养护中心".equals(company)){
+            hql+=" and company='"+company+"'";
+        }
+
+        if(!"".equals(type)){
+            hql+=" and vehicleType='"+type+"'";
+        }
+        return this.list(hql);
 
     }
     public List<Vehicle> getList(){
 
         String hql = "from Vehicle where isDelete=0";
+        return this.list(hql);
+
+    }
+    public List<Vehicle> getListOBUID(){
+
+        String hql = "from Vehicle where isDelete=0 and OBUId !=''";
         return this.list(hql);
 
     }
@@ -36,16 +67,16 @@ public class VehicleDao extends BaseDao1<Vehicle> {
         this.updateByHql(hql, new Object[]{newName,oldName});
 
     }
-    public Vehicle getByVehicleLicence(String vehicleLicence)
+    public Vehicle getByvehicleLicense(String vehicleLicense)
     {
-        String hql = "from Vehicle where isDelete=0 and vehicleLicence='"+vehicleLicence+"'";
+        String hql = "from Vehicle where isDelete=0 and vehicleLicense='"+vehicleLicense+"'";
         return (Vehicle)this.queryObject(hql);
     }
 
 
 
     public Vehicle getByName(String name) {
-        String hql = "from Vehicle where vehicleLicence='"+name+"'";
+        String hql = "from Vehicle where isDelete=0 and vehicleLicense='"+name+"'";
         return (Vehicle)this.queryObject(hql);
     }
 

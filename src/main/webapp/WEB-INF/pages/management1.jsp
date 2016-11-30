@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -60,7 +60,7 @@
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-12 time-row">
-            <a href="User" class="add-operation"><img src="images/add1.png" alt="增加"/>新增用户</a>
+            <a href="UserAdd" class="add-operation"><img src="images/add1.png" alt="增加"/>新增用户</a>
           </div>
           <div class="col-lg-12 text-center">
             <table class="table">
@@ -68,7 +68,6 @@
               <tr>
                 <th>账号</th>
                 <th>用户名</th>
-                <th>密码</th>
                 <th>用户权限</th>
                 <th>所属部门</th>
                 <th>联系电话</th>
@@ -82,7 +81,6 @@
                 <tr>
                   <td>${account.account}</td>
                   <td>${account.username}</td>
-                  <td>******</td>
                   <td>${account.power}</td>
                   <td>${account.company}</td>
                   <td>${account.phoneNum}</td>
@@ -148,6 +146,10 @@
       type:"post",
       data:{id:idForDelete},
       success:function(data){
+        if(data=="NoPower"){
+          alert("没有操作权限")
+          return false
+        }
         location.reload(true)
       }
     })
@@ -156,7 +158,7 @@
     var findName=$("#findName").val();
     $.ajax({
       url:"User/get",
-      type:"post",
+      type:"get",
       data:{findName:findName},
       dataType:"json",
       success:function(data){
@@ -165,7 +167,6 @@
           info+=" <tr> " +
           "<td>"+account.account+"</td> " +
           "<td>"+account.username+"</td> " +
-          "<td>******</td> " +
           "<td>"+account.power+"</td> " +
           "<td>"+account.company+"</td> " +
           "<td>"+account.phoneNum+"</td> " +

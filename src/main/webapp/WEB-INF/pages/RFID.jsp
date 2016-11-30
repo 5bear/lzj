@@ -119,7 +119,7 @@
       var id=marker.getLabel();
       $.ajax({
         url:"/RFID/get",
-        type:"post",
+        type:"get",
         data:{id:id},
         dataType:"json",
         success:function(data){
@@ -132,7 +132,7 @@
   $(document).ready(function(){
     $.ajax({
       url:"/RFID/list",
-      type:"post",
+      type:"get",
       data:{},
       dataType:"json",
       success:function(data){
@@ -194,13 +194,6 @@
     }
     console.log("<p>序列号:"+serialNumber+"<br/>路段:"+road+"<br/>录入人:"+inputMan+"</p>")
     var infoWindow = new BMap.InfoWindow("<p>序列号:xxxxx<br/>路段:中山西路<br/>所属公司:xxx</p>", opts);  // 创建信息窗口对象
-    /*
-     创建新图标
-     //创建小狐狸
-     var pt = new BMap.Point(116.417, 39.909);
-     var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
-     var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-     */
     marker = new BMap.Marker(point);// 创建标注
     marker.setLabel(id);
     marker.addEventListener("mouseover",function(e){

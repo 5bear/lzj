@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ZhanShaoxiong
@@ -7,11 +7,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String company= (String) session.getAttribute("company");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -149,6 +153,10 @@
 
 
     <style>
+        .table.infoWindow{
+            font-size: 10px;
+            margin-bottom: -10px;
+        }
         #container{
             height: 600px;
             float: left;
@@ -231,6 +239,9 @@
                                 <div class="arrow-section arrow-section1">
                                     <div class="arrow-down arrow-down1"></div>
                                 </div>
+                                <%
+                                    if(company.equals("养护中心")||company.equals("上海成基市政建设发展有限公司")){
+                                %>
                                 <ul class="dropdown-menu panel-menu">
                                     <li class="dropdown dropdown2">
                                         <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
@@ -246,7 +257,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${cyList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" id="v${item.id}" style="color: #6e6e6e" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicense}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -259,7 +270,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${cqList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" id="v${item.id}" style="color: #6e6e6e" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicense}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -272,7 +283,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${cxList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" id="v${item.id}" style="color: #6e6e6e" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicense}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -280,6 +291,9 @@
                                         </ul>
                                     </li>
                                 </ul>
+                                <%
+                                    } if(company.equals("养护中心")||company.equals("上海高架养护管理有限公司")){
+                                %>
                                 <ul class="dropdown-menu panel-menu">
                                     <li class="dropdown dropdown2">
                                         <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
@@ -295,7 +309,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${gyList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" id="v${item.id}" style="color: #6e6e6e" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicense}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -308,7 +322,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${gqList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" id="v${item.id}" style="color: #6e6e6e" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicense}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -321,7 +335,7 @@
                                                 <ul class="dropdown-menu panel-menu">
                                                     <c:forEach items="${gxList}" var="item">
                                                         <li>
-                                                            <a href="#" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicence}</a>
+                                                            <a href="#" id="v${item.id}" style="color: #6e6e6e" onclick="setVehicle('${item.OBUId}')">${item.vehicleLicense}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -329,6 +343,9 @@
                                         </ul>
                                     </li>
                                 </ul>
+                                <%
+                                    }
+                                %>
                             </li>
                         </div>
                     </div>
@@ -399,12 +416,11 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 <script>
-    var myCar;//汽车图标
     var temList=new Array();
     var vehicleList=new Array()
+    var inforwindowMap=new Map()
     var vehicle//车辆
     var vehiclePos//车辆轨迹
-    var points=new Array();//创建点的数组
     var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
     var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
     map.enableScrollWheelZoom();//允许放大缩放
@@ -430,7 +446,7 @@
     $(document).ready(function(){
         $.ajax({
             url:"getMap",
-            type:"post",
+            type:"get",
             data:{},
             dataType:"json",
             success:function(data){
@@ -455,47 +471,58 @@
     });
     function getTrack() {
         $.ajax({
-            url: "Track/getAllCurrentTrack",
-            type: "post",
+            url: "Track/getAllCurrentPos",
+            type: "get",
             data: {},
             dataType: "json",
             success: function (data) {
-                console.log(data)
                 $(data).each(function (index, element) {
+                    if(element.vehicle==undefined||element.vehiclePos==undefined)
+                        return
                     var map1 = new Map();
-                    map1.put("vehicle", element.vehicle)
-                    map1.put("vehiclePos", element.list);
-                    var point=new BMap.Point(element.list[element.list.length-1].lng/100000,element.list[element.list.length-1].lat/100000)
-                    console.log(point.lng)
+                    vehicle=element.vehicle
+                    vehiclePos=element.vehiclePos
+                    map1.put("vehicle",vehicle)
+                    map1.put("vehiclePos",vehiclePos);
+                    var point=new BMap.Point(vehiclePos.lng/100000,vehiclePos.lat/100000)
                     map1.put("currentPoint",point)
-                    var car=setCar(element.vehicle.vehicleType,point,element.list[element.list.length-1].direction);
+                    var car=setCar(element.vehicle.vehicleType,point,vehiclePos.direction,vehiclePos.HDD);
                     map1.put("car",car)
                     vehicleList.push(map1)
-                    showTrack(car,element.vehicle,element.list,point)
+                    addVehicle(car,vehicle.vehicleLicense,vehicle.vehicleType,vehicle.OBUId,vehiclePos.speed,vehiclePos.isDrive,vehiclePos.HDD,point,vehiclePos.direction,vehiclePos.directioninfo)
+                    /*var rfid=element.rfid
+                    showRFID(rfid)*/
+                    /*
+                                        showTrack(car,element.vehicle,element.list,point)
+                    */
                 })
                 temList=vehicleList;
             }
         })}
 
     function setVehicle(devIDNO){
-        var newList=new Array();
         $(temList).each(function(index,element){
             var point=element.get("currentPoint")
             var vehicle=element.get("vehicle")
+            var car=element.get("car")
+            var inforwindow=inforwindowMap.get(vehicle.vehicleLicense)
             if(vehicle.OBUId==devIDNO){
-                map.clearOverlays();
-                var map1 = new Map();
-                map1.put("vehicle", element.get("vehicle"))
-                map1.put("vehiclePos", element.get("vehiclePos"));
-                map1.put("currentPoint",element.get("currentPoint"))
-                map1.put("car",element.get("car"))
-                showTrack(element.get("car"),element.get("vehicle"),element.get("vehiclePos"),element.get("currentPoint"))
-                newList.push(map1)
-                vehicleList=newList;
+                car.openInfoWindow(inforwindow)
                 panTo(point)
                 return false
             }
         })
+  /*      $.ajax({
+            url:"Track/getLatestRFID",
+            type:"get",
+            data:{devIDNO:devIDNO},
+            success:function(result){
+                if(result!="fail"){
+                    result=eval(result)
+                    showRFID(result)
+                }
+            }
+        })*/
     }
     function addArea() {
         var center = pointsTojson(map.getCenter());
@@ -520,76 +547,229 @@
         getLatestPos()
     }, "10000");
 
-    function getLatestPos(){
-        $(vehicleList).each(function(index,element){
-            $.ajax({
-                url:"Track/getLatestPos",
-                type:"post",
-                data:{DevIDNO:element.get("vehicle").OBUId},
-                dataType:"json",
-                success:function(data){
-                    if(data!=null) {
-                        var point = new BMap.Point(data.lng / 100000, data.lat / 100000);
-                        var currentPoint=element.get("currentPoint")
-                        element.removeByKey("currentPoint")
-                        element.put("currentPoint",point)
-                        var polyLine=new BMap.Polyline([currentPoint,point],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
-                        map.addOverlay(polyLine)
-                        changeInfoWindow(element.get("car"),element.get("vehicle").vehicleLicence,element.get("vehicle").vehicleType, data.devIDNO, data.speed/10, data.isDriver,data.HDD, point, data.direction)
-                        element.get("car").setPosition(point)
-                        element.get("car").setRotation(data.direction)
-                    }
+   /* setTimeout(function () {
+        getLatestRFID()
+    },7000)
+    function getLatestRFID() {
+        $.ajax({
+            url:"Track/getLatestRFID",
+            type:"get",
+            data:{},
+            success:function(result){
+                if(result!="fail"){
+                    result=eval(result)
+                    $.each(result,function (index,data) {
+                       var rfid=data.rfid
+                        showRFID(rfid)
+                    })
                 }
-            })
+            }
+        })
+    }*/
+    function getLatestPos(){
+        var map=new Map();
+        var postString="";
+        $.each(vehicleList,function (index,element) {
+            var devIDNO=element.get("vehicle").OBUId;
+            map.put(devIDNO,element);
+            if(index==0)
+                postString+=devIDNO
+            else
+                postString+=","+devIDNO
+        })
+        $.ajax({
+            url:"Track/getLatest",
+            type:"get",
+            data:{postString:postString},
+            success:function(result){
+                if(result!="fail"){
+                    result=eval(result)
+                    $.each(result,function (index,data) {
+                        var pos=data.pos;
+                       /* var rfid=data.rfid;
+                        showRFID(rfid,element)*/
+                        var online=data.online;
+                        var element=map.get(data.devIDNO)
+                        checkOnline(online,element)
+                        showPos(pos,element)
+                    })
+                }
+            }
         })
     }
 
+    function showPos(data,element) {
+        if(data!=null&data!="fail") {
+            var point = new BMap.Point(data.lng / 100000, data.lat / 100000);
+            var currentPoint=element.get("currentPoint")
+            element.removeByKey("currentPoint")
+            element.put("currentPoint",point)
+            var vt=element.get("vehicle").vehicleType
+            /*var polyLine;
+             if(vt=="清扫车")
+             polyLine=new BMap.Polyline([currentPoint,point],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});//#1a9818
+             else if(vt=="巡视车")
+             polyLine=new BMap.Polyline([currentPoint,point],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});//#ffbe3f
+             else
+             polyLine=new BMap.Polyline([currentPoint,point],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5}); //#c2302e
+             map.addOverlay(polyLine)*/
+            changeInfoWindow(element.get("car"),element.get("vehicle").vehicleLicense,element.get("vehicle").vehicleType, data.devIDNO, data.speed, data.isDrive,data.HDD, point, data.direction,data.directioninfo)
+            element.get("car").setPosition(point)
+            element.get("car").setRotation(data.direction)
+        }
+    }
 
+    function showRFID(result) {
+        $(result).each(function (index,data) {
+            var point = new BMap.Point(data.lng, data.lat);
+            var marker= new BMap.Marker(point)
+            var opts = {
+                width : 100,     // 信息窗口宽度
+                height: 100,     // 信息窗口高度
+                title : "RFID信息" , // 信息窗口标题
+                enableMessage:true,//设置允许信息窗发送短息
+                message:""
+            }
+            var infoWindow = new BMap.InfoWindow("<p>匝道:"+data.zhadao+"<br/>路段:"+data.road+"<br/>所属公司:"+data.company+"</p>", opts);  // 创建信息窗口对象
+            /*marker.setLabel(id);*/
+            marker.setTitle(data.serialNumber)
+            marker.removeEventListener("mouseover");
+            marker.removeEventListener("mouseout");
+            marker.addEventListener("mouseover",function(e){
+                map.openInfoWindow(infoWindow,marker.getPosition());
+            });
+            marker.addEventListener("mouseout",function(e){
+                map.closeInfoWindow(infoWindow,marker.getPosition());
+            });
+            map.addOverlay(marker);             // 将标注添加到地图中
+            marker.disableDragging();           // 不可拖拽
+        })
+    }
+    function checkOnline(data,element) {
+        var vc=element.get("vehicle").vehicleType
+        var myCar=element.get("car")
+        var d=myCar.getRotation()
+        var obj=document.getElementById("v"+element.get("vehicle").id);
+        if(data=="Online") {
+            obj.style.color = "#005F8E";
+            if(vc=="巡视车") {
+                element.get("car").setIcon(new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}))
+                element.get("car").setRotation(d)
+            } else if(vc=="牵引车") {
+                element.get("car").setIcon(new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}))
+                element.get("car").setRotation(d)
+            }else{
+                element.get("car").setIcon(new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}))
+                element.get("car").setRotation(d)
+            }
+        }else{
+            obj.style.color = "#6e6e6e";
+            if(vc=="巡视车") {
+                element.get("car").setIcon(new BMap.Icon("images/off-line-xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}))
+                element.get("car").setRotation(d)
+            } else if(vc=="牵引车") {
+                element.get("car").setIcon(new BMap.Icon("images/off-line-qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}))
+                element.get("car").setRotation(d)
+            }else{
+                element.get("car").setIcon(new BMap.Icon("images/off-line-sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}))
+                element.get("car").setRotation(d)
+            }
+        }
+    }
     function showTrack(myCar,vehicle,vehiclePos,currentPoint){
 
-        addVehicle(myCar,vehicle.vehicleLicence,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed/10,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].direction)
+        addVehicle(myCar,vehicle.vehicleLicense,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].direction,vehiclePos[vehiclePos.length-1].directioninfo)
         var points=new Array();
         $(vehiclePos).each(function(index,element){
             var point=new BMap.Point(element.lng/100000,element.lat/100000)
             points.push(point)
         })
-        var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+        var vt=vehicle.vehicleType;
+        var polyLine;
+        if(vt=="清扫车")
+            polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});//#1a9818
+        else if(vt=="巡视车")
+            polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});//#ffbe3f
+        else
+            polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});//#c2302e
         map.addOverlay(polyLine)
     }
 
     /*5s*/
     /* setInterval(function(){
-     showVehiclePos(vehicleLicence, vehicle, devIDNO);
+     showVehiclePos(vehicleLicense, vehicle, devIDNO);
      }, "5000");*/
 
     /* map.addEventListener('click',mapClick)*/
 
-    function changeInfoWindow(myCar,vehicleLicence, vehicle, devIDNO, speed, isDriver,HDD, point, direction)
+    function changeInfoWindow(myCar,vehicleLicense, vehicle, devIDNO, speed, isDriver,HDD, point, direction,directioninfo)
     {
         myCar.removeEventListener("click");
-        if(HDD== "00")
-            HDD= "硬盘不存在"
+        if(HDD== "00") {
+            HDD = "硬盘不存在"
+            if(vehicle=="巡视车") {
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            } else if(vehicle=="牵引车") {
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            }else{
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            }
+        }
         else if(HDD== "01")
             HDD="硬盘存在";
-        else
-            HDD="断电"
-        if(isDriver==0)
-            isDriver="正在作业"
-        else
+        else {
+            HDD = "断电"
+            if(vehicle=="巡视车") {
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            } else if(vehicle=="牵引车") {
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            }else{
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            }
+        }
+        if(speed==0)
             isDriver="静止"
+        else
+            isDriver="正在作业"
         var opts = {
-            width : 100,     // 信息窗口宽度
-            height: 250,     // 信息窗口高度
-            title :"车辆信息" ,// 信息窗口标题
+            width : 0,     // 信息窗口宽度
+            height: 0,     // 信息窗口高度
+            title :"<h4>车辆信息</h4>" ,// 信息窗口标题
             enableMessage:true,//设置允许信息窗发送短息
             message:""
         }
+
+        /*
+         var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicense +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + directioninfo+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+         */
         var vehicleType;
         if(vehicle=="巡视车")
             vehicleType=0
         else
             vehicleType=1
-        var infoWindow = new BMap.InfoWindow(" <button class='btn btn-default' onclick='viewVideo("+vehicleType+','+devIDNO+")' >视频</button>"+"<br>车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+        var infoWindow = new BMap.InfoWindow("<table class='table infoWindow'><tbody><tr><td>实时视频</td><td colspan='3'>" + " <button class='btn btn-default' onclick='viewVideo("+vehicleType+',"'+devIDNO+"\")' >视频</button>" +"</td></tr><tr><td>车辆牌照</td><td colspan='3'>" + vehicleLicense +"</td></tr><tr><td>车辆类型</td><td colspan='3'>" + vehicle +"</td></tr><tr><td>车载设备编号</td><td colspan='3'>" + devIDNO +"</td></tr><tr><td>经度</td><td colspan='3'>" + point.lng + "</td></tr><tr><td>纬度</td><td colspan='3'>" + point.lat+ "</td></tr><tr><td>速度</td><td colspan='3'>" + speed+ "km/h"+"</td></tr><tr><td>方向</td><td colspan='3'>" + directioninfo+"</td></tr><tr><td>车辆状态</td><td colspan='3'>"+ isDriver+"</td></tr><tr><td>硬盘状态</td><td colspan='3'>"+HDD+"</td></tr></tbody></table>", opts);  // 创建信息窗口对象
+        inforwindowMap.put(vehicleLicense,infoWindow);
+        /*
+        var infoWindow = new BMap.InfoWindow(" <button class='btn btn-default' onclick='viewVideo("+vehicleType+',"'+devIDNO+"\")' >视频</button>"+"<br>车辆牌照:" + vehicleLicense +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + directioninfo+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+*/
         myCar.addEventListener("click", function (e) {
             map.openInfoWindow(infoWindow, point);
         });
@@ -602,42 +782,70 @@
         else
             location.href = "progress2-1?id=" + devIDNO
     }
-    function setCar(vehicle,point,direction){
+    function setCar(vehicle,point,direction,HDD){
         var myCar;
-        if(vehicle=="巡视车")
-            myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}), rotation:direction});
-        else if(vehicle=="牵引车")
-            myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),rotation:direction});
-        else
-            myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),rotation:direction});
+        if(vehicle=="巡视车"){
+            if(HDD=="01")
+                myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}), rotation:direction});
+            else
+                myCar =  new BMap.Marker(point, {icon: new BMap.Icon("images/off-line-xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}), rotation:direction});
+        }
+        else if(vehicle=="牵引车") {
+            if (HDD == "01")
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            else
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+        }
+        else {
+            if (HDD == "01")
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+            else
+                myCar = new BMap.Marker(point, {
+                    icon: new BMap.Icon("images/off-line-sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)}),
+                    rotation: direction
+                });
+        }
         return myCar;
     }
 
-    function addVehicle(myCar,vehicleLicence, vehicle, devIDNO, speed, isDriver,HDD, point, direction){
+    function addVehicle(myCar,vehicleLicense, vehicle, devIDNO, speed, isDriver,HDD, point, direction,directioninfo){
         if(HDD== "00")
             HDD= "硬盘不存在"
         else if(HDD== "01")
             HDD="硬盘存在";
         else
             HDD="断电"
-        if(isDriver==0)
-            isDriver="正在作业"
-        else
+        if(speed==0)
             isDriver="静止"
+        else
+            isDriver="正在作业"
         var opts = {
-            width : 100,     // 信息窗口宽度
-            height: 250,     // 信息窗口高度
-            title :"车辆信息" ,// 信息窗口标题
+            width : 0,     // 信息窗口宽度
+            height: 0,     // 信息窗口高度
+            title :"<h4>车辆信息</h4>" ,// 信息窗口标题
             enableMessage:true,//设置允许信息窗发送短息
             message:""
         }
 
+        /*
+         var infoWindow = new BMap.InfoWindow("车辆牌照:" + vehicleLicense +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + directioninfo+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+         */
         var vehicleType;
         if(vehicle=="巡视车")
             vehicleType=0
         else
             vehicleType=1
-        var infoWindow = new BMap.InfoWindow(" <button class='btn btn-default' onclick='viewVideo("+vehicleType+','+devIDNO+")' >视频</button>"+"<br>车辆牌照:" + vehicleLicence +"<br >车辆类型:" + vehicle +"<br >车载设备编号:" + devIDNO +"<br >经度:" + point.lng + "<br>纬度:" + point.lat+ "<br>速度:" + speed+ "km/h"+"<br > 方向:" + direction+"<br > 车辆状态:"+ isDriver+"<br> 硬盘状态:"+HDD, opts);  // 创建信息窗口对象
+        var infoWindow = new BMap.InfoWindow("<table class='table infoWindow'><tbody><tr><td>实时视频</td><td colspan='3'>" + " <button class='btn btn-default' onclick='viewVideo("+vehicleType+',"'+devIDNO+"\")' >视频</button>" +"</td></tr><tr><td>车辆牌照</td><td colspan='3'>" + vehicleLicense +"</td></tr><tr><td>车辆类型</td><td colspan='3'>" + vehicle +"</td></tr><tr><td>车载设备编号</td><td colspan='3'>" + devIDNO +"</td></tr><tr><td>经度</td><td colspan='3'>" + point.lng + "</td></tr><tr><td>纬度</td><td colspan='3'>" + point.lat+ "</td></tr><tr><td>速度</td><td colspan='3'>" + speed+ "km/h"+"</td></tr><tr><td>方向</td><td colspan='3'>" + directioninfo+"</td></tr><tr><td>车辆状态</td><td colspan='3'>"+ isDriver+"</td></tr><tr><td>硬盘状态</td><td colspan='3'>"+HDD+"</td></tr></tbody></table>", opts);  // 创建信息窗口对象
+        inforwindowMap.put(vehicleLicense,infoWindow)
         myCar.addEventListener("click", function (e) {
             map.openInfoWindow(infoWindow, point);
         });

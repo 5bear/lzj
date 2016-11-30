@@ -3,6 +3,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction;
+import org.hibernate.engine.transaction.spi.LocalStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +28,11 @@ public class BaseDao{
 
     public <T> void save(T t) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         try {
             session.save(t);
             tx.commit();
@@ -41,7 +46,11 @@ public class BaseDao{
 
     public <T> void save(List<T> list) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         try {
             for (T t : list) {
                 session.save(t);
@@ -57,7 +66,11 @@ public class BaseDao{
 
     public <T> void delete(T t) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         try {
             session.delete(t);
             tx.commit();
@@ -71,7 +84,11 @@ public class BaseDao{
 
     public <T> void delete(Class<T> entityClass, Long id) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         try {
             session.delete(session.get(entityClass, id));
             tx.commit();
@@ -85,7 +102,11 @@ public class BaseDao{
 
     public <T> void update(T t) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         try {
             session.update(t);
             tx.commit();
@@ -99,7 +120,11 @@ public class BaseDao{
 
     public <T> void update(List<T> list) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         try {
             for (T t : list) {
                 session.update(t);
@@ -116,7 +141,11 @@ public class BaseDao{
     public <T> T get(Class<T> entityClass, Long id) {
 
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         T entity = null;
         try {
             entity = (T) session.get(entityClass, id);
@@ -133,7 +162,12 @@ public class BaseDao{
     public <T> T find(String hql, Class<T> entityClass, Object[] params) {
 
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         Query query = session.createQuery(hql);
         if (params != null) {
             for (int i = 0; i < params.length; i++) {
@@ -160,9 +194,39 @@ public class BaseDao{
         return findAll(hql, entityClass, null);
     }
 
+    public <T> List<T> findAllBySql(String hql, Class<T> entityClass, Object...params) {
+        Session session = getSession();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
+        System.out.println(hql);
+        Query query = session.createSQLQuery(hql).addEntity(entityClass);
+        List<T> result = null;
+        if (params != null) {
+            for (int i = 0; i < params.length; i++) {
+                query.setParameter(i, params[i]);
+            }
+        }
+        try {
+            result = (List<T>) query.list();
+            tx.commit();
+        } catch (Exception err) {
+            if (tx != null) {
+                tx.rollback();
+                err.printStackTrace();
+            }
+        }
+        return result;
+    }
     public <T> List<T> findAll(String hql, Class<T> entityClass, Object...params) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         System.out.println(hql);
         Query query = session.createQuery(hql);
         List<T> result = null;
@@ -185,7 +249,11 @@ public class BaseDao{
 
     public List findAll(String hql, Object[] params, int firstResult, int maxResults) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
 
         Query query = session.createQuery(hql);
         for (int i = 0; i < params.length; i++) {
@@ -212,7 +280,11 @@ public class BaseDao{
 
     public List findAll(String hql, Object[] params) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
 
         Query query = session.createQuery(hql);
         if (params != null) {
@@ -244,8 +316,11 @@ public class BaseDao{
                                   final Object[] params, final int firstResult, final int maxResult) {
 
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
-
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
         Query query = session.createQuery(hql);
         if (params != null) {
             for (int i = 0; i < params.length; i++) {
@@ -269,7 +344,11 @@ public class BaseDao{
 
     public long getCount(final String hql) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
 
         Query query = session.createQuery(hql);
         Number count = (Number) query.uniqueResult();
@@ -286,7 +365,11 @@ public class BaseDao{
 
     public long getCount(final String hql, final Object[] params) {
         Session session = getSession();
-        JdbcTransaction tx = (JdbcTransaction) session.beginTransaction();
+        JdbcTransaction tx = (JdbcTransaction)session.getTransaction();
+        if(tx.getLocalStatus().equals(LocalStatus.ACTIVE))
+            System.out.print("已存在活动的事务");
+        else
+            tx=(JdbcTransaction) session.beginTransaction();
 
         Query query = session.createQuery(hql);
         for (int i = 0; i < params.length; i++) {

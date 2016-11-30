@@ -16,20 +16,20 @@ public class MaintainLogDao extends BaseDao1<MaintainLog>{
         return this.list(hql);
     }
 
-    public List<MaintainLog> getByVehicleLicence(String vehicleLicence) {
-        String hql = "from MaintainLog where isDelete='0' and vehicleLicence=?";
-        return this.list(hql,vehicleLicence);
+    public List<MaintainLog> getByvehicleLicense(String vehicleLicense) {
+        String hql = "from MaintainLog where isDelete='0' and vehicleLicense=?";
+        return this.list(hql,vehicleLicense);
     }
 
-    public MaintainLog getByVDT(String vehicleLicence,String date,String time) {
-        String hql = "from MaintainLog where isDelete='0' and vehicleLicence=? and dayTime=? and time=?";
-        return (MaintainLog)this.queryObject(hql,new Object[]{vehicleLicence,date,time});
+    public MaintainLog getByVDT(String vehicleLicense,String date,String time) {
+        String hql = "from MaintainLog where isDelete='0' and vehicleLicense=? and dayTime=? and time=?";
+        return (MaintainLog)this.queryObject(hql,new Object[]{vehicleLicense,date,time});
     }
 
-    public Pager<MaintainLog> getPager(String vehicleLicence,String startDate,String endDate){
+    public Pager<MaintainLog> getPager(String vehicleLicense,String startDate,String endDate){
         String hql ="from MaintainLog where isDelete='0'";
-        if (!"".equals(vehicleLicence)){
-            hql += " and vehicleLicence='"+vehicleLicence+"'";
+        if (!"".equals(vehicleLicense)){
+            hql += " and vehicleLicense='"+vehicleLicense+"'";
         }
 
         if (!"".equals(startDate)){

@@ -24,6 +24,137 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css"/>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+
+    <script src="js/bootstrap.js"></script>
+
+    <style>
+        #index { width:100%;height:100%; min-width:1000px;background-color:transparent; position:relative;}
+        #in-left { width:100%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}ding:0px; float:left; background-color:transparent;margin-left:5px}
+
+        .bt{
+            height: 22px;
+            width: 52px;
+            position: absolute;
+            border:0;
+        }
+        .map_bt
+        {
+            border: 0;
+            width: 22px;
+            position:absolute;
+        }
+
+
+        #triangle
+        {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid rgb(247,147,30);
+            position: absolute;
+            top:70px;
+            left:50px;
+
+        }
+
+
+
+
+        .txt
+        {
+            position: absolute;
+            top: 10px;
+            font-size: 11px;
+            left: 8px;
+            color:#FFF;
+
+        }
+
+        .txt p{margin:2px}
+        #in-mid img{ height:91%}
+        #in-mid video
+        {	width: 12%;
+            height: 73px;
+            position: absolute;
+            left: 513px;
+        }
+        .hour{
+            border: none;
+            background-color: #F2F2F2;
+            border-radius: 5px;
+            padding: 3px 6px;
+            margin-right: 10px;
+            width: 150px;
+            color: rgb(62,133,167);
+        }
+        .year{
+            border: none;
+            background-color: #F2F2F2;
+            border-radius: 5px;
+            padding: 3px 6px;
+            margin-right: 10px;
+            width: 150px;
+            color: rgb(62,133,167);
+        }
+        .tt{
+            border: none;
+            background-color: #F2F2F2;
+            border-radius: 5px;
+            padding: 3px 6px;
+            margin-right: 10px;
+            width: 150px;
+            color: rgb(62,133,167);
+        }
+        #xuanze{
+            border: none;
+            background-color: #F2F2F2;
+            border-radius: 5px;
+            padding: 3px 6px;
+            margin-right: 10px;
+            width: 150px;
+            color: rgb(62,133,167);
+        }
+        .bofangtxt
+        {
+            position: absolute;
+            font-size:9px;
+            width: 30px;
+            top: 17px;
+            height: 17px;
+        }
+
+        ul.lanren{width:300px;margin:100px auto;}
+        .scale_panel{color:#999;width:200px;position:absolute;line-height:18px;left:-127px;top:-95px;}
+
+        .scale span{width:16px;height:16px;position:absolute;left:1px;top:-3px;cursor:pointer;
+            background:url(images/scroll.gif)   no-repeat;}
+        .scale{ background-repeat: repeat-x; background-position: 0 100%; background-color: rgb(230,230,230); border-left: 1px
+        rgb(41,171,226);solid;  width: 460px; height: 7px; position: relative; font-size: 0px; border-radius: 5px; }
+
+        .scale div{ background-repeat: repeat-x; background-color: #3BE3FF; width: 0px; position: absolute; height: 3px; width: 0; 		           left: 0; bottom: 0; }
+
+        .lanren li{font-size:12px;line-height:50px;position:relative;height:50px;list-style:none;}
+
+
+        #container{width: 56%;
+            height: 600px;
+            float: left;
+            margin-left: 5px;
+            margin-right: 5px;}
+    </style>
 </head>
 
 <body onload="init('${vType}')">
@@ -51,9 +182,35 @@
         <div class="row">
             <div class="col-lg-12 text-left search-row">
                 <input type="text" id="date" value="${date}" placeholder="选择日期"/>
-                <label><input name="vType" type="checkbox" value="清扫车"/>清扫车</label>
+               <%-- <label><input name="vType" type="checkbox" value="清扫车"/>清扫车</label>
                 <label><input name="vType" type="checkbox" value="巡视车"/>巡视车</label>
-                <label><input name="vType" type="checkbox" value="牵引车"/>牵引车</label>
+                <label><input name="vType" type="checkbox" value="牵引车"/>牵引车</label>--%>
+                <c:choose>
+                    <c:when test="${sessionScope.company eq '养护中心'}">
+                        <select class="table-input" id="company" onchange="changeCompany()" style="width:235px;"  >
+                            <option value="养护中心" <c:if test="${company eq '养护中心'}">selected="selected"</c:if>>选择公司</option>
+                            <option value="上海成基市政建设发展有限公司" <c:if test="${company eq '上海成基市政建设发展有限公司'}">selected="selected"</c:if>>上海成基市政建设发展有限公司</option>
+                            <option value="上海高架养护管理有限公司" <c:if test="${company eq '上海高架养护管理有限公司'}">selected="selected"</c:if>>上海高架养护管理有限公司</option>
+                        </select>
+                    </c:when>
+                    <c:when test="${sessionScope.company ne '养护中心'}">
+                        ${company}
+                    </c:when>
+                </c:choose>
+
+                <select class="table-input" id="vehicleType" onchange="changeType('${company}')" style="width:235px;">
+                    <option value="">选择车辆类型</option>
+                    <option value="清扫车" <c:if test="${vtype eq '清扫车'}">selected="selected"</c:if>>清扫车</option>
+                    <option value="牵引车" <c:if test="${vtype eq '牵引车'}">selected="selected"</c:if>>牵引车</option>
+                    <option value="巡视车" <c:if test="${vtype eq '巡视车'}">selected="selected"</c:if>>巡视车</option>
+                </select>
+
+                <input type="text" id="vehicleLicense"  class="tt"  list="lista" placeholder="输入车牌" value="${conV}" style="width: 90px;"/>
+                <datalist id="lista">
+                    <c:forEach items="${vehicleLicense}" var="item">
+                        <option value="${item.vehicleLicense}">${item.vehicleLicense}</option>
+                    </c:forEach>
+                </datalist>
                 <button type="button" class="btn btn-default" onclick="searchExcep()">确认</button>
             </div>
         </div>
@@ -69,20 +226,20 @@
                         <th>发生日期</th>
                         <th>发生时间段</th>
                         <th>发生路段</th>
-                        <th>操作</th>
+                       <%-- <th>操作</th>--%>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${excepDatas.datas}" var="excep">
                         <tr>
                             <td>${excep.vehicleType}</td>
-                            <td>${excep.vehicleLicence}</td>
+                            <td>${excep.vehicleLicense}</td>
                             <td>${excep.type}</td>
                             <td>${excep.eventDate}</td>
                             <td>${excep.eventTime}</td>
                             <td>${excep.eventRoad}</td>
-                            <td><a onclick="toException(${excep.id})" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
-                            </td>
+                           <%-- <td><a onclick="toException(${excep.id})" class="operation"><label><img src="images/eye.png" alt="查看"/>查看详情</label></a>
+                            </td>--%>
                         </tr>
                     </c:forEach>
 
@@ -116,7 +273,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script>
-    function init(vType){
+   /* function init(vType){
         if(vType!=""){
             var vTypes = new Array();
             vTypes = vType.split(",");
@@ -126,109 +283,115 @@
 
         }
 
-    }
+    }*/
     function toException(id){
         location.href="history3-check/"+id;
     }
 
     function searchExcep(){
         var date = $("#date").val();
-        var ids = new Array();
+        var selector = document.getElementById("company");
+        var index = selector.selectedIndex;
+        var company = selector.options[index].value;
+
+        var selector1 = document.getElementById("vehicleType");
+        var index1 = selector1.selectedIndex;
+        var type = selector1.options[index1].value;
+
+        var vehicleLicense = $("#vehicleLicense").val();
+
         var gopath="History3?date="+date;
-        $("input:checkbox[name='vType']:checked").each(function(){
-            gopath+="&vType="+$(this).val();
-        });
+        gopath+="&company="+company+"&vtype="+type+"&conV="+vehicleLicense;
+
 
         location.href=gopath;
 
     }
 </script>
-<%--<script language="JavaScript">
-    window.attachEvent("onload", myTimer); //绑定到onload事件
-    function myTimer() {
-        start();
-        window.setTimeout("myTimer()",6000);//设置循环时间
-    }
-</script>--%>
-<%--<script type="text/javascript">
-    var idd = 0;
 
-    function myTimer() {
-        /*if(idd==0){
-            $("#exception").css("display","none");
-        }*/
-        start(idd);
-        window.setTimeout("myTimer()", 6000);//设置循环时间
-    }
+<script>
 
-    function start(id) {
-       // alert(id);
+    function changeCompany() {
+        var selector = document.getElementById("company");
+        var index = selector.selectedIndex;
+        var company = selector.options[index].value;
+
+        var selector1 = document.getElementById("vehicleType");
+        var index1 = selector1.selectedIndex;
+        var type = selector1.options[index1].value;
+
         $.ajax({
-            url: "getException",
+            url: "<%=request.getContextPath()%>/getVehicleByType",
             type: "post",
             data: {
-                id: id
+                company: company,
+                type: type
             },
             success: function (data) {
+
                 var r = $.parseJSON(data);
                 if (r.result == 0) {
                     var list = r.obj;
+                    $("#lista").empty();
                     if (list != null && list.length > 0) {
-
-                       $("#exception").css("display","block");
-                        $(list).each(function(index,element){
-                            var node = "<p><input type='checkbox' name='excp_checkBox' value='"+element.id+"'/><a onclick='toException(element.id)'>"+element.vehicleLicence+", "+element.vehicleType+"，"+element.eventTime+"，"+element.type+"</a></p>";
-                            $("#excp_content").append(node);
-                            if(index==list.length-1){
-                                idd =  element.id;
-                            }
+                        $(list).each(function (index, element) {
+                            var node = "<option value='"+element.vehicleLicense+"'>" + element.vehicleLicense + "</option>";
+                            $("#lista").append(node);
                         });
 
                     }
+
+                } else {
+                    alert(r.msg);
+                }
+            }
+        });
+
+
+    }
+
+
+    function changeType(company) {
+        var selector = document.getElementById("vehicleType");
+        var index = selector.selectedIndex;
+        var type = selector.options[index].value;
+
+        if (company == "养护中心") {
+            var selector1 = document.getElementById("company");
+            var index1 = selector1.selectedIndex;
+            var company = selector1.options[index1].value;
+        }
+
+        $.ajax({
+            url: "<%=request.getContextPath()%>/getVehicleByType",
+            type: "post",
+            data: {
+                company: company,
+                type: type
+            },
+            success: function (data) {
+
+                var r = $.parseJSON(data);
+                if (r.result == 0) {
+                    var list = r.obj;
+                    $("#lista").empty();
+                    if (list != null && list.length > 0) {
+                        $(list).each(function (index, element) {
+                            var node = "<option  value='"+element.vehicleLicense+"'>" + element.vehicleLicense + "</option>";
+                            $("#lista").append(node);
+                        });
+
+                    }
+
+                } else {
+                    alert(r.msg);
                 }
             }
         })
-    }
 
-    function toException(id){
-        location.href="history3-check/"+id;
-    }
-
-    function confirmExcp(){
-        var ids = new Array();
-        $("input:checkbox[name='excp_checkBox']:checked").each(function(){
-            ids.push($(this).val());
-            $(this).parent().remove();
-        });
-
-        var size = $("#excp_content").children("p").length;
-        if(size==0){
-            $("#exception").css("display","none");
-        }
-
-        if(ids==null || ids.length==0){
-            alert("请先勾选异常信息");
-        }else{
-            $.ajax({
-                url: "confirmException",
-                type: "post",
-                data: {
-                    "ids[]":ids
-                },
-                success: function (data) {
-                    var r = $.parseJSON(data);
-                    if(r.result!=0){
-                        alert(r.msg);
-                    }
-                }
-            });
-        }
 
     }
 
-</script>--%>
-
-<script>
 
 
     $('#date').datetimepicker({

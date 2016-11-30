@@ -1,5 +1,7 @@
 package com.springapp.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 /**
@@ -7,11 +9,12 @@ import javax.persistence.*;
  * 牵引车辆位置信息报表
  */
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "Report1")
 public class Report1 {
     private Long id;
     private String company;//公司
-    private String vehicleLicence;//车牌号
+    private String vehicleLicense;//车牌号
     private String planPosition; //计划待命位置
     private String realPosition; //实际待命位置
     private String arriveDate; //到达日期
@@ -37,12 +40,12 @@ public class Report1 {
     }
 
 
-    public String getVehicleLicence() {
-        return vehicleLicence;
+    public String getvehicleLicense() {
+        return vehicleLicense;
     }
 
-    public void setVehicleLicence(String vehicleLicence) {
-        this.vehicleLicence = vehicleLicence;
+    public void setvehicleLicense(String vehicleLicense) {
+        this.vehicleLicense = vehicleLicense;
     }
 
     public String getPlanPosition() {

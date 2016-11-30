@@ -169,7 +169,6 @@ public class HttpUtil {
 
         return resultData.toString();
     }
-
     /**
      * Post追加参数
      *

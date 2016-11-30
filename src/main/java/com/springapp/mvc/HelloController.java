@@ -1,9 +1,9 @@
 package com.springapp.mvc;
 
-import com.springapp.classes.FileRead;
-import com.springapp.classes.HttpUtil;
-import com.springapp.classes.pingTest;
+import com.springapp.classes.*;
 import com.springapp.entity.*;
+import net.sf.ezmorph.array.DoubleArrayMorpher;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -16,9 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -45,7 +53,7 @@ public class HelloController extends BaseController{
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
-	@RequestMapping(value = "/getMap",method = RequestMethod.POST)
+	@RequestMapping(value = "/getMap",method = RequestMethod.GET)
 	@ResponseBody
 	public String getMap(HttpServletRequest request){
 		HttpSession session=request.getSession();
@@ -55,7 +63,23 @@ public class HelloController extends BaseController{
 		Account account=userDao.getByUsername(username);
 		return JSONObject.fromObject(account).toString();
 	}
-
+	@RequestMapping(value = "/NoManage",method = RequestMethod.GET)
+	@ResponseBody
+	public String NoManage(){
+		return "NoPower";
+	}
+    @RequestMapping(value = "/noException",method = RequestMethod.POST)
+    @ResponseBody
+    public String noException(Long id,HttpSession session){
+        Account account=userDao.get(Account.class,id);
+        if(account.getViewExcpt()==0)
+            account.setViewExcpt(1);
+        else
+            account.setViewExcpt(0);
+        userDao.update(account);
+        session.setAttribute("user",account);
+        return "success";
+    }
 	@RequestMapping(value = "/addArea",method = RequestMethod.POST)
 	@ResponseBody
 	public String addArea(HttpServletRequest request,@RequestParam(value = "center")String center,@RequestParam(value = "zoom")int zoom){
@@ -70,21 +94,32 @@ public class HelloController extends BaseController{
 		return "success";
 	}
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
 		ModelAndView modelAndView=new ModelAndView();
-		List<DevGPS>devGPSList=devGpsDao.findAll("from DevGPS");
+		String company= (String) session.getAttribute("company");
 		List<Vehicle>cyList=vehicleDao.getCyList();
 		List<Vehicle>cqList=vehicleDao.getCqList();
 		List<Vehicle>cxList=vehicleDao.getCxList();
 		List<Vehicle>gyList=vehicleDao.getGyList();
 		List<Vehicle>gqList=vehicleDao.getGqList();
 		List<Vehicle>gxList=vehicleDao.getGxList();
-		modelAndView.addObject("cyList",cyList);
-		modelAndView.addObject("cqList",cqList);
-		modelAndView.addObject("cxList",cxList);
-		modelAndView.addObject("gqList",gqList);
-		modelAndView.addObject("gxList",gxList);
-		modelAndView.addObject("gyList",gyList);
+		if(company!=null&&company.equals("上海成基市政建设发展有限公司")) {
+			modelAndView.addObject("cyList", cyList);
+			modelAndView.addObject("cqList", cqList);
+			modelAndView.addObject("cxList", cxList);
+		}else if(company!=null&&company.equals("上海高架养护管理有限公司")) {
+			modelAndView.addObject("gqList", gqList);
+			modelAndView.addObject("gxList", gxList);
+			modelAndView.addObject("gyList", gyList);
+		}else{
+			modelAndView.addObject("cyList", cyList);
+			modelAndView.addObject("cqList", cqList);
+			modelAndView.addObject("cxList", cxList);
+			modelAndView.addObject("gqList", gqList);
+			modelAndView.addObject("gxList", gxList);
+			modelAndView.addObject("gyList", gyList);
+		}
+		modelAndView.addObject("account",company);
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}
@@ -103,41 +138,15 @@ public class HelloController extends BaseController{
 	public String getGPs(@RequestParam(value = "devIDNO")String devIDNO){
 		String filePath="D://"+devIDNO+".txt";
 		VehiclePos vehiclePos=new VehiclePos();
-		FileRead fileRead=new FileRead();
+		FileUtil fileUtil =new FileUtil();
 		try{
-			String content= fileRead.readTxtFile(filePath);
+			String content= fileUtil.readTxtFile(filePath);
 			vehiclePos= (VehiclePos) JSONObject.toBean(JSONObject.fromObject(content), VehiclePos.class);
 			vehiclePosDao.save(vehiclePos);
 		}catch (Exception e){
 			return "fail";
 		}
 		return JSONObject.fromObject(vehiclePos).toString();
-	}
-	@RequestMapping(value = "/setLine",method = RequestMethod.POST)
-	@ResponseBody
-	public String setLine(@RequestParam(value = "vehicle")Long vehicleID,@RequestParam(value = "lineName")String lineName,@RequestParam(value = "lineID")Long lineID,@RequestParam(value = "gpsTime")Timestamp timestamp){
-		Vehicle vehicle=vehicleDao.get(vehicleID);
-		if(vehicle==null)
-			return "fail";
-		VehicleLine vehicleLine=new VehicleLine();
-		vehicleLine.setTimestamp(timestamp);
-		vehicleLine.setVehicle(vehicleID);
-		vehicleLine.setLineID(lineID);
-		vehicleLine.setLineName(lineName);
-		baseDao.save(vehicleLine);
-		return "success";
-	}
-	@RequestMapping(value = "/line",method = RequestMethod.GET)
-	public ModelAndView line(){
-		ModelAndView modelAndView=new ModelAndView();
-		modelAndView.setViewName("line");
-		return modelAndView;
-	}
-	@RequestMapping(value = "/RFID",method = RequestMethod.GET)
-	public ModelAndView RFID(){
-		ModelAndView modelAndView=new ModelAndView();
-		modelAndView.setViewName("RFID");
-		return modelAndView;
 	}
 
 	@RequestMapping(value = "/NoPower",method = RequestMethod.GET)
@@ -146,13 +155,6 @@ public class HelloController extends BaseController{
 		modelAndView.setViewName("NoPower");
 		return modelAndView;
 	}
-	@RequestMapping(value = "/ping",method = RequestMethod.POST)
-	@ResponseBody
-	public String ping(HttpServletRequest request,@RequestParam(value = "ip")String ip){
-		/*String ip= request.getParameter("ip");*/
-		pingTest.isAddressAvailable(ip);
-		return "success";
-	}
 	@RequestMapping(value = "/pingTest",method = RequestMethod.GET)
 	public void ping(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		String ip= request.getParameter("ip");
@@ -160,12 +162,19 @@ public class HelloController extends BaseController{
 		PrintWriter printWriter=response.getWriter();
 		printWriter.print("success");
 	}
-	private static String key = "90GSMXDskQhD5s7K8hUEyQHsHVUPp16E";
-	public JSONObject getBaiDuPoint(Double lng,Double lat){
-		String url = "http://api.map.baidu.com/geoconv/v1/?coords=" + lng + ","
-				+ lat + "&output=json&ak=" + key ;
-		JSONObject object= JSONObject.fromObject(HttpUtil.getRequest(url));
-		JSONArray array= JSONArray.fromObject(object.get("result"));
-		return JSONObject.fromObject(array.get(0));
+
+	@RequestMapping(value = "/isOnline",method = RequestMethod.POST)
+	@ResponseBody
+	public String isOnline(String DevIDNO){
+		String filePath="C://GpsData/"+DevIDNO+"_state.txt";
+		try {
+			String content = FileUtil.readTxtFile(filePath);
+			if (content!=null&&!content.equals(""))
+				return content;
+		}
+		catch (Exception e){
+			return "Offline";
+		}
+		return "Offline";
 	}
 }

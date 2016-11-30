@@ -36,4 +36,7 @@ public class RFIDDao extends BaseDao {
         }
         return false;
     }
+    public RFID getBySerialNumber(String serialNumber){
+        return this.find("from RFID where serialNumber =",RFID.class,new Object[]{serialNumber});
+    }
 }

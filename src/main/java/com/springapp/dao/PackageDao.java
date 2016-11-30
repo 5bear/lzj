@@ -17,9 +17,12 @@ public class PackageDao extends BaseDao1<Package> {
         return this.list(hql);
     }
 
-    public Pager<Package> getPager(String con) {
+    public Pager<Package> getPager(String con,String company) {
         String hql = "from Package where isDelete = 0";
 
+        if(!"养护中心".equals(company)){
+            hql+=" and company='"+company+"'";
+        }
         if (!"".equals(con.trim())){
             hql+=" and (company like '%"+con+"%' or packageName like '%"+con+"%')";
         }
@@ -27,7 +30,7 @@ public class PackageDao extends BaseDao1<Package> {
     }
 
     public Package getByName(String name) {
-        String hql = "from Package where packageName = '"+name+"'";
+        String hql = "from Package where isDelete = 0 and packageName = '"+name+"'";
         return (Package)this.queryObject(hql);
     }
 }

@@ -11,7 +11,9 @@ package com.springapp.classes;
  * @date 2014-06-22
  */
 public class BaiDuUtil {
-    private static String key = "90GSMXDskQhD5s7K8hUEyQHsHVUPp16E";
+    //private static String key = "90GSMXDskQhD5s7K8hUEyQHsHVUPp16E";
+    private static String key = "avs3S28Dq5BjX7fCWUYjP3HA";
+
 
     /**
      *
@@ -20,21 +22,49 @@ public class BaiDuUtil {
      * @return
      */
     public static String getPosition(String lat, String lng) {
-        JSONObject obj = getLocationInfo(lat, lng).getJSONObject("result")
-                .getJSONObject("addressComponent");
-        return obj.getString("street");
+        JSONObject obj;
+        String street = "";
+        try{
+            obj  = getLocationInfo(lat, lng).getJSONObject("result")
+                    .getJSONObject("addressComponent");
+            System.out.println("-----------obj----------"+obj);
+            System.out.println("----------obj.toString()-----------"+obj.toString());
+            street =  obj.getString("street");
+        }catch (Exception e){
+            e.printStackTrace();
+            street =   "";
+        }
+        obj=null;
+        return street;
+    }
+    public static String getPosition(Double lat, Double lng) {
+        JSONObject obj;
+        String street = "";
+        try{
+            obj  = getLocationInfo(lat, lng).getJSONObject("result")
+                    .getJSONObject("addressComponent");
+            street =  obj.getString("street");
+        }catch (Exception e){
+            e.printStackTrace();
+            street =   "";
+        }
+        obj=null;
+        return street;
     }
 
     public static JSONObject getLocationInfo(String lat, String lng) {
         String url = "http://api.map.baidu.com/geocoder/v2/?location=" + lat + ","
                 + lng + "&output=json&ak=" + key +"&pois=0";
-        JSONObject obj = JSONObject.fromObject(HttpUtil.getRequest(url));
-        return obj;
+        return JSONObject.fromObject(HttpUtil.getRequest(url));
     }
-
-    /*public static void main(String[] args) {
-        System.out.println("----------------------"+BaiDuUtil.getPosition("31.234223","121.413218"));
-    }*/
+    public static JSONObject getLocationInfo(Double lat, Double lng) {
+        String url = "http://api.map.baidu.com/geocoder/v2/?location=" + lat + ","
+                + lng + "&output=json&ak=" + key +"&pois=0";
+        return  JSONObject.fromObject(HttpUtil.getRequest(url));
+    }
+    public static void main(String[] args) {
+        System.out.println("----------------------"+BaiDuUtil.getPosition("31.1837","121.33848"));
+    }
 
 
 }

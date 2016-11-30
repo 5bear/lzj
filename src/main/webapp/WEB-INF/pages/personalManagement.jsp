@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -64,7 +64,7 @@
           </tr>
           <tr>
             <td>所属部门</td>
-            <td class="vertical-table-content" id="company">${account.company}</td>
+            <td class="vertical-table-select" id="company">${account.company}</td>
           </tr>
           <tr>
             <td>联系电话</td>
@@ -98,11 +98,11 @@
                 <tbody>
                 <tr>
                   <td>新密码</td>
-                  <td><input type="text" class="table-input" id="newPwd"/></td>
+                  <td><input type="password" class="table-input" id="newPwd"/></td>
                 </tr>
                 <tr>
                   <td>请确认新密码</td>
-                  <td><input type="text" class="table-input" id="renewPwd"/></td>
+                  <td><input type="password" class="table-input" id="renewPwd"/></td>
                 </tr>
                 </tbody>
               </table>
@@ -134,11 +134,11 @@
         var val =  $(this).text();
         this.innerHTML = "<input class='table-input' name='info' value='"+ val + "'>";
       });
-      $(".vertical-table-select").html("<select class='table-input' name='info'><option value='系统管理员'>系统管理员</option>" +
+      /*$(".vertical-table-select").html("<select class='table-input' name='info'><option value='系统管理员'>系统管理员</option>" +
       "<option value='领导'>领导</option>" +
       "<option value='监理'>监理</option>" +
       "<option value='养护公司管理'>养护公司管理</option>" +
-      "<option value='普通用户'>普通用户</option></select>");
+      "<option value='普通用户'>普通用户</option></select>");*/
     } else {
       $(this).text("编辑信息");
       edit();
@@ -169,15 +169,13 @@
     var infos=document.getElementsByName("info");
     console.log(infos)
     var username=infos[0].value
-    var power=infos[1].value
-    var company=infos[2].value
-    var phoneNume=infos[3].value
+    var phoneNume=infos[1].value
     $.ajax({
       url:"User/myEdit",
       type:"post",
-      data:{id:'${account.id}',username:username,power:power,company:company,phoneNum:phoneNume},
+      data:{id:'${account.id}',username:username,phoneNum:phoneNume},
       success:function(data){
-       /* location.reload(true);*/
+        location.reload(true);
       }
     })
   }

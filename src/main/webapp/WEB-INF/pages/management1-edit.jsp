@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -67,7 +67,7 @@
           </tr>
           <tr style="display: ${account==null?"":"none"}">
             <td>密码</td>
-            <td><input type="text" class="table-input" id="password"/></td>
+            <td><input type="password" class="table-input" id="password"/></td>
           </tr>
           <tr>
             <td>用户权限</td>
@@ -81,7 +81,11 @@
           </tr>
           <tr>
             <td>所属部门</td>
-            <td><input type="text" class="table-input" id="company"/></td>
+            <td><select class="table-input" id="company">
+              <option value="养护中心">养护中心</option>
+              <option value="上海成基市政建设发展有限公司">上海成基市政建设发展有限公司</option>
+              <option value="上海高架养护管理有限公司">上海高架养护管理有限公司</option>
+            </select></td>
           </tr>
           <tr>
             <td>联系电话</td>
@@ -114,11 +118,11 @@
                 <tbody>
                 <tr>
                   <td>新密码</td>
-                  <td><input type="text" class="table-input" id="newPwd"/></td>
+                  <td><input type="password" class="table-input" id="newPwd"/></td>
                 </tr>
                 <tr>
                   <td>请确认新密码</td>
-                  <td><input type="text" class="table-input" id="renewPwd"/></td>
+                  <td><input type="password" class="table-input" id="renewPwd"/></td>
                 </tr>
                 </tbody>
               </table>
@@ -147,7 +151,7 @@
     $("#username").val('${account.username}')
     $("#password").val('${account.password}')
     $("#power").find("option[value="+'${account.power}'+"]").attr("selected",true);
-    $("#company").val('${account.company}')
+    $("#company").find("option[value="+'${account.company}'+"]").attr("selected",true);
     $("#phoneNum").val('${account.phoneNum}')
     $("#remark").val('${account.remark}')
   })
@@ -168,11 +172,11 @@
       alert("用户名不能为空")
       return true;
     }
-    if(password==""){
-      alert("密码不能为空")
-      return true;
-    }
     if(id==''){
+      if(password==""){
+        alert("密码不能为空")
+        return true;
+      }
       $.ajax({
         url:"User/add",
         type:"post",
@@ -181,6 +185,9 @@
           if(data=="duplicated"){
             alert("账号或用户名重复")
             return false;
+          }else if(data=="NoPower"){
+            alert("没有操作权限")
+            return false
           }
           location.href="UserManage";
         }
@@ -189,11 +196,14 @@
       $.ajax({
         url:"User/edit",
         type:"post",
-        data:{id:'${account.id}',account:account,username:username,password:password,power:power,company:company,phoneNum:phoneNum,remark:remark},
+        data:{id:'${account.id}',account:account,username:username,power:power,company:company,phoneNum:phoneNum,remark:remark},
         success:function(data){
           if(data=="duplicated"){
             alert("账号或用户名重复")
             return false;
+          }else if(data=="NoPower"){
+            alert("没有操作权限")
+            return false
           }
           location.href="UserManage";
         }
@@ -212,6 +222,10 @@
       type:"post",
       data:{id:'${account.id}',newPwd:newPwd},
       success:function(data){
+        if(data=="NoPower"){
+          alert("没有操作权限")
+          return false
+        }
         location.reload(true);
       }
     })

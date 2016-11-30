@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -100,21 +100,22 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="progress2.html">进度管理</a></li>
-                    <li><a href="progress2.html">实时监控</a></li>
+                    <li><a href="progress2">进度管理</a></li>
+                    <li><a href="progress2">实时监控</a></li>
                     <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
                 </ol>
             </div>
 
             <div class="col-lg-12">
                 <a href="javascript:history.back();" class="operation"><< 返回</a>
+                <a href="<%=request.getContextPath()%>/download/Setup.rar">点击下载控件</a>
             </div>
 
             <div id="top">
                 <p>云台摄像头</p>
                 <button class="button" style="width:15%;height:8%;top:0;left:45%"onclick="startVideoCloud()">获取视频</button>
                 <button class="button" style="width:15%;height :8%;top:0;left:62%" onClick="stopVideoCloud()">暂停</button>
-                <button class="button" style="width:15%;top:0;left:79%" data-toggle="modal" data-target="#full-screen" data-backdrop="static">全屏</button>
+                <button class="button" style="width:15%;height :8%;top:0;left:79%" data-toggle="modal" data-target="#full-screen" data-backdrop="static">全屏</button>
                 <div style="width:95%;margin-top:0; height:95%; z-index:-1" >
                     <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
                             width="100%" height="100%" id = "gViewerCloud" name="gViewerCloud">
@@ -137,7 +138,31 @@
                 <%--<button class="button" style="width:15%;top:0;left:34%;">获取控制</button>--%>
                 <%--<button class="button" style="width:15%;top:0;left:53%;">停止控制</button>--%>
                 <%--<button class="button" style="width:15%;top:0;left:72%;">预置点</button>--%>
+                <div class="row">
+                    <button class="button" style="width:15%;top:0;left:15%;" onmousedown="goPTZ(9)"onmouseup="stopPTZ()">聚焦打开</button>
+                    <button class="button" style="width:15%;top:0;left:34%;"onmousedown="goPTZ(8)"onmouseup="stopPTZ()">聚焦关闭</button>
+                    <button class="button" style="width:15%;top:0;left:53%;" onclick="goPTZ(13)">变焦打开</button>
+                    <button class="button" style="width:15%;top:0;left:72%;"onclick="goPTZ(12)">变焦关闭</button>
 
+                </div>
+                <div class="row">
+                    <button class="button" style="width:15%;top:35px;left:15%;" onclick="goPTZ(14)">灯光打开</button>
+                    <button class="button" style="width:15%;top:35px;left:34%;" onclick="goPTZ(15)">灯光关闭</button>
+                    <button class="button" style="width:15%;top:35px;left:53%;" onclick="goPTZ(11)">灯光变亮</button>
+                    <button class="button" style="width:15%;top:35px;left:72%;" onclick="goPTZ(10)">灯光变暗</button>
+                </div>
+                <div class="row">
+                    <button class="button" style="width:15%;top:70px;left:15%;" onclick="goPTZ(16)">雨刷打开</button>
+                    <button class="button" style="width:15%;top:70px;left:34%;" onclick="goPTZ(17)">雨刷关闭</button>
+                    <button class="button" style="width:15%;top:70px;left:53%;" onclick="goPTZ(18)">开启巡航</button>
+                    <button class="button" style="width:15%;top:70px;left:72%;" onclick="goPTZ(19)">停止巡航</button>
+                </div>
+                <div class="row">
+                    <button class="button" style="width:15%;top:70px;left:15%;" onclick="goPTZ(21)">预置位移动</button>
+                    <button class="button" style="width:15%;top:70px;left:34%;" onclick="goPTZ(22)">预置位设置</button>
+                    <button class="button" style="width:15%;top:70px;left:53%;" onclick="goPTZ(23)">预置位删除</button>
+                    <!--<button class="button" style="width:15%;top:70px;left:72%;" onclick="goPTZ(19)">停止巡航</button>-->
+                </div>
                 <div id="map">
                     <a id="top-map"onmousedown="goPTZ(2)" onmouseup="stopPTZ()"></a>
                     <a id="bottom-map"onmousedown="goPTZ(3)" onmouseup="stopPTZ()"></a>
@@ -162,8 +187,8 @@
                 </div>
                 <p class="alert-title text-center" style="margin-top: 20px">是否返回实时监控</p>
                 <div class="row text-center" style="margin: 40px;">
-                    <a href="progress2.html" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</a>
-                    <a href="" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">否</a>
+                    <a href="progress2" class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;">是</a>
+                    <a class="btn btn-deafult" style="color: #FFF;background-color: rgb(2,96,142);  border: 0;width: 15%;" onclick="offModel()">否</a>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -201,14 +226,16 @@
    /* $('a[data-toggle="dropdown"]').click(function() {
         $(this).nextAll().toggle();
     });*/
-
+   function offModel(){
+       $("#alert").modal('hide');
+   }
     $(function(){
         $("#progress").dropdown('toggle');
     });
     var viewCloud;
    var id ='${id}';
-    var ServerIP="120.24.79.63";
-    var ServerPort="6603";
+   var ServerIP="180.168.194.3";
+   var ServerPort="6603";
     //window.setTimeout("init()", 500) ;
     function init()
     {
@@ -222,7 +249,7 @@
 
     function startVideoCloud()
     {
-        viewCloud.StartVideo(id, 0, 0);
+        viewCloud.StartVideo(id, 0, 0,1);
         viewCloud.SetViewTitle(0,id+" 云台摄像头"); //1通道 1窗口
     }
     function stopVideoCloud()
@@ -248,7 +275,7 @@
         viewBackFull.PaneType=0;
         viewBackFull.ServerIP = ServerIP;//"221.130.62.222";//"180.166.29.154";
         viewBackFull.ServerPort = ServerPort;
-        viewBackFull.StartVideo(id, 0, 0);
+        viewBackFull.StartVideo(id, 0, 0,1);
         viewBackFull.SetViewTitle(0,id+" 云台摄像头"); //1通道 1窗口
     })
     });

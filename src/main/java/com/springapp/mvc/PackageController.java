@@ -4,6 +4,7 @@ package com.springapp.mvc;
  * Created by yanglin on 16/4/17.
  */
 
+import com.springapp.classes.model.Pager;
 import com.springapp.entity.Line;
 import com.springapp.entity.Package;
 import net.sf.json.JSONArray;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +30,8 @@ import java.util.List;
 public class PackageController extends BaseController {
 
 
-    @RequestMapping(value = "/Package", method = RequestMethod.GET)
-    public ModelAndView list(@RequestParam(required = false) String name) {
+    @RequestMapping(value = "/Package/list", method = RequestMethod.GET)
+    public ModelAndView list(@RequestParam(required = false) String name,HttpSession session) {
         if (name == null) {
             name = "";
         }
@@ -41,7 +43,7 @@ public class PackageController extends BaseController {
                 Long id = pac.getId();
                 List<Line> lineList = lineDao.getListByPackage(id);
                 String roads = "";
-                Long realDistance = 0L;
+                double realDistance = 0.00;
                 for (int j = 0; j < lineList.size(); j++) {
                     Line line = lineList.get(j);
                     if (j < lineList.size() - 1) {
@@ -49,25 +51,48 @@ public class PackageController extends BaseController {
                     } else {
                         roads = roads + line.getLine();
                     }
+                    double temp=0;
+                    try{
+                        temp =  Double.parseDouble(line.getRealDistance());
+                        BigDecimal b   =   new   BigDecimal(temp);
+                        temp   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                   }catch (Exception e){
+                       temp=0;
+                   }
+                        realDistance = realDistance +temp;
 
-                    realDistance = realDistance + Integer.parseInt(line.getRealDistance());
                 }
+                BigDecimal b   =   new   BigDecimal(realDistance);
+                realDistance   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 pac.setRoads(roads);
-                pac.setRealDistance(realDistance);
+                pac.setRealDistance(realDistance*pac.getTime());
                 packageDao.update(pac);
             }
 
         }
 
         modelAndView.setViewName("PackageIndex");
-        modelAndView.addObject("PackageList", packageDao.getPager(name));
+        String company = String.valueOf(session.getAttribute("company"));
+        Pager<Package> pp = packageDao.getPager(name,company);
+        if(pp!=null){
+            for (Package p:pp.getDatas()){
+                BigDecimal b   =   new   BigDecimal(p.getDistance()/1000);
+                double dd   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                p.setDistance(dd);
+
+                BigDecimal bd   =   new   BigDecimal(p.getRealDistance()/1000);
+                double ddd   =   bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                p.setRealDistance(ddd);
+            }
+        }
+        modelAndView.addObject("PackageList", pp);
         modelAndView.addObject("name", name);
         return modelAndView;
 
 
     }
 
-    @RequestMapping(value = "/PackageAdd0")
+    @RequestMapping(value = "/Package/add", method = RequestMethod.GET)
     public ModelAndView add0() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("PackageAdd");
@@ -80,7 +105,7 @@ public class PackageController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/PackageAdd1")
+    @RequestMapping(value = "/Package/add", method = RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "packageName") String packageName,
@@ -110,7 +135,10 @@ public class PackageController extends BaseController {
         pac.setCompany(company);
         pac.setPackageName(packageName);
         if (distance!=null && !"".equals(distance.trim())){
-            pac.setDistance(Long.parseLong(distance));
+            double d = Double.parseDouble(distance);
+            BigDecimal b   =   new   BigDecimal(d);
+            double   f1   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            pac.setDistance(f1*1000);
         }
         pac.setInputMan(inputMan);
         if (time!=null && !"".equals(time.trim())){
@@ -126,9 +154,12 @@ public class PackageController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/PackageEdit", method = RequestMethod.GET)
+    @RequestMapping(value = "/Package/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") String id) {
         Package pac = packageDao.getById(Long.parseLong(id));
+        BigDecimal b   =   new   BigDecimal(pac.getDistance()/1000);
+        double dd   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        pac.setDistance(dd);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("PackageEdit");
         List<Integer> yearList = new ArrayList<Integer>();
@@ -140,7 +171,7 @@ public class PackageController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/PackageEdit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Package/edit", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
@@ -166,7 +197,10 @@ public class PackageController extends BaseController {
         pac.setPackageName(packageName);
         //pac.setRoads(roads);
         if (distance!=null && !"".equals(distance.trim())){
-            pac.setDistance(Long.parseLong(distance));
+            double d = Double.parseDouble(distance);
+            BigDecimal b   =   new   BigDecimal(d);
+            double   f1   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            pac.setDistance(f1*1000);
         }
         //pac.setInputMan(inputMan);
         if (time!=null && !"".equals(time.trim())){
@@ -180,7 +214,7 @@ public class PackageController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/PackageDelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/Package/delete", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id") String id) {
         Package pac = packageDao.getById(Long.parseLong(id));
@@ -208,7 +242,7 @@ public class PackageController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(value = "/PackageGet", method = RequestMethod.POST)
+    @RequestMapping(value = "/Package/get", method = RequestMethod.POST)
     @ResponseBody
     public String get() {
         List<Package> pacList = packageDao.getList();

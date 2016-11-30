@@ -17,6 +17,15 @@ public class Account {
     private String phoneNum;//联系电话
     private Timestamp lastLogin;//最后登录时间 yyyy/MM/dd
     private String remark;
+    private int viewExcpt;//是否查看异常 缺省 0 可查看
+
+    public int getViewExcpt() {
+        return viewExcpt;
+    }
+
+    public void setViewExcpt(int viewExcpt) {
+        this.viewExcpt = viewExcpt;
+    }
 
     @Column()
     public String getCenter() {

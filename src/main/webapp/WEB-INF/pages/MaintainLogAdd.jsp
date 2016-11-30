@@ -9,22 +9,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+    <%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="<%=request.getContextPath()%>/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -47,12 +49,13 @@
                     <li class="active"><i class="icon-file-alt"></i> 养护日志管理</li>
                 </ol>
             </div>
-        </div><!-- /.row -->
+        </div>
+        <!-- /.row -->
 
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
                 <!--<a href="javascript:history.back();" class="operation"><< 返回</a>-->
-                <a href="MaintainLog" class="operation"><< 返回</a>
+                <a onclick="history.go(-1)" class="operation"> << 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 养护日志信息录入
@@ -60,16 +63,41 @@
             <div class="col-lg-6 col-lg-offset-3">
                 <table class="table vertical-table">
                     <tbody>
-                    <!--<tr>
-                        <td>编号</td>
-                        <td><input type="text" class="table-input"/></td>
-                    </tr>-->
+
+                    <tr>
+                        <td>公司</td>
+                        <td>
+                        <c:choose>
+                            <c:when test="${company eq '养护中心'}">
+                                <select class="table-input" id="company" onchange="changeCompany()"  >
+                                    <option value="养护中心">选择公司</option>
+                                    <option value="上海成基市政建设发展有限公司">上海成基市政建设发展有限公司</option>
+                                    <option value="上海高架养护管理有限公司">上海高架养护管理有限公司</option>
+                                </select>
+                            </c:when>
+                            <c:when test="${company ne '养护中心'}">
+                                ${company}
+                            </c:when>
+                        </c:choose>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>车辆类型</td>
+                        <td>
+                            <select class="table-input" id="vehicleType" onchange="changeType('${company}')">
+                                <option value="">选择车辆类型</option>
+                                <option value="清扫车">清扫车</option>
+                                <option value="牵引车">牵引车</option>
+                                <option value="巡视车">巡视车</option>
+                            </select>
+                        </td>
+                    </tr>
                     <tr>
                         <td>车辆牌照</td>
                         <td>
-                            <select id="vehicleLicence">
+                            <select class="table-input" id="vehicleLicense">
                                 <c:forEach items="${VehicleList}" var="vehicle">
-                                    <option>${vehicle.vehicleLicence}</option>
+                                    <option>${vehicle.vehicleLicense}</option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -81,7 +109,7 @@
                     <tr>
                         <td>路段信息</td>
                         <td>
-                            <select id="road">
+                            <select class="table-input" id="road">
                                 <c:forEach items="${LineList}" var="line">
                                     <option>${line.line}</option>
                                 </c:forEach>
@@ -115,16 +143,17 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 col-sm-4 col-sm-offset-4">
-                <button class="btn btn-default" onclick="addMaintainLog()" >提交</button>
-                <button class="btn btn-default">取消</button>
+            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 text-center">
+                <button class="btn btn-default" onclick="addMaintainLog()">提交</button>
             </div>
         </div>
 
 
-    </div><!-- /#page-wrapper -->
+    </div>
+    <!-- /#page-wrapper -->
 
-</div><!-- /#wrapper -->
+</div>
+<!-- /#wrapper -->
 
 <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog">
@@ -138,9 +167,12 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go()">确定</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <div class="modal fade" id="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -153,71 +185,190 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <!-- JavaScript -->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.datetimepicker.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.js"></script>
 <script>
-    $(function(){
+    $(function () {
         $("#progress").dropdown('toggle');
     });
 
     $('#happen-date').datetimepicker({
-        lang:'ch',
-        timepicker:false,
-        format:"Y-m-d",
+        lang: 'ch',
+        timepicker: false,
+        format: "Y-m-d",
         yearStart: 2016,
         yearEnd: 2050
     });
 
     $('#happen-hour').datetimepicker({
-        datepicker:false,
-        format:'H:i',
-        step:10
+        datepicker: false,
+        format: 'H:i',
+        step: 10
     });
 
 </script>
 
 <script type="text/javascript">
-    function go(){
-        location.href = "MaintainLog";
-    }
+    function changeCompany() {
+        var selector = document.getElementById("company");
+        var index = selector.selectedIndex;
+        var company = selector.options[index].value;
 
-    function addMaintainLog(){
-
-
-        var vehicleLicence=$("#vehicleLicence").val();
-        var principal=$("#principal").val();
-        var road=$("#road").val();
-        var eventType=$("#eventType").val();
-        var _date=$("#happen-date").val();
-        var remark=$("#remark").val();
-        var time=$("#happen-hour").val();
+        var selector1 = document.getElementById("vehicleType");
+        var index1 = selector1.selectedIndex;
+        var type = selector1.options[index1].value;
 
         $.ajax({
-            url:"MaintainLogAdd1",
-            type:"post",
-            data:{vehicleLicence:vehicleLicence,
-                principal:principal,
-                road:road,
-                eventType:eventType,
-                _date:_date,
-                remark:remark,
-                time:time
+            url: "<%=request.getContextPath()%>/getVehicleByType",
+            type: "post",
+            data: {
+                company: company,
+                type: type
             },
-            success:function(data){
+            success: function (data) {
 
-                if(data=="success") {
-                    $('#success').modal('show');
+                var r = $.parseJSON(data);
+                if (r.result == 0) {
+                    var list = r.obj;
+                    $("#vehicleLicense").empty();
+                    if (list != null && list.length > 0) {
+                        $(list).each(function (index, element) {
+                            var node = "<option>" + element.vehicleLicense + "</option>";
+                            $("#vehicleLicense").append(node);
+                        });
 
-                }else if(data=="false"){
-                    $('#false').modal('show');
+                    }
+
+                } else {
+                    alert(r.msg);
+                }
+            }
+        });
+
+        var selector2 = document.getElementById("company");
+        var index2 = selector2.selectedIndex;
+        var company1 = selector2.options[index2].value;
+        $.ajax({
+            url: "<%=request.getContextPath()%>/getLine",
+            type: "post",
+            data: {
+                company: company1
+            },
+            success: function (data) {
+
+                var r = $.parseJSON(data);
+                if (r.result == 0) {
+                    var list = r.obj;
+                    $("#road").empty();
+                    if (list != null && list.length > 0) {
+                        $(list).each(function (index, element) {
+                            var node = "<option>" + element.line + "</option>";
+                            $("#road").append(node);
+                        });
+
+                    }
+
+                } else {
+                    alert(r.msg);
                 }
             }
         })
+    }
+
+
+    function changeType(company) {
+        var selector = document.getElementById("vehicleType");
+        var index = selector.selectedIndex;
+        var type = selector.options[index].value;
+
+        if (company == "养护中心") {
+            var selector1 = document.getElementById("company");
+            var index1 = selector1.selectedIndex;
+            var company = selector1.options[index1].value;
+        }
+
+        $.ajax({
+            url: "<%=request.getContextPath()%>/getVehicleByType",
+            type: "post",
+            data: {
+                company: company,
+                type: type
+            },
+            success: function (data) {
+
+                var r = $.parseJSON(data);
+                if (r.result == 0) {
+                    var list = r.obj;
+                    $("#vehicleLicense").empty();
+                    if (list != null && list.length > 0) {
+                        $(list).each(function (index, element) {
+                            var node = "<option>" + element.vehicleLicense + "</option>";
+                            $("#vehicleLicense").append(node);
+                        });
+
+                    }
+
+                } else {
+                    alert(r.msg);
+                }
+            }
+        })
+
+
+    }
+
+    function go() {
+        location.href = "<%=request.getContextPath()%>/MaintainLog/list";
+    }
+
+    function addMaintainLog() {
+
+
+        var vehicleLicense = $("#vehicleLicense").val();
+        var principal = $("#principal").val();
+        var road = $("#road").val();
+        var eventType = $("#eventType").val();
+        var _date = $("#happen-date").val();
+        var remark = $("#remark").val();
+        var time = $("#happen-hour").val();
+
+        if(typeof (_date)=="undefined" || _date==null || _date==""){
+            alert("养护日期必须填写！")
+        }else{
+            $.ajax({
+                url: "<%=request.getContextPath()%>/MaintainLog/add",
+                type: "post",
+                data: {
+                    vehicleLicense: vehicleLicense,
+                    principal: principal,
+                    road: road,
+                    eventType: eventType,
+                    _date: _date,
+                    remark: remark,
+                    time: time
+                },
+                success: function (data) {
+
+                    if (data == "success") {
+                        $('#success').modal('show');
+
+                    } else if (data == "false") {
+                        $('#false').modal('show');
+                    }else if(data=="NoPower"){
+                        alert("无操作权限");
+                    }
+                }
+            })
+        }
+
+
 
     }
 </script>

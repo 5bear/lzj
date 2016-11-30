@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 
@@ -26,28 +27,33 @@ public class ParkController extends BaseController {
         return modelAndView;
     }*/
 
-    @RequestMapping(value = "/Park", method = RequestMethod.GET)
-    public ModelAndView list(@RequestParam(required = false) String name) {
+    @RequestMapping(value = "/Park/list", method = RequestMethod.GET)
+    public ModelAndView list(@RequestParam(required = false) String name,HttpSession session) {
         if (name == null) {
             name = "";
         }
         System.out.println("index");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("ParkIndex");
-        modelAndView.addObject("ParkList", parkDao.getList(name));//获取表中所有的数据
+        String company = String.valueOf(session.getAttribute("company"));
+        modelAndView.addObject("ParkList", parkDao.getList(name,company));//获取表中所有的数据
         modelAndView.addObject("name", name);
         return modelAndView;
 
 
     }
 
-    @RequestMapping(value = "/ParkAdd0")
-    public String add0() {
-        return "ParkAdd";
+    @RequestMapping(value = "/Park/add", method = RequestMethod.GET)
+    public ModelAndView add0(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("ParkAdd");
+        String company = String.valueOf(session.getAttribute("company"));
+        modelAndView.addObject("company", company);
+        return modelAndView;
     }
 
 
-    @RequestMapping(value = "/ParkAdd1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Park/add", method = RequestMethod.POST)
     @ResponseBody
     public String add1(@RequestParam(value = "company") String company,
                        @RequestParam(value = "parkName") String parkName,
@@ -76,16 +82,18 @@ public class ParkController extends BaseController {
         return "success";
     }
 
-    @RequestMapping(value = "/ParkEdit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id") String id) {
+    @RequestMapping(value = "/Park/edit", method = RequestMethod.GET)
+    public ModelAndView edit(@RequestParam(value = "id") String id,HttpSession session) {
         Park park = parkDao.getById(Long.parseLong(id));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("ParkEdit");
         modelAndView.addObject("Park_edit", park);
+        String company = String.valueOf(session.getAttribute("company"));
+        modelAndView.addObject("company", company);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/ParkEdit1", method = RequestMethod.POST)
+    @RequestMapping(value = "/Park/edit", method = RequestMethod.POST)
     @ResponseBody
     public String edit1(@RequestParam(value = "id") String id,
                         @RequestParam(value = "company") String company,
@@ -126,7 +134,7 @@ public class ParkController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/ParkDelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/Park/delete", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@RequestParam(value = "id") String id) {
         Park park = parkDao.getById(Long.parseLong(id));

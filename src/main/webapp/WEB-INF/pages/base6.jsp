@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -142,7 +142,7 @@
   $(document).ready(function() {
     $.ajax({
       url: "Rules/list",
-      type: "post",
+      type: "get",
       data: {},
       dataType: "json",
       success: function (data) {
@@ -170,6 +170,22 @@
     });
   })
   $("#button1").click(function(){
+    var power;
+      $.ajax({
+        url:"Rules/getPower",
+        type:"get",
+        data:{
+          account:"<%=session.getAttribute("account")%>",
+        },
+        async : false,
+        success:function(data){
+          power=data;
+        }
+      })
+      if(power=="noPower"){
+        alert("没有操作权限");
+        return;
+      }
       var CleanCarDeviate = 20;
       var PullCarDeviate = 40;
       var ViewCarDeviate = 40;
@@ -219,7 +235,23 @@
   })
   $("#button").click(function() {
     var Button = document.getElementById("button").innerHTML;
+    var power;
     if (Button == "更改") {
+      $.ajax({
+        url:"Rules/getPower",
+        type:"get",
+        data:{
+          account:"<%=session.getAttribute("account")%>",
+        },
+        async : false,
+        success:function(data){
+          power=data;
+        }
+      })
+      if(power=="noPower"){
+        alert("没有操作权限");
+        return;
+      }
       var CleanCarDeviate = document.getElementById("CleanCarDeviate1").innerHTML;
       var PullCarDeviate = document.getElementById("PullCarDeviate1").innerHTML;
       var ViewCarDeviate = document.getElementById("ViewCarDeviate1").innerHTML;
@@ -346,7 +378,7 @@
    });
    }*/
 
-  function valid(validArray){
+  function valid(validArray){              //////行开头、至少出现一次数字、(任意字符和至少出现一次数字)出现1次或0次、行结尾
     var arr = validArray;
     var reg = /^\d+(\.\d+)?$/;
     for (x in arr) {

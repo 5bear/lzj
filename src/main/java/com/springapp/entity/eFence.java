@@ -10,7 +10,15 @@ import javax.persistence.*;
 @Table(name = "eFence")
 public class eFence {
     private Long id;
-
+    private Double lat;//纬度
+    private String coords;//形成围栏的点的坐标
+    private String eFence;//名称
+    private String company;//所属公司
+    private String inputMan;//录入人
+    private Long inputId;//录入人id
+    private String vehicles;//相关车辆车牌
+    private String vehicleIds;//相关车辆id集合
+    private int isDelete;
     @Column()
     public String getCoords() {
         return coords;
@@ -37,16 +45,6 @@ public class eFence {
     public void setLng(Double lng) {
         this.lng = lng;
     }
-
-    private Double lat;//纬度
-    private String coords;//形成围栏的点的坐标
-    private String eFence;//名称
-    private String company;//所属公司
-    private String inputMan;//录入人
-    private Long inputId;//录入人id
-    private String vehicles;//相关车辆车牌
-    private String vehicleIds;//相关车辆id集合
-    private int isDelete;
     @Column(length = 45)
     public String getCreateTime() {
         return createTime;

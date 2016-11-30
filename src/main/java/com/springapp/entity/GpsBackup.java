@@ -1,28 +1,62 @@
 package com.springapp.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.sql.Timestamp;
 
 /**
- * Created by ZhanShaoxiong on 2016/6/2.
+ * Created by 11369 on 2016/9/28.
  */
 @Entity
-public class DevGPS {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class GpsBackup {
     private Long id;
     private String devIDNO;
     private Long lng;
     private Long lat;
     private String direction;
-    private int speed;
+    private String directioninfo;
+    private Integer speed;
+    private String timestamp;
     private String HDD;//00是不存在 01是存在 10是断电
     private Timestamp GPSTime;
-    private int isDrive;//0表示正在作业，1表示静止
-    private int overSpeed;//超速 0 1
-    private int inEfence;//是否在电子围栏内,默认为0 在
+    private Integer isDrive;//0表示正在作业，1表示静止
+    private Integer overSpeed;//超速 0 1
+    private Integer inEfence;//是否在电子围栏内,默认为0 在
     private String lineName;//所属路段名称
     private Long lineID;//所属路段id
     private String eFence;//所属电子围栏
-    private Long eFenceID;//
+    private Long eFenceID;//电子围栏
+    private Integer mile;//与上一个点的距离
+    private String road;//路段
+    @Column
+    public Integer getMile() {
+        return mile;
+    }
+
+    public void setMile(Integer mile) {
+        this.mile = mile;
+    }
+
+    @Column
+    public String getDirectioninfo() {
+        return directioninfo;
+    }
+
+    public void setDirectioninfo(String directioninfo) {
+        this.directioninfo = directioninfo;
+    }
+
+    @Transient
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     @Column(length = 45)
     public String geteFence() {
@@ -43,11 +77,11 @@ public class DevGPS {
     }
 
     @Column
-    public int getInEfence() {
+    public Integer getInEfence() {
         return inEfence;
     }
 
-    public void setInEfence(int inEfence) {
+    public void setInEfence(Integer inEfence) {
         this.inEfence = inEfence;
     }
 
@@ -70,11 +104,11 @@ public class DevGPS {
     }
 
     @Column
-    public int getOverSpeed() {
+    public Integer getOverSpeed() {
         return overSpeed;
     }
 
-    public void setOverSpeed(int overSpeed) {
+    public void setOverSpeed(Integer overSpeed) {
         this.overSpeed = overSpeed;
     }
 
@@ -98,11 +132,11 @@ public class DevGPS {
     }
 
     @Column(length = 10)
-    public int getIsDrive() {
+    public Integer getIsDrive() {
         return isDrive;
     }
 
-    public void setIsDrive(int isDrive) {
+    public void setIsDrive(Integer isDrive) {
         this.isDrive = isDrive;
     }
 
@@ -149,11 +183,20 @@ public class DevGPS {
         this.direction = direction;
     }
     @Column
-    public int getSpeed() {
+    public Integer getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(Integer speed) {
         this.speed = speed;
+    }
+
+    @Column
+    public String getRoad() {
+        return road;
+    }
+
+    public void setRoad(String road) {
+        this.road = road;
     }
 }

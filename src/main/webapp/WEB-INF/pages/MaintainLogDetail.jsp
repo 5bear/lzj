@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -16,14 +16,14 @@
     <title>上海市快速路养护作业监管设施完善工程</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/panel-dropdown.css"/>
+    <link href="<%=request.getContextPath()%>/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/panel-dropdown.css"/>
 </head>
 
 <body>
@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 time-row">
                 <!--<a href="javascript:history.back();" class="operation"><< 返回</a>-->
-                <a href="MaintainLog" class="operation"><< 返回</a>
+                <a onclick="history.go(-1)" class="operation"><< 返回</a>
             </div>
             <div class="col-lg-6 col-lg-offset-3 text-center time-row">
                 养护日志详细信息
@@ -64,7 +64,7 @@
                     </tr>-->
                     <tr>
                         <td>车辆牌照</td>
-                        <td>${MaintainLog_detail.vehicleLicence}</td>
+                        <td>${MaintainLog_detail.vehicleLicense}</td>
                     </tr>
                     <tr>
                         <td>负责人</td>
@@ -132,10 +132,10 @@
 </div><!-- /.modal -->
 
 <!-- JavaScript -->
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.datetimepicker.js"></script>
 
+<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.js"></script>
 <script type="text/javascript">
 
     var id;
@@ -146,7 +146,7 @@
 
     function editMaintainLog(id)
     {
-        location.href="MaintainLogEdit?id="+id;
+        location.href="<%=request.getContextPath()%>/MaintainLog/edit?id="+id;
 
 
     }
@@ -154,13 +154,16 @@
     {
 
         $.ajax({
-            url:"MaintainLogDelete",
+            url:"<%=request.getContextPath()%>/MaintainLog/delete",
             type:"post",
             data:{id:id},
             success:function(data){
 
                 if(data=="success"){
-                    location.href="MaintainLog";
+                    location.href="<%=request.getContextPath()%>/MaintainLog/list";
+                }
+                else if(data=="NoPower"){
+                    alert("无操作权限");
                 }else {
                     alert("error");
                 }

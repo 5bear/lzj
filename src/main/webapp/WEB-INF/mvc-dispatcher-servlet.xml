@@ -84,6 +84,8 @@
         <property name="minEvictableIdleTimeMillis" value="60000"></property>
     </bean>
 
+
+
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <!-- 注入数据源 -->
         <property name="dataSource" ref="dataSource"/>
@@ -101,11 +103,12 @@
                 <prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
                 <prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
                 <prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
-                <prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
-                <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
-                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
-                <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
-                <prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+                <prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}
+                </prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache.xml</prop>
                 <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
             </props>
         </property>

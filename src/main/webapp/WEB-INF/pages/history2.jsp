@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: as
@@ -9,7 +10,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -37,9 +38,7 @@
 
     <style>
         #index { width:100%;height:100%; min-width:1000px;background-color:transparent; position:relative;}
-        #in-left { width:50%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}
-        #in-mid { width:20%; height:652px; margin:0px; padding:0px; float:left; background-color:transparent;}
-        #in-right { width:30%; height:600px; margin:0px; padding:0px; float:left; background-color:transparent;margin-left:5px}
+        #in-left { width:100%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;}ding:0px; float:left; background-color:transparent;margin-left:5px}
 
         .bt{
             height: 22px;
@@ -68,6 +67,9 @@
 
         }
 
+
+
+
         .txt
         {
             position: absolute;
@@ -87,6 +89,15 @@
             left: 513px;
         }
         .hour{
+            border: none;
+            background-color: #F2F2F2;
+            border-radius: 5px;
+            padding: 3px 6px;
+            margin-right: 10px;
+            width: 150px;
+            color: rgb(62,133,167);
+        }
+        .year{
             border: none;
             background-color: #F2F2F2;
             border-radius: 5px;
@@ -128,7 +139,7 @@
         .scale span{width:16px;height:16px;position:absolute;left:1px;top:-3px;cursor:pointer;
             background:url(images/scroll.gif)   no-repeat;}
         .scale{ background-repeat: repeat-x; background-position: 0 100%; background-color: rgb(230,230,230); border-left: 1px
-        rgb(41,171,226);width: 460px; height: 7px; position: relative; font-size: 0px; border-radius: 5px; }
+        rgb(41,171,226);solid;  width: 460px; height: 7px; position: relative; font-size: 0px; border-radius: 5px; }
 
         .scale div{ background-repeat: repeat-x; background-color: #3BE3FF; width: 0px; position: absolute; height: 3px; width: 0; 		           left: 0; bottom: 0; }
 
@@ -141,44 +152,9 @@
             margin-left: 5px;
             margin-right: 5px;}
     </style>
-
-
-
-    <script>
-        var scale = function (btn,bar,title){
-            this.btn=document.getElementById(btn);
-            this.bar=document.getElementById(bar);
-            this.title=document.getElementById(title);
-            this.step=this.bar.getElementsByTagName("div")[0];
-            this.init();
-        };
-        scale.prototype={
-            init:function (){
-                var f=this,g=document,b=window,m=Math;
-                f.btn.onmousedown=function (e){
-                    var x=(e||b.event).clientX;
-                    var l=this.offsetLeft;
-                    var max=f.bar.offsetWidth-this.offsetWidth;
-                    g.onmousemove=function (e){
-                        var thisX=(e||b.event).clientX;
-                        var to=m.min(max,m.max(-2,l+(thisX-x)));
-                        f.btn.style.left=to+'px';
-                        f.ondrag(m.round(m.max(0,to/max)*100),to);
-                        b.getSelection ? b.getSelection().removeAllRanges() : g.selection.empty();
-                    };
-                    g.onmouseup=new Function('this.onmousemove=null');
-                };
-            },
-            ondrag:function (pos,x){
-                this.step.style.width=Math.max(0,x)+'px';
-                this.title.innerHTML=pos+'%';
-            }
-        }
-        new scale('btn','bar','title');
-    </script>
 </head>
 
-<body onLoad="init1()">
+<body onload="init1()">
 
 <div id="wrapper">
 
@@ -193,8 +169,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="#">历史数据</a></li>
-                    <li><a href="#">历史视频查询</a></li>
+                    <li>历史数据</li>
+                    <li><a href="history2">历史视频查询</a></li>
                     <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
                 </ol>
             </div>
@@ -205,90 +181,68 @@
 
             <div id="index">
                 <!--<img src="images/index.jpg" width="100%"/>-->
-                <div id="in-left" style="width:500px; position: relative; right: 10px;" >
+                <div id="in-left" style="width:50%; position: relative; right: 10px;float: left" >
                     <!--<input type="text" class="tt" id="hour" style="position: absolute;left: 21px;width: 82px;"/>-->
-                    <input type="text" placeholder="开始时间" class="hour"  style="width: 70px; margin-right: 5px;"/>
-                    <input type="text" placeholder="结束时间" class="hour" style="width: 70px;"/>
 
-                    <div style="width: 2%;height: 4%; position: absolute;">
-                    </div>
 
-                    <!--  <input type="button" id="xuanze" value="选择时间段" style="position: absolute;left: 110px;width:94px;"/>-->
-                    <input type="text" class="tt" placeholder="输入车牌" style="width: 80px;"/>
 
-                    <button class="btn btn-default" style="padding-top: 2px; padding-bottom: 2px;" onclick="Start()">确认</button>
-                    <button class="btn btn-default" style="width: 134px; padding: 2px 2px;">牵引车服务视频查询</button>
 
-                    <!--<video id="video1" width="100%" style="margin-top:0px; position:relative; top:62px;">-->
-                    <!--<source src="/example/html5/mov_bbb.mp4" type="video/mp4" />-->
-                    <!--<source src="/example/html5/mov_bbb.ogg" type="video/ogg" />-->
-                    <!--Your browser does not support HTML5 video.-->
-                    <!--</video>-->
-
-                    <div style="width:100%;margin-top:0; height:300px; z-index:-1" >
+                    <div style="width:100%;margin-top:0; height:500px; z-index:-1;;margin: auto" >
                         <OBJECT class="object" classid="clsid:DAB63197-3FF9-4236-924C-F8641094DDFD"  codebase = "setup.exe#version=6,0,0,3"
-                                width="100%" height="100%" id = "gViewer" name="gViewer" >
+                                width="100%" height="100%" id = "gViewer" name="gViewer">
                         </OBJECT>
-                    </div>
-
-                    <div style=" position: relative; top: 0; ">
-                        <img src="images/bofang.png" style="width:100%" />
-                        <input type="text" class="bofangtxt" style="left:79px"/>
-                        <input type="text" class="bofangtxt" style="left:136px;width:26px"/>
-                        <input type="text" class="bofangtxt" style="left:189px; width:26px"/>
-
-                        <input type="button"  style=" position: absolute;top: 6px;left: 245px; height:34px;width:34px;border:0;
-						   background:url(images/1.png); background-size: 100% 100%;" />
-
-                        <input type="button"  style=" position: absolute;top: 78px;left: 144px; height:30px;width:30px;border:0;
-						   background:url(images/2.png); background-size: 100% 100%;" />
-
-                        <input type="button"  style=" position: absolute;top: 78px;left: 185px; height:30px;width:30px;border:0;
-						   background:url(images/3.png); background-size: 100% 100%;" />
-
-                        <input type="button"  style=" position: absolute;top: 78px;left: 226px; height:30px;width:26px;border:0;
-						   background:url(images/4.png); background-size: 100% 100%;" />
-
-                        <input type="button"  style=" position: absolute;top: 78px;left: 268px; height:30px;width:26px;border:0;
-						   background:url(images/5.png); background-size: 100% 100%;" />
-
-                        <input type="button"  style=" position: absolute;top: 78px;left: 268px; height:30px;width:26px;border:0;
-						   background:url(images/5.png); background-size: 100% 100%;" />
-
-                        <input type="button"  style=" position: absolute;top: 78px;left: 310px; height:30px;width:38px;border:0;
-						   background:url(images/6.png); background-size: 100% 100%;" />
-
+                            <%--<video width="320" height="240" controls autoplay>--%>
+                                <%--<source src="./video/H20160510-130653P1N1P0.mp4" type="video/mp4">--%>
+                            <%--</video>--%>
                     </div>
 
 
 
-                    <ul class="lanren" style="margin-left:100px; margin-top:20px">
-                        <li><span id="title"></span>
-                            <div class="scale_panel">
-                                <span class="r"></span>
-                                <div class="scale" id="bar">
-                                    <div></div>
-                                    <span id="btn"></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+
 
                 </div><!--in-left-->
 
-                <div id="in-mid" style="width:158px;">
-                    <img src="images/bg.png" width="100%"/>
 
-                </div><!--in-mid-->
+                <div class="row" style="float: left;width:50%;">
+                    <div class="row text-right" style="margin-bottom: 30px; padding-right: 30px;">
+                        <%--<select>--%>
+                        <%--<option value="SH">2016</option>--%>
+                        <%--<option value="SH">2015</option>--%>
+                        <%--</select>--%>
+                        <a href="<%=request.getContextPath()%>/download/Setup.rar">点击下载控件</a>
+                        <input type="text" id="year" placeholder="年份" class="year"  style="width: 100px; margin-right: 5px;"/>
+                        <input type="text" id="startTime" placeholder="开始时间" class="hour"  style="width: 70px; margin-right: 5px;"/>
+                        <input type="text" id="endTime" placeholder="结束时间" class="hour" style="width: 70px;"/>
+                        <input type="text" id="vehicleLicense"  class="tt"  list="lista" placeholder="输入车牌" style="width: 90px;"/>
+                        <datalist id="lista">
+                            <c:forEach items="${vehicleLicense}" var="item">
+                                <option value="${item.vehicleLicense}">${item.vehicleLicense}</option>
+                            </c:forEach>
+                        </datalist>
+                        <button class="btn btn-default" style="padding-top: 2px; padding-bottom: 2px;" onclick="StartFile()" >确认</button>
+                        <span style="clear:both"></span>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>终端设备</th>
+                                <th>通道</th>
+                                <th>位置</th>
+                                <th>文件</th>
+                                <th>播放</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table">
+                            <tr>
 
-                <div id="in-right">
+                            </tr>
 
-                    <div id="container" style="width:100%"></div>
-
-
-
-                </div><!--in-right-->
-
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div><!--index-->
 
 
@@ -303,21 +257,19 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
-<%--<script>
 
-    $('a[data-toggle="droplist"]').click(function(e) {
-        e.preventDefault();
-        $(this).nextAll().toggle();
-    });
-</script>--%>
 
 
 <script>
-    $('#date').datetimepicker({
+    $(function(){
+        $("#history2").dropdown('toggle');
+    });
+
+    $('.year').datetimepicker({
         lang:'ch',
         timepicker:false,
         format:"Y-m-d",
-        yearStart: 2016,
+        yearStart: 2015,
         yearEnd: 2050
     });
 
@@ -326,29 +278,166 @@
         format:'H:i',
         step:10
     });
-    var id="0200001";
+
+
     var view = document.getElementById("gViewer");
-    var strFile="D:/H20160502-000000P1N2P0.avi";
+    var row="";
+    var veLicense;
     function init1()
     {
         view.Layout = 1;
         view.PaneType=0;
-        view.ServerIP = "120.24.79.63";
-        view.ServerPort = "6603";
+        view.ServerIP="180.168.194.3";
+        view.ServerPort="6605";
+        year="${year}";
+        start="${start}";
+        end="${end}";
+        id="${id}";
+        veLicense="${veLicense}";
+        if(year!=""&&start!=""&&end!=""&&veLicense!=""){
+            getFile();
+            setTable();
+        }
     }
-    function Start(){
-        view.StartPlaybackRec(strFile,"2016-05-02 00:00:00","2016-05-02 00:15:00",id,2,"0",2,2,6,"2016-05-02 00:00:00","2016-05-02 00:15:00",0);
+    function Start(FileName,StartTime,channel){
+        var file="C:/video/RECORD_FILE/"+id+"("+id+")/"+year+"/"+ FileName;
+        var newStart = [];
+        for(var i = 0; i<StartTime.length;i++){
+
+            if(StartTime[i] == "-")
+                newStart+="/";
+            else
+                newStart+=StartTime[i];
+        }
+        var t=new Date(newStart);//你已知的时间
+        var t_s = t.getTime();//转化为时间戳毫秒数
+        var nt = new Date();//定义一个新时间
+        nt.setTime(t_s+1000*60*15+1000*58);//设置新时间比旧时间多一分钟
+        var EndTime = nt.getFullYear()+"-"+ (parseInt(nt.getMonth())+1)+"-"+nt.getDate()+" "+nt.getHours()+":"+nt.getMinutes()+":"+nt.getSeconds();
+        view.StartPlaybackRec(file,StartTime,EndTime,id,channel,"0",2,2,26,StartTime,EndTime,0);//设备ID 通道号 文件长度 文件类型（1 图片 2 录像）文件存储位置（1 设备 2 服务器）服务器ID
+//        //alert(view.StartPlaybackRec(file,StartTime,EndTime,id,channel,"0",2,2,26,StartTime,EndTime,0));
+    }
+
+    var company;
+    var id;
+    var isFile=true;
+    function StartFile(){
+        Search();
+        if($("#year").val()=="") {
+            alert("请输入日期");
+            return 0;
+        }
+        else
+            year=$("#year").val();
+        if($("#startTime").val()=="")
+            start="00:00";
+        else
+            start=$("#startTime").val();
+        if($("#endTime").val()=="")
+            end="23:59";
+        else
+            end=$("#endTime").val();
+        if(start>=end){
+            alert("起始时间错误");
+            return 1;
+        }
+
+        if(isFile==true) {
+            window.location="history2?id="+id+"&company="+company+"&year="+year+"&start="+start+"&end="+end+"&veLicense="+vehicleLicense;
+        }
+
+    }
+    var vehicleLicense;
+    function Search(){
+        if($("#vehicleLicense").val()=="") {
+            alert("请输入车牌");
+            isFile=false;
+            return 0;
+        }
+        vehicleLicense=$("#vehicleLicense").val();
+        $.ajax({
+            url: "history2/search",
+            type: "get",
+            dataType: "json",
+            async : false,                   //设置同步
+            data: {
+                vehicleLicense:vehicleLicense,
+            },
+            success: function (data) {
+                if (data.length == 0) {
+                    alert("没有该车牌");
+                    isFile = false;
+                } else {
+                    isFile=true;
+                    $(data).each(function (index) {
+                        if(data[index].company=="上海成基市政建设发展有限公司")
+                            company="CJcompany";
+                        else if(data[index].company=="上海高架养护管理有限公司")
+                            company="GJcompany";
+                        id = data[index].OBUId;
+                    })
+                }
+            }
+        });
+
+    }
+    var channel=[];
+    var filename="";
+    var FileName=[];
+    var time=[];
+    var a;               //a为文件个数
+    function getFile() {
+        var FileList = '${FileList}';
+        var i= 1;
+        a=0;
+        time=[];
+        channel=[];
+        filename="";
+        FileName=[];
+        while(i<FileList.length-1){
+            if(FileList[i]!=','&& FileList[i]!=' ') {
+                filename += FileList[i];
+            }
+            else if(FileList[i]==' ') {
+                time[a] =""+ filename.substr(1, 4)+"-"+filename.substr(5, 2)+"-"+filename.substr(7, 2)+" "+filename.substr(10, 2)+":"+filename.substr(12, 2)+":"+filename.substr(14, 2);
+                channel[a] = filename.substr(19, 1);
+                FileName[a]=filename;
+                a++;
+                filename="";
+            }
+            if(i==FileList.length-2){
+                time[a] =""+ filename.substr(1, 4)+"-"+filename.substr(5, 2)+"-"+filename.substr(7, 2)+" "+filename.substr(10, 2)+":"+filename.substr(12, 2)+":"+filename.substr(14, 2);
+                channel[a] = filename.substr(19, 1);
+                FileName[a]=filename;
+                a++;
+                filename="";
+            }
+            i++;
+        }
+    }
+    var year,start,end;
+    function setTable() {
+        var startTime=year+" "+start;
+        var endTime=year+" "+end;
+        row="";
+        var table=0;
+        for(var i=0;i<a;i++){
+            if(time[i]>=startTime && time[i]<=endTime){
+                row += "<tr> <td id='time"+i+"'>" + time[i] + "</td> <td>" + veLicense + "</td> <td id='channel"+i+"'>" + channel[i] + "</td> <td>终端设备</td> <td id='FileName"+i+"'>" + FileName[i] +
+                        "</td><td align=center><button id='video"+i+"'class='btn btn-default' onclick='startVideo("+i+")'>播放</button></td> </tr>";
+                table++;
+            }
+        }
+
+        if(table==0)
+            alert("没有文件");
+        $("#table").html(row);
+    }
+
+    function startVideo(num){
+        Start(FileName[num],time[num],channel[num]);
     }
 </script>
 
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
-
-<script>
-    var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
-    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-    map.enableScrollWheelZoom();//允许放大缩放
-    map.addControl(top_left_control);
-    map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
-</script>
 </body>
 </html>

@@ -54,7 +54,7 @@ public class PowerController extends BaseController {
         }
         return "success";
     }
-    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     public String get(){
         String[]pageNames={"停车场管理","车辆管理","RFID管理","包件管理","电子围栏","监控规则","养护作业计划","作业路线管理","布点计划","驾驶员计划",
