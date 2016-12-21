@@ -371,6 +371,24 @@ import java.util.*;
                 }
             }
         }
+        Roads = roads.get(0);
+        for (int i = 1; i < roads.size() - 1; i++) {
+            Roads += roads.get(i);
+        }
+        if (roads.size() > 1) {
+            Roads += roads.get(roads.size() - 1);
+        }
+        String str = "from Remark where DateTime like '"+year+"-"+month+"%'";
+        List<Remark> remarkList = remarkDao.findAll(str,Remark.class);
+        if(remarkList.size()!=0) {
+            for (Remark x : remarkList) {
+                if (x.getLine().equals(Roads)) {
+                    int day = Integer.parseInt(x.getDateTime().substring(x.getDateTime().length()-2,x.getDateTime().length()));
+                    Distance.set(day-1,Double.parseDouble(x.getTheoryDistance()));
+                    Coverage.set(day-1,Double.parseDouble(x.getTheoryCorvage()));
+                }
+            }
+        }
          Distance.addAll(Coverage);
         Distance.add(totalValidDistance/totalRealDistance*100);
         if(totalCount==0)
@@ -468,6 +486,25 @@ import java.util.*;
 
                 }
             }
+            Roads = roads.get(0);
+            for (int i = 1; i < roads.size() - 1; i++) {
+                Roads += roads.get(i);
+            }
+            if (roads.size() > 1) {
+                Roads += roads.get(roads.size() - 1);
+            }
+            String str = "from Remark where DateTime like '"+year+"-"+month+"-"+day+"'";
+            List<Remark> remarkList = remarkDao.findAll(str,Remark.class);
+            if(remarkList.size()!=0) {
+                for (Remark x : remarkList) {
+                    if (x.getLine().equals(Roads)) {
+                        Distance.set(0,Double.parseDouble(x.getTheoryDistance()));
+                        Coverage.set(0,Double.parseDouble(x.getTheoryCorvage()));
+                    }
+                }
+            }
+            Distance.set(1,Distance.get(0)*realDistance/100);
+            Coverage.set(1,Coverage.get(0)*Coverage.get(2)/100);
             validDistance = null;
             Distance.addAll(Coverage);
             return JSONArray.fromObject(Distance).toString();

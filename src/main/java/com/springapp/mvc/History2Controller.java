@@ -37,7 +37,7 @@ public class History2Controller extends BaseController {
         }
         List<String> List = new ArrayList<String>();
         FTPClientExample ftp = new FTPClientExample();
-        if(company=="CJcompany") {
+        if(company.equals("CJcompany")) {
             try {
                 List = ftp.CJbegin(id.toString(),year.toString());
             } catch (Exception e) {

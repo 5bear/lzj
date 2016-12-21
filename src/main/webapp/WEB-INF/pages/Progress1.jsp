@@ -805,6 +805,7 @@
                     if(data == 'success'){
                         $("#Remark").modal('hide');
                         alert("添加成功");
+                        parent.location.reload();
                         $('#Remark').html('<div class="modal-dialog"> <div class="modal-content"> ' +
                                 '<div class="modal-header"> <h4 class="modal-title">添加备注</h4> </div> ' +
                                 '<div class="modal-body text-left">' +

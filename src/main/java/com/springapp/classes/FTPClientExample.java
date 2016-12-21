@@ -105,6 +105,7 @@ public class FTPClientExample {
         List<String> List = new ArrayList<String>();
         FTPClientExample t = new FTPClientExample();
         try {
+//            t.connect("D:\\ftp", "180.169.125.162", 21, "lzj", "lzjlzj");
             t.connect("C:\\video", "180.169.114.154", 21, "lzj", "lzjlzj");
             List=t.getFileList("RECORD_FILE\\"+id+"("+id+")\\"+time);
 
