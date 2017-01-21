@@ -42,7 +42,7 @@ public class AccessFilter implements Filter {
         HttpServletResponse response= (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
         boolean flag = url.contains(".");
-        if(url.contains("login")||url.contains("task")||url.contains("Track")||url.contains("Task")||url.contains("isOnline")||url.contains("setException")||url.contains("noException")||flag){
+        if(url.contains("login")||url.contains("task")||url.contains("Track")||url.contains("Task")||url.contains("isOnline")||url.contains("setException")||url.contains("noException")||url.contains("Api")||flag){
             filterChain.doFilter(servletRequest, servletResponse);
         }else {
             String method = request.getMethod();

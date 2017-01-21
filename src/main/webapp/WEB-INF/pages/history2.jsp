@@ -318,7 +318,7 @@
 //        if(company == "CJcompany")
 //            view.StartPlaybackRec(file,StartTime,EndTime,id,channel,"0",2,2,33,StartTime,EndTime,0);//设备ID 通道号 文件长度 文件类型（1 图片 2 录像）文件存储位置（1 设备 2 服务器）服务器ID
 //        else
-         view.StartPlaybackRec(file,StartTime,EndTime,id,channel,"0",2,2,26,StartTime,EndTime,0);//设备ID 通道号 文件长度 文件类型（1 图片 2 录像）文件存储位置（1 设备 2 服务器）服务器ID
+         view.StartPlaybackRec(file,StartTime,EndTime,id,channel,"0",2,2,37,StartTime,EndTime,0);//设备ID 通道号 文件长度 文件类型（1 图片 2 录像）文件存储位置（1 设备 2 服务器）服务器ID
 //        //alert(view.StartPlaybackRec(file,StartTime,EndTime,id,channel,"0",2,2,26,StartTime,EndTime,0));
     }
 

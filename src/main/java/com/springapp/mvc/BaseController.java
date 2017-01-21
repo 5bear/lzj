@@ -60,6 +60,8 @@ public class BaseController{
     protected MileageDao mileageDao;
     @Autowired
     protected RemarkDao remarkDao;
+    @Autowired
+    protected ApiDao apiDao;
     public BaseController(){
        simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
     }
