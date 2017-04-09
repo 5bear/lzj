@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="index.html"><i class="icon-dashboard"></i> 计划管理</a></li>
+                    <li><a href="html/index.html"><i class="icon-dashboard"></i> 计划管理</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 驾驶员计划</li>
                 </ol>
             </div>
@@ -86,7 +86,7 @@
                                 <td>20160403</td>
                                 <td>12:00</td>
                                 <td>17:00</td>
-                                <td><a href="plan4-edit.html" class="operation"><label><img src="images/edit.png" alt="编辑"/>编辑</label></a><label>
+                                <td><a href="html/plan4-edit.html" class="operation"><label><img src="images/edit.png" alt="编辑"/>编辑</label></a><label>
                                     <a class="operation" data-toggle="modal" data-target="#delete"><label><img src="images/delete1.png" alt="删除"/>删除</label></a>
                                 </td>
                             </tr>
@@ -98,7 +98,7 @@
                                 <td>20160403</td>
                                 <td>12:00</td>
                                 <td>17:00</td>
-                                <td><a href="plan4-edit.html" class="operation"><label><img src="images/edit.png" alt="编辑"/>编辑</label></a>
+                                <td><a href="html/plan4-edit.html" class="operation"><label><img src="images/edit.png" alt="编辑"/>编辑</label></a>
                                     <a class="operation" data-toggle="modal" data-target="#delete"><label><img src="images/delete1.png" alt="删除"/>删除</label></a>
                                 </td>
                             </tr>

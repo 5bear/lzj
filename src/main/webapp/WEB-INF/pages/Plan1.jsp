@@ -145,7 +145,6 @@
         $.ajax({
             url: "plan1/getYear",
             type: "get",
-            async : false,
             dataType: "json",
             async : false,                   //设置同步
             data: {
@@ -184,7 +183,7 @@
                         totalmileage.push(data[index].distance);
                         totaltime.push(data[index].time);
                         row1 = "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">" + BJ+". " + data[index].packageName + "</a></td>";
-                        row2 = "<td class='table-th'>里程数</td>";
+                        row2 = "<td class='table-th'>里程数(单位：km)</td>";
                         for (var i = 1; i <= 12; i++) {
                             row2 += "<td id=" + "Mileage" + BJ + i + "></td>";
                         }
@@ -241,7 +240,7 @@
                     document.getElementById('Mileage' + BJ + '13').style.backgroundColor = "#A6CE94";
                     document.getElementById('Mileage' + BJ + '13').innerHTML = (totalmileage[BJ-1] * totaltime[BJ-1]/1000);
                 }
-                row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数</td>";
+                row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数(单位：km)</td>";
                 for(var i=1;i<=12;i++) {
                     row4 += "<td class='green' id="+"totalMileage"+ i +"></td>";
                 }
@@ -258,6 +257,7 @@
                 setTotalTime();
             }
         })
+        select1()
     })
 
     function des(a,b){
@@ -347,8 +347,7 @@
             for (var Bj = 1; Bj <= BJcounts; Bj++) {    //包件
                 tolMileage += Number(document.getElementById("Mileage"+Bj+i).innerHTML);
             }
-
-            document.getElementById('totalMileage'+ i).innerHTML = tolMileage;
+            document.getElementById('totalMileage'+ i).innerHTML = tolMileage.toFixed(2);
         }
     }
     var tolTime;
@@ -388,7 +387,7 @@
                     totalmileage.push(data[index].distance);
                     totaltime.push(data[index].time);
                     row1= "<tr><td rowspan='2'id=" + "Mileage" + BJ+ ">" + BJ+". " + data[index].packageName + "</a></td>";
-                    row2 = "<td class='table-th'>里程数</td>";
+                    row2 = "<td class='table-th'>里程数(单位：km)</td>";
                     for (var i = 1; i <= 12; i++) {
                         row2 += "<td  id=" + "Mileage" + BJ + i + "></td>";
                     }
@@ -407,6 +406,7 @@
                 })
                 $("#Mileage"  + "113").css("background", "blue");
                 var a=0;
+                var total = totaldays;
                 for (var Bj = 1; Bj <=BJcounts; Bj++) {    //包件
                     var x=Number(totaltime[Bj-1]) % Number(totaldays);
                     var y=0;
@@ -421,7 +421,7 @@
                             y = x;
                             x=0;
                         }
-                        document.getElementById('Time'+Bj+i).innerHTML = parseInt(Number(totaltime[Bj-1]) / Number(totaldays)) * Number(getTime(i))+y;
+                        document.getElementById('Time'+Bj+i).innerHTML = parseInt(Number(totaltime[Bj-1]) / Number(total)) * Number(getTime(i))+y;
                     }
                     document.getElementById('Time'+Bj+'13').innerHTML = totaltime[Bj-1];
                 }
@@ -438,7 +438,7 @@
                             y = x;
                             x=0;
                         }
-                        var m=parseInt(Number(totaltime[BJ-1]) / Number(totaldays)) * Number(getTime(i))+y;
+                        var m=parseInt(Number(totaltime[BJ-1]) / Number(total)) * Number(getTime(i))+y;
 
                         document.getElementById('Mileage' + BJ + i).innerHTML =(Math.round((Number(totalmileage[BJ-1]))*m)/1000);  //取整数
                     }
@@ -446,7 +446,7 @@
 
                     document.getElementById('Mileage' + BJ + '13').innerHTML = (totalmileage[BJ-1] * totaltime[BJ-1]/1000);
                 }
-                row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数</td>";
+                row4 = "<tr> <td rowspan='2'>合计</td> <td class='table-th'>里程数(单位：km)</td>";
                 for(var i=1;i<=12;i++) {
                     row4 += "<td class='green'  id="+"totalMileage"+ i +"></td>";
                 }

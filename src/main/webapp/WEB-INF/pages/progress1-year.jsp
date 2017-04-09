@@ -68,7 +68,7 @@
             if(Company.equals("养护中心")){
         %>
         <li class="dropdown dropdown2">
-    <a href="#" onclick="AllCompany()">所有公司</a>
+    <a href="#" onclick="AllCompany('养护中心')">所有公司</a>
         </li>
         <%
             }
@@ -175,6 +175,9 @@
 
     <div class="row">
     <div class="col-sm-12 text-right search-row">
+        <select name="" id="select-year">
+
+        </select>
     <select name="" id="select-time">
     <option value="day">本日</option>
     <option value="month" >本月</option>
@@ -291,36 +294,55 @@
 
     var EffectiveDistance;
     var EffectiveCoverage;
-    var year;
+    var year = '${year}';
     var work1 = "";
     var zadao1 = "";
     var company= '${company}';
     var packageName= '${packageName}';
     var Roads='${Roads}';
+    var row ="";
+    var selectRoads="";
+    $("#select-year").change(function(){
+        var obj = $("#select-year").val();
+        window.location.href="progress1-year1?year=" + obj+"&company=" + company + "&packageName=" + packagename + "&Roads=" + selectRoads;
+    })
     $(document).ready(function () {
+        year = '${year}';
+        if (year == 0)
+            getYear();
+        var myDate = new Date();
+        var year1 = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        for(var i=2016;i <= year1;i++){
+            if(i == year )
+                row+="<option value='"+i+"' selected='selected'>"+i+"年</option>";
+            else
+                row+="<option value='"+i+"'>"+i+"年</option>";
+        }
+        $("#select-year").html(row);
         roads.length=0;
         if(Roads==0){
             AllCompany(company);
         }
         else if(company != 0 && packageName!=0 &&Roads!=0) {
-            packagename=packageName;
-            if(packagename.substr(packagename.length-4,4)=="所有路段")
-                document.getElementById("title").innerHTML=company+" "+packagename+"工作情况";
-            else if(packagename=="AllPackage")
-                document.getElementById("title").innerHTML=company+" "+"所有包件工作情况";
-            else if(packagename=="Allcompany") {
+            packagename = packageName;
+            if (packagename.substr(packagename.length - 4, 4) == "所有路段")
+                document.getElementById("title").innerHTML = company + " " + packagename + "工作情况";
+            else if (packagename == "AllPackage")
+                document.getElementById("title").innerHTML = company + " " + "所有包件工作情况";
+            else if (packagename == "Allcompany") {
                 document.getElementById("title").innerHTML = "上海市全公司全包件工作情况";
                 AllCompany(company);
             }
             else
-                document.getElementById("title").innerHTML=company+" "+packagename+" "+Roads+"工作情况";
+                document.getElementById("title").innerHTML = company + " " + packagename + " " + Roads + "工作情况";
             roads = Roads.split(',');
-            getYear();
+            selectRoads = roads;
+        }
             work1="<tr><td>有效作业率<br/>(单位：%)</td>";
             zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
             getTable(roads);
             getdata();
-        }
+
     });
     function AllCompany(company){
         roads.length=0;
@@ -347,11 +369,7 @@
                 })
             }
         });
-        getYear();
-        work1="<tr><td>有效作业率<br/>(单位：%)</td>";
-        zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-        getTable(roads);
-        getdata();
+
     }
     function CJgetRoad(packageName,Roads){
         roads.length=0;
@@ -374,7 +392,7 @@
         getYear();
         work1="<tr><td>有效作业率<br/>(单位：%)</td>";
         zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-
+        selectRoads=roads;
         getTable(roads);
         getdata();
     }
@@ -399,7 +417,7 @@
         getYear();
         work1="<tr><td>有效作业率<br/>(单位：%)</td>";
         zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-
+        selectRoads=roads;
         getTable(roads);
 
         getdata();

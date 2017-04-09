@@ -464,14 +464,13 @@
                 else
                     document.getElementById("title").innerHTML = company + " " + packagename + " " + Roads + "工作情况";
                 roads = Roads.split(',');
+            }
                 work1 = "<tr><td>有效作业率<br/>(单位：%)</td>";
                 zadao1 = "<tr><td>匝道覆盖率<br/>(单位：%)</td>";
                 work2 = "<tr><td>有效作业率<br/>(单位：%)</td>";
                 zadao2 = "<tr><td>匝道覆盖率<br/>(单位：%)</td>";
                 getTable(roads);
                 getdata();
-
-            }
         });
 
         function AllCompany(company){
@@ -499,12 +498,7 @@
                     })
                 }
             });
-            work1="<tr><td>有效作业率<br/>(单位：%)</td>";
-            zadao1="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-            work2="<tr><td>有效作业率<br/>(单位：%)</td>";
-            zadao2="<tr><td>匝道覆盖率<br/>(单位：%)</td>";
-            getTable(roads);
-            getdata();
+
         }
         function CJgetRoad(packageName,Roads){
             roads.length=0;
@@ -606,9 +600,9 @@
                 totaldays = 366;
             else
                 totaldays = 365;
-            if(month==2 ) {
+            if(month ==2 ) {
                 //alert(time);
-                if (totaldays = 366)
+                if (totaldays == 366)
                     day = 29;
                 else {
                     day = 28;
@@ -664,9 +658,8 @@
                 work2+= "<td></td>"
                 zadao2 += "<td></td>"
             }
-
-            work2+= "<td>"+(toDistance).toFixed(2)+"%</td></tr>"
-            zadao2 += "<td>"+(toCoverage).toFixed(2)+"%</td></tr>"
+            work2+= "<td>"+(toDistance)+"%</td></tr>"
+            zadao2 += "<td>"+(toCoverage)+"%</td></tr>"
             $("#work1").html(work1 + zadao1);
             $("#work2").html(work2 + zadao2);
 

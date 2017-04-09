@@ -970,22 +970,25 @@
 
     addVehicle(myCar,vehicle.vehicleLicense,vehicle.vehicleType,vehicle.OBUId,vehiclePos[vehiclePos.length-1].speed,vehiclePos[vehiclePos.length-1].isDrive,vehiclePos[vehiclePos.length-1].HDD,currentPoint,vehiclePos[vehiclePos.length-1].directioninfo)
     var points=new Array();
-    var oldGPSTime;
     $(vehiclePos).each(function(index,element){
-      if(index>=1&&element.GPSTime.time-oldGPSTime>60000){
-        var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});;
-        map.addOverlay(polyLine)
-        points=new Array();
-        oldGPSTime=element.GPSTime.time
-        return true
-      }
-      oldGPSTime=element.GPSTime.time
       var point=new BMap.Point(element.lng/100000,element.lat/100000)
       points.push(point)
     })
     /*#1a9818*/
-    var polyLine=new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});;
-    map.addOverlay(polyLine)
+    for(var index in points){
+        console.log(index)
+        if(points[index+1]){
+            var driving = new BMap.DrivingRoute(map,{policy: 'BMAP_DRIVING_POLICY_LEAST_DISTANCE'});    //创建驾车实例
+            driving.search(points[index],points[index+1])
+            driving.setSearchCompleteCallback(function(){
+                if(driving.getStatus() == 0){
+                    var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+                    var polyline = new BMap.Polyline(pts,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+                    map.addOverlay(polyline);
+                }
+            })
+        }
+      }
   }
 
     /*5s*/

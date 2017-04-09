@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="../js/BMaplib.js"></script>
+    <title>电子围栏</title>
+    <style type="text/css">
+
+        button{font-size: 15px;font-family: 微软雅黑;}
+        ul{text-align: center}
+        li{list-style-type: none; float: left;margin-left: 100px;color: white;margin-top: 5px}
+        li:hover{
+            color: #ab1e1e;cursor: pointer;
+        }
+        html{height:100%;margin:0;padding: 0}
+        body{height:100%;overflow: hidden;margin:0;padding: 0;font-family: 微软雅黑}
+        .nagv{width: 100%;height: 10%}
+        .firt-nagv{width:100%;height:50%;background-color: #000040  }
+        .search{margin-left: 200px}
+        #container{width: 50%;height: 500px;float: left;margin-left: 200px}
+        #content{
+            height:500px;width:100%;}
+    </style>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA">
+        //v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+        //v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
+    </script>
+</head>
+
+<body>
+<!--
+<div class="nagv">
+    <div class="firt-nagv">
+        <ul>
+            <li>首页</li>
+            <li>基础数据</li>
+            <li>实时监控</li>
+            <li>历史数据</li>
+            <li>数据报表</li>
+            <li>系统管理</li>
+        </ul>
+    </div>
+</div>
+-->
+<div id="content">
+    <div id="container">
+
+    </div>
+    <div>
+        <button onclick="choosePoint()">添加围栏</button>
+        <button onclick="addLine()">确定</button>
+    </div>
+    <div class="editArea" id="editArea" style="display: none;float:right;">
+        <div class="title">
+            <div class="title1">
+                <p >作业线路编辑区</p>
+            </div>
+            <div class="title2">
+                <p id="info">选择点的坐标（x,y）</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="title">
+                <p >作业线路信息</p>
+            </div>
+            <div class="content">
+                <div class="col">
+                    <label>名称</label>
+                    <input type="text">
+                </div>
+                <div class="col">
+                    <label>开始坐标：</label><br>
+                    <label>x：</label> <input type="text" id="startX">
+                    <label>y：</label><input type="text" id="startY">
+                </div>
+                <div class="col">
+                    <label>结束坐标：</label><br>
+                    <label>x：</label> <input type="text" id="endX">
+                    <label>y：</label><input type="text" id="endY">
+                </div>
+                <div class="col">
+                    <label>所属包件：</label> <input type="text">
+                    <label>备注：</label><input type="text">
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <button onclick="addLine()" >添加/更改</button>
+            <button onclick="deletemarker()">删除</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var currentLng,currentLat;
+    var points=new Array();//创建一个数组存放点选的点
+    var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
+    map.enableScrollWheelZoom();//允许放大缩放
+    //var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+
+    //map.addControl(top_left_navigation);
+    map.centerAndZoom("上海");                 // 初始化地图，设置中心点坐标和地图级别 设置为上海
+    map.addEventListener("click", function(e){
+        if(e.overlay==null) {
+            var point = new BMap.Point(e.point.lng, e.point.lat);
+            map.panTo(point)
+            var opts = {
+                width : 100,     // 信息窗口宽度
+                height: 100,     // 信息窗口高度
+                title : "RFID信息" , // 信息窗口标题
+                enableMessage:true,//设置允许信息窗发送短息
+                message:""
+            }
+            console.log("<p>序列号:xxxxx<br/>路段:中山西路<br/>录入人:xxx</p>")
+            var infoWindow = new BMap.InfoWindow("<p>序列号:xxxxx<br/>路段:中山西路<br/>录入人:xxx</p>", opts);  // 创建信息窗口对象
+            /*
+             创建新图标
+             //创建小狐狸
+             var pt = new BMap.Point(116.417, 39.909);
+             var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
+             var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+             */
+            marker = new BMap.Marker(point);// 创建标注
+            marker.setTitle("serialNumber");
+            marker.addEventListener("mouseover",function(e){
+                map.openInfoWindow(infoWindow,point);
+            });
+            marker.addEventListener("mouseout",function(e){
+                map.closeInfoWindow(infoWindow,point);
+            });
+            map.addOverlay(marker);             // 将标注添加到地图中
+            marker.disableDragging();           // 不可拖拽
+        }else
+            marker= e.overlay;
+    });
+    window.onload=function(){
+
+
+    }
+
+    /* 设置每十秒执行一次
+     setInterval(function(){
+     console.log("run")
+     },10000)
+     */
+    function choosePoint(){
+        //地图点击事件,选择点
+        map.addEventListener("click", function(e){
+            var point=new BMap.Point(e.point.lng, e.point.lat);
+            points.push(point)
+        });
+    }
+    function addLine(){
+        /*
+         var startX=document.getElementById("startX").value;
+         var startY=document.getElementById("startY").value;
+         var endX=document.getElementById("endX").value;
+         var endY=document.getElementById("endY").value;
+         */
+        console.log(JSON.stringify(points))//转成json字符串储存
+        console.log(eval(JSON.stringify(points)))//json字符串转成数组使用
+        var polygon = new BMap.Polygon(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});   //创建折线
+        polygon.addEventListener("click",function(e){
+            var target= e.target;
+            console.log(target.ro)//得到线的对象
+        })
+        map.addEventListener("click", function(e){
+            var point=new BMap.Point(e.point.lng, e.point.lat);
+            if(BMapLib.GeoUtils.isPointInPolygon(point, polygon))
+                console.log(BMapLib.GeoUtils.getPolygonArea(polygon));
+            else
+                console.log("我不在范围内")
+        })
+        map.addOverlay(polygon);   //增加折线
+        points=new Array();
+    }
+    function query(){
+        var searchCondition=document.getElementById("search");
+        var markers=map.getOverlays();
+        for(var m in markers){
+            console.log(m)
+            if(markers[m].getTitle()==searchCondition.value){
+                console.log(markers[m].getPosition());
+                map.panTo(markers[m].getPosition());
+                break
+            }
+
+        }
+
+    }
+    function deletemarker(){
+        map.removeOverlay(marker);
+    }
+</script>
+</body>
+</html>

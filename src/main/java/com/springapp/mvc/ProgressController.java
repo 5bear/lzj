@@ -100,6 +100,8 @@ import java.util.*;
 //            e.printStackTrace();
 //        }
         modelAndView.addObject("Roads",Roads);
+        String year=request.getParameter("year");
+        modelAndView.addObject("year",year);
         modelAndView.setViewName("progress1-year");
         return modelAndView;
     }
@@ -169,7 +171,7 @@ import java.util.*;
         double totalRealDistance=0.0;
         double totalCount=0.0;
         double totalRealCount=0.0;
-        String m="from Mileage where ("+Roads+") and mydate like '"+year+"%'order by mydate";
+        String m="from Mileage where ("+Roads+") and mydate like '%"+year+"%'order by mydate";
         List<Mileage> validDistance = mileageDao.findAll(m);
         if(validDistance.size()!=0) {
             List<Mileage> mileages = new ArrayList<Mileage>();
@@ -228,7 +230,10 @@ import java.util.*;
                         count += mileages.get(i).getCount();
                         realCount += mileages.get(i).getRealcount();
                         int a = Integer.parseInt(mileages.get(i).getMydate().substring(5, 7)) - 1;
-                        Distance.set(a, Double.parseDouble(df.format(ValidDistance / (realDistance * d) * 100)));
+                        if(realDistance!=0 || d !=0)
+                            Distance.set(a, Double.parseDouble(df.format(ValidDistance / (realDistance * d) * 100)));
+                        else
+                            Distance.set(a,0.0);
                         if(count==0)
                             Coverage.set(a, 0.0);
                         else
@@ -352,7 +357,10 @@ import java.util.*;
                     count += mileages.get(i).getCount();
                     realCount += mileages.get(i).getRealcount();
                     int a = Integer.parseInt(mileages.get(i).getMydate().substring(8, 10)) - 1;
-                    Distance.set(a, Double.parseDouble(df.format(ValidDistance / (realDistance) * 100)));
+                    if(realDistance==0)
+                        Distance.set(a, 0.0);
+                    else
+                        Distance.set(a, Double.parseDouble(df.format(ValidDistance / (realDistance) * 100)));
                     if(count==0)
                         Coverage.set(a, 0.0);
                     else
@@ -475,7 +483,10 @@ import java.util.*;
                     ValidDistance += mileages.get(i).getValidDistance();
                     count += mileages.get(i).getCount();
                     realCount += mileages.get(i).getRealcount();
-                    Distance.set(0, Double.parseDouble(df.format(ValidDistance / (realDistance) * 100)));
+                    if (realDistance == 0)
+                        Distance.set(0, 0.0);
+                    else
+                        Distance.set(0, Double.parseDouble(df.format(ValidDistance / (realDistance) * 100)));
                     Distance.set(1, ValidDistance);
                     if (count == 0)
                         Coverage.set(0, 0.0);

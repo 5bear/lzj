@@ -322,15 +322,6 @@
     map.addControl(top_left_navigation);
     changePackage()
   })
-  function miaodian() {
-    var lng=$("#jingdu").val()
-    var lat=$("#weidu").val()
-    console.log(lng)
-    var point = new BMap.Point(lng,lat);
-    var marker = new BMap.Marker(point,{icon: new BMap.Icon("images/fancy-marker3.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});// 创建标注
-    map.addOverlay(marker);             // 将标注添加到地图中
-    marker.disableDragging();           // 不可拖拽
-  }
   /*添加marker*/
   function addMarker(e){
     currentLng= e.point.lng;
@@ -470,12 +461,6 @@
       realDistance=0
     $("#realDistance").html(realDistance)
     points.pop();
-  }
-  /*撤销全部*/
-  function undoAll(){
-    map.clearOverlays();
-    points=new Array();
-    polylines=new Array();
   }
   /*完成*/
   function complete(){

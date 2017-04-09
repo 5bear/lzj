@@ -173,7 +173,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ol class="breadcrumb">
-                    <li><a href="index.html"><i class="icon-dashboard"></i> 历史数据</a></li>
+                    <li><a href="html/index.html"><i class="icon-dashboard"></i> 历史数据</a></li>
                     <li class="active"><i class="icon-file-alt"></i> 异常查询</li>
                 </ol>
             </div>

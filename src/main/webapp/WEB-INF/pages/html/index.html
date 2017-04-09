@@ -1,0 +1,593 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">   <meta http-equiv="Pragma" content="no-cache">   <meta http-equiv="cache-control" content="no-cache">   <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="IE=edge"><%--最高兼容模式兼容IE--%>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>上海市快速路养护监管系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/panel-dropdown.css"/>
+      <link rel="stylesheet" href="../css/style.css"/>
+    
+    
+    <script type="text/javascript" src="../js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../js/highcharts.js"></script>
+  <!--  <script type="text/javascript" src="js/exporting.js"></script>-->
+  
+    <script>
+$(function () {
+    var chart;
+    
+    $(document).ready(function () {
+    	
+    	// Build the chart
+        chart = new Highcharts.Chart({ 
+            chart: {
+			    renderTo: 'container2',
+				backgroundColor: 'rgb(242, 242, 242)',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false	
+				
+            },
+			
+		
+	
+            title: {
+                text: '有效作业率',
+				style:{fontSize:"13px",}
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+				style: {                      // 文字内容相关样式              
+                width:'5px',
+                fontWeight: "blod",
+                fontFamily: "Courir new"
+                }
+				               
+    
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+				fontSize:"2px",
+                type: 'pie',
+                name: ' ',
+                data: [
+                    ['有效作业率',   45.0],
+                    ['无效作业率',       55.0],
+                   
+                ]
+            }]
+        });
+	});
+});				
+
+
+$(function () {
+    var chart;
+    
+    $(document).ready(function () {
+    	
+    	// Build the chart
+        chart = new Highcharts.Chart({ 
+            chart: {
+			    renderTo: 'container1',
+				backgroundColor: 'rgb(242, 242, 242)',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false	
+				
+            },
+			
+		
+	
+            title: {
+                text: '匝道覆盖率',
+				style:{fontSize:"13px",}
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+				style: {                      // 文字内容相关样式               
+                width:'10px',
+                fontWeight: "blod",
+                fontFamily: "Courir new"
+                }
+				               
+    
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+				fontSize:"5px",
+                type: 'pie',
+                name: ' ',
+                data: [
+                    ['覆盖 3个',   75.0],
+                    ['未覆盖 1个', 25.0],
+                   
+                ]
+            }]
+        });
+	});
+});						
+  </script>
+
+ 
+    
+    <style>
+    .table.infoWindow{
+        font-size: 10px;
+        margin-bottom: -10px;
+    }
+	#container{
+    height: 600px;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;}
+
+	 #index { width:100%; height:100%; min-width:960px; margin-left:16px; padding:0px; background-color:transparent; position:relative; }
+     #in-left { width:17%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;}
+     #in-mid { width:58%; height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;} 
+     #in-right {  height:90%; margin:0px; padding:0px; float:left; background-color:transparent;position:relative;width:249px;}
+	 #index-checkbox
+	 {
+		 position:absolute;
+		 top: 620px;
+    	 left: 10px;		
+	 }
+	 #_select
+	 {
+		 position: absolute;
+   		 top: 55px;
+    	 left: 35px;
+         width: 200px;
+		 height:25px;		 
+	 }
+
+    .progressbar_1{
+
+        background-color: white;
+        height: 3%;
+        border: 2px solid rgb(179,179,179);
+        position: absolute;
+        width: 47%;
+
+
+	}
+	.progressbar_1 .bar { 
+		background-color:rgb(2,96,142); 
+		height:89%; 
+    	width:0; 
+		margin:1px;
+	} 
+	</style>
+   
+ 
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="text-right aside-li">
+                        <button type="button" class="navbar-aside" title="收起/展开菜单">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </li>
+                    <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="base1.html">停车场管理</a></li>
+                            <li><a href="base2.html">车辆管理</a></li>
+                            <li><a href="base3.html">RFID监测点管理</a></li>
+                            <li><a href="base4.html">包件信息管理</a></li>
+                            <li><a href="base5.html">电子围栏管理</a></li>
+                            <li><a href="base6.html">监管规则管理</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="plan1.html">养护作业计划</a></li>
+                            <li><a href="plan2.html">作业线路管理</a></li>
+                            <li><a href="plan3.html">布点计划</a></li>
+                            <li><a href="plan4.html">驾驶员计划</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="progress1.html">养护进度监控</a></li>
+                            <li><a href="progress2.html">实时监控</a></li>
+                            <li><a href="progress3.html">养护日志管理</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown ">
+                        <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history1.html">历史轨迹查询</a></li>
+                            <li><a href="history2.html">历史视频查询</a></li>
+                            <li><a href="history3.html">异常查询</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="reports1.html">牵引车辆位置报表</a></li>
+                            <li><a href="reports2.html">养护车辆作业区域</a></li>
+                            <li><a href="reports3.html">养护车辆作业情况</a></li>
+                            <li><a href="reports4.html">养护车辆超速</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="management1.html">用户管理</a></li>
+                            <li><a href="management2.html">权限管理</a></li>
+                            <li><a href="management3.html">网络状态图</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ol class="breadcrumb">
+              <li><a href="index.html"><i class="icon-dashboard"></i>首页</a></li>
+           <!--   <li class="active"><i class="icon-file-alt"></i> Blank Page</li> -->
+            </ol>
+          </div>
+          
+          
+          
+          
+          
+		<div id="index">
+		  <!--<img src="images/index.jpg" width="100%"/>-->
+         	<div id="in-left">
+            	<div class="panel panel-primary">
+        <div class="panel-heading text-center" style=" letter-spacing:3px">选择查看区域</div>
+        <div class="panel-body">
+        	 <li class="dropdown dropdown1">
+                <a href="#" data-toggle="droplist">按照区域查</a>
+                <div class="arrow-section arrow-section1">
+                    <div class="arrow-down arrow-down1"></div>
+                </div>
+                <ul class="dropdown-menu panel-menu">
+                    <li class="dropdown dropdown2">
+                        <a href="#" data-toggle="droplist">上海成基市政建设发展有限公司</a>
+                        <div class="arrow-section arrow-section2">
+                            <div class="arrow-down arrow-down2"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">中环路</a>
+                                <div class="arrow-section arrow-section3">
+                                </div>                                                               
+                            </li>
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">中环路立交</a>
+                                <div class="arrow-section arrow-section3">                                    
+                                </div>                               
+                            </li>
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">上中路隧道</a>
+                                <div class="arrow-section arrow-section3">                                    
+                                </div>                               
+                            </li>
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">军工路隧道交</a>
+                                <div class="arrow-section arrow-section3">                                    
+                                </div>                               
+                            </li>
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">外滩隧道</a>
+                                <div class="arrow-section arrow-section3">                                    
+                                </div>                               
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown dropdown2">
+                        <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
+                        <div class="arrow-section arrow-section2">
+                            <div class="arrow-down arrow-down2"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">内环高架路路</a>
+                                <div class="arrow-section arrow-section3">
+                                </div>                                                               
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li><!--dropdown1-->
+        
+        
+        
+            <li class="dropdown dropdown1">
+                <a href="#" data-toggle="droplist">按照车辆查看</a>
+                <div class="arrow-section arrow-section1">
+                    <div class="arrow-down arrow-down1"></div>
+                </div>
+                <ul class="dropdown-menu panel-menu">
+                    <li class="dropdown dropdown2">
+                        <a href="#" data-toggle="droplist">上海高架养护管理有限公司</a>
+                        <div class="arrow-section arrow-section2">
+                            <div class="arrow-down arrow-down2"></div>
+                        </div>
+                        <ul class="dropdown-menu panel-menu">
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">清扫车</a>
+                                <div class="arrow-section arrow-section3">
+                                    <div class="arrow-down arrow-down3"></div>
+                                </div>
+                                <ul class="dropdown-menu panel-menu">
+                                    <li>
+                                        <a href="#">沪BD4802</a>
+                                    </li>
+                                    <li><a href="#">沪BD4802</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown3">
+                                <a href="#" data-toggle="droplist">牵引车</a>
+                                <div class="arrow-section arrow-section3">
+                                    <div class="arrow-down arrow-down3"></div>
+                                </div>
+                                <ul class="dropdown-menu panel-menu">
+                                    <li>
+                                        <a href="#">沪BD4802</a>
+                                    </li>
+                                    <li><a href="#">沪BD4802</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                   
+                </ul>
+            </li><!--dropdown1-->
+            
+            
+            
+        </div>
+    </div>
+        	</div><!--in-left-->
+            
+           <!-- <div id="in-mid">--><!--<img src="images/map1.png" width="100%"/>-->
+              <!-- <div id="" style="height: 601px; width: 638px; top: 123px;left:447px; float:left">-->
+              <div id="mid" style="height:700px; width:55%; float:left;position:relative">
+                  <div class="mid-btn-row text-right">
+                      <button class="btn btn-default" data-toggle="modal" data-target="#success">设置常用区域</button>
+                  </div>
+
+               <div id="container" style=" height: 610px; width:99%"></div>
+              
+
+ 
+
+               <!--<form id="index-checkbox">
+           	 	<input type="checkbox" name="speed" id="speed" />
+           		 显示车速
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+				<input type="checkbox" name="chepai" id="chepai"/>
+				 显示车牌
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+                 <input type="checkbox" name="path" id="path" />
+				 显示路径
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+				</form>-->
+           </div>
+            
+            <div id="in-right" style="width:249px;">
+                <div class="panel panel-primary panel-right panel-index">
+                    <div class="panel-heading text-center" style="letter-spacing:3px">本日养护作业进度表</div>
+                    <div class="panel-body">
+                        <div class="panel-section">
+                            <select class="panel-select">
+                                <option value="">上海</option>
+                            </select>
+                        </div>
+                        <div class="panel-section">
+                            <h5>作业进度与时间进度表</h5>
+                            <div class="progressbar_1" >
+                                <div class="bar" style="width: 50%;"></div>
+                            </div>
+                            <span style="margin-left: 130px;">50%</span>
+                            <span>247km</span>
+                        </div>
+                        <div class="panel-section">
+                            <div class="panel-section-left">
+                                <div id="container2" style="width:120px;height:208px;"></div>
+                            </div>
+                            <div class="panel-section-left">
+                                <div id="container1" style="width:120px;height:208px;"></div>
+                            </div>
+                            <div class="clearboth"></div>
+                        </div>
+                        <div class="panel-section explain-row">
+                            <p>说明：</p>
+                            <p>1、有效作业率：指在路段中没有出现超速、偏离路线等异常情况的清扫作业长度与计划清扫作业长度之比。</p>
+                            <p>2、匝道覆盖率：指被检测到清扫的匝道个数与清扫个数之比。</p>
+                        </div>
+                    </div>
+                </div>
+                <!--<img src="images/in-right1.png" width="100%" />-->
+               <!--<select id="_select">-->
+  				<!--<option value="SH">上海</option>-->
+			   <!--</select> -->
+
+
+               <!--<p style="font-size:10px; color:rgb(2,96,142);position: absolute;top: 23%;left: 61%;">50% &nbsp;&nbsp;&nbsp;247km</p>-->
+            </div>
+            
+		</div>
+   
+          
+        </div><!-- /.row -->
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">成功提示</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <p>设置成功</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+   
+
+    <!-- JavaScript -->
+    <script src="../js/jquery-1.10.2.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script>
+
+        $('a[data-toggle="droplist"]').click(function() {
+            $(this).nextAll().toggle();
+        });
+    </script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
+     <script>
+    var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+    var myCar;
+    var qian,sao,xun;
+    map.enableScrollWheelZoom();//允许放大缩放
+    map.addControl(top_left_control);
+    map.centerAndZoom("上海");
+map.addEventListener('click',mapClick)
+
+    function mapClick(e){
+        var point = new BMap.Point(e.point.lng, e.point.lat);
+        console.log(point)
+        addVehicle(1,point);
+    }
+    function addVehicle(vehicle,Point){
+        switch(vehicle){
+            case 1:
+                myCar =  new BMap.Marker(Point, {icon: new BMap.Icon("images/xun.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
+                break
+            case 2:
+                myCar =  new BMap.Marker(Point, {icon: new BMap.Icon("images/qian.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
+                break
+            case 3:
+                myCar =  new BMap.Marker(Point, {icon: new BMap.Icon("images/sao.png", new BMap.Size(48, 48), {imageOffset: new BMap.Size(0, 0)})});
+                break
+        }
+        var opts = {
+            width : 0,     // 信息窗口宽度
+            height: 0,     // 信息窗口高度
+            title :"<h4>车辆信息</h4>" ,// 信息窗口标题
+            enableMessage:true,//设置允许信息窗发送短息
+            message:""
+        }
+
+        var infoWindow = new BMap.InfoWindow("<table class='table infoWindow'><tbody><tr><td>车辆牌照</td><td colspan='3'>" + "沪B4801" +"</td></tr><tr><td>车辆类型</td><td colspan='3'>" + "清扫车" +"</td></tr><tr><td>车载设备编号</td><td colspan='3'>" + "0122201" +"</td></tr><tr><td>经度</td><td colspan='3'>" + Point.lng + "</td></tr><tr><td>纬度</td><td colspan='3'>" + Point.lat+ "</td></tr><tr><td>速度</td><td colspan='3'>" + "121"+ "km/h"+"</td></tr><tr><td>方向</td><td colspan='3'>" + "南"+"</td></tr><tr><td>车辆状态</td><td colspan='3'>"+ "静止"+"</td></tr><tr><td>硬盘状态</td><td colspan='3'>"+"存在"+"</td></tr></tbody></table>", opts);  // 创建信息窗口对象
+
+
+        /* myCar.addEventListener('click',function(){
+         if(vehicle =="巡视车")
+         location.
+         href = "progress2-2?id=" + devIDNO
+         else
+         location.href = "progress2-1?id=" + devIDNO
+         });*/
+        myCar.addEventListener("mouseover", function (e) {
+            map.openInfoWindow(infoWindow, Point);
+        });
+        myCar.addEventListener("mouseout", function (e) {
+            map.closeInfoWindow(infoWindow, Point);
+        });
+        map.addOverlay(myCar);
+
+    }
+    $(document).ready(function(){
+        $("button.navbar-aside").click(function(){
+            if ($("#wrapper").is(".left-wrapper")== true) {
+                $(".side-nav").removeClass("left-nav");
+                $("#wrapper").removeClass("left-wrapper");
+            } else {
+                $(".side-nav").addClass("left-nav");
+                $("#wrapper").addClass("left-wrapper");
+            }
+        });
+    });
+</script>
+  </body>
+</html>

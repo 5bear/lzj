@@ -41,69 +41,69 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">上海市快速路养护监管系统</a>
+        <a class="navbar-brand" href="html/index.html">上海市快速路养护监管系统</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li><a href="index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+            <li><a href="html/index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="base"><i class="fa fa-bar-chart-o"></i> 基础数据 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="base1.html">停车场管理</a></li>
-                    <li><a href="base2.html">车辆管理</a></li>
-                    <li><a href="base3.html">RFID监测点管理</a></li>
-                    <li><a href="base4.html">包件信息管理</a></li>
-                    <li><a href="base5.html">电子围栏管理</a></li>
-                    <li><a href="base6.html">监管规则管理</a></li>
+                    <li><a href="html/base1.html">停车场管理</a></li>
+                    <li><a href="html/base2.html">车辆管理</a></li>
+                    <li><a href="html/base3.html">RFID监测点管理</a></li>
+                    <li><a href="html/base4.html">包件信息管理</a></li>
+                    <li><a href="html/base5.html">电子围栏管理</a></li>
+                    <li><a href="html/base6.html">监管规则管理</a></li>
                 </ul>
             </li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="plan"><i class="fa fa-table"></i> 计划管理 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="plan1.html">养护作业计划</a></li>
-                    <li><a href="plan2.html">作业线路管理</a></li>
-                    <li><a href="plan3.html">布点计划</a></li>
-                    <li><a href="plan4.html">驾驶员计划</a></li>
+                    <li><a href="html/plan1.html">养护作业计划</a></li>
+                    <li><a href="html/plan2.html">作业线路管理</a></li>
+                    <li><a href="html/plan3.html">布点计划</a></li>
+                    <li><a href="html/plan4.html">驾驶员计划</a></li>
                 </ul>
             </li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="progress"><i class="fa fa-edit"></i> 进度管理 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li class="active"><a href="progress1.html">养护进度监控</a></li>
-                    <li><a href="progress2.html">实时监控</a></li>
-                    <li><a href="progress3.html">养护日志管理</a></li>
+                    <li class="active"><a href="html/progress1.html">养护进度监控</a></li>
+                    <li><a href="html/progress2.html">实时监控</a></li>
+                    <li><a href="html/progress3.html">养护日志管理</a></li>
                 </ul>
             </li>
 
             <li class="dropdown ">
                 <a  href="#" class="dropdown-toggle"  data-toggle="dropdown" id="history"><i class="fa fa-font"></i> 历史数据 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="history1.html">历史轨迹查询</a></li>
-                    <li><a href="history2.html">历史视频查询</a></li>
-                    <li><a href="history3.html">异常查询</a></li>
+                    <li><a href="html/history1.html">历史轨迹查询</a></li>
+                    <li><a href="html/history2.html">历史视频查询</a></li>
+                    <li><a href="html/history3.html">异常查询</a></li>
                 </ul>
             </li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="reports"><i class="fa fa-desktop"></i> 报表查询 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="reports1.html">牵引车辆位置报表</a></li>
-                    <li><a href="reports2.html">养护车辆作业区域</a></li>
-                    <li><a href="reports3.html">养护车辆作业情况</a></li>
-                    <li><a href="reports4.html">养护车辆超速</a></li>
+                    <li><a href="html/reports1.html">牵引车辆位置报表</a></li>
+                    <li><a href="html/reports2.html">养护车辆作业区域</a></li>
+                    <li><a href="html/reports3.html">养护车辆作业情况</a></li>
+                    <li><a href="html/reports4.html">养护车辆超速</a></li>
                 </ul>
             </li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="management"><i class="fa fa-wrench"></i>系统管理 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="management1.html">用户管理</a></li>
-                    <li><a href="management2.html">权限管理</a></li>
-                    <li><a href="management3.html">网络状态图</a></li>
+                    <li><a href="html/management1.html">用户管理</a></li>
+                    <li><a href="html/management2.html">权限管理</a></li>
+                    <li><a href="html/management3.html">网络状态图</a></li>
                 </ul>
             </li>
 
@@ -113,7 +113,7 @@
             <li class="dropdown user-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">欢迎， 领导 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
+                    <li><a href="html/personalManagement.html"><i class="fa fa-user"></i> 个人信息</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><i class="fa fa-power-off"></i> 安全退出</a></li>
                 </ul>
@@ -127,7 +127,7 @@
 <div class="row">
     <div class="col-lg-12">
         <ol class="breadcrumb">
-            <li><a href="index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
+            <li><a href="html/index.html"><i class="icon-dashboard"></i> 进度管理</a></li>
             <li class="active"><i class="icon-file-alt"></i> 养护进度监控</li>
         </ol>
     </div>
@@ -265,20 +265,20 @@
     </tr>
     <tr>
     <td>有效作业率</td>
-    <td class="green"><a href="progress1-day.html">80</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="yellow"><a href="progress1-day.html">70</a></td>
-    <td class="red"><a href="progress1-day.html">50</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
-    <td class="green"><a href="progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">80</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="yellow"><a href="html/progress1-day.html">70</a></td>
+    <td class="red"><a href="html/progress1-day.html">50</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
+    <td class="green"><a href="html/progress1-day.html">100</a></td>
     <td>N</td>
     <td class="green">80</td>
     </tr>
@@ -343,9 +343,9 @@
 
     $("#select-time").change(function(){
     var obj = $("#select-time").val();
-    if(obj == "day"){ window.location.href="progress1-day.html";}
-    else if(obj == "month"){ window.location.href="progress1.html";}
-    else {window.location.href="progress1-year.html";}
+    if(obj == "day"){ window.location.href="html/progress1-day.html";}
+    else if(obj == "month"){ window.location.href="html/progress1.html";}
+    else {window.location.href="html/progress1-year.html";}
     });
     var work1="<tr><td>有效作业率</td>";
     var zadao1="<tr><td>匝道覆盖率</td>";
@@ -358,7 +358,7 @@
     else
     colour = "green";
     //alert(i+colour);
-    work1 +="<td class="+colour+"><a href='progress1-day.html'>"+i+"</a></td>" ;
+    work1 +="<td class="+colour+"><a href='html/progress1-day.html'>"+i+"</a></td>" ;
 
     zadao1 += " <td>" + 80 + "</td>" ;
 

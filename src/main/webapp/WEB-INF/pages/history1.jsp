@@ -268,12 +268,10 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=avs3S28Dq5BjX7fCWUYjP3HA"></script>
 
 <script>
-  var myCar;//汽车图标
   var vehicleList=new Array()
   var time1;
   var vehicle//车辆
   var vehiclePos//车辆轨迹
-  var points=new Array();//创建点的数组
   var map = new BMap.Map("container", {enableMapClick:false});          // 创建地图实例
   map.enableScrollWheelZoom();//允许放大缩放
   var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
@@ -396,10 +394,6 @@
   function showTrack(myCar,vehicle,vehiclePos,playSpeed){
     $("#chepai").html(vehicle.vehicleLicense)
     var sumSpeed= 0
-    var averSpeed= 0
-/*
-    var exception="";
-*/
     var count=0;
     map.addOverlay(myCar);
     var points=new Array();
@@ -436,16 +430,26 @@
         return
       }
       if(vehiclePos[index+1]!=undefined) {
-        var polyLine;
+          var driving = new BMap.DrivingRoute(map,{policy: 'BMAP_DRIVING_POLICY_LEAST_DISTANCE'});    //创建驾车实例
+          driving.search(points[index],points[index+1])
+          driving.setSearchCompleteCallback(function(){
+              console.log(driving.getStatus())
+              if(driving.getStatus() == 0){
+                  var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+                  polyline = new BMap.Polyline(pts,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+                  map.addOverlay(polyline);
+              }
+          })
+       /* var polyLine;
         if(vehiclePos[index].overSpeed==1&&vehiclePos[index+1].overSpeed==1)
           polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
         else
-          polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+          polyLine=new BMap.Polyline([points[index],points[index+1]],{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});*/
         myCar.setPosition(points[index + 1])
         myCar.setRotation(vehiclePos[index + 1].direction)
         var label = new BMap.Label(getLocalTime(vehiclePos[index + 1].GPSTime));
         myCar.setLabel(label)
-        map.addOverlay(polyLine)
+       /* map.addOverlay(polyLine)*/
       }
       index++;
     }, 10000/playSpeed);

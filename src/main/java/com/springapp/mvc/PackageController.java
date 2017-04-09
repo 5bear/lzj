@@ -65,7 +65,7 @@ public class PackageController extends BaseController {
                 BigDecimal b   =   new   BigDecimal(realDistance);
                 realDistance   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 pac.setRoads(roads);
-                pac.setRealDistance(realDistance*pac.getTime());
+                pac.setRealDistance(realDistance);//总里程弄成每天
                 packageDao.update(pac);
             }
 

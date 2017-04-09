@@ -304,20 +304,20 @@
     $(document).ready(function () {
         roads.length=0;
         if(company != 0 && packageName!=0 &&Roads!=0) {
-            packagename=packageName;
-            if(packagename.substr(packagename.length-4,4)=="所有路段")
-                document.getElementById("title").innerHTML=company+" "+packagename+"工作情况";
-            else if(packagename=="AllPackage")
-                document.getElementById("title").innerHTML=company+" "+"所有包件工作情况";
-            else if(packagename=="Allcompany") {
-                    AllCompany(company);
+            packagename = packageName;
+            if (packagename.substr(packagename.length - 4, 4) == "所有路段")
+                document.getElementById("title").innerHTML = company + " " + packagename + "工作情况";
+            else if (packagename == "AllPackage")
+                document.getElementById("title").innerHTML = company + " " + "所有包件工作情况";
+            else if (packagename == "Allcompany") {
+                AllCompany(company);
             }
             else
-                document.getElementById("title").innerHTML=company+" "+packagename+" "+Roads+"工作情况";
+                document.getElementById("title").innerHTML = company + " " + packagename + " " + Roads + "工作情况";
             roads = Roads.split(',');
+        }
             getTable(roads);
             getdata();
-        }
 
     });
 
@@ -356,8 +356,6 @@
                 })
             }
         });
-        getTable(roads);
-        getdata();
     }
     function CJgetRoad(packageName,Roads){
         roads.length=0;
@@ -441,7 +439,6 @@
                 totalCoverage+=data[2];
                 toCoverage+=data[4];
                 toRealCoverage+=data[3];
-
             }
         });
     }
@@ -472,7 +469,7 @@
     function setChart(){
         document.getElementById("progress3").style.width=""+EffectiveDistance+"%";
         document.getElementById("progress1").innerHTML=EffectiveDistance+"%";
-        document.getElementById("progress2").innerHTML=(toDistance/1000).toFixed(2)+"km";
+        document.getElementById("progress2").innerHTML=(toDistance/1000000).toFixed(2)+"km";
         var chart;
         // Build the chart
         chart = new Highcharts.Chart({
